@@ -18,20 +18,22 @@ Individuals were collected from laboratory cultures, anesthetized using CO~2~ ex
 
 ## Sequencing and assembly of a reference transcriptome
 
-Samples used for transcriptome assembly (phases 1 and 2) were delivered on dry ice to Beckman Coulter Genomics (Danvers, Massachusetts) for poly-A selection, preparation of 125 bp paired-end TruSeq libraries, and sequencing using Illumina HiSeq. Libraries from phases 1 and 2 were sequenced separately. Reads from all samples were trimmed using [Trimmomatic](http://www.usadellab.org/cms/?page=trimmomatic) version 0.33 ([Bolger et al. 2014](https://doi.org/10.1093/bioinformatics/btu170)) with the parameters `ILLUMINACLIP:/export/local/src/Trimmomatic-0.33/adapters/TruSeq3-SE.fa:2:30:10 HEADCROP:12 LEADING:3 TRAILING:3 SLIDINGWINDOW:3:15 MINLEN:50`.  The resulting reads were assembled into transcripts by  Trinity. The resulting transcriptome contained 258,322 contigs (*N*50 = 1596 bp; 89.8% BUSCO score.
+Samples used for transcriptome assembly (phases 1 and 2) were delivered on dry ice to Beckman Coulter Genomics (Danvers, Massachusetts) for poly-A selection, preparation of 125 bp paired-end TruSeq libraries, and sequencing using Illumina HiSeq. Libraries from phases 1 and 2 were sequenced separately. Reads from all samples were trimmed using [Trimmomatic](http://www.usadellab.org/cms/?page=trimmomatic) version 0.33 ([Bolger et al. 2014](https://doi.org/10.1093/bioinformatics/btu170)) with the parameters `ILLUMINACLIP:/export/local/src/Trimmomatic-0.33/adapters/TruSeq3-SE.fa:2:30:10 HEADCROP:12 LEADING:3 TRAILING:3 SLIDINGWINDOW:3:15 MINLEN:50`.  The resulting reads were assembled into transcripts by [Trinity](http://trinityrnaseq.github.io/) version 2.0.6 ([Grabherr et al. 2011](https://www.nature.com/articles/nbt.1883)). Before annotation, potentially redundant transcripts with greater than 90% identity were collapsed using CD-HIT-EST version 4.6 ([Li & Godzik 2006](https://doi.org/10.1093/bioinformatics/btl158)). 
+
+> Details: 
+> ```bash
+> cd /research/drangeli/phase2_BCG_RNAseq/Jhae_GU_trinity_assembly/
+> cd-hit-est -i GU.Trinity.fa -o lh GU.Trinity.c90.fa -c 0.90 -n 10 -d 0 -M 64000 -T 12
+> ```
+> This took about 3.5 days on node 26.
+
+The resulting transcriptome contained 395,125 contigs. [TransDecoder](https://github.com/TransDecoder/TransDecoder/wiki) identified 50,771 coding sequences. 
+
+>  :warning: Add BUSCO for `GU.Trinity.c90.fa`
 
 ## Annotation of the transcriptome
 
-Before annotation potentially redundant transcripts were collapsed based on sequence identity using CD-HIT-EST ([Li & Godzik 2006](https://doi.org/10.1093/bioinformatics/btl158)).
-
-```bash
-cd /research/drangeli/phase2_BCG_RNAseq/Jhae_GU_trinity_assembly/
-cd-hit-est -i GU.Trinity.fa -o lh GU.Trinity.c90.fa -c 0.90 -n 10 -d 0 -M 64000 -T 12
-```
-
-> This took about 3.5 days on node 26.
-
-Annotation was performed by EnTAP ([Hart et al. 2019](https://doi.org/10.1111/1755-0998.13106)) using the NCBI invertebrate RefSeq dataset, SwissProt and Trembl databases. EnTAP assigns sequence names and GO terms based on similarity.
+Transcript annotation was performed by EnTAP ([Hart et al. 2019](https://doi.org/10.1111/1755-0998.13106)) using the NCBI invertebrate RefSeq dataset, SwissProt and Trembl databases. EnTAP assigns sequence names and GO terms based on similarity.
 
 ```bash
 EnTAP --runP --threads 24 \
@@ -108,5 +110,5 @@ The resulting output files were then merged into a single comma-separated values
 
 Gene expression differences were examined using the Bioconductor package DESeq2 ([Love et al. 2014](https://genomebiology.biomedcentral.com/articles/10.1186/s13059-014-0550-8)) in R version 4.1.1 ([R Core Team 2021](https://www.R-project.org/)). The function `DESeq` fits a generalized linear model where counts are modeled using a negative binomial distribution with a gene-specific dispersion parameter. Means were estimated using approximate posterior estimation for generalized linear model ([Zhu et al. 2018](https://academic.oup.com/bioinformatics/article/35/12/2084/5159452)). We extracted log~2~ fold change and p-values corrected by independent hypothesis weighing ([Ignatiadis et al. 2016](https://www.nature.com/articles/nmeth.3885)) and applied a critical threshold of 0.05. Differential gene expression was visualized by customized plots generated using ggplot2. Variance stabilizing transformation, using the function `vst`,  was applied before ordination using principle component analysis.
 
-> For more details see the R script `dge.analysis.R`
+> For more details see the R script [`dge.analysis.R`](https://github.com/aphanotus/morphDE/blob/main/dge.analysis.R)
 
