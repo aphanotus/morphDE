@@ -4,6 +4,8 @@ for Angelini, Steele and O'Brien. **Gene expression during development of a disp
 
 > :warning: **Pre-submission DRAFT**.  Some of this text may be moved into the Methods section of the manuscript's main text. Details that may be important now, but should likely be removed before publication are given as block quotes.
 
+> ℹ️ While any process is running on nscc, you can monitor it's progress indirectly by checking the CPU usage on [node 26](http://schupflab.colby.edu/mrtg/nscc/nscc-n26.load.html) or [n28](http://schupflab.colby.edu/mrtg/nscc/nscc-n28.load.html).
+
 In order to characterize the development of polyphenic traits in the wings, flight muscles and gonads of the soapberry bug, *Jadera haematoloma*, we sequenced transcriptomes from a multidimensional matrix of life stage, tissue, sex, food regime and host population.
 
 ## Sampling design
@@ -23,13 +25,43 @@ Samples used for transcriptome assembly (phases 1 and 2) were delivered on dry i
 > Details: 
 > ```bash
 > cd /research/drangeli/phase2_BCG_RNAseq/Jhae_GU_trinity_assembly/
-> cd-hit-est -i GU.Trinity.fa -o lh GU.Trinity.c90.fa -c 0.90 -n 10 -d 0 -M 64000 -T 12
+> cd-hit-est -i GU.Trinity.fa -o GU.Trinity.c90.fa -c 0.90 -n 10 -d 0 -M 64000 -T 12
 > ```
 > This took about 3.5 days on node 26.
 
 The resulting transcriptome contained 395,125 contigs. [TransDecoder](https://github.com/TransDecoder/TransDecoder/wiki) identified 50,771 coding sequences. 
 
 >  :warning: Add BUSCO for `GU.Trinity.c90.fa`
+
+```bash
+cd /research/drangeli/phase2_BCG_RNAseq/Jhae_GU_trinity_assembly
+
+python /export/local/src/busco-2.0.1/BUSCO.py \
+-m genome -c 1 -sp fly \
+-i GU.Trinity.c90.fa \
+-l /research/drangeli/DB/busco.lineages/hemiptera_odb10 \
+-o BUSCO.v2.0.1.report.for.GU.c90
+```
+
+Trying the current version of BUSCO...
+
+```bash
+cd /research/drangeli/phase2_BCG_RNAseq/Jhae_GU_trinity_assembly
+
+rm -r BUSCO.v5.2.1.report.for.GU.c90
+
+busco --in GU.Trinity.c90.fa \
+--lineage_dataset /research/drangeli/DB/busco.lineages/hemiptera_odb10 \
+--out BUSCO.v5.2.1.report.for.GU.c90 \
+--augustus --augustus_species fly --mode transcriptome --cpu 12 >& busco.log
+
+busco --in GU.Trinity.c90.fa \
+--lineage_dataset /research/drangeli/DB/busco.lineages/hemiptera_odb10 \
+--out BUSCO.v5.2.2.report.for.GU.c90 \
+--augustus --augustus_species fly --mode transcriptome --cpu 12
+```
+
+> :warning: Right now, neither version works!
 
 ## Annotation of the transcriptome
 
