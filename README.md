@@ -20,48 +20,32 @@ Individuals were collected from laboratory cultures, anesthetized using CO~2~ ex
 
 ## Sequencing and assembly of a reference transcriptome
 
-Samples used for transcriptome assembly (phases 1 and 2) were delivered on dry ice to Beckman Coulter Genomics (Danvers, Massachusetts) for poly-A selection, preparation of 125 bp paired-end TruSeq libraries, and sequencing using Illumina HiSeq. Libraries from phases 1 and 2 were sequenced separately. Reads from all samples were trimmed using [Trimmomatic](http://www.usadellab.org/cms/?page=trimmomatic) version 0.33 ([Bolger et al. 2014](https://doi.org/10.1093/bioinformatics/btu170)) with the parameters `ILLUMINACLIP:/export/local/src/Trimmomatic-0.33/adapters/TruSeq3-SE.fa:2:30:10 HEADCROP:12 LEADING:3 TRAILING:3 SLIDINGWINDOW:3:15 MINLEN:50`.  The resulting reads were assembled into transcripts by [Trinity](http://trinityrnaseq.github.io/) version 2.0.6 ([Grabherr et al. 2011](https://www.nature.com/articles/nbt.1883)). Before annotation, potentially redundant transcripts with greater than 90% identity were collapsed using CD-HIT-EST version 4.6 ([Li & Godzik 2006](https://doi.org/10.1093/bioinformatics/btl158)). 
+Samples used for transcriptome assembly (phases 1 and 2) were delivered on dry ice to Beckman Coulter Genomics (Danvers, Massachusetts) for poly-A selection, preparation of 125 bp paired-end TruSeq libraries, and sequencing using Illumina HiSeq. Libraries from phases 1 and 2 were sequenced separately. Reads from all samples were trimmed using [Trimmomatic](http://www.usadellab.org/cms/?page=trimmomatic) version 0.33 ([Bolger et al. 2014](https://doi.org/10.1093/bioinformatics/btu170)) with the parameters `ILLUMINACLIP:/export/local/src/Trimmomatic-0.33/adapters/TruSeq3-SE.fa:2:30:10 HEADCROP:12 LEADING:3 TRAILING:3 SLIDINGWINDOW:3:15 MINLEN:50`.  The resulting reads were assembled into transcripts by [Trinity](http://trinityrnaseq.github.io/) version 2.0.6 ([Grabherr et al. 2011](https://www.nature.com/articles/nbt.1883)). Before annotation, potentially redundant transcripts with greater than 90% identity were collapsed using CD-HIT-EST version 4.6 ([Li & Godzik 2006](https://doi.org/10.1093/bioinformatics/btl158)).  
 
-> Details: 
-> ```bash
-> cd /research/drangeli/phase2_BCG_RNAseq/Jhae_GU_trinity_assembly/
-> cd-hit-est -i GU.Trinity.fa -o GU.Trinity.c90.fa -c 0.90 -n 10 -d 0 -M 64000 -T 12
-> ```
+```bash
+cd /research/drangeli/phase2_BCG_RNAseq/Jhae_GU_trinity_assembly/
+cd-hit-est -i GU.Trinity.fa -o GU.Trinity.c90.fa -c 0.90 -n 10 -d 0 -M 64000 -T 12
+```
 > This took about 3.5 days on node 26.
 
-The resulting transcriptome contained 395,125 contigs. [TransDecoder](https://github.com/TransDecoder/TransDecoder/wiki) identified 50,771 coding sequences. 
-
->  :warning: Add BUSCO for `GU.Trinity.c90.fa`
+[TransDecoder](https://github.com/TransDecoder/TransDecoder/wiki) identified coding sequences. At each stage, [BUSCO](https://busco.ezlab.org/) version 5.2.2 ([Manni et al. 2021](https://doi.org/10.1093/molbev/msab199)) was used to assess transcriptome completeness.
 
 ```bash
-cd /research/drangeli/phase2_BCG_RNAseq/Jhae_GU_trinity_assembly
-
-python /export/local/src/busco-2.0.1/BUSCO.py \
--m genome -c 1 -sp fly \
--i GU.Trinity.c90.fa \
--l /research/drangeli/DB/busco.lineages/hemiptera_odb10 \
--o BUSCO.v2.0.1.report.for.GU.c90
+busco --in GU.Trinity.fa \
+--lineage_dataset /research/drangeli/DB/busco.lineages/hemiptera_odb10 \
+--out BUSCO.report.for.GU \
+--augustus --augustus_species fly --mode transcriptome --cpu 24
 ```
 
-Trying the current version of BUSCO...
+**Table S1: Details of transcriptome datasets at each stage of processing**
 
-```bash
-cd /research/drangeli/phase2_BCG_RNAseq/Jhae_GU_trinity_assembly
+| dataset               | contigs | BUSCO short summary                           |
+|:--------------------- | -------:|:--------------------------------------------- |
+| initial assembly      | 549,485 | C:97.0%[S:54.2%,D:42.8%],F:1.3%,M:1.7%,n:2510 |
+| initial assembly CDS  | 85,937  |                                               |
+| 90% consolidation     | 395,125 | C:96.6%[S:77.7%,D:18.9%],F:1.4%,M:2.0%,n:2510 |
+| 90% consolidation CDS | 50,771  | C:94.4%[S:77.8%,D:16.6%],F:2.2%,M:3.4%,n:2510 |
 
-rm -r BUSCO.v5.2.1.report.for.GU.c90
-
-busco --in GU.Trinity.c90.fa \
---lineage_dataset /research/drangeli/DB/busco.lineages/hemiptera_odb10 \
---out BUSCO.v5.2.1.report.for.GU.c90 \
---augustus --augustus_species fly --mode transcriptome --cpu 12 >& busco.log
-
-busco --in GU.Trinity.c90.fa \
---lineage_dataset /research/drangeli/DB/busco.lineages/hemiptera_odb10 \
---out BUSCO.v5.2.2.report.for.GU.c90 \
---augustus --augustus_species fly --mode transcriptome --cpu 12
-```
-
-> :warning: Right now, neither version works!
 
 ## Annotation of the transcriptome
 
@@ -80,14 +64,14 @@ The *J. haematoloma* sequences were matched to other Hemiptera, primarily *Halyo
 
 ## Sequencing for gene expression quantification
 
-For gene expression analysis, RNA samples were shipped overnight on dry ice to the [DNA Technologies Core](https://dnatech.genomecenter.ucdavis.edu/) at the University of California at Davis. Libraries were prepared using the QuantSeq 3' mRNA-Seq Library Prep Kit (Lexogen, Greenland, New Hampshire, USA). Samples were sequenced in batches of up to 96 samples, producing 90-bp single-end reads. These batches were sequencing in three lanes yielding **HOWMANY???** reads. These data were inspected for quality using FastQC (http://www.bioinformatics.babraham.ac.uk/projects/fastqc/), before and after trimmed using [Trimmomatic](http://www.usadellab.org/cms/?page=trimmomatic) version 0.33, as in the example command below.
+For gene expression analysis, RNA samples were shipped overnight on dry ice to the [DNA Technologies Core](https://dnatech.genomecenter.ucdavis.edu/) at the University of California at Davis. Libraries were prepared using the QuantSeq 3' mRNA-Seq Library Prep Kit (Lexogen, Greenland, New Hampshire, USA). Samples were sequenced in batches of up to 96 samples, producing 90-bp single-end reads. These batches were sequenced in three lanes yielding :warning: **HOW MANY???** :warning:reads. These data were inspected for quality using FastQC (http://www.bioinformatics.babraham.ac.uk/projects/fastqc/), before and after trimmed using [Trimmomatic](http://www.usadellab.org/cms/?page=trimmomatic) version 0.33, as in the example command below.
 
 ```bash
 java -jar trimmomatic-0.33.jar SE \
- raw.data/A1-d25-2_S161_L006_R1_001.fastq \
- filtered.reads/A1-d25-2_S161_L006_R1_001.trimmed.fastq \
- ILLUMINACLIP:/export/local/src/Trimmomatic-0.33/adapters/TruSeq3-SE.fa:2:30:10 \
- HEADCROP:16 LEADING:3 TRAILING:3 SLIDINGWINDOW:3:15 MINLEN:79
+raw.data/A1-d25-2_S161_L006_R1_001.fastq \
+filtered.reads/A1-d25-2_S161_L006_R1_001.trimmed.fastq \
+ILLUMINACLIP:/export/local/src/Trimmomatic-0.33/adapters/TruSeq3-SE.fa:2:30:10 \
+HEADCROP:16 LEADING:3 TRAILING:3 SLIDINGWINDOW:3:15 MINLEN:79
 ```
 
 > A simple [bash script](https://github.com/aphanotus/Jhae.genome/blob/main/trimming.3seq.reads.sh) was used to apply trimming to all read files and save the output in a separate folder.
