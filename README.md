@@ -37,6 +37,8 @@ busco --in GU.Trinity.fa \
 --augustus --augustus_species fly --mode transcriptome --cpu 24
 ```
 
+Consolidation by `cd-hist-est` dramatically reduced the number of sequences flagged as duplicates (Table S1).
+
 **Table S1: Details of transcriptome datasets at each stage of processing**
 
 | dataset               | contigs | BUSCO short summary                           |
