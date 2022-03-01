@@ -128,5 +128,5 @@ The resulting output files were then merged into a single comma-separated values
 
 Gene expression differences were examined using the Bioconductor package DESeq2 ([Love et al. 2014](https://genomebiology.biomedcentral.com/articles/10.1186/s13059-014-0550-8)) in R version 4.1.1 ([R Core Team 2021](https://www.R-project.org/)). The function `DESeq` fits a generalized linear model where counts are modeled using a negative binomial distribution with a gene-specific dispersion parameter. Means were estimated using approximate posterior estimation for generalized linear model ([Zhu et al. 2018](https://academic.oup.com/bioinformatics/article/35/12/2084/5159452)). We extracted log~2~ fold change and p-values corrected by independent hypothesis weighing ([Ignatiadis et al. 2016](https://www.nature.com/articles/nmeth.3885)) and applied a critical threshold of 0.05. Differential gene expression was visualized by customized plots generated using ggplot2. Variance stabilizing transformation, using the function `vst`,  was applied before ordination using principle component analysis.
 
-> For more details see the R script [`dge.analysis.R`](https://github.com/aphanotus/morphDE/blob/main/dge.analysis.R)
+> For more details see the R script [`analysis.dge.R`](https://github.com/aphanotus/morphDE/blob/main/analysis.dge.R)
 
