@@ -1,3 +1,6 @@
+rm(list=ls())
+gc()
+
 # https://github.com/aphanotus/borealis
 library(borealis)
 

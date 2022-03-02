@@ -17,19 +17,18 @@ head(names(cts))
 tail(names(cts))
 
 # Exclude samples of uncertain tissue
-# x <- c(grep("FC355_06",colnames(cts)),grep("Undetermined",colnames(cts)))
-x <- grep("Undetermined",colnames(cts))
+x <- c(grep("FC355_06",colnames(cts)),grep("Undetermined",colnames(cts)))
 cts <- cts[,-x]
 
 sum(is.na(cts))
 # 0
 
-# Range of read sums by sample
-summary(colSums(cts))
+# Read sums by sample
+hist(colSums(cts))
 barplot(colSums(cts))
 abline(h=summary(colSums(cts))[c(2,5)], col="darkred", lty=3)
 
-# Range of counts for transcripts
+# What's the range of counts for transcripts?
 summary(rowSums(cts))
 
 # Read sums by transcript
@@ -44,7 +43,6 @@ hist(apply(x, 1, cv))
 # Sample metadata
 sample.metadata <- read.csv("3seq.metadata.csv", stringsAsFactors = FALSE)
 # Metadata rows much match order of samples (columns) in the count matrix
-length(unique(colnames(cts))); length(unique(sample.metadata$kallisto_name))
 all(colnames(cts) %in% sample.metadata$kallisto_name)
 
 sample.metadata <- sample.metadata %>%
