@@ -1,5 +1,5 @@
 rm(list=ls())
-gc()
+gc(verbose = TRUE)
 
 library(tidyverse)
 library(viridis)
@@ -8,236 +8,135 @@ library(IHW)
 library(pheatmap)
 
 ###################
-# Import the Kallisto gene count matrix
+# Import the Kallisto gene count matrix and metadata
 ###################
-cts <- read.csv("kallisto.counts.csv")
-dim(cts)
-# 395125    370
-head(names(cts))
-tail(names(cts))
+# For details of count pre-processing, see count.preprocessing.R
 
-# Exclude samples of uncertain tissue
-# x <- c(grep("FC355_06",colnames(cts)),grep("Undetermined",colnames(cts)))
-x <- grep("Undetermined",colnames(cts))
-cts <- cts[,-x]
+load("combined.counts.rda", verbose = TRUE)
 
-sum(is.na(cts))
-# 0
+# Define a grouping factor with plain English descriptions
+{
+  grp <- with(sample.metadata, paste(tissue,sex,stage))
+  grp <- sub("abdomen","gonad",grp)
+  grp <- sub("L5","juvenile",grp)
+  grp <- sub(" f "," female ",grp)
+  grp <- sub(" m "," male ",grp)
+  grp <- as.factor(grp)
+  # levels(grp)
+  grp <- factor(grp, levels = levels(grp)[c(6,5,8,7,2,1,4,3)])
+  levels(grp)
+}
 
-# Range of read sums by sample
-summary(colSums(cts))
-barplot(colSums(cts))
-abline(h=summary(colSums(cts))[c(2,5)], col="darkred", lty=3)
-
-# Range of counts for transcripts
-summary(rowSums(cts))
-
-# Read sums by transcript
-hist(log10(rowSums(cts)+1))
-
-# Coefficient of variation (CV) in transcript counts by sample,
-# for those with at least 100 counts
-x <- cts[which(rowSums(cts)>=100),]
-cv <- function (x) { sd(x) / mean (x) }
-hist(apply(x, 1, cv))
-
-# Sample metadata
-sample.metadata <- read.csv("3seq.metadata.csv", stringsAsFactors = FALSE)
-# Metadata rows much match order of samples (columns) in the count matrix
-length(unique(colnames(cts))); length(unique(sample.metadata$kallisto_name))
-all(colnames(cts) %in% sample.metadata$kallisto_name)
-
-sample.metadata <- sample.metadata %>%
-  column_to_rownames(var = "kallisto_name") %>%
-  select(class, population, stage, sex, morph, morph_sex, tissue, food_regime,
-         cohort, seeds, plate, well, seq_date) %>%
-  mutate(plate = as.factor(plate), seq_date = as.factor(seq_date)) %>%
-  mutate(tissue = fct_relevel(tissue, "thorax")) %>%
-  mutate(morph = fct_relevel(morph, "SW", "LW"))
-
-# Apply filtering criteria
-# remove redundant samples (not sure right now if the June '20 or July '20 reads are better)
-x <- sample.metadata %>%
-  # filter(seq_date==200611) %>%
-  filter(seq_date==200701) %>%
-  rownames()
-x <- which(colnames(cts) %in% x)
-cts <- cts[,-x]
-sample.metadata <- sample.metadata %>%
-  filter(seq_date!=200701)
-
+# Set filtering criteria
 # Note that DESeq2 recommends only minimal filtering of low-count genes
 gene.read.number.cut.off <- 100
 
 ###################
-# Gene annotations
-###################
-chr.scafs <- c(
-  "Scaffold_8819;HRSCAF=9471" = "Chr4",
-  "Scaffold_16598;HRSCAF=18332" = "Chr5",
-  "Scaffold_23484;HRSCAF=26600" = "ChrM",
-  "Scaffold_49954;HRSCAF=55183" = "Chr1",
-  "Scaffold_50151;HRSCAF=55390" = "ChrX",
-  "Scaffold_50591;HRSCAF=55866" = "Chr2",
-  "Scaffold_50594;HRSCAF=55992" = "Chr3"
-)
-
-ann <- read.delim("final_annotations_lvl0_postive.tsv")
-keep.ann.cols <- c("Query.Sequence","Description","Species","Origin.Database",
-                   "Contaminant","Informative","UniProt.KEGG.Terms","UniProt.GO.Biological",
-                   "UniProt.GO.Cellular","UniProt.GO.Molecular","EggNOG.Predicted.Gene",
-                   "EggNOG.Description","EggNOG.KEGG.Terms","EggNOG.GO.Biological",
-                   "EggNOG.GO.Cellular","EggNOG.GO.Molecular","EggNOG.Protein.Domains")
-ann <- ann[,keep.ann.cols]
-ann$Origin.Database <- sub("/research/drangeli/phase2_BCG_RNAseq/Jhae_GU_trinity_assembly/entap_outfiles/similarity_search/DIAMOND/blastp_GU_final_","",ann$Origin.Database)
-ann$Origin.Database <- sub("\\.out","",ann$Origin.Database)
-xenic.ids <- as.vector(unlist(read.delim("final_annotations_contam_id_list.txt", header = FALSE)))
-xenic.ids <- sub(">","",xenic.ids)
-ann$xenic <- ann$Query.Sequence %in% xenic.ids
-
-mapping <- read.delim("JhaeGU.c90.cds.vs.gmap_JhaeHiC.positions.tsv", header = FALSE)
-colnames(mapping) <- c("qname","flag","rname","pos")
-mapping$qname <- str_split_fixed(mapping$qname, "::",3)[,2]
-mapping$rname <- str_replace_all(mapping$rname, chr.scafs)
-
-apply.annotation <- function(df, ann, mapping) {
-  i <- match(rownames(df), mapping$qname)
-  df$chr <- mapping$rname[i]
-  df$pos <- mapping$pos[i]
-  i <- match(rownames(df), ann$Query.Sequence)
-  df$Description <- ann$Description[i]
-  df$Species <- ann$Species[i]
-  df$Contaminant <- ann$Contaminant[i]
-  df$xenic <- ann$xenic[i]
-  df$UniProt.KEGG.Terms <- ann$UniProt.KEGG.Terms[i]
-  df$UniProt.GO.Biological <- ann$UniProt.GO.Biological[i]
-  df$UniProt.GO.Cellular <- ann$UniProt.GO.Cellular[i]
-  df$UniProt.GO.Molecular <- ann$UniProt.GO.Molecular[i]
-  df$EggNOG.Predicted.Gene <- ann$EggNOG.Predicted.Gene[i]
-  df$EggNOG.Description <- ann$EggNOG.Description[i]
-  df$EggNOG.KEGG.Terms <- ann$EggNOG.KEGG.Terms[i]
-  df$EggNOG.GO.Biological <- ann$EggNOG.GO.Biological[i]
-  df$EggNOG.GO.Cellular <- ann$EggNOG.GO.Cellular[i]
-  df$EggNOG.GO.Molecular <- ann$EggNOG.GO.Molecular[i]
-  df$EggNOG.Protein.Domains <- ann$EggNOG.Protein.Domains[i]
-  return(df)
-}
-
-###################
-# # Differential expression analysis
+# Differential expression analysis
 ###################
 
 # See http://bioconductor.org/packages/devel/bioc/vignettes/DESeq2/inst/doc/DESeq2.html
 
-###################
 ### Null model
-###################
 
 #### Sub-setting the data and metadata
 cts.i <- as.matrix(cts[which(rowSums(cts) > gene.read.number.cut.off),])
 dim(cts.i)
 
 # Why a null model accounting for batch is critical!
-uncorrected.pca <- prcomp(t(cts.i))
-eigs <- uncorrected.pca$sdev^2
-eigs[1] / sum(eigs)
-eigs[2] / sum(eigs)
+pca.uncorrected <- prcomp(t(cts.i))
+(pc.variance <- head(borealis::pcvar(pca.uncorrected)))
 
-uncorrected.pca.by.biol.grp.plot <- uncorrected.pca$x %>%
+pca.uncorrected.by.biol.grp.plot <- pca.uncorrected$x %>%
   as.data.frame() %>%
   ggplot(aes(x=PC1, y=PC2)) +
   theme_bw() + theme(legend.position="bottom") +
-  geom_point(aes(color=as.factor(grp)), size = 3, alpha = 0.85) +
+  geom_point(aes(color=grp), size = 3, alpha = 0.85) +
   scale_color_viridis(name = NULL, discrete = TRUE, begin = 0, end = 1) +
-  labs(x="PC1 (78.4% variance)", y="PC2 (20.1% variance)") +
+  labs(x=paste0("PC1 (",pc.variance[1]," variance)"), 
+       y=paste0("PC2 (",pc.variance[2]," variance)")) +
   coord_fixed()
-uncorrected.pca.by.biol.grp.plot
+pca.uncorrected.by.biol.grp.plot
 
-uncorrected.pca.by.batch.plot <- uncorrected.pca$x %>%
+pca.uncorrected.by.batch.plot <- pca.uncorrected$x %>%
   as.data.frame() %>%
   ggplot(aes(x=PC1, y=PC2)) +
   theme_bw() + theme(legend.position="bottom") +
   geom_point(aes(color=as.factor(as.numeric(sample.metadata$plate))), size = 3, alpha = 0.85) +
   scale_color_viridis(name = "batch", discrete = TRUE, begin = 0.2, end = 0.8, option = "magma") +
-  labs(x="PC1 (78.4% variance)", y="PC2 (20.1% variance)") +
+  labs(x=paste0("PC1 (",pc.variance[1]," variance)"), 
+       y=paste0("PC2 (",pc.variance[2]," variance)")) +
   coord_fixed()
-uncorrected.pca.by.batch.plot
+pca.uncorrected.by.batch.plot
 
-uncorrected.pca.plots <- ggpubr::ggarrange(
-  uncorrected.pca.by.biol.grp.plot, uncorrected.pca.by.batch.plot,
+pca.uncorrected.plots <- ggpubr::ggarrange(
+  pca.uncorrected.by.biol.grp.plot, pca.uncorrected.by.batch.plot,
   ncol = 2)
 
-ggsave("images/uncorrected.pca.plots.pdf", uncorrected.pca.plots, width = 14, height = 5, scale = 1)
-ggsave("images/uncorrected.pca.plots.jpg", uncorrected.pca.plots, width = 14, height = 5, scale = 1)
+ggsave("plots/pca.uncorrected.plots.pdf", pca.uncorrected.plots, width = 14, height = 5, scale = 1)
+ggsave("plots/pca.uncorrected.plots.jpg", pca.uncorrected.plots, width = 14, height = 5, scale = 1)
 
-# DEseq2
+# DESeq2
 dds.null <- DESeqDataSetFromMatrix(
   countData=round(cts.i), colData=sample.metadata,
   design = ~ plate )
 dds.null <- DESeq(dds.null)
 dds.null <- estimateSizeFactors(dds.null)
 
-# Extract and save normalized counts
-ctn.null <- counts(dds.null, normalized=TRUE)
-write.csv(ctn.null, 'normalized.counts.null.csv')
-# Use normalized counts for downstream visualization
+# # Extract and save normalized counts
+# ctn.null <- counts(dds.null, normalized=TRUE)
+# write.csv(ctn.null, 'normalized.counts.null.csv')
+# # Use normalized counts for downstream visualization
 
-# Results table with log2 fold changes, p values and adjusted p values.
-resultsNames(dds.null)
-res.null <- results(dds.null, contrast=c("plate","3","2"), alpha=0.05, filterFun=ihw)
-res.null <- lfcShrink(dds.null, coef="plate_3_vs_2", type="apeglm", res = res.null)
-summary(res.null)
-
-# We can order our results table by the smallest p value:
-deg100.null23 <- res.null[order(res.null$padj),]
-deg100.null23 <- deg100.null23[1:100,]
-deg100.null23 <- apply.annotation(deg100.null23, ann, mapping)
-# Save results
-write.csv(as.data.frame(deg100.null23), "deg100.null23.csv")
-
-res.null <- results(dds.null, contrast=c("plate","4","2"), alpha=0.05, filterFun=ihw)
-res.null <- lfcShrink(dds.null, coef="plate_4_vs_2", type="apeglm", res = res.null)
-summary(res.null)
-
-# We can order our results table by the smallest p value:
-deg100.null24 <- res.null[order(res.null$padj),]
-deg100.null24 <- deg100.null24[1:100,]
-deg100.null24 <- apply.annotation(deg100.null24, ann, mapping)
-# Save results
-write.csv(as.data.frame(deg100.null23), "deg100.null23.csv")
+# # Results table with log2 fold changes, p values and adjusted p values.
+# resultsNames(dds.null)
+# res.null <- results(dds.null, contrast=c("plate","3","2"), alpha=0.05, filterFun=ihw)
+# res.null <- lfcShrink(dds.null, coef="plate_3_vs_2", type="apeglm", res = res.null)
+# summary(res.null)
+# 
+# # We can order our results table by the smallest p value:
+# deg100.null23 <- res.null[order(res.null$padj),]
+# deg100.null23 <- deg100.null23[1:100,]
+# deg100.null23 <- apply.annotation(deg100.null23, ann, mapping)
+# # Save results
+# write.csv(as.data.frame(deg100.null23), "deg100.null23.csv")
+# 
+# res.null <- results(dds.null, contrast=c("plate","4","2"), alpha=0.05, filterFun=ihw)
+# res.null <- lfcShrink(dds.null, coef="plate_4_vs_2", type="apeglm", res = res.null)
+# summary(res.null)
+# 
+# # We can order our results table by the smallest p value:
+# deg100.null24 <- res.null[order(res.null$padj),]
+# deg100.null24 <- deg100.null24[1:100,]
+# deg100.null24 <- apply.annotation(deg100.null24, ann, mapping)
+# # Save results
+# write.csv(as.data.frame(deg100.null23), "deg100.null23.csv")
 
 vsd.null <- vst(dds.null, blind=FALSE)
 
-### heirarchical clustering
-vsd.cor.null <- cor(assay(vsd.null))
-colnames(sample.metadata)
-sample.metadata %>% select(7,3,4,5,2,8) %>%
-  pheatmap(vsd.cor.null, annotation = ., labels_row = " ", labels_col = " ")
+# ### hierarchical clustering
+# vsd.cor.null <- cor(assay(vsd.null))
+# colnames(sample.metadata)
+# sample.metadata %>% select(7,3,4,5,2,8) %>%
+#   pheatmap(vsd.cor.null, annotation = ., labels_row = " ", labels_col = " ")
 
 # PCA
-pca <- prcomp(t(assay(vsd.null)))
-eigs <- pca$sdev^2
-eigs[1] / sum(eigs)
-eigs[2] / sum(eigs)
+pca.null <- prcomp(t(assay(vsd.null)))
+(pc.variance <- head(borealis::pcvar(pca.null)))
 
-grp <- with(sample.metadata, paste(stage,sex,tissue))
-grp <- sub("abdomen","gonad",grp)
-grp <- sub("L5"," juvenile",grp)
-grp <- sub(" f "," female ",grp)
-grp <- sub(" m "," male ",grp)
-unique(grp)
-
-null.pca.plot <- pca$x %>%
+pca.null.plot <- pca.null$x %>%
   as.data.frame() %>%
   ggplot(aes(x=PC1, y=PC2)) +
   theme_bw() + theme(legend.position="bottom") +
-  geom_point(aes(color=as.factor(grp)), size = 3, alpha = 0.85) +
+  geom_point(aes(color=grp), size = 3, alpha = 0.85) +
   scale_color_viridis(name = NULL, discrete = TRUE, begin = 0, end = 1) +
-  labs(x="PC1 (33.5% variance", y="PC2 (7.5% variance)") +
+  labs(x=paste0("PC1 (",pc.variance[1]," variance)"), 
+       y=paste0("PC2 (",pc.variance[2]," variance)")) +
   coord_fixed()
-null.pca.plot
-ggsave("images/null.pca.plot.pdf", null.pca.plot, width = 7, height = 5, scale = 1)
-ggsave("images/null.pca.plot.jpg", null.pca.plot, width = 7, height = 5, scale = 0.95)
+pca.null.plot
+
+ggsave("plots/pca.null.plot.pdf", pca.null.plot, width = 7, height = 5, scale = 1)
+ggsave("plots/pca.null.plot.jpg", pca.null.plot, width = 7, height = 5, scale = 0.95)
 
 rm(cts.i, dds.null, res.null, deg100.null23, deg100.null24)
 
