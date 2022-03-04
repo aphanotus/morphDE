@@ -12,9 +12,7 @@ In order to characterize the development of polyphenic traits in the wings, flig
 
 Transcriptome studies proceeded through three phases. Initially, we sampled whole bodies from 12 individuals, including three biological replicates of each sex and morph combination from the Plantation Key, FL population (phase 1). Next we sampled dorsal thorax and gonads from three individuals of each sex and morph combination from the Plantation Key, FL and Aurora, CO populations (phase 2). Samples from these phases were prepared as full-length 150-bp paired-end Illumina libraries and used to assembly a reference transcriptome. 
 
-The final phase utilized 3'-tag sequencing with the exclusive goal of quantifying gene expression. The sampling design at this phase included two stages (fifth instars and nascent adults), two tissues (dorsal thorax and gonads), two sexes, long- and short-wing morphs, high and low food regimes, four populations (collected from Key Largo, FL, Plantation Key, FL, Aurora, CO, and Frederick, MD), and three biological replicates of each unique combination of the preceding factors. Thus the full matrix contained 384 samples. Fifteen samples were lost or did not pass library quality controls.
-
-> :warning: This isn't right! We have 3 plates worth of data -- plate 4 was sequenced twice. Plate1 was lost by UCD. Check the actual numbers in each metadata class.
+The final phase utilized 3'-tag sequencing with the exclusive goal of quantifying gene expression. The sampling design at this phase included two stages (fifth instars and nascent adults), two tissues (dorsal thorax and gonads), two sexes, long- and short-wing adult morphs, high and low food regimes, four populations (collected from Key Largo, FL, Plantation Key, FL, Aurora, CO, and Frederick, MD), and three biological replicates of each unique combination of the preceding factors. Thus the full matrix contained 288 samples. Seven samples were lost or did not pass library quality controls, resulting in 281 samples in the analysis.
 
 ## Nucleic acid extractions
 
@@ -41,7 +39,7 @@ busco --in GU.Trinity.fa \
 
 Consolidation by `cd-hist-est` dramatically reduced the number of sequences flagged as duplicates (Table S1).
 
-**Table S1: Details of transcriptome datasets at each stage of processing**
+**Table S1**: Details of transcriptome datasets at each stage of processing.
 
 | dataset               | contigs | BUSCO short summary                           |
 |:--------------------- | -------:|:--------------------------------------------- |
@@ -68,7 +66,11 @@ The *J. haematoloma* sequences were matched to other Hemiptera, primarily *Halyo
 
 ## Sequencing for gene expression quantification
 
-For gene expression analysis, RNA samples were shipped overnight on dry ice to the [DNA Technologies Core](https://dnatech.genomecenter.ucdavis.edu/) at the University of California at Davis. Libraries were prepared using the QuantSeq 3' mRNA-Seq Library Prep Kit (Lexogen, Greenland, New Hampshire, USA). Samples were sequenced in batches of up to 96 samples, producing 90-bp single-end reads. These batches were sequenced in three lanes yielding :warning: **HOW MANY???** :warning:reads. These data were inspected for quality using FastQC (http://www.bioinformatics.babraham.ac.uk/projects/fastqc/), before and after trimmed using [Trimmomatic](http://www.usadellab.org/cms/?page=trimmomatic) version 0.33, as in the example command below.
+For gene expression analysis, RNA samples were shipped overnight on dry ice to the [DNA Technologies Core](https://dnatech.genomecenter.ucdavis.edu/) at the University of California at Davis. Libraries were prepared using the QuantSeq 3' mRNA-Seq Library Prep Kit (Lexogen, Greenland, New Hampshire, USA) in the three batches for sequencing in separate Illumina HiSeq lanes. Batch 3 was sequenced twice and reads counts for each run were added together for each sample after filtering.
+
+These batches were sequenced in three lanes yielding 115.9×10^9^ bp. These data
+
+Short read sequences were inspected for quality using FastQC (http://www.bioinformatics.babraham.ac.uk/projects/fastqc/), before and after trimmed using [Trimmomatic](http://www.usadellab.org/cms/?page=trimmomatic) version 0.33, as in the example command below.
 
 ```bash
 java -jar trimmomatic-0.33.jar SE \
@@ -78,11 +80,19 @@ ILLUMINACLIP:/export/local/src/Trimmomatic-0.33/adapters/TruSeq3-SE.fa:2:30:10 \
 HEADCROP:16 LEADING:3 TRAILING:3 SLIDINGWINDOW:3:15 MINLEN:79
 ```
 
-> A simple [bash script](https://github.com/aphanotus/Jhae.genome/blob/main/trimming.3seq.reads.sh) was used to apply trimming to all read files and save the output in a separate folder.
+> A simple [bash script](https://github.com/aphanotus/Jhae.genome/blob/main/trimming.3seq.reads.sh) was used to apply trimming to all read files and save the output in a separate folder.FastQC inspection after trimming revealed notable improvements.
 >
-> Reads appeared to be high quality. Even samples where RNA was initially flagged by the center as "degraded" produced 3' libraries with high quality reads. Read length and quantity were also consistent.
->
-> FastQC inspection after trimming revealed notable improvements.
+
+**Table S2**: Read numbers before and after quality filtering.
+
+| batch   |     raw reads | filtered reads | passing filter |
+| :------ | ------------: | -------------: | -------------- |
+| 1       |   341,370,316 |    323,188,378 | 94.7%          |
+| 2       |   321,564,969 |    313,590,249 | 97.5%          |
+| 3       |   484,588,962 |    502,300,395 |                |
+| overall | 1,147,524,247 |     1139079022 |                |
+
+
 
 ## Mapping 3seq reads to the transcriptome
 

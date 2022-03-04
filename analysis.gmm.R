@@ -353,6 +353,7 @@ landmark.plot(shapes.juv.tx, links = links.tx)
 # GPA with outlier detection
 juv.tx.gpa <- align.procrustes(shapes.juv.tx, outlier.analysis = TRUE)
 # One outlier removed: specimen FC388_n03
+# This specimen was not oriented perpendicular to the camera
 
 # Report data provenance
 write.provenance(juv.tx.gpa, 
@@ -385,27 +386,27 @@ i <- 1e4-1
 m <- procD.lm(coords ~ log(Csize), data = juv.tx.gpa$gdf, iter = i) 
 anova(m)
 #            Df       SS        MS     Rsq      F        Z Pr(>F)
-# log(Csize)  1 0.001573 0.0015734 0.01693 0.7922 -0.20797 0.5825
-# Residuals  46 0.091360 0.0019861 0.98307                       
-# Total      47 0.092934
+# log(Csize)  1 0.001933 0.0019335 0.0206 0.9678 0.15381 0.4446
+# Residuals  46 0.091903 0.0019979 0.9794                      
+# Total      47 0.093837
 # Interesting that size is not a significant factor modeling in shape 
 
 # A model with sex
 m <- procD.lm(coords ~ sex, data=juv.tx.gpa$gdf, iter=i) 
 anova(m) 
 #           Df       SS         MS     Rsq      F      Z Pr(>F)
-# sex        1 0.000990 0.00099012 0.01065 0.4954 -1.032 0.8465
-# Residuals 46 0.091943 0.00199877 0.98935                     
-# Total     47 0.092934 
+# sex        1 0.000937 0.00093688 0.00998 0.4639 -1.1321 0.8686
+# Residuals 46 0.092900 0.00201956 0.99002                      
+# Total     47 0.093837
 # Sex is also not a predictor of juvenile thorax shape.
 
 # A model with food regime
 m <- procD.lm(coords ~ food_regime, data=juv.tx.gpa$gdf, iter=i) 
 anova(m) 
 #             Df       SS        MS     Rsq      F        Z Pr(>F)
-# food_regime  1 0.001492 0.0014918 0.01605 0.7504 -0.30529 0.6198
-# Residuals   46 0.091442 0.0019879 0.98395                       
-# Total       47 0.092934  
+# food_regime  1 0.001354 0.0013541 0.01443 0.6735 -0.49043 0.6886
+# Residuals   46 0.092483 0.0020105 0.98557                       
+# Total       47 0.093837   
 
 # Examining continuous metadata on seed number and cohort size
 m <- procD.lm(coords ~ seeds, data=juv.tx.gpa$gdf, iter=i) 
@@ -482,27 +483,27 @@ i <- 1e4-1
 wp.size.model <- procD.lm(coords ~ log(Csize), data = wingpad.gpa$gdf, iter = i) 
 anova(wp.size.model)
 #            Df      SS        MS     Rsq      F      Z Pr(>F)    
-# log(Csize)  1 0.01961 0.0196059 0.05505 2.7383 1.9949 0.0234 *
-# Residuals  47 0.33651 0.0071599 0.94495                       
-# Total      48 0.35612 
+# log(Csize)  1 0.02046 0.0204634 0.05758 2.8717 2.1051 0.0159 *
+# Residuals  47 0.33491 0.0071258 0.94242                       
+# Total      48 0.35538 
 
 # A model with size and sex
 wp.sex.model <- procD.lm(coords ~ log(Csize) + sex, data=wingpad.gpa$gdf, iter=i) 
 anova(wp.sex.model) 
 #            Df      SS        MS     Rsq       F      Z Pr(>F)    
-# log(Csize)  1 0.01961 0.0196059 0.05505 2.9110 2.0990 0.0176 * 
-# sex         1 0.02670 0.0266990 0.07497 3.9642 2.6329 0.0038 **
-# Residuals  46 0.30981 0.0067351 0.86997                        
-# Total      48 0.35612
+# log(Csize)  1 0.02046 0.020463 0.05758 3.0236 2.1944 0.0126 * 
+# sex         1 0.02359 0.023589 0.06638 3.4853 2.4234 0.0059 **
+# Residuals  46 0.31133 0.006768 0.87604                        
+# Total      48 0.35538
 
 # A model with size and food regime
 wp.food.model <- procD.lm(coords ~ log(Csize) + food_regime, data=wingpad.gpa$gdf, iter=i) 
 anova(wp.food.model) 
 #            Df      SS      MS     Rsq       F      Z Pr(>F)    
-# log(Csize)   1 0.01961 0.0196059 0.05505 2.7044  1.9734 0.0247 *
-# food_regime  1 0.00303 0.0030294 0.00851 0.4179 -1.1944 0.8857  
-# Residuals   46 0.33348 0.0072497 0.93644                        
-# Total       48 0.35612 
+# log(Csize)   1 0.02046 0.0204634 0.05758 2.8389  2.0844 0.0165 *
+# food_regime  1 0.00334 0.0033401 0.00940 0.4634 -1.0330 0.8490  
+# Residuals   46 0.33157 0.0072081 0.93302                        
+# Total       48 0.35538 
 
 # Examine continuous metadata on seed number and cohort size
 m <- procD.lm(coords ~ log(Csize) + sex + seeds, data=wingpad.gpa$gdf, iter=i) 
@@ -542,3 +543,4 @@ save(links.head, links.tx.in.context, links.tx, links.wingpad.in.context, links.
      wingpad.semilandmarks, wingpad.gpa, wingpad.pca, wp.sex.model,
      file = "gmm.objects.juvenile.rda")
 # load("gmm.objects.juvenile.rda", verbose = TRUE)
+
