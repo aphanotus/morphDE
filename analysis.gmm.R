@@ -101,58 +101,59 @@ i <- 1e4-1
 tx.size.model <- procD.lm(coords ~ log(Csize), data = tx.gpa$gdf, iter = i) 
 anova(tx.size.model)
 #            Df       SS        MS     Rsq      F      Z Pr(>F)    
-# log(Csize)  1 0.004271 0.0042710 0.02611 2.3594 1.8123 0.0355 *
-# Residuals  88 0.159298 0.0018102 0.97389                       
-# Total      89 0.163569 
+# log(Csize)  1 0.004044 0.0040443 0.02497 2.2535 1.7289 0.0429 *
+# Residuals  88 0.157935 0.0017947 0.97503                       
+# Total      89 0.161980 
 
 # A model with size and sex
 tx.sex.model <- procD.lm(coords ~ log(Csize) + sex, data=tx.gpa$gdf, iter=i) 
 anova(tx.sex.model) 
 #            Df       SS        MS     Rsq      F      Z Pr(>F)    
-# log(Csize)  1 0.004271 0.0042710 0.02611 2.5478 1.9526 0.0256 *  
-# sex         1 0.013457 0.0134571 0.08227 8.0276 4.1892  1e-04 ***
-# Residuals  87 0.145841 0.0016763 0.89162                         
-# Total      89 0.163569 
+# log(Csize)  1 0.004044 0.0040443 0.02497 2.4419 1.8753 0.0307 *  
+# sex         1 0.013842 0.0138418 0.08545 8.3573 4.2047  1e-04 ***
+# Residuals  87 0.144093 0.0016562 0.88958                         
+# Total      89 0.161980
 
 # A model with size and morph
 tx.morph.model <- procD.lm(coords ~ log(Csize) + morph, data=tx.gpa$gdf, iter=i) 
 anova(tx.morph.model) 
 #            Df       SS        MS     Rsq      F      Z Pr(>F)    
-# log(Csize)  1 0.004271 0.0042710 0.02611 2.4546 1.8843 0.0310 *  
-# morph       1 0.007918 0.0079183 0.04841 4.5508 3.0627 0.0005 ***
-# Residuals  87 0.151380 0.0017400 0.92548                         
-# Total      89 0.163569  
+# log(Csize)  1 0.004044 0.0040443 0.02497 2.3537 1.8084 0.0364 *  
+# morph       1 0.008442 0.0084421 0.05212 4.9130 3.1802 0.0005 ***
+# Residuals  87 0.149493 0.0017183 0.92291                         
+# Total      89 0.1619809  
 
 # A model with size, sex and morph
 tx.sex.morph.model <- procD.lm(coords ~ log(Csize) + sex + morph, data=tx.gpa$gdf, iter=i) 
 anova(tx.sex.morph.model) 
 #            Df       SS        MS     Rsq      F      Z Pr(>F)    
-# log(Csize)  1 0.004271 0.0042710 0.02611 2.6049 1.9930 0.0232 *  
-# sex         1 0.013457 0.0134571 0.08227 8.2074 4.2347  1e-04 ***
-# morph       1 0.004833 0.0048331 0.02955 2.9477 2.3091 0.0103 *  
-# Residuals  86 0.141008 0.0016396 0.86207                         
-# Total      89 0.163569  
+# log(Csize)  1 0.004044 0.0040443 0.02497 2.5022 1.9202 0.0283 *  
+# sex         1 0.013842 0.0138418 0.08545 8.5637 4.2530  1e-04 ***
+# morph       1 0.005089 0.0050890 0.03142 3.1485 2.4314 0.0064 ** 
+# Residuals  86 0.139005 0.0016163 0.85816                         
+# Total      89 0.161980  
 
 # A model with size, sex, morph and their interaction
 tx.sexXmorph.model <- procD.lm(coords ~ log(Csize) + sex * morph, data=tx.gpa$gdf, iter=i) 
 anova(tx.sexXmorph.model) 
 #            Df       SS        MS     Rsq      F       Z Pr(>F)    
-# log(Csize)  1 0.004271 0.0042710 0.02611 2.5954  1.9860 0.0236 *  
-# sex         1 0.013457 0.0134571 0.08227 8.1775  4.2282  1e-04 ***
-# morph       1 0.004833 0.0048331 0.02955 2.9370  2.3019 0.0103 *  
-# sex:morph   1 0.001131 0.0011307 0.00691 0.6871 -0.4176 0.6602    
-# Residuals  85 0.139878 0.0016456 0.85516                          
-# Total      89 0.163569  
+# log(Csize)  1 0.004044 0.0040443 0.02497 2.4970  1.9162 0.0285 *  
+# sex         1 0.013842 0.0138418 0.08545 8.5461  4.2495  1e-04 ***
+# morph       1 0.005089 0.0050890 0.03142 3.1420  2.4277 0.0065 ** 
+# sex:morph   1 0.001333 0.0013328 0.00823 0.8229 -0.0925 0.5361    
+# Residuals  85 0.137672 0.0016197 0.84993                          
+# Total      89 0.161980  
 
 # A model with size, sex, morph and food regime
 m <- procD.lm(coords ~ log(Csize) + sex + morph + food_regime, data=tx.gpa$gdf, iter=i) 
+anova(m)
 #            Df       SS        MS     Rsq      F       Z Pr(>F)    
-# log(Csize)   1 0.004271 0.0042710 0.02611 2.6088 1.9956 0.0232 *  
-# sex          1 0.013457 0.0134571 0.08227 8.2198 4.2373  1e-04 ***
-# morph        1 0.004833 0.0048331 0.02955 2.9522 2.3122 0.0101 *  
-# food_regime  1 0.001851 0.0018506 0.01131 1.1304 0.4718 0.3190    
-# Residuals   85 0.139158 0.0016371 0.85076                         
-# Total       89 0.163569 
+# log(Csize)   1 0.004044 0.0040443 0.02497 2.5075 1.9239 0.0280 *  
+# sex          1 0.013842 0.0138418 0.08545 8.5819 4.2567  1e-04 ***
+# morph        1 0.005089 0.0050890 0.03142 3.1552 2.4357 0.0064 ** 
+# food_regime  1 0.001908 0.0019083 0.01178 1.1831 0.5571 0.2900    
+# Residuals   85 0.137096 0.0016129 0.84638                         
+# Total       89 0.161980 
 
 # Examining continuous metadata on seed number and cohort size
 m <- procD.lm(coords ~ log(Csize) + sex + seeds, data=tx.gpa$gdf, iter=i) 
@@ -228,59 +229,59 @@ i <- 1e4-1
 wg.size.model <- procD.lm(coords ~ log(Csize), data = wing.gpa$gdf, iter = i) 
 anova(wg.size.model)
 #            Df      SS      MS     Rsq      F      Z Pr(>F)    
-# log(Csize)  1 1.44394 1.4439 0.66398 173.89 4.9877  1e-04 ***
-# Residuals  88 0.73074 0.0083 0.33602                         
-# Total      89 2.17468 
+# log(Csize)  1 1.48040 1.4804 0.66964 178.38 4.8836  1e-04 ***
+# Residuals  88 0.73033 0.0083 0.33036                         
+# Total      89 2.21073 
 
 # A model with size and sex
 wg.sex.model <- procD.lm(coords ~ log(Csize) + sex, data=wing.gpa$gdf, iter=i) 
 anova(wg.sex.model) 
 #            Df      SS      MS     Rsq       F      Z Pr(>F)    
-# log(Csize)  1 1.44394 1.44394 0.66398 229.516 5.2046  1e-04 ***
-# sex         1 0.18340 0.18340 0.08434  29.152 5.1067  1e-04 ***
-# Residuals  87 0.54734 0.00629 0.25169                          
-# Total      89 2.17468
+# log(Csize)  1 1.48040 1.48040 0.66964 237.237 5.0938  1e-04 ***
+# sex         1 0.18743 0.18743 0.08478  30.037 5.0691  1e-04 ***
+# Residuals  87 0.54290 0.00624 0.24557                          
+# Total      89 2.21073
 
 # A model with size and morph
 wg.morph.model <- procD.lm(coords ~ log(Csize) + morph, data=wing.gpa$gdf, iter=i) 
 anova(wg.morph.model) 
 #            Df      SS      MS     Rsq       F      Z Pr(>F)    
-# log(Csize)  1 1.44394 1.44394 0.66398 251.838 5.2798  1e-04 ***
-# morph       1 0.23192 0.23192 0.10665  40.449 5.5781  1e-04 ***
-# Residuals  87 0.49882 0.00573 0.22938                          
-# Total      89 2.17468
+# log(Csize)  1 1.48040 1.48040 0.66964 258.391 5.1593  1e-04 ***
+# morph       1 0.23188 0.23188 0.10489  40.473 5.5080  1e-04 ***
+# Residuals  87 0.49845 0.00573 0.22547                          
+# Total      89 2.21073
 
 # A model with size, sex and morph
 wg.sex.morph.model <- procD.lm(coords ~ log(Csize) + sex + morph, data=wing.gpa$gdf, iter=i) 
 anova(wg.sex.morph.model) 
 #            Df      SS      MS     Rsq       F      Z Pr(>F)    
-# log(Csize)  1 1.44394 1.44394 0.66398 280.876 5.3659  1e-04 ***
-# sex         1 0.18340 0.18340 0.08434  35.676 5.3906  1e-04 ***
-# morph       1 0.10523 0.10523 0.04839  20.469 5.5365  1e-04 ***
-# Residuals  86 0.44211 0.00514 0.20330                          
-# Total      89 2.17468
+# log(Csize)  1 1.48040 1.48040 0.66964 290.214 5.2452  1e-04 ***
+# sex         1 0.18743 0.18743 0.08478  36.744 5.3379  1e-04 ***
+# morph       1 0.10420 0.10420 0.04714  20.428 5.5894  1e-04 ***
+# Residuals  86 0.43869 0.00510 0.19844                          
+# Total      89 2.210738
 
 # A model with size, sex, morph and their interaction
 wg.sexXmorph.model <- procD.lm(coords ~ log(Csize) + sex * morph, data=wing.gpa$gdf, iter=i) 
 anova(wg.sexXmorph.model) 
 #            Df      SS      MS     Rsq        F      Z Pr(>F)    
-# log(Csize)  1 1.44394 1.44394 0.66398 280.3935 5.3619  1e-04 ***
-# sex         1 0.18340 0.18340 0.08434  35.6148 5.3887  1e-04 ***
-# morph       1 0.10523 0.10523 0.04839  20.4335 5.5347  1e-04 ***
-# sex:morph   1 0.00439 0.00439 0.00202   0.8522 0.0062 0.4946    
-# Residuals  85 0.43772 0.00515 0.20128                           
-# Total      89 2.17468 
+# log(Csize)  1 1.48040 1.48040 0.66964 290.2883 5.2441  1e-04 ***
+# sex         1 0.18743 0.18743 0.08478  36.7534 5.3369  1e-04 ***
+# morph       1 0.10420 0.10420 0.04714  20.4330 5.5897  1e-04 ***
+# sex:morph   1 0.00521 0.00521 0.00236   1.0221 0.3018 0.3804    
+# Residuals  85 0.43348 0.00510 0.19608                           
+# Total      89 2.21073 
 
 # A model with size, sex, morph and food regime
 m <- procD.lm(coords ~ log(Csize) + sex + morph + food_regime, data=wing.gpa$gdf, iter=i) 
 anova(m)
 #             Df      SS      MS     Rsq        F      Z Pr(>F)    
-# log(Csize)   1 1.44394 1.44394 0.66398 279.0337  5.3632  1e-04 ***
-# sex          1 0.18340 0.18340 0.08434  35.4420  5.3811  1e-04 ***
-# morph        1 0.10523 0.10523 0.04839  20.3344  5.5255  1e-04 ***
-# food_regime  1 0.00226 0.00226 0.00104   0.4359 -1.0834  0.861    
-# Residuals   85 0.43986 0.00517 0.20226                            
-# Total       89 2.17468 
+# log(Csize)   1 1.48040 1.48040 0.66964 288.4057  5.2439  1e-04 ***
+# sex          1 0.18743 0.18743 0.08478  36.5151  5.3251  1e-04 ***
+# morph        1 0.10420 0.10420 0.04714  20.3005  5.5774  1e-04 ***
+# food_regime  1 0.00238 0.00238 0.00108   0.4642 -1.0047 0.8414    
+# Residuals   85 0.43631 0.00513 0.19736                            
+# Total       89 2.21073 
 
 # Examining continuous metadata on seed number and cohort size
 m <- procD.lm(coords ~ log(Csize) + sex + seeds, data=wing.gpa$gdf, iter=i) 
