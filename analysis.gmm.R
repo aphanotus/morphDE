@@ -163,6 +163,11 @@ anova(m) # NS
 m <- procD.lm(coords ~ log(Csize) + sex + log10(seeds/cohort), data=tx.gpa$gdf, iter=i) 
 anova(m) # NS
 
+m <- procD.lm(coords ~ log(Csize) + population, data=tx.gpa$gdf, iter=i) 
+anova(m) # NS
+m <- procD.lm(coords ~ log(Csize) + sex + morph + population, data=tx.gpa$gdf, iter=i) 
+anova(m) # NS
+
 #######################
 # Adult wing shape analysis
 #######################
@@ -291,6 +296,11 @@ anova(m) # NS
 m <- procD.lm(coords ~ log(Csize) + sex + log10(seeds/cohort), data=wing.gpa$gdf, iter=i) 
 anova(m) # NS
 
+m <- procD.lm(coords ~ log(Csize) + population, data=wing.gpa$gdf, iter=i) 
+anova(m) # NS
+m <- procD.lm(coords ~ log(Csize) + sex + morph + population, data=wing.gpa$gdf, iter=i) 
+anova(m) # NS
+
 # Save the adult data objects
 x <- with(wing.gpa$gdf,
           data.frame(
@@ -407,6 +417,9 @@ anova(m) # NS
 m <- procD.lm(coords ~ girth, data=juv.tx.gpa$gdf, iter=i) 
 anova(m) # NS
 
+m <- procD.lm(coords ~ population, data=juv.tx.gpa$gdf, iter=i) 
+anova(m) # NS
+
 #######################
 # Juvenile wingpad shape analysis
 #######################
@@ -497,6 +510,9 @@ anova(m) # NS
 m <- procD.lm(coords ~ log(Csize) + sex + cohort, data=wingpad.gpa$gdf, iter=i) 
 anova(m) # NS
 m <- procD.lm(coords ~ log(Csize) + sex + log10(seeds/cohort), data=wingpad.gpa$gdf, iter=i) 
+anova(m) # NS
+
+m <- procD.lm(coords ~ population, data=wingpad.gpa$gdf, iter=i) 
 anova(m) # NS
 
 # Save the juvenile data objects
