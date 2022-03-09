@@ -209,7 +209,7 @@ deg100.adult.gonad.by.sex <- deg100.adult.gonad.by.sex[1:100,]
 deg100.adult.gonad.by.sex <- apply.annotation(deg100.adult.gonad.by.sex, ann)
 
 # Save results
-write.csv(as.data.frame(deg100.adult.gonad.by.sex), "deg100.adult.gonad.by.sex.csv")
+write.table(as.data.frame(deg100.adult.gonad.by.sex), "deg100.adult.gonad.by.sex.tsv", quote = FALSE)
 save(meta.i, cts.i, dds.adult.gonad.by.sex, ctn.adult.gonad.by.sex, res.adult.gonad.by.sex, vsd.adult.gonad.by.sex, deg100.adult.gonad.by.sex,
      file = "adult.gonad.by.sex.rda")
 rm(meta.i, cts.i, dds.adult.gonad.by.sex, ctn.adult.gonad.by.sex, res.adult.gonad.by.sex, vsd.adult.gonad.by.sex)
@@ -262,7 +262,7 @@ deg100.L5.gonad.by.sex <- deg100.L5.gonad.by.sex[1:100,]
 deg100.L5.gonad.by.sex <- apply.annotation(deg100.L5.gonad.by.sex, ann)
 
 # Save results
-write.csv(as.data.frame(deg100.L5.gonad.by.sex), "deg100.L5.gonad.by.sex.csv")
+write.table(as.data.frame(deg100.L5.gonad.by.sex), "deg100.L5.gonad.by.sex.tsv", quote = FALSE)
 save(meta.i, cts.i, dds.L5.gonad.by.sex, ctn.L5.gonad.by.sex, res.L5.gonad.by.sex, vsd.L5.gonad.by.sex, deg100.L5.gonad.by.sex,
      file = "L5.gonad.by.sex.rda")
 rm(meta.i, cts.i, dds.L5.gonad.by.sex, ctn.L5.gonad.by.sex, res.L5.gonad.by.sex, vsd.L5.gonad.by.sex)
@@ -315,7 +315,7 @@ deg100.adult.thorax.by.sex <- deg100.adult.thorax.by.sex[1:100,]
 deg100.adult.thorax.by.sex <- apply.annotation(deg100.adult.thorax.by.sex, ann)
 
 # Save results
-write.csv(as.data.frame(deg100.adult.thorax.by.sex), "deg100.adult.thorax.by.sex.csv")
+write.table(as.data.frame(deg100.adult.thorax.by.sex), "deg100.adult.thorax.by.sex.tsv", quote = FALSE)
 save(meta.i, cts.i, dds.adult.thorax.by.sex, ctn.adult.thorax.by.sex, res.adult.thorax.by.sex, vsd.adult.thorax.by.sex, deg100.adult.thorax.by.sex,
      file = "adult.thorax.by.sex.rda")
 rm(meta.i, cts.i, dds.adult.thorax.by.sex, ctn.adult.thorax.by.sex, res.adult.thorax.by.sex, vsd.adult.thorax.by.sex)
@@ -368,7 +368,7 @@ deg100.L5.thorax.by.sex <- deg100.L5.thorax.by.sex[1:100,]
 deg100.L5.thorax.by.sex <- apply.annotation(deg100.L5.thorax.by.sex, ann)
 
 # Save results
-write.csv(as.data.frame(deg100.L5.thorax.by.sex), "deg100.L5.thorax.by.sex.csv")
+write.table(as.data.frame(deg100.L5.thorax.by.sex), "deg100.L5.thorax.by.sex.tsv", quote = FALSE)
 save(meta.i, cts.i, dds.L5.thorax.by.sex, ctn.L5.thorax.by.sex, res.L5.thorax.by.sex, vsd.L5.thorax.by.sex, deg100.L5.thorax.by.sex,
      file = "L5.thorax.by.sex.rda")
 rm(meta.i, cts.i, dds.L5.thorax.by.sex, ctn.L5.thorax.by.sex, res.L5.thorax.by.sex, vsd.L5.thorax.by.sex)
@@ -431,8 +431,9 @@ plotPCA(vsd.adult.thorax.by.morph, intgroup=c("morph"))
 deg100.adult.thorax.by.morph <- res.adult.thorax.by.morph[order(res.adult.thorax.by.morph$padj),]
 deg100.adult.thorax.by.morph <- deg100.adult.thorax.by.morph[1:100,]
 deg100.adult.thorax.by.morph <- apply.annotation(deg100.adult.thorax.by.morph, ann)
+
 # Save results
-write.csv(as.data.frame(deg100.adult.thorax.by.morph), "deg100.adult.thorax.by.morph.csv")
+write.table(as.data.frame(deg100.adult.thorax.by.morph), "deg100.adult.thorax.by.morph.tsv", quote = FALSE)
 save(meta.i, cts.i, dds.adult.thorax.by.morph, ctn.adult.thorax.by.morph, res.adult.thorax.by.morph, vsd.adult.thorax.by.morph, deg100.adult.thorax.by.morph,
      file = "adult.thorax.by.morph.rda")
 rm(meta.i, cts.i, dds.adult.thorax.by.morph, ctn.adult.thorax.by.morph, res.adult.thorax.by.morph, vsd.adult.thorax.by.morph)
@@ -486,7 +487,7 @@ deg100.adult.gonad.by.morph <- deg100.adult.gonad.by.morph[1:100,]
 deg100.adult.gonad.by.morph <- apply.annotation(deg100.adult.gonad.by.morph, ann)
 
 # Save results
-write.csv(as.data.frame(deg100.adult.gonad.by.morph), "deg100.adult.gonad.by.morph.csv")
+write.table(as.data.frame(deg100.adult.gonad.by.morph), "deg100.adult.gonad.by.morph.tsv", quote = FALSE)
 save(meta.i, cts.i, dds.adult.gonad.by.morph, ctn.adult.gonad.by.morph, res.adult.gonad.by.morph, vsd.adult.gonad.by.morph, deg100.adult.gonad.by.morph,
      file = "adult.gonad.by.morph.rda")
 rm(meta.i, cts.i, dds.adult.gonad.by.morph, ctn.adult.gonad.by.morph, res.adult.gonad.by.morph, vsd.adult.gonad.by.morph)
@@ -539,7 +540,7 @@ deg100.adult.gonad.by.food <- deg100.adult.gonad.by.food[1:100,]
 deg100.adult.gonad.by.food <- apply.annotation(deg100.adult.gonad.by.food, ann)
 
 # Save results
-write.csv(as.data.frame(deg100.adult.gonad.by.food), "deg100.adult.gonad.by.food.csv")
+write.table(as.data.frame(deg100.adult.gonad.by.food), "deg100.adult.gonad.by.food.tsv", quote = FALSE)
 save(meta.i, cts.i, dds.adult.gonad.by.food, ctn.adult.gonad.by.food, res.adult.gonad.by.food, vsd.adult.gonad.by.food, deg100.adult.gonad.by.food,
      file = "adult.gonad.by.food.rda")
 rm(meta.i, cts.i, dds.adult.gonad.by.food, ctn.adult.gonad.by.food, res.adult.gonad.by.food, vsd.adult.gonad.by.food)
@@ -594,7 +595,7 @@ deg100.adult.thorax.by.food <- deg100.adult.thorax.by.food[1:100,]
 deg100.adult.thorax.by.food <- apply.annotation(deg100.adult.thorax.by.food, ann)
 
 # Save results
-write.csv(as.data.frame(deg100.adult.thorax.by.food), "deg100.adult.thorax.by.food.csv")
+write.table(as.data.frame(deg100.adult.thorax.by.food), "deg100.adult.thorax.by.food.tsv", quote = FALSE)
 save(meta.i, cts.i, dds.adult.thorax.by.food, ctn.adult.thorax.by.food, res.adult.thorax.by.food, vsd.adult.thorax.by.food, deg100.adult.thorax.by.food,
      file = "adult.thorax.by.food.rda")
 rm(meta.i, cts.i, dds.adult.thorax.by.food, ctn.adult.thorax.by.food, res.adult.thorax.by.food, vsd.adult.thorax.by.food)
@@ -649,7 +650,7 @@ deg100.L5.gonad.by.food <- deg100.L5.gonad.by.food[1:100,]
 deg100.L5.gonad.by.food <- apply.annotation(deg100.L5.gonad.by.food, ann)
 
 # Save results
-write.csv(as.data.frame(deg100.L5.gonad.by.food), "deg100.L5.gonad.by.food.csv")
+write.table(as.data.frame(deg100.L5.gonad.by.food), "deg100.L5.gonad.by.food.tsv", quote = FALSE)
 save(meta.i, cts.i, dds.L5.gonad.by.food, ctn.L5.gonad.by.food, res.L5.gonad.by.food, vsd.L5.gonad.by.food, deg100.L5.gonad.by.food,
      file = "L5.gonad.by.food.rda")
 rm(meta.i, cts.i, dds.L5.gonad.by.food, ctn.L5.gonad.by.food, res.L5.gonad.by.food, vsd.L5.gonad.by.food)
@@ -703,15 +704,63 @@ deg100.L5.thorax.by.food <- deg100.L5.thorax.by.food[1:100,]
 deg100.L5.thorax.by.food <- apply.annotation(deg100.L5.thorax.by.food, ann)
 
 # Save results
-write.csv(as.data.frame(deg100.L5.thorax.by.food), "deg100.L5.thorax.by.food.csv")
+write.table(as.data.frame(deg100.L5.thorax.by.food), "deg100.L5.thorax.by.food.tsv", quote = FALSE)
 save(meta.i, cts.i, dds.L5.thorax.by.food, ctn.L5.thorax.by.food, res.L5.thorax.by.food, vsd.L5.thorax.by.food, deg100.L5.thorax.by.food,
      file = "L5.thorax.by.food.rda")
 rm(meta.i, cts.i, dds.L5.thorax.by.food, ctn.L5.thorax.by.food, res.L5.thorax.by.food, vsd.L5.thorax.by.food)
 # load("L5.thorax.by.food.rda", verbose = TRUE)
 
-
-
 save(ann, apply.annotation, cts, deg100.adult.gonad.by.food, deg100.adult.gonad.by.morph, deg100.adult.gonad.by.sex, deg100.adult.thorax.by.food, deg100.adult.thorax.by.morph, deg100.adult.thorax.by.sex, deg100.L5.gonad.by.sex, deg100.L5.thorax.by.sex, deg100.L5.gonad.by.food, deg100.L5.thorax.by.food, gene.read.number.cut.off, sample.metadata,
      file = "dge.analysis.rda")
 save(deg100.adult.gonad.by.food, deg100.adult.gonad.by.morph, deg100.adult.gonad.by.sex, deg100.adult.thorax.by.food, deg100.adult.thorax.by.morph, deg100.adult.thorax.by.sex, deg100.L5.gonad.by.sex, deg100.L5.thorax.by.sex, deg100.L5.gonad.by.food, deg100.L5.thorax.by.food,
      file = "deg100s.rda")
+
+###################
+# Enrichment Analysis
+###################
+# Enrichment Analysis for GO, KEGG and EggNOG Protein Domain terms 
+# was performed using the hypergeometric test as implemented in stats::phyper
+# 
+# source('enrichment.R')
+
+load("enrichment.pvalues.rda",verbose = TRUE)
+
+top.go.terms <- function(x, top = 10, return.string = TRUE) {
+  require(GO.db)
+  require(stringr)
+  
+  ids <- names(sort(p.adjust(x, method = "fdr")))
+  
+  # Exclude level 0 and level 1 terms
+  ids <- ids[!grepl("L=0",ids)]
+  ids <- ids[!grepl("L=1",ids)]
+  
+  ids <- strtrim(ids,10)
+  ids <- ids[which(!is.na(GOID(ids)))]
+  ids <- ids[1:top]
+  
+  long.ids <- unlist(lapply(ids, function(i) { names(x)[grep(i,names(x))] }))
+  Levels <- sub("\\)","",str_split_fixed(long.ids,"=",2)[,2])
+  p.values <- unlist(lapply(ids, function(i) { x[grep(i,names(x))] }))
+  FDR <- unlist(lapply(ids, function(i) { p.adjust(x, method = "fdr")[grep(i,names(x))] }))
+  GOTerms <- Term(ids)
+  
+  if (return.string) {
+    s <- paste0(long.ids, " ", GOTerms, ", ", signif(FDR,4), collapse = "; ")
+    s <- gsub("\\de-","×10^-",s)
+    return(s)
+  } else {
+    df <- data.frame(
+      id = ids,
+      level = Levels,
+      p = p.values,
+      FDR,
+      term = GOTerms
+    )
+    rownames(df) <- 1:top
+    return(df)
+  }
+} # End function
+
+
+
