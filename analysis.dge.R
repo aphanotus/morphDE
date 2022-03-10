@@ -7,6 +7,7 @@ gc(verbose = TRUE)
   library(DESeq2)
   library(IHW)
   library(pheatmap)
+  library(ggpubr)
 }
 
 ###################
