@@ -725,42 +725,6 @@ save(deg100.adult.gonad.by.food, deg100.adult.gonad.by.morph, deg100.adult.gonad
 
 load("enrichment.pvalues.rda",verbose = TRUE)
 
-top.go.terms <- function(x, top = 10, return.string = TRUE) {
-  require(GO.db)
-  require(stringr)
-  
-  ids <- names(sort(p.adjust(x, method = "fdr")))
-  
-  # Exclude level 0 and level 1 terms
-  ids <- ids[!grepl("L=0",ids)]
-  ids <- ids[!grepl("L=1",ids)]
-  
-  ids <- strtrim(ids,10)
-  ids <- ids[which(!is.na(GOID(ids)))]
-  ids <- ids[1:top]
-  
-  long.ids <- unlist(lapply(ids, function(i) { names(x)[grep(i,names(x))] }))
-  Levels <- sub("\\)","",str_split_fixed(long.ids,"=",2)[,2])
-  p.values <- unlist(lapply(ids, function(i) { x[grep(i,names(x))] }))
-  FDR <- unlist(lapply(ids, function(i) { p.adjust(x, method = "fdr")[grep(i,names(x))] }))
-  GOTerms <- Term(ids)
-  
-  if (return.string) {
-    s <- paste0(long.ids, " ", GOTerms, ", ", signif(FDR,4), collapse = "; ")
-    s <- gsub("\\de-","×10^-",s)
-    return(s)
-  } else {
-    df <- data.frame(
-      id = ids,
-      level = Levels,
-      p = p.values,
-      FDR,
-      term = GOTerms
-    )
-    rownames(df) <- 1:top
-    return(df)
-  }
-} # End function
 
 
 
