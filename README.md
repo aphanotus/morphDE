@@ -136,17 +136,32 @@ The resulting output files were then merged into a single comma-separated values
 
 ## Differential gene expression analysis
 
-Gene expression differences were examined using the Bioconductor package DESeq2 version 1.32.0 ([Love et al. 2014](https://genomebiology.biomedcentral.com/articles/10.1186/s13059-014-0550-8)) in R version 4.1.1 ([R Core Team 2021](https://www.R-project.org/)). The function `DESeq` fits a generalized linear model where counts are modeled using a negative binomial distribution with a gene-specific dispersion parameter. Means were estimated using approximate posterior estimation for generalized linear models ([Zhu et al. 2018](https://academic.oup.com/bioinformatics/article/35/12/2084/5159452)). We extracted log<sub>2</sub> fold-change and p-values corrected by independent hypothesis weighing ([Ignatiadis et al. 2016](https://www.nature.com/articles/nmeth.3885)) and applied a critical threshold of 0.05. Contrasts were made for sex, wing morph and food regime, after accounting for batch effects (multiple sequencing runs). Data were analyzed separately for each stage (fifth instar juveniles and nascent adults) and for each tissue (thorax and gonads). Differential gene expression was visualized by customized plots generated using ggplot2. 
-
-> Variance stabilizing transformation, using the function `vst`,  was applied before ordination using principle component analysis. :information_source: **I'm flagging this text, because I'm not sure if we will actually show any PCA plots.**
+Gene expression differences were examined using the Bioconductor package DESeq2 version 1.32.0 ([Love et al. 2014](https://genomebiology.biomedcentral.com/articles/10.1186/s13059-014-0550-8)) in R version 4.1.1 ([R Core Team 2021](https://www.R-project.org/)). The function `DESeq` fits a generalized linear model where counts are modeled using a negative binomial distribution with a gene-specific dispersion parameter. Means were estimated using approximate posterior estimation for generalized linear models ([Zhu et al. 2018](https://academic.oup.com/bioinformatics/article/35/12/2084/5159452)). We extracted log<sub>2</sub> fold-change and p-values corrected by independent hypothesis weighing ([Ignatiadis et al. 2016](https://www.nature.com/articles/nmeth.3885)) and applied a critical threshold of 0.05. Contrasts were made for sex, wing morph and food regime, after accounting for batch effects (multiple sequencing runs). Data were analyzed separately for each stage (fifth instar juveniles and nascent adults) and for each tissue (thorax and gonads). Differential gene expression was visualized by customized plots generated using ggplot2. Variance stabilizing transformation, using the function `vst`,  was applied before ordination using principle component analysis.
 
 > For more details see the R script [`analysis.dge.R`](https://github.com/aphanotus/morphDE/blob/main/analysis.dge.R)
 
+Batch effects were introduced by the need to sequence samples in multiple lanes (Figure S1).
+
+![](https://i.imgur.com/MAjpAP7.jpg)
+
+**Figure S1**. Principle components of uncorrected counts, color-coded by biological factors (A) and sequencing batch (B). 
+
+DESeq2 allows variance from confounding factors, such as sequencing batch, to be accounted for through generalized linear modeling. The normalized counts that result from the model then reflect biologically meaningful variance (Figure S2).
+
+<img src="https://i.imgur.com/XFd0Alf.jpg =300x" style="zoom:30%;" />
+
+**Figure S2**. Principle components of transcript counts for each sample, following normalization for sequencing run (batch). Samples are color-coded by biological origin. 
+
+More complex models can be applied to examine specific contrasts of biological interest. These models partition the variance in gene expression sequentially to factors in the model. For more complex models, less power exists to detect differences, but it allows for the influence of multiple factors to be disentangle from one another. 
+
+
 ![](https://i.imgur.com/098suDV.jpg)
 
-**Figure S1**. Volcano plots, showing log<sub>2</sub> fold-change (LFC) and -log<sub>10</sub> FDR-adjusted p-values for each dataset and contrast. Genes are highlighted in red if they have an absolute LFC values > 1 (two-fold difference) and an FDR-adjusted p-value < 10<sup>-3</sup> (panels A-C,F-G) or 0.05 (panels D-E,H-J). These thresholds are indicated by vertical and horizontal lines. Highlighted transcript are annotated where possible. 
+**Figure S3**. Volcano plots, showing log<sub>2</sub> fold-change (LFC) and -log<sub>10</sub> FDR-adjusted p-values for each dataset and contrast. Genes are highlighted in red if they have an absolute LFC values > 1 (two-fold difference) and an FDR-adjusted p-value < 10<sup>-3</sup> (panels A-C,F-G) or 0.05 (panels D-E,H-J). These thresholds are indicated by vertical and horizontal lines. Highlighted transcript are annotated where possible. 
 
 > **Results**: Notice that fewer transcripts show differential expression in the juvenile datasets compared adults (e.g. A vs. B and F vs. G). Sex is a much more dominant factor in gene expression in the gonad (G), compared to the thorax (B). Many genes, especially those related to muscle and energy metabolism, are up-regulated in the thorax of long-winged adults (C). However the gonads show relatively few expression differences between morphs, after accounting for the significant differences imposed by sex (H). After modeling other factors, food regime has a comparatively small influence on gene expression (D,E,I,J).
+
+## Enrichment analysis
 
 Enrichment analyses were performed based on annotations with terms from the GO and KEGG ontologies, as well as EggNOG protein domains, applied to transcripts by EnTAP. We also tested for enrichment of xenic or contaminant transcripts among those that were differentially expressed, and neither of these categories was significantly over-represented. For each term, p-values from the hypergeometric test, implemented in the base R function `phyper`, were adjusted for false discovery rates (FDR).  
 

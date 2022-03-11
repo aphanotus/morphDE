@@ -222,6 +222,11 @@ enrichment.go.L5.gonad.by.sex <- enrichment.go(res.L5.gonad.by.sex, ann)
 enrichment.go.L5.gonad.by.food <- enrichment.go(res.L5.gonad.by.food, ann)
 enrichment.go.L5.thorax.by.sex <- enrichment.go(res.L5.thorax.by.sex, ann)
 enrichment.go.L5.thorax.by.food <- enrichment.go(res.L5.thorax.by.food, ann)
+enrichment.go.ovaries.by.morph <- enrichment.go(res.ovaries.by.morph, ann)
+enrichment.go.ovaries.by.stage <- enrichment.go(res.ovaries.by.stage, ann)
+enrichment.go.testes.by.morph <- enrichment.go(res.testes.by.morph, ann)
+enrichment.go.testes.by.stage <- enrichment.go(res.testes.by.stage, ann)
+enrichment.go.thorax.by.stage <- enrichment.go(res.thorax.by.stage, ann)
 
 enrichment.kegg.adult.thorax.by.sex <- enrichment.kegg(res.adult.thorax.by.sex, ann)
 enrichment.kegg.adult.gonad.by.sex <- enrichment.kegg(res.adult.gonad.by.sex, ann)
@@ -233,6 +238,11 @@ enrichment.kegg.L5.gonad.by.sex <- enrichment.kegg(res.L5.gonad.by.sex, ann)
 enrichment.kegg.L5.gonad.by.food <- enrichment.kegg(res.L5.gonad.by.food, ann)
 enrichment.kegg.L5.thorax.by.sex <- enrichment.kegg(res.L5.thorax.by.sex, ann)
 enrichment.kegg.L5.thorax.by.food <- enrichment.kegg(res.L5.thorax.by.food, ann)
+enrichment.kegg.ovaries.by.morph <- enrichment.kegg(res.ovaries.by.morph, ann)
+enrichment.kegg.ovaries.by.stage <- enrichment.kegg(res.ovaries.by.stage, ann)
+enrichment.kegg.testes.by.morph <- enrichment.kegg(res.testes.by.morph, ann)
+enrichment.kegg.testes.by.stage <- enrichment.kegg(res.testes.by.stage, ann)
+enrichment.kegg.thorax.by.stage <- enrichment.kegg(res.thorax.by.stage, ann)
 
 enrichment.pd.adult.thorax.by.sex <- enrichment.pd(res.adult.thorax.by.sex, ann)
 enrichment.pd.adult.gonad.by.sex <- enrichment.pd(res.adult.gonad.by.sex, ann)
@@ -244,6 +254,11 @@ enrichment.pd.L5.gonad.by.sex <- enrichment.pd(res.L5.gonad.by.sex, ann)
 enrichment.pd.L5.gonad.by.food <- enrichment.pd(res.L5.gonad.by.food, ann)
 enrichment.pd.L5.thorax.by.sex <- enrichment.pd(res.L5.thorax.by.sex, ann)
 enrichment.pd.L5.thorax.by.food <- enrichment.pd(res.L5.thorax.by.food, ann)
+enrichment.pd.ovaries.by.morph <- enrichment.pd(res.ovaries.by.morph, ann)
+enrichment.pd.ovaries.by.stage <- enrichment.pd(res.ovaries.by.stage, ann)
+enrichment.pd.testes.by.morph <- enrichment.pd(res.testes.by.morph, ann)
+enrichment.pd.testes.by.stage <- enrichment.pd(res.testes.by.stage, ann)
+enrichment.pd.thorax.by.stage <- enrichment.pd(res.thorax.by.stage, ann)
 
 enrichment.xenic.adult.thorax.by.sex <- enrichment.xenic(res.adult.thorax.by.sex, ann)
 enrichment.xenic.adult.gonad.by.sex <- enrichment.xenic(res.adult.gonad.by.sex, ann)
@@ -255,12 +270,19 @@ enrichment.xenic.L5.gonad.by.sex <- enrichment.xenic(res.L5.gonad.by.sex, ann)
 enrichment.xenic.L5.gonad.by.food <- enrichment.xenic(res.L5.gonad.by.food, ann)
 enrichment.xenic.L5.thorax.by.sex <- enrichment.xenic(res.L5.thorax.by.sex, ann)
 enrichment.xenic.L5.thorax.by.food <- enrichment.xenic(res.L5.thorax.by.food, ann)
+enrichment.xenic.ovaries.by.morph <- enrichment.xenic(res.ovaries.by.morph, ann)
+enrichment.xenic.ovaries.by.stage <- enrichment.xenic(res.ovaries.by.stage, ann)
+enrichment.xenic.testes.by.morph <- enrichment.xenic(res.testes.by.morph, ann)
+enrichment.xenic.testes.by.stage <- enrichment.xenic(res.testes.by.stage, ann)
+enrichment.xenic.thorax.by.stage <- enrichment.xenic(res.thorax.by.stage, ann)
 
 save(
   enrichment.go.adult.thorax.by.sex, enrichment.go.adult.gonad.by.sex, enrichment.go.adult.thorax.by.morph, enrichment.go.adult.gonad.by.morph, enrichment.go.adult.thorax.by.food, enrichment.go.adult.gonad.by.food, enrichment.go.L5.gonad.by.sex, enrichment.go.L5.gonad.by.food, enrichment.go.L5.thorax.by.sex, enrichment.go.L5.thorax.by.food,
   enrichment.kegg.adult.thorax.by.sex, enrichment.kegg.adult.gonad.by.sex, enrichment.kegg.adult.thorax.by.morph, enrichment.kegg.adult.gonad.by.morph, enrichment.kegg.adult.thorax.by.food, enrichment.kegg.adult.gonad.by.food, enrichment.kegg.L5.gonad.by.sex, enrichment.kegg.L5.gonad.by.food, enrichment.kegg.L5.thorax.by.sex, enrichment.kegg.L5.thorax.by.food,
   enrichment.pd.adult.thorax.by.sex, enrichment.pd.adult.gonad.by.sex, enrichment.pd.adult.thorax.by.morph, enrichment.pd.adult.gonad.by.morph, enrichment.pd.adult.thorax.by.food, enrichment.pd.adult.gonad.by.food, enrichment.pd.L5.gonad.by.sex, enrichment.pd.L5.gonad.by.food, enrichment.pd.L5.thorax.by.sex, enrichment.pd.L5.thorax.by.food,
   enrichment.xenic.adult.thorax.by.sex, enrichment.xenic.adult.gonad.by.sex, enrichment.xenic.adult.thorax.by.morph, enrichment.xenic.adult.gonad.by.morph, enrichment.xenic.adult.thorax.by.food, enrichment.xenic.adult.gonad.by.food, enrichment.xenic.L5.gonad.by.sex, enrichment.xenic.L5.gonad.by.food, enrichment.xenic.L5.thorax.by.sex, enrichment.xenic.L5.thorax.by.food,
+  enrichment.go.ovaries.by.morph, enrichment.go.ovaries.by.stage, enrichment.go.testes.by.morph, enrichment.go.testes.by.stage, enrichment.go.thorax.by.stage, enrichment.kegg.ovaries.by.morph, enrichment.kegg.ovaries.by.stage, enrichment.kegg.testes.by.morph, enrichment.kegg.testes.by.stage, enrichment.kegg.thorax.by.stage, 
+  enrichment.pd.ovaries.by.morph, enrichment.pd.ovaries.by.stage, enrichment.pd.testes.by.morph, enrichment.pd.testes.by.stage, enrichment.pd.thorax.by.stage, enrichment.xenic.ovaries.by.morph, enrichment.xenic.ovaries.by.stage, enrichment.xenic.testes.by.morph, enrichment.xenic.testes.by.stage, enrichment.xenic.thorax.by.stage,
   file="enrichment.pvalues.rda"
 )
 

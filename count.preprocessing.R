@@ -111,8 +111,22 @@ rownames(sample.metadata) <- sub("_UMI_S\\d+","",rownames(sample.metadata))
 sample.metadata <- sample.metadata[order(rownames(sample.metadata)),]
 all(rownames(sample.metadata) == colnames(cts))
 
+# Define a grouping factor with plain English descriptions
+{
+  grp <- with(sample.metadata, paste(tissue,sex,stage))
+  grp <- sub("abdomen","gonad",grp)
+  grp <- sub("L5","juvenile",grp)
+  grp <- sub(" f "," female ",grp)
+  grp <- sub(" m "," male ",grp)
+  grp <- as.factor(grp)
+  # levels(grp)
+  grp <- factor(grp, levels = levels(grp)[c(6,5,8,7,2,1,4,3)])
+  levels(grp)
+}
+
 # Save the resulting count table and metadata
-save(cts, sample.metadata, file = "combined.counts.rda")
+save(cts, sample.metadata, grp,
+     file = "combined.counts.rda")
 # load("combined.counts.rda", verbose = TRUE)
 
 # Clean up memory
