@@ -286,6 +286,14 @@ save(
   file="enrichment.pvalues.rda"
 )
 
+# Number of significant terms
+unlist(lapply(ls()[grep("^enrichment",ls())], function (x) {
+  sig <- sum(p.adjust(get(x), method = "fdr") < 0.05, na.rm = TRUE)
+  names(sig) <- x
+  return(sig)
+}) )
+
+# Find the top GO term descriptions via API 
 top.go.terms <- function(x, top = 10, return.string = TRUE) {
   require(GO.db)
   require(stringr)
@@ -322,4 +330,45 @@ top.go.terms <- function(x, top = 10, return.string = TRUE) {
     return(df)
   }
 } # End function
+
+ls()[grep("enrichment\\.go",ls())]
+top.go.terms(enrichment.go.adult.gonad.by.morph)
+top.go.terms(enrichment.go.adult.thorax.by.morph)
+top.go.terms(enrichment.go.adult.thorax.by.sex)
+top.go.terms(enrichment.go.L5.gonad.by.sex)
+top.go.terms(enrichment.go.L5.thorax.by.food)
+top.go.terms(enrichment.go.ovaries.by.morph)
+top.go.terms(enrichment.go.ovaries.by.stage)
+top.go.terms(enrichment.go.testes.by.morph)
+top.go.terms(enrichment.go.thorax.by.stage)
+
+# Finding descriptions of the KEGG and EggNOG terms must be done manually
+ls()[grep("enrichment\\.kegg",ls())]
+# https://www.genome.jp/kegg/kegg2.html
+head(sort(p.adjust(enrichment.kegg.adult.gonad.by.food, method = "fdr")),2)
+head(sort(p.adjust(enrichment.kegg.adult.gonad.by.morph, method = "fdr")),10)
+head(sort(p.adjust(enrichment.kegg.adult.thorax.by.morph, method = "fdr")),10)
+head(sort(p.adjust(enrichment.kegg.adult.thorax.by.sex, method = "fdr")),3)
+head(sort(p.adjust(enrichment.kegg.L5.gonad.by.sex, method = "fdr")),10)
+head(sort(p.adjust(enrichment.kegg.ovaries.by.morph, method = "fdr")),10)
+head(sort(p.adjust(enrichment.kegg.testes.by.morph, method = "fdr")),7)
+head(sort(p.adjust(enrichment.kegg.thorax.by.stage, method = "fdr")),10)
+
+ls()[grep("enrichment\\.pd",ls())]
+# 
+head(sort(p.adjust(enrichment.pd.adult.gonad.by.food, method = "fdr")),8)
+head(sort(p.adjust(enrichment.pd.adult.gonad.by.morph, method = "fdr")),10)
+head(sort(p.adjust(enrichment.pd.adult.thorax.by.food, method = "fdr")),5)
+head(sort(p.adjust(enrichment.pd.adult.thorax.by.morph, method = "fdr")),10)
+head(sort(p.adjust(enrichment.pd.adult.thorax.by.sex, method = "fdr")),10)
+head(sort(p.adjust(enrichment.pd.L5.gonad.by.food, method = "fdr")),4)
+head(sort(p.adjust(enrichment.pd.L5.gonad.by.sex, method = "fdr")),10)
+head(sort(p.adjust(enrichment.pd.L5.thorax.by.food, method = "fdr")),7)
+head(sort(p.adjust(enrichment.pd.L5.thorax.by.sex, method = "fdr")),10)
+head(sort(p.adjust(enrichment.pd.ovaries.by.morph, method = "fdr")),10)
+head(sort(p.adjust(enrichment.pd.ovaries.by.stage, method = "fdr")),5)
+head(sort(p.adjust(enrichment.pd.testes.by.morph, method = "fdr")),7)
+head(sort(p.adjust(enrichment.pd.thorax.by.stage, method = "fdr")),10)
+
+
 
