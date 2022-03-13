@@ -96,7 +96,7 @@ HEADCROP:16 LEADING:3 TRAILING:3 SLIDINGWINDOW:3:15 MINLEN:79
 **Table S2**: Read numbers before and after quality filtering.
 
 | batch   |     raw reads | filtered reads | passing filter |
-| :------ | ------------: | -------------: | -------------- |
+| :------ | ------------: | -------------: | --------------:|
 | 1       |   341,370,316 |    323,188,378 | 94.7%          |
 | 2       |   321,564,969 |    313,590,249 | 97.5%          |
 | 3       |   484,588,962 |    419,931,564 | 86.7%          |
@@ -176,22 +176,25 @@ Sex is often an important factor effecting gene expression. While it is not our 
 
 > Add here!
 
+![](https://i.imgur.com/4nVEJ74.jpg)
+
+**Figure S4**. Volcano plots, showing log<sub>2</sub> fold-change (LFC) and -log<sub>10</sub> FDR-adjusted p-values for contrasts by morph in the adult thorax (A), adult gonads (B), adult ovaries (C) and adult testes (D). Genes are highlighted in red if they have an absolute LFC values > 1 (two-fold difference) and an FDR-adjusted p-value < 10<sup>-3</sup>  (panels A) or 0.05 (panels B-D). Highlighted transcript are annotated where possible. 
+
 #### Expression differences by stage
 
 > Add here!
+
+![](https://i.imgur.com/oWMTfAk.jpg)
+
+**Figure S5**. Volcano plots, showing log<sub>2</sub> fold-change (LFC) and -log<sub>10</sub> FDR-adjusted p-values for contrasts by stage in the thorax (A), ovaries (B), and testes (C). Genes are highlighted in red if they have an absolute LFC values > 1 (two-fold difference) and an FDR-adjusted p-value < 10<sup>-3</sup>. Highlighted transcript are annotated where possible. 
 
 #### Expression differences by food regime
 
 > Add here!
 
+![](https://i.imgur.com/OBvuwg7.jpg)
 
-
-
-
-
-
-
-
+**Figure S5**. Volcano plots, showing log<sub>2</sub> fold-change (LFC) and -log<sub>10</sub> FDR-adjusted p-values for contrasts by food regime in the juvenile thorax (A), adult thorax (B), juvenile gonads (C), and adult gonads (D). Genes are highlighted in red if they have an absolute LFC values > 1 (two-fold difference) and an FDR-adjusted p-value < 0.05. Highlighted transcript are annotated where possible. 
 
 
 

@@ -1116,7 +1116,7 @@ volcano.plot <- function(
   volcano.plots.by.stage <- list()
   volcano.plots.by.stage[[1]] <- 
     volcano.plot(res.thorax.by.stage[,1:5], max.overlaps = 40, reverseLFC = TRUE,
-                 title = "Expression in adult thorax ~ batch + sex + stage",
+                 title = "Expression in thorax ~ batch + sex + stage",
                  rightLabel = "juvenile", leftLabel = "adult")
   volcano.plots.by.stage[[2]] <- ggplot() + theme_void() + geom_blank()
   volcano.plots.by.stage[[3]] <- 
