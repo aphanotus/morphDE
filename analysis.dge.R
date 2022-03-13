@@ -1018,15 +1018,20 @@ add.manual.annotations <- function(res) {
 }
 
 volcano.plot <- function(
-  res, pCutoff = 1e-3, FCcutoff = 1, title = NULL, caption = NULL,
+  res, pCutoff = 1e-3, FCcutoff = 1, reverseLFC = FALSE,
+  rightLabel = "LFC < 0", leftLabel = "LFC > 0",
+  title = NULL, caption = NULL,
   text.col = "grey15", max.overlaps = 100) 
 {
-  require(ggplot2)
   require(magrittr)
+  require(ggplot2)
   require(ggrepel)
+  # require(grid)
   require(paletteer)
-  res <- apply.annotation(res, ann)
   
+  if (reverseLFC) { res$log2FoldChange <- -res$log2FoldChange }
+  
+  res <- apply.annotation(res, ann)
   res$highlight <- (abs(res$log2FoldChange)>FCcutoff & res$padj<pCutoff ) 
   if (!("manual.ann" %in% colnames(res))) {
     cat("Adding annotations.\n")
@@ -1036,79 +1041,129 @@ volcano.plot <- function(
   plot.labels <- res$manual.ann
   plot.labels[which(!res$highlight)] <- NA
   
+  # Text reporting the number of up and down regulated DEGs
+  degs.up <- sum(res$padj < pCutoff & res$log2FoldChange > 0, na.rm = TRUE)
+  degs.down <- sum(res$padj < pCutoff & res$log2FoldChange < 0, na.rm = TRUE)
+  degs.up.pct <- paste0(" (",signif((degs.up/dim(res)[1])*100,3),"%)")
+  degs.down.pct <- paste0(" (",signif((degs.down/dim(res)[1])*100,3),"%)")
+  deg.text <- paste0(rightLabel,"-biased: ",degs.down,degs.down.pct,
+    ", ",leftLabel,"-biased: ",degs.up,degs.up.pct,
+    ", at p-value cutoff ",pCutoff )
+
+  # Text indicating right and left biases in the LFC
+  rightLabel <- grobTree(textGrob(rightLabel, x=0.05,  y=0.925, hjust=0, gp=gpar(col="grey70", fontsize=12, fontface="bold")))
+  leftLabel  <- grobTree(textGrob(leftLabel,  x=0.95,  y=0.925, hjust=1, gp=gpar(col="grey70", fontsize=12, fontface="bold")))
+  
   res %>% 
     ggplot(aes(x=log2FoldChange, y=-log10(padj), color=highlight)) +
     theme_bw() +
     theme(
+      plot.title = element_text(size=12),
       legend.position="none",
       panel.grid.minor = element_blank() ) +
-    geom_point(alpha=0.65) +
-    geom_hline(yintercept = -log10(pCutoff), color = "gray75") +
-    geom_vline(xintercept = c(-FCcutoff,FCcutoff), color = "gray75") +
-    geom_text_repel(aes(label=plot.labels), color=text.col, max.overlaps = max.overlaps) +
+    geom_vline(xintercept = 0, color = "grey35") +
+    annotation_custom(rightLabel) +
+    annotation_custom(leftLabel) +
+    geom_point(size = 0.5, alpha=0.65) +
+    geom_text_repel(aes(label=plot.labels), max.overlaps = max.overlaps,
+                    color=text.col, size = 2.5 ) +
     scale_color_manual(values=c("grey40","#A60021")) +
     labs(x="log2 fold change", y = "-log10 p",
-         title = title, caption = caption)
+         title = title, caption = deg.text)
 } # End function
 
 {
-  vplots <- list()
-  
-  vplots[[1]] <- 
-    volcano.plot(res.L5.thorax.by.sex[,1:5], pCutoff = 0.05, 
+  volcano.plots.by.sex <- list()
+  volcano.plots.by.sex[[1]] <- 
+    volcano.plot(res.L5.thorax.by.sex[,1:5], pCutoff = 0.05, reverseLFC = TRUE,
                  title = "Expression in juvenile thorax ~ batch + sex",
-                 caption = "Positive LFC values indicate male expression bias")
-  
-  vplots[[2]] <- 
-    volcano.plot(res.adult.thorax.by.sex[,1:5], 
+                 rightLabel = "male", leftLabel = "female")
+  volcano.plots.by.sex[[2]] <- 
+    volcano.plot(res.adult.thorax.by.sex[,1:5], reverseLFC = TRUE,
                  title = "Expression in adult thorax ~ batch + sex",
-                 caption = "Positive LFC values indicate male expression bias")
-  
-  vplots[[3]] <- 
-    volcano.plot(res.adult.thorax.by.morph[,1:5], 
-                 title = "Expression in adult thorax ~ batch + sex + morph",
-                 caption = "Positive LFC values indicate long-wing expression bias")
-  
-  
-  vplots[[4]] <- 
-    volcano.plot(res.L5.thorax.by.food[,1:5], pCutoff = 0.05, 
-                 title = "Expression in juvenile thorax ~ batch + sex + food regime",
-                 caption = "Positive LFC values indicate low food expression bias")
-  
-  vplots[[5]] <- 
-    volcano.plot(res.adult.thorax.by.food[,1:5], pCutoff = 0.05, 
-                 title = "Expression in adult thorax ~ batch + sex + morph + food regime",
-                 caption = "Positive LFC values indicate low food expression bias")
-  
-  vplots[[6]] <- 
-    volcano.plot(res.L5.gonad.by.sex[,1:5], max.overlaps = 50,
+                 rightLabel = "male", leftLabel = "female")
+  volcano.plots.by.sex[[3]] <- 
+    volcano.plot(res.L5.gonad.by.sex[,1:5], max.overlaps = 50, reverseLFC = TRUE,
                  title = "Expression in juvenile gonad ~ batch + sex",
-                 caption = "Positive LFC values indicate male expression bias")
-  
-  vplots[[7]] <- 
-    volcano.plot(res.adult.gonad.by.sex[,1:5], max.overlaps = 20,
+                 rightLabel = "male", leftLabel = "female")
+  volcano.plots.by.sex[[4]] <- 
+    volcano.plot(res.adult.gonad.by.sex[,1:5], max.overlaps = 20, reverseLFC = TRUE,
                  title = "Expression in adult gonad ~ batch + sex",
-                 caption = "Positive LFC values indicate male expression bias")
-  
-  vplots[[8]] <- 
-    volcano.plot(res.adult.gonad.by.morph[,1:5], pCutoff = 0.05, 
-                 title = "Expression in adult gonad ~ batch + sex + morph",
-                 caption = "Positive LFC values indicate long-wing expression bias")
-  
-  vplots[[9]] <- 
-    volcano.plot(res.L5.gonad.by.food[,1:5], pCutoff = 0.05, 
-                 title = "Expression in juvenile gonad ~ batch + sex + food regime",
-                 caption = "Positive LFC values indicate low food expression bias")
-  
-  vplots[[10]] <- 
-    volcano.plot(res.adult.gonad.by.food[,1:5], pCutoff = 0.05, 
-                 title = "Expression in adult gonad ~ batch + sex + morph + food regime",
-                 caption = "Positive LFC values indicate low food expression bias")
+                 rightLabel = "male", leftLabel = "female")
 }
 
-bigplot <- ggarrange(plotlist = vplots, ncol = 5, nrow = 2, labels="AUTO")
+{
+  volcano.plots.by.morph <- list()
+  volcano.plots.by.morph[[1]] <- 
+    volcano.plot(res.adult.thorax.by.morph[,1:5], 
+                 title = "Expression in adult thorax ~ batch + sex + morph",
+                 rightLabel = "short wing", leftLabel = "long wing")
+  volcano.plots.by.morph[[2]] <- 
+    volcano.plot(res.adult.gonad.by.morph[,1:5], pCutoff = 0.05, 
+                 title = "Expression in adult gonad ~ batch + sex + morph",
+                 rightLabel = "short wing", leftLabel = "long wing")
+  volcano.plots.by.morph[[3]] <- 
+    volcano.plot(res.ovaries.by.morph[,1:5], pCutoff = 0.05, 
+                 title = "Expression in adult ovaries ~ batch + morph",
+                 rightLabel = "short wing", leftLabel = "long wing")
+  volcano.plots.by.morph[[4]] <- 
+    volcano.plot(res.testes.by.morph[,1:5], pCutoff = 0.05, 
+                 title = "Expression in adult testes ~ batch + morph",
+                 rightLabel = "short wing", leftLabel = "long wing")
+}
 
-ggsave("plots/volcano.plots.jpg", plot = bigplot, width = 25, height = 10, scale = 1.2)
+{
+  volcano.plots.by.stage <- list()
+  volcano.plots.by.stage[[1]] <- 
+    volcano.plot(res.thorax.by.stage[,1:5], max.overlaps = 40, reverseLFC = TRUE,
+                 title = "Expression in adult thorax ~ batch + sex + stage",
+                 rightLabel = "juvenile", leftLabel = "adult")
+  volcano.plots.by.stage[[2]] <- ggplot() + theme_void() + geom_blank()
+  volcano.plots.by.stage[[3]] <- 
+    volcano.plot(res.ovaries.by.stage[,1:5], max.overlaps = 40, reverseLFC = TRUE, 
+                 title = "Expression in ovaries ~ batch + stage",
+                 rightLabel = "juvenile", leftLabel = "adult")
+  volcano.plots.by.stage[[4]] <- 
+    volcano.plot(res.testes.by.stage[,1:5], max.overlaps = 40, reverseLFC = TRUE,
+                 title = "Expression in testes ~ batch + stage",
+                 rightLabel = "juvenile", leftLabel = "adult")
+}
+
+{
+  volcano.plots.by.food <- list()
+  volcano.plots.by.food[[1]] <- 
+    volcano.plot(res.L5.thorax.by.food[,1:5], pCutoff = 0.05, reverseLFC = TRUE,
+                 title = "Expression in juvenile thorax ~ batch + sex + food regime",
+                 rightLabel = "low food", leftLabel = "high food")
+  volcano.plots.by.food[[2]] <- 
+    volcano.plot(res.adult.thorax.by.food[,1:5], pCutoff = 0.05, reverseLFC = TRUE,
+                 title = "Expression in adult thorax ~ batch + sex + morph + food regime",
+                 rightLabel = "low food", leftLabel = "high food")
+  volcano.plots.by.food[[3]] <- 
+    volcano.plot(res.L5.gonad.by.food[,1:5], pCutoff = 0.05, reverseLFC = TRUE,
+                 title = "Expression in juvenile gonad ~ batch + sex + food regime",
+                 rightLabel = "low food", leftLabel = "high food")
+  volcano.plots.by.food[[4]] <- 
+    volcano.plot(res.adult.gonad.by.food[,1:5], pCutoff = 0.05, reverseLFC = TRUE,
+                 title = "Expression in adult gonad ~ batch + sex + morph + food regime",
+                 rightLabel = "low food", leftLabel = "high food")
+}
+
+volcano.plots.by.sex.arranged <- ggarrange(plotlist = volcano.plots.by.sex, ncol = 2, nrow = 2, labels="AUTO")
+ggsave("plots/volcano.plots.by.sex.jpg", plot = volcano.plots.by.sex.arranged, width = 6.5, height = 6.5, scale = 1.5)
+ggsave("plots/volcano.plots.by.sex.pdf", plot = volcano.plots.by.sex.arranged, width = 6.5, height = 6.5, scale = 1.5)
+
+volcano.plots.by.morph.arranged <- ggarrange(plotlist = volcano.plots.by.morph, ncol = 2, nrow = 2, labels="AUTO")
+ggsave("plots/volcano.plots.by.morph.jpg", plot = volcano.plots.by.morph.arranged, width = 6.5, height = 6.5, scale = 1.5)
+ggsave("plots/volcano.plots.by.morph.pdf", plot = volcano.plots.by.morph.arranged, width = 6.5, height = 6.5, scale = 1.5)
+
+volcano.plots.by.stage.arranged <- ggarrange(plotlist = volcano.plots.by.stage, ncol = 2, nrow = 2, labels=c("A","","B","C"))
+ggsave("plots/volcano.plots.by.stage.jpg", plot = volcano.plots.by.stage.arranged, width = 6.5, height = 6.5, scale = 1.5)
+ggsave("plots/volcano.plots.by.stage.pdf", plot = volcano.plots.by.stage.arranged, width = 6.5, height = 6.5, scale = 1.5)
+
+volcano.plots.by.food.arranged <- ggarrange(plotlist = volcano.plots.by.food, ncol = 2, nrow = 2, labels="AUTO")
+ggsave("plots/volcano.plots.by.food.jpg", plot = volcano.plots.by.food.arranged, width = 6.5, height = 6.5, scale = 1.5)
+ggsave("plots/volcano.plots.by.food.pdf", plot = volcano.plots.by.food.arranged, width = 6.5, height = 6.5, scale = 1.5)
 
 
 

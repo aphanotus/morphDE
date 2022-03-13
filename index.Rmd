@@ -12,9 +12,9 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-> **Pre-submission DRAFT**.  Some of this text may be moved into the Methods section of the manuscript's main text. Details that may be important now, but should likely be removed before publication are given as block quotes.
-
-> ℹ️ While any process is running on nscc, you can monitor it's progress indirectly by checking the CPU usage on [node 26](http://schupflab.colby.edu/mrtg/nscc/nscc-n26.load.html) or [n28](http://schupflab.colby.edu/mrtg/nscc/nscc-n28.load.html).
+> **This is a pre-submission DRAFT**.  Some of this text will be moved into the Methods and Results section of the manuscript's main text. Other text may remain in supplemental materials. 
+> Details that may be important now, but should likely be removed before publication are given as block quotes.
+> ℹ️ While any process is running on nscc, you can monitor it's progress indirectly by checking the CPU usage on [NSCC node 28](http://schupflab.colby.edu/mrtg/nscc/nscc-n28.load.html).
 
 In order to characterize the development of polyphenic traits in the wings, flight muscles and gonads of the soapberry bug, *Jadera haematoloma*, we sequenced transcriptomes from a multidimensional matrix of life stage, tissue, sex, food regime and host population.
 
@@ -133,7 +133,7 @@ Mean and  standard deviation were calculated using `awk`.
 cat read.lengths.txt | awk '{for(i=1;i<=NF;i++) {sum[i] += $i; sumsq[i] += ($i)^2}} END {for (i=1;i<=NF;i++) { printf "%f %f \n", sum[i]/NR, sqrt((sumsq[i]-sum[i]^2/NR)/NR)} }'
 ```
 
-- mean = 84.892739  bp
+- mean = 84.892739 bp
 - SD = 0.507056 bp
 
 A [bash script](https://github.com/aphanotus/Jhae.genome/blob/main/Jhae.kallisto.mapping.sh) was used to run `kallisto quant` for each sample and to rename the output files with the sample names. 
@@ -164,12 +164,36 @@ DESeq2 allows variance from confounding factors, such as sequencing batch, to be
 
 More complex models can be applied to examine specific contrasts of biological interest. These models partition the variance in gene expression sequentially to factors in the model. For more complex models, less power exists to detect differences, but it allows for the influence of multiple factors to be disentangle from one another. 
 
+#### Expression differences by sex
 
-![](https://i.imgur.com/098suDV.jpg)
+Sex is often an important factor effecting gene expression. While it is not our focus of study, examining our dataset for differences between females and males in each tissue is a useful confirmation of these expectations (Figure S3. Moreover, sexually dimorphic gene expression has not previously been described in *J. haematoloma*. Genes were differentially expressed at both sampled stages and in both sampled tissues. Adults had a larger number of sexually dimorphic DEGs (84% in gonad; 29% in thorax) compared to juveniles (6.1% in gonads, 0.18% in thorax). The gonads also had more sexually dimorphic gene expression than did the thorax. Within the gonads, males had more significantly biased genes than did females, at both stages (Figure S3C-D). Several genes with roles in somatic sex determination were among these, including *doublesex* (*dsx*) and *transformer* [ref]. The histone acetyltransferase encoded by *mof* is known to increase expression on the X chromosome in *D. melanogaster* males (Smith et al. 2000), although the *mof* ortholog appears up-regulated in the  *J. haematoloma* female thorax (Fig S3B). In the adult gonad contrast, *upd* is significantly biased towards male expression. In *D. melanogaster* testis, *upd* is expressed by hub cells promote maintenance of spermatogenic stem cells (reviewed by Matunis et al 2012).
 
-**Figure S3**. Volcano plots, showing log<sub>2</sub> fold-change (LFC) and -log<sub>10</sub> FDR-adjusted p-values for each dataset and contrast. Genes are highlighted in red if they have an absolute LFC values > 1 (two-fold difference) and an FDR-adjusted p-value < 10<sup>-3</sup> (panels A-C,F-G) or 0.05 (panels D-E,H-J). These thresholds are indicated by vertical and horizontal lines. Highlighted transcript are annotated where possible. 
+![](https://i.imgur.com/EwuG9fW.jpg)
 
-> **Results**: Notice that fewer transcripts show differential expression in the juvenile datasets compared adults (e.g. A vs. B and F vs. G). Sex is a much more dominant factor in gene expression in the gonad (G), compared to the thorax (B). Many genes, especially those related to muscle and energy metabolism, are up-regulated in the thorax of long-winged adults (C). However the gonads show relatively few expression differences between morphs, after accounting for the significant differences imposed by sex (H). After modeling other factors, food regime has a comparatively small influence on gene expression (D,E,I,J).
+**Figure S3**. Volcano plots, showing log<sub>2</sub> fold-change (LFC) and -log<sub>10</sub> FDR-adjusted p-values for contrasts by sex in the juvenile thorax (A), adult thorax (B), juvenile gonads (C) and adult gonads (D). Genes are highlighted in red if they have an absolute LFC values > 1 (two-fold difference) and an FDR-adjusted p-value < 0.05 (panels A) or 10<sup>-3</sup>  (panels B-D). Highlighted transcript are annotated where possible. 
+
+#### Expression differences by morph
+
+> Add here!
+
+#### Expression differences by stage
+
+> Add here!
+
+#### Expression differences by food regime
+
+> Add here!
+
+
+
+
+
+
+
+
+
+
+
 
 ### Enrichment analysis
 
@@ -178,8 +202,6 @@ Enrichment analyses were performed based on annotations with terms from the GO a
 > For more details on the enrichment analysis see the R script [`enrichment.R`](https://github.com/aphanotus/morphDE/blob/main/enrichment.R)
 
 **Table S3**: Terms from GO and KEGG ontologies and EggNOG protein domains over-represented in differentially expressed genes in each dataset and contrast.
-
-<div class="table-wrapper" markdown="block">
 
 | tissue  | stage | contrast | ontology | enriched terms | top terms                                                    |
 | ------- | ----- | -------- | -------- | -------------- | ------------------------------------------------------------ |
@@ -229,5 +251,6 @@ Enrichment analyses were performed based on annotations with terms from the GO a
 | gonad   | adult | by food  | KEGG     | 2              | map04974 Protein digestion and absorption, 0.00304; map04972 Pancreatic secretion, 0.00420 |
 | gonad   | adult | by food  | EggNOG   | 8              | CUB domain, 0.0256; DMPK coiled coil, 0.0256; Trypsin-like serine protease, 0.0256; Trypsin, 0.0256; microtubule-associated protein 7 family, 0.0308; P21-Rho-binding domain, 0.0308; CNH domain, 0.0330; Sodium solute symporter, 0.0375 |
 
-</div>
+---
 
+Return to https://github.com/aphanotus/morphDE
