@@ -252,7 +252,7 @@ More complex models can be applied to examine specific contrasts of biological i
 
 Sex is often an important factor effecting gene expression. While it is not our focus of study, examining our dataset for differences between females and males in each tissue is a useful confirmation of these expectations (Figure S3. Moreover, sexually dimorphic gene expression has not previously been described in *J. haematoloma*. Genes were differentially expressed at both sampled stages and in both sampled tissues. Adults had a larger number of sexually dimorphic DEGs (84% in gonad; 29% in thorax) compared to juveniles (6.1% in gonads, 0.18% in thorax). The gonads also had more sexually dimorphic gene expression than did the thorax. Within the gonads, males had more significantly biased genes than did females, at both stages (Figure S3C-D). Several genes with roles in somatic sex determination were among these, including *doublesex* (*dsx*) and *transformer* [ref]. The histone acetyltransferase encoded by *mof* is known to increase expression on the X chromosome in *D. melanogaster* males (Smith et al. 2000), although the *mof* ortholog appears up-regulated in the  *J. haematoloma* female thorax (Fig S3B). In the adult gonad contrast, *upd* is significantly biased towards male expression. In *D. melanogaster* testis, *upd* is expressed by hub cells promote maintenance of spermatogenic stem cells (reviewed by Matunis et al 2012).
 
-![](https://i.imgur.com/EwuG9fW.jpg)
+![](https://i.imgur.com/TejKrlQ.jpg)
 
 **Figure S3**. Volcano plots, showing log<sub>2</sub> fold-change (LFC) and -log<sub>10</sub> FDR-adjusted p-values for contrasts by sex in the juvenile thorax (A), adult thorax (B), juvenile gonads (C) and adult gonads (D). Genes are highlighted in red if they have an absolute LFC values > 1 (two-fold difference) and an FDR-adjusted p-value < 0.05 (panels A) or 10<sup>-3</sup>  (panels B-D). Highlighted transcript are annotated where possible. 
 
@@ -260,25 +260,35 @@ Sex is often an important factor effecting gene expression. While it is not our 
 
 > Add here!
 
-![](https://i.imgur.com/4nVEJ74.jpg)
+![](https://i.imgur.com/UwSOU3H.jpg)
 
-**Figure S4**. Volcano plots, showing log<sub>2</sub> fold-change (LFC) and -log<sub>10</sub> FDR-adjusted p-values for contrasts by morph in the adult thorax (A), adult gonads (B), adult ovaries (C) and adult testes (D). Genes are highlighted in red if they have an absolute LFC values > 1 (two-fold difference) and an FDR-adjusted p-value < 10<sup>-3</sup>  (panels A) or 0.05 (panels B-D). Highlighted transcript are annotated where possible. 
+**Figure S4**. Volcano plots, showing log<sub>2</sub> fold-change (LFC) and -log<sub>10</sub> FDR-adjusted p-values from models of gene expression based on correlation to wing shape PC1 in the adult thorax (A), adult gonads (B), adult ovaries (C) and adult testes (D). Greater log-fold change is associated with long-wing shapes. Genes are highlighted in red if they have an absolute LFC values > 1 (two-fold difference) and an FDR-adjusted p-value < 10<sup>-3</sup>  (panels A) or 0.05 (panels B-D). Highlighted transcript are annotated where possible. 
 
-#### Expression differences by stage
+![](https://i.imgur.com/d7rYsNy.jpg)
 
-> Add here!
+**Figure S4**. Volcano plots, showing log<sub>2</sub> fold-change (LFC) and -log<sub>10</sub> FDR-adjusted p-values from models of gene expression based on correlation to thorax shape PC1 in the adult thorax (A), adult gonads (B), adult ovaries (C) and adult testes (D). Greater log-fold change is associated with relatively wider thorax shapes. Genes are highlighted in red if they have an absolute LFC values > 1 (two-fold difference) and an FDR-adjusted p-value < 10<sup>-3</sup>  (panels A) or 0.05 (panels B-D). Highlighted transcript are annotated where possible. 
 
-![](https://i.imgur.com/oWMTfAk.jpg)
+> Not sure if we also want to show the figures for models by morph?
 
-**Figure S5**. Volcano plots, showing log<sub>2</sub> fold-change (LFC) and -log<sub>10</sub> FDR-adjusted p-values for contrasts by stage in the thorax (A), ovaries (B), and testes (C). Genes are highlighted in red if they have an absolute LFC values > 1 (two-fold difference) and an FDR-adjusted p-value < 10<sup>-3</sup>. Highlighted transcript are annotated where possible. 
+![](https://i.imgur.com/J1UKjhj.jpg)
+
+**Figure SX**. Volcano plots, showing log<sub>2</sub> fold-change (LFC) and -log<sub>10</sub> FDR-adjusted p-values from contrasts by morph in the adult thorax (A), adult gonads (B), adult ovaries (C) and adult testes (D). Greater log-fold change is associated with long-wing morphs. Genes are highlighted in red if they have an absolute LFC values > 1 (two-fold difference) and an FDR-adjusted p-value < 10<sup>-3</sup>  (panels A) or 0.05 (panels B-D). Highlighted transcript are annotated where possible. 
 
 #### Expression differences by food regime
 
 > Add here!
 
-![](https://i.imgur.com/OBvuwg7.jpg)
+![](https://i.imgur.com/GjGvP7m.jpg)
 
-**Figure S5**. Volcano plots, showing log<sub>2</sub> fold-change (LFC) and -log<sub>10</sub> FDR-adjusted p-values for contrasts by food regime in the juvenile thorax (A), adult thorax (B), juvenile gonads (C), and adult gonads (D). Genes are highlighted in red if they have an absolute LFC values > 1 (two-fold difference) and an FDR-adjusted p-value < 0.05. Highlighted transcript are annotated where possible. 
+**Figure SX**. Volcano plots, showing log<sub>2</sub> fold-change (LFC) and -log<sub>10</sub> FDR-adjusted p-values from models of gene expression based on correlation to food density (log~10~ seeds/bug) in the juvenile thorax (A), adult thorax (B), juvenile gonads (C), and adult gonads (D). Greater log-fold change is associated with more available seeds per bug. Genes are highlighted in red if they have an absolute LFC values > 1 (two-fold difference) and an FDR-adjusted p-value < 0.05. Highlighted transcript are annotated where possible. 
+
+#### Expression differences by stage
+
+> Add here!
+
+![](https://i.imgur.com/F2Fmd7N.jpg)
+
+**Figure SX**. Volcano plots, showing log<sub>2</sub> fold-change (LFC) and -log<sub>10</sub> FDR-adjusted p-values for contrasts by stage in the thorax (A), ovaries (B), and testes (C). Genes are highlighted in red if they have an absolute LFC values > 1 (two-fold difference) and an FDR-adjusted p-value < 10<sup>-3</sup>. Highlighted transcript are annotated where possible. 
 
 
 

@@ -62,11 +62,13 @@ apply.annotation <- function(df, ann) {
 add.manual.annotations <- function(res) {
   manual.ann <- read.delim("manual.annotations.tsv", header = FALSE)
   colnames(manual.ann) <- c("id","name")
-  res$manual.ann <- NA
-  for (i in 1:(dim(manual.ann)[1])) {
-    id.i <- sub("\\|","\\\\\\|",manual.ann$id[i])
-    res$manual.ann[grep(id.i,rownames(res))] <- manual.ann$name[i]
-  }
+  res.ids <- sub("\\|","\\\\\\|",rownames(res))
+  res$manual.ann <-
+    unlist(lapply(res.ids, function (x) {
+      s <- manual.ann$name[grep(x,manual.ann$id)]
+      if (!isTRUE(nchar(s)>0)) { s <- NA }
+      return(s)
+    }))
   return(res)
 }
 
@@ -205,11 +207,12 @@ plotPCA(vsd.adult.gonad.by.sex, intgroup=c("morph"))
 deg100.adult.gonad.by.sex <- res.adult.gonad.by.sex[order(res.adult.gonad.by.sex$padj),]
 deg100.adult.gonad.by.sex <- deg100.adult.gonad.by.sex[1:100,]
 deg100.adult.gonad.by.sex <- apply.annotation(deg100.adult.gonad.by.sex, ann)
+deg100.adult.gonad.by.sex <- add.manual.annotations(deg100.adult.gonad.by.sex)
 
 # Save results
-write.table(as.data.frame(deg100.adult.gonad.by.sex), "deg100.adult.gonad.by.sex.tsv", quote = FALSE, sep = "\t")
+write.table(as.data.frame(deg100.adult.gonad.by.sex), "model.output/deg100.adult.gonad.by.sex.tsv", quote = FALSE, sep = "\t")
 save(meta.i, cts.i, dds.adult.gonad.by.sex, res.adult.gonad.by.sex, deg100.adult.gonad.by.sex,
-     file = "adult.gonad.by.sex.rda")
+     file = "model.output/adult.gonad.by.sex.rda")
 rm(meta.i, cts.i, dds.adult.gonad.by.sex, res.adult.gonad.by.sex, vsd.adult.gonad.by.sex)
 # load("adult.gonad.by.sex.rda", verbose = TRUE)
 
@@ -258,11 +261,12 @@ plotPCA(vsd.L5.gonad.by.sex, intgroup=c("sex"))
 deg100.L5.gonad.by.sex <- res.L5.gonad.by.sex[order(res.L5.gonad.by.sex$padj),]
 deg100.L5.gonad.by.sex <- deg100.L5.gonad.by.sex[1:100,]
 deg100.L5.gonad.by.sex <- apply.annotation(deg100.L5.gonad.by.sex, ann)
+deg100.L5.gonad.by.sex <- add.manual.annotations(deg100.L5.gonad.by.sex)
 
 # Save results
-write.table(as.data.frame(deg100.L5.gonad.by.sex), "deg100.L5.gonad.by.sex.tsv", quote = FALSE, sep = "\t")
+write.table(as.data.frame(deg100.L5.gonad.by.sex), "model.output/deg100.L5.gonad.by.sex.tsv", quote = FALSE, sep = "\t")
 save(meta.i, cts.i, dds.L5.gonad.by.sex, res.L5.gonad.by.sex, deg100.L5.gonad.by.sex,
-     file = "L5.gonad.by.sex.rda")
+     file = "model.output/L5.gonad.by.sex.rda")
 rm(meta.i, cts.i, dds.L5.gonad.by.sex, res.L5.gonad.by.sex, vsd.L5.gonad.by.sex)
 # load("L5.gonad.by.sex.rda", verbose = TRUE)
 
@@ -311,11 +315,12 @@ plotPCA(vsd.adult.thorax.by.sex, intgroup=c("sex"))
 deg100.adult.thorax.by.sex <- res.adult.thorax.by.sex[order(res.adult.thorax.by.sex$padj),]
 deg100.adult.thorax.by.sex <- deg100.adult.thorax.by.sex[1:100,]
 deg100.adult.thorax.by.sex <- apply.annotation(deg100.adult.thorax.by.sex, ann)
+deg100.adult.thorax.by.sex <- add.manual.annotations(deg100.adult.thorax.by.sex)
 
 # Save results
-write.table(as.data.frame(deg100.adult.thorax.by.sex), "deg100.adult.thorax.by.sex.tsv", quote = FALSE, sep = "\t")
+write.table(as.data.frame(deg100.adult.thorax.by.sex), "model.output/deg100.adult.thorax.by.sex.tsv", quote = FALSE, sep = "\t")
 save(meta.i, cts.i, dds.adult.thorax.by.sex, res.adult.thorax.by.sex, deg100.adult.thorax.by.sex,
-     file = "adult.thorax.by.sex.rda")
+     file = "model.output/adult.thorax.by.sex.rda")
 rm(meta.i, cts.i, dds.adult.thorax.by.sex, res.adult.thorax.by.sex, vsd.adult.thorax.by.sex)
 # load("adult.thorax.by.sex.rda", verbose = TRUE)
 
@@ -364,11 +369,12 @@ plotPCA(vsd.L5.thorax.by.sex, intgroup=c("sex"))
 deg100.L5.thorax.by.sex <- res.L5.thorax.by.sex[order(res.L5.thorax.by.sex$padj),]
 deg100.L5.thorax.by.sex <- deg100.L5.thorax.by.sex[1:100,]
 deg100.L5.thorax.by.sex <- apply.annotation(deg100.L5.thorax.by.sex, ann)
+deg100.L5.thorax.by.sex <- add.manual.annotations(deg100.L5.thorax.by.sex)
 
 # Save results
-write.table(as.data.frame(deg100.L5.thorax.by.sex), "deg100.L5.thorax.by.sex.tsv", quote = FALSE, sep = "\t")
+write.table(as.data.frame(deg100.L5.thorax.by.sex), "model.output/deg100.L5.thorax.by.sex.tsv", quote = FALSE, sep = "\t")
 save(meta.i, cts.i, dds.L5.thorax.by.sex, res.L5.thorax.by.sex, deg100.L5.thorax.by.sex,
-     file = "L5.thorax.by.sex.rda")
+     file = "model.output/L5.thorax.by.sex.rda")
 rm(meta.i, cts.i, dds.L5.thorax.by.sex, res.L5.thorax.by.sex, vsd.L5.thorax.by.sex)
 # load("L5.thorax.by.sex.rda", verbose = TRUE)
 
@@ -429,11 +435,12 @@ plotPCA(vsd.adult.thorax.by.morph, intgroup=c("morph"))
 deg100.adult.thorax.by.morph <- res.adult.thorax.by.morph[order(res.adult.thorax.by.morph$padj),]
 deg100.adult.thorax.by.morph <- deg100.adult.thorax.by.morph[1:100,]
 deg100.adult.thorax.by.morph <- apply.annotation(deg100.adult.thorax.by.morph, ann)
+deg100.adult.thorax.by.morph <- add.manual.annotations(deg100.adult.thorax.by.morph)
 
 # Save results
-write.table(as.data.frame(deg100.adult.thorax.by.morph), "deg100.adult.thorax.by.morph.tsv", quote = FALSE, sep = "\t")
+write.table(as.data.frame(deg100.adult.thorax.by.morph), "model.output/deg100.adult.thorax.by.morph.tsv", quote = FALSE, sep = "\t")
 save(meta.i, cts.i, dds.adult.thorax.by.morph, res.adult.thorax.by.morph, deg100.adult.thorax.by.morph,
-     file = "adult.thorax.by.morph.rda")
+     file = "model.output/adult.thorax.by.morph.rda")
 rm(meta.i, cts.i, dds.adult.thorax.by.morph, res.adult.thorax.by.morph, vsd.adult.thorax.by.morph)
 # load("adult.thorax.by.morph.rda", verbose = TRUE)
 
@@ -483,11 +490,12 @@ plotPCA(vsd.adult.gonad.by.morph, intgroup=c("sex"))
 deg100.adult.gonad.by.morph <- res.adult.gonad.by.morph[order(res.adult.gonad.by.morph$padj),]
 deg100.adult.gonad.by.morph <- deg100.adult.gonad.by.morph[1:100,]
 deg100.adult.gonad.by.morph <- apply.annotation(deg100.adult.gonad.by.morph, ann)
+deg100.adult.gonad.by.morph <- add.manual.annotations(deg100.adult.gonad.by.morph)
 
 # Save results
-write.table(as.data.frame(deg100.adult.gonad.by.morph), "deg100.adult.gonad.by.morph.tsv", quote = FALSE, sep = "\t")
+write.table(as.data.frame(deg100.adult.gonad.by.morph), "model.output/deg100.adult.gonad.by.morph.tsv", quote = FALSE, sep = "\t")
 save(meta.i, cts.i, dds.adult.gonad.by.morph, res.adult.gonad.by.morph, deg100.adult.gonad.by.morph,
-     file = "adult.gonad.by.morph.rda")
+     file = "model.output/adult.gonad.by.morph.rda")
 rm(meta.i, cts.i, dds.adult.gonad.by.morph, res.adult.gonad.by.morph, vsd.adult.gonad.by.morph)
 # load("adult.gonad.by.morph.rda", verbose = TRUE)
 
@@ -538,11 +546,12 @@ plotPCA(vsd.adult.ovaries.by.morph, intgroup=c("morph"))
 deg100.adult.ovaries.by.morph <- res.adult.ovaries.by.morph[order(res.adult.ovaries.by.morph$padj),]
 deg100.adult.ovaries.by.morph <- deg100.adult.ovaries.by.morph[1:100,]
 deg100.adult.ovaries.by.morph <- apply.annotation(deg100.adult.ovaries.by.morph, ann)
+deg100.adult.ovaries.by.morph <- add.manual.annotations(deg100.adult.ovaries.by.morph)
 
 # Save results
-write.table(as.data.frame(deg100.adult.ovaries.by.morph), "deg100.adult.ovaries.by.morph.tsv", quote = FALSE, sep = "\t")
+write.table(as.data.frame(deg100.adult.ovaries.by.morph), "model.output/deg100.adult.ovaries.by.morph.tsv", quote = FALSE, sep = "\t")
 save(meta.i, cts.i, dds.adult.ovaries.by.morph, res.adult.ovaries.by.morph, deg100.adult.ovaries.by.morph,
-     file = "ovaries.by.morph.rda")
+     file = "model.output/ovaries.by.morph.rda")
 rm(meta.i, cts.i, dds.adult.ovaries.by.morph, res.adult.ovaries.by.morph, vsd.adult.ovaries.by.morph)
 # load("ovaries.by.morph.rda", verbose = TRUE)
 
@@ -593,11 +602,12 @@ plotPCA(vsd.adult.testes.by.morph, intgroup=c("morph"))
 deg100.adult.testes.by.morph <- res.adult.testes.by.morph[order(res.adult.testes.by.morph$padj),]
 deg100.adult.testes.by.morph <- deg100.adult.testes.by.morph[1:100,]
 deg100.adult.testes.by.morph <- apply.annotation(deg100.adult.testes.by.morph, ann)
+deg100.adult.testes.by.morph <- add.manual.annotations(deg100.adult.testes.by.morph)
 
 # Save results
-write.table(as.data.frame(deg100.adult.testes.by.morph), "deg100.adult.testes.by.morph.tsv", quote = FALSE, sep = "\t")
+write.table(as.data.frame(deg100.adult.testes.by.morph), "model.output/deg100.adult.testes.by.morph.tsv", quote = FALSE, sep = "\t")
 save(meta.i, cts.i, dds.adult.testes.by.morph, res.adult.testes.by.morph, deg100.adult.testes.by.morph,
-     file = "testes.by.morph.rda")
+     file = "model.output/testes.by.morph.rda")
 rm(meta.i, cts.i, dds.adult.testes.by.morph, res.adult.testes.by.morph, vsd.adult.testes.by.morph)
 # load("testes.by.morph.rda", verbose = TRUE)
 
@@ -650,11 +660,12 @@ plotPCA(vsd.adult.thorax.by.wingPC1, intgroup=c("morph"))
 deg100.adult.thorax.by.wingPC1 <- res.adult.thorax.by.wingPC1[order(res.adult.thorax.by.wingPC1$padj),]
 deg100.adult.thorax.by.wingPC1 <- deg100.adult.thorax.by.wingPC1[1:100,]
 deg100.adult.thorax.by.wingPC1 <- apply.annotation(deg100.adult.thorax.by.wingPC1, ann)
+deg100.adult.thorax.by.wingPC1 <- add.manual.annotations(deg100.adult.thorax.by.wingPC1)
 
 # Save results
-write.table(as.data.frame(deg100.adult.thorax.by.wingPC1), "deg100.adult.thorax.by.wingPC1.tsv", quote = FALSE, sep = "\t")
+write.table(as.data.frame(deg100.adult.thorax.by.wingPC1), "model.output/deg100.adult.thorax.by.wingPC1.tsv", quote = FALSE, sep = "\t")
 save(meta.i, cts.i, dds.adult.thorax.by.wingPC1, res.adult.thorax.by.wingPC1, deg100.adult.thorax.by.wingPC1,
-     file = "adult.thorax.by.wingPC1.rda")
+     file = "model.output/adult.thorax.by.wingPC1.rda")
 rm(meta.i, cts.i, dds.adult.thorax.by.wingPC1, res.adult.thorax.by.wingPC1, vsd.adult.thorax.by.wingPC1)
 # load("adult.thorax.by.wingPC1.rda", verbose = TRUE)
 
@@ -709,11 +720,12 @@ plotPCA(vsd.adult.gonad.by.wingPC1, intgroup=c("plate"))
 deg100.adult.gonad.by.wingPC1 <- res.adult.gonad.by.wingPC1[order(res.adult.gonad.by.wingPC1$padj),]
 deg100.adult.gonad.by.wingPC1 <- deg100.adult.gonad.by.wingPC1[1:100,]
 deg100.adult.gonad.by.wingPC1 <- apply.annotation(deg100.adult.gonad.by.wingPC1, ann)
+deg100.adult.gonad.by.wingPC1 <- add.manual.annotations(deg100.adult.gonad.by.wingPC1)
 
 # Save results
-write.table(as.data.frame(deg100.adult.gonad.by.wingPC1), "deg100.adult.gonad.by.wingPC1.tsv", quote = FALSE, sep = "\t")
+write.table(as.data.frame(deg100.adult.gonad.by.wingPC1), "model.output/deg100.adult.gonad.by.wingPC1.tsv", quote = FALSE, sep = "\t")
 save(meta.i, cts.i, dds.adult.gonad.by.wingPC1, res.adult.gonad.by.wingPC1, deg100.adult.gonad.by.wingPC1,
-     file = "adult.gonad.by.wingPC1.rda")
+     file = "model.output/adult.gonad.by.wingPC1.rda")
 rm(meta.i, cts.i, dds.adult.gonad.by.wingPC1, res.adult.gonad.by.wingPC1, vsd.adult.gonad.by.wingPC1)
 # load("adult.gonad.by.wingPC1.rda", verbose = TRUE)
 
@@ -765,11 +777,12 @@ plotPCA(vsd.adult.ovaries.by.wingPC1, intgroup=c("wingPC1"))
 deg100.adult.ovaries.by.wingPC1 <- res.adult.ovaries.by.wingPC1[order(res.adult.ovaries.by.wingPC1$padj),]
 deg100.adult.ovaries.by.wingPC1 <- deg100.adult.ovaries.by.wingPC1[1:100,]
 deg100.adult.ovaries.by.wingPC1 <- apply.annotation(deg100.adult.ovaries.by.wingPC1, ann)
+deg100.adult.ovaries.by.wingPC1 <- add.manual.annotations(deg100.adult.ovaries.by.wingPC1)
 
 # Save results
-write.table(as.data.frame(deg100.adult.ovaries.by.wingPC1), "deg100.adult.ovaries.by.wingPC1.tsv", quote = FALSE, sep = "\t")
+write.table(as.data.frame(deg100.adult.ovaries.by.wingPC1), "model.output/deg100.adult.ovaries.by.wingPC1.tsv", quote = FALSE, sep = "\t")
 save(meta.i, cts.i, dds.adult.ovaries.by.wingPC1, res.adult.ovaries.by.wingPC1, deg100.adult.ovaries.by.wingPC1,
-     file = "adult.ovaries.by.wingPC1.rda")
+     file = "model.output/adult.ovaries.by.wingPC1.rda")
 rm(meta.i, cts.i, dds.adult.ovaries.by.wingPC1, res.adult.ovaries.by.wingPC1, vsd.adult.ovaries.by.wingPC1)
 # load("adult.ovaries.by.wingPC1.rda", verbose = TRUE)
 
@@ -822,11 +835,12 @@ plotPCA(vsd.adult.testes.by.wingPC1, intgroup=c("morph"))
 deg100.adult.testes.by.wingPC1 <- res.adult.testes.by.wingPC1[order(res.adult.testes.by.wingPC1$padj),]
 deg100.adult.testes.by.wingPC1 <- deg100.adult.testes.by.wingPC1[1:100,]
 deg100.adult.testes.by.wingPC1 <- apply.annotation(deg100.adult.testes.by.wingPC1, ann)
+deg100.adult.testes.by.wingPC1 <- add.manual.annotations(deg100.adult.testes.by.wingPC1)
 
 # Save results
-write.table(as.data.frame(deg100.adult.testes.by.wingPC1), "deg100.adult.testes.by.wingPC1.tsv", quote = FALSE, sep = "\t")
+write.table(as.data.frame(deg100.adult.testes.by.wingPC1), "model.output/deg100.adult.testes.by.wingPC1.tsv", quote = FALSE, sep = "\t")
 save(meta.i, cts.i, dds.adult.testes.by.wingPC1, res.adult.testes.by.wingPC1, deg100.adult.testes.by.wingPC1,
-     file = "adult.testes.by.wingPC1.rda")
+     file = "model.output/adult.testes.by.wingPC1.rda")
 rm(meta.i, cts.i, dds.adult.testes.by.wingPC1, res.adult.testes.by.wingPC1, vsd.adult.testes.by.wingPC1)
 # load("adult.testes.by.wingPC1.rda", verbose = TRUE)
 
@@ -878,11 +892,12 @@ plotPCA(vsd.L5.thorax.by.wingpadPC1, intgroup=c("wingpadPC1"))
 deg100.L5.thorax.by.wingpadPC1 <- res.L5.thorax.by.wingpadPC1[order(res.L5.thorax.by.wingpadPC1$padj),]
 deg100.L5.thorax.by.wingpadPC1 <- deg100.L5.thorax.by.wingpadPC1[1:100,]
 deg100.L5.thorax.by.wingpadPC1 <- apply.annotation(deg100.L5.thorax.by.wingpadPC1, ann)
+deg100.L5.thorax.by.wingpadPC1 <- add.manual.annotations(deg100.L5.thorax.by.wingpadPC1)
 
 # Save results
-write.table(as.data.frame(deg100.L5.thorax.by.wingpadPC1), "deg100.L5.thorax.by.wingpadPC1.tsv", quote = FALSE, sep = "\t")
+write.table(as.data.frame(deg100.L5.thorax.by.wingpadPC1), "model.output/deg100.L5.thorax.by.wingpadPC1.tsv", quote = FALSE, sep = "\t")
 save(meta.i, cts.i, dds.L5.thorax.by.wingpadPC1, res.L5.thorax.by.wingpadPC1, deg100.L5.thorax.by.wingpadPC1,
-     file = "L5.thorax.by.wingpadPC1.rda")
+     file = "model.output/L5.thorax.by.wingpadPC1.rda")
 rm(meta.i, cts.i, dds.L5.thorax.by.wingpadPC1, res.L5.thorax.by.wingpadPC1, vsd.L5.thorax.by.wingpadPC1)
 # load("L5.thorax.by.wingpadPC1.rda", verbose = TRUE)
 
@@ -934,11 +949,12 @@ plotPCA(vsd.L5.gonad.by.wingpadPC1, intgroup=c("wingpadPC1"))
 deg100.L5.gonad.by.wingpadPC1 <- res.L5.gonad.by.wingpadPC1[order(res.L5.gonad.by.wingpadPC1$padj),]
 deg100.L5.gonad.by.wingpadPC1 <- deg100.L5.gonad.by.wingpadPC1[1:100,]
 deg100.L5.gonad.by.wingpadPC1 <- apply.annotation(deg100.L5.gonad.by.wingpadPC1, ann)
+deg100.L5.gonad.by.wingpadPC1 <- add.manual.annotations(deg100.L5.gonad.by.wingpadPC1)
 
 # Save results
-write.table(as.data.frame(deg100.L5.gonad.by.wingpadPC1), "deg100.L5.gonad.by.wingpadPC1.tsv", quote = FALSE, sep = "\t")
+write.table(as.data.frame(deg100.L5.gonad.by.wingpadPC1), "model.output/deg100.L5.gonad.by.wingpadPC1.tsv", quote = FALSE, sep = "\t")
 save(meta.i, cts.i, dds.L5.gonad.by.wingpadPC1, res.L5.gonad.by.wingpadPC1, deg100.L5.gonad.by.wingpadPC1,
-     file = "L5.gonad.by.wingpadPC1.rda")
+     file = "model.output/L5.gonad.by.wingpadPC1.rda")
 rm(meta.i, cts.i, dds.L5.gonad.by.wingpadPC1, res.L5.gonad.by.wingpadPC1, vsd.L5.gonad.by.wingpadPC1)
 # load("L5.gonad.by.wingpadPC1.rda", verbose = TRUE)
 
@@ -991,11 +1007,12 @@ plotPCA(vsd.adult.thorax.by.txPC1, intgroup=c("morph"))
 deg100.adult.thorax.by.txPC1 <- res.adult.thorax.by.txPC1[order(res.adult.thorax.by.txPC1$padj),]
 deg100.adult.thorax.by.txPC1 <- deg100.adult.thorax.by.txPC1[1:100,]
 deg100.adult.thorax.by.txPC1 <- apply.annotation(deg100.adult.thorax.by.txPC1, ann)
+deg100.adult.thorax.by.txPC1 <- add.manual.annotations(deg100.adult.thorax.by.txPC1)
 
 # Save results
-write.table(as.data.frame(deg100.adult.thorax.by.txPC1), "deg100.adult.thorax.by.txPC1.tsv", quote = FALSE, sep = "\t")
+write.table(as.data.frame(deg100.adult.thorax.by.txPC1), "model.output/deg100.adult.thorax.by.txPC1.tsv", quote = FALSE, sep = "\t")
 save(meta.i, cts.i, dds.adult.thorax.by.txPC1, res.adult.thorax.by.txPC1, deg100.adult.thorax.by.txPC1,
-     file = "adult.thorax.by.txPC1.rda")
+     file = "model.output/adult.thorax.by.txPC1.rda")
 rm(meta.i, cts.i, dds.adult.thorax.by.txPC1, res.adult.thorax.by.txPC1, vsd.adult.thorax.by.txPC1)
 # load("adult.thorax.by.txPC1.rda", verbose = TRUE)
 
@@ -1048,11 +1065,12 @@ plotPCA(vsd.adult.gonad.by.txPC1, intgroup=c("morph"))
 deg100.adult.gonad.by.txPC1 <- res.adult.gonad.by.txPC1[order(res.adult.gonad.by.txPC1$padj),]
 deg100.adult.gonad.by.txPC1 <- deg100.adult.gonad.by.txPC1[1:100,]
 deg100.adult.gonad.by.txPC1 <- apply.annotation(deg100.adult.gonad.by.txPC1, ann)
+deg100.adult.gonad.by.txPC1 <- add.manual.annotations(deg100.adult.gonad.by.txPC1)
 
 # Save results
-write.table(as.data.frame(deg100.adult.gonad.by.txPC1), "deg100.adult.gonad.by.txPC1.tsv", quote = FALSE, sep = "\t")
+write.table(as.data.frame(deg100.adult.gonad.by.txPC1), "model.output/deg100.adult.gonad.by.txPC1.tsv", quote = FALSE, sep = "\t")
 save(meta.i, cts.i, dds.adult.gonad.by.txPC1, res.adult.gonad.by.txPC1, deg100.adult.gonad.by.txPC1,
-     file = "adult.gonad.by.txPC1.rda")
+     file = "model.output/adult.gonad.by.txPC1.rda")
 rm(meta.i, cts.i, dds.adult.gonad.by.txPC1, res.adult.gonad.by.txPC1, vsd.adult.gonad.by.txPC1)
 # load("adult.gonad.by.txPC1.rda", verbose = TRUE)
 
@@ -1104,11 +1122,12 @@ plotPCA(vsd.L5.thorax.by.txPC1, intgroup=c("food_regime"))
 deg100.L5.thorax.by.txPC1 <- res.L5.thorax.by.txPC1[order(res.L5.thorax.by.txPC1$padj),]
 deg100.L5.thorax.by.txPC1 <- deg100.L5.thorax.by.txPC1[1:100,]
 deg100.L5.thorax.by.txPC1 <- apply.annotation(deg100.L5.thorax.by.txPC1, ann)
+deg100.L5.thorax.by.txPC1 <- add.manual.annotations(deg100.L5.thorax.by.txPC1)
 
 # Save results
-write.table(as.data.frame(deg100.L5.thorax.by.txPC1), "deg100.L5.thorax.by.txPC1.tsv", quote = FALSE, sep = "\t")
+write.table(as.data.frame(deg100.L5.thorax.by.txPC1), "model.output/deg100.L5.thorax.by.txPC1.tsv", quote = FALSE, sep = "\t")
 save(meta.i, cts.i, dds.L5.thorax.by.txPC1, res.L5.thorax.by.txPC1, deg100.L5.thorax.by.txPC1,
-     file = "L5.thorax.by.txPC1.rda")
+     file = "model.output/L5.thorax.by.txPC1.rda")
 rm(meta.i, cts.i, dds.L5.thorax.by.txPC1, res.L5.thorax.by.txPC1, vsd.L5.thorax.by.txPC1)
 # load("L5.thorax.by.txPC1.rda", verbose = TRUE)
 
@@ -1160,11 +1179,12 @@ plotPCA(vsd.L5.gonad.by.txPC1, intgroup=c("food_regime"))
 deg100.L5.gonad.by.txPC1 <- res.L5.gonad.by.txPC1[order(res.L5.gonad.by.txPC1$padj),]
 deg100.L5.gonad.by.txPC1 <- deg100.L5.gonad.by.txPC1[1:100,]
 deg100.L5.gonad.by.txPC1 <- apply.annotation(deg100.L5.gonad.by.txPC1, ann)
+deg100.L5.gonad.by.txPC1 <- add.manual.annotations(deg100.L5.gonad.by.txPC1)
 
 # Save results
-write.table(as.data.frame(deg100.L5.gonad.by.txPC1), "deg100.L5.gonad.by.txPC1.tsv", quote = FALSE, sep = "\t")
+write.table(as.data.frame(deg100.L5.gonad.by.txPC1), "model.output/deg100.L5.gonad.by.txPC1.tsv", quote = FALSE, sep = "\t")
 save(meta.i, cts.i, dds.L5.gonad.by.txPC1, res.L5.gonad.by.txPC1, deg100.L5.gonad.by.txPC1,
-     file = "L5.gonad.by.txPC1.rda")
+     file = "model.output/L5.gonad.by.txPC1.rda")
 rm(meta.i, cts.i, dds.L5.gonad.by.txPC1, res.L5.gonad.by.txPC1, vsd.L5.gonad.by.txPC1)
 # load("L5.gonad.by.txPC1.rda", verbose = TRUE)
 
@@ -1217,11 +1237,12 @@ plotPCA(vsd.adult.thorax.by.food_density, intgroup=c("food_density"))
 deg100.adult.thorax.by.food_density <- res.adult.thorax.by.food_density[order(res.adult.thorax.by.food_density$padj),]
 deg100.adult.thorax.by.food_density <- deg100.adult.thorax.by.food_density[1:100,]
 deg100.adult.thorax.by.food_density <- apply.annotation(deg100.adult.thorax.by.food_density, ann)
+deg100.adult.thorax.by.food_density <- add.manual.annotations(deg100.adult.thorax.by.food_density)
 
 # Save results
-write.table(as.data.frame(deg100.adult.thorax.by.food_density), "deg100.adult.thorax.by.food_density.tsv", quote = FALSE, sep = "\t")
+write.table(as.data.frame(deg100.adult.thorax.by.food_density), "model.output/deg100.adult.thorax.by.food_density.tsv", quote = FALSE, sep = "\t")
 save(meta.i, cts.i, dds.adult.thorax.by.food_density, res.adult.thorax.by.food_density, deg100.adult.thorax.by.food_density,
-     file = "adult.thorax.by.food_density.rda")
+     file = "model.output/adult.thorax.by.food_density.rda")
 rm(meta.i, cts.i, dds.adult.thorax.by.food_density, res.adult.thorax.by.food_density, vsd.adult.thorax.by.food_density)
 # load("ovaries.by.food_density.rda", verbose = TRUE)
 
@@ -1272,11 +1293,12 @@ plotPCA(vsd.adult.thorax.by.food, intgroup=c("morph"))
 deg100.adult.thorax.by.food <- res.adult.thorax.by.food[order(res.adult.thorax.by.food$padj),]
 deg100.adult.thorax.by.food <- deg100.adult.thorax.by.food[1:100,]
 deg100.adult.thorax.by.food <- apply.annotation(deg100.adult.thorax.by.food, ann)
+deg100.adult.thorax.by.food <- add.manual.annotations(deg100.adult.thorax.by.food)
 
 # Save results
-write.table(as.data.frame(deg100.adult.thorax.by.food), "deg100.adult.thorax.by.food.tsv", quote = FALSE, sep = "\t")
+write.table(as.data.frame(deg100.adult.thorax.by.food), "model.output/deg100.adult.thorax.by.food.tsv", quote = FALSE, sep = "\t")
 save(meta.i, cts.i, dds.adult.thorax.by.food, res.adult.thorax.by.food, deg100.adult.thorax.by.food,
-     file = "adult.thorax.by.food_regime.rda")
+     file = "model.output/adult.thorax.by.food_regime.rda")
 rm(meta.i, cts.i, dds.adult.thorax.by.food, res.adult.thorax.by.food, vsd.adult.thorax.by.food)
 # load("adult.thorax.by.food_regime.rda", verbose = TRUE)
 
@@ -1329,11 +1351,12 @@ plotPCA(vsd.adult.gonad.by.food_density, intgroup=c("food_density"))
 deg100.adult.gonad.by.food_density <- res.adult.gonad.by.food_density[order(res.adult.gonad.by.food_density$padj),]
 deg100.adult.gonad.by.food_density <- deg100.adult.gonad.by.food_density[1:100,]
 deg100.adult.gonad.by.food_density <- apply.annotation(deg100.adult.gonad.by.food_density, ann)
+deg100.adult.gonad.by.food_density <- add.manual.annotations(deg100.adult.gonad.by.food_density)
 
 # Save results
-write.table(as.data.frame(deg100.adult.gonad.by.food_density), "deg100.adult.gonad.by.food_density.tsv", quote = FALSE, sep = "\t")
+write.table(as.data.frame(deg100.adult.gonad.by.food_density), "model.output/deg100.adult.gonad.by.food_density.tsv", quote = FALSE, sep = "\t")
 save(meta.i, cts.i, dds.adult.gonad.by.food_density, res.adult.gonad.by.food_density, deg100.adult.gonad.by.food_density,
-     file = "adult.gonad.by.food_density.rda")
+     file = "model.output/adult.gonad.by.food_density.rda")
 rm(meta.i, cts.i, dds.adult.gonad.by.food_density, res.adult.gonad.by.food_density, vsd.adult.gonad.by.food_density)
 # load("adult.gonad.by.food_density.rda", verbose = TRUE)
 
@@ -1382,11 +1405,12 @@ plotPCA(vsd.adult.gonad.by.food, intgroup=c("food_regime"))
 deg100.adult.gonad.by.food <- res.adult.gonad.by.food[order(res.adult.gonad.by.food$padj),]
 deg100.adult.gonad.by.food <- deg100.adult.gonad.by.food[1:100,]
 deg100.adult.gonad.by.food <- apply.annotation(deg100.adult.gonad.by.food, ann)
+deg100.adult.gonad.by.food <- add.manual.annotations(deg100.adult.gonad.by.food)
 
 # Save results
-write.table(as.data.frame(deg100.adult.gonad.by.food), "deg100.adult.gonad.by.food.tsv", quote = FALSE, sep = "\t")
+write.table(as.data.frame(deg100.adult.gonad.by.food), "model.output/deg100.adult.gonad.by.food.tsv", quote = FALSE, sep = "\t")
 save(meta.i, cts.i, dds.adult.gonad.by.food, res.adult.gonad.by.food, deg100.adult.gonad.by.food,
-     file = "adult.gonad.by.food_regime.rda")
+     file = "model.output/adult.gonad.by.food_regime.rda")
 rm(meta.i, cts.i, dds.adult.gonad.by.food, res.adult.gonad.by.food, vsd.adult.gonad.by.food)
 # load("adult.gonad.by.food_regime.rda", verbose = TRUE)
 
@@ -1439,11 +1463,12 @@ plotPCA(vsd.adult.ovaries.by.food_density, intgroup=c("food_density"))
 deg100.adult.ovaries.by.food_density <- res.adult.ovaries.by.food_density[order(res.adult.ovaries.by.food_density$padj),]
 deg100.adult.ovaries.by.food_density <- deg100.adult.ovaries.by.food_density[1:100,]
 deg100.adult.ovaries.by.food_density <- apply.annotation(deg100.adult.ovaries.by.food_density, ann)
+deg100.adult.ovaries.by.food_density <- add.manual.annotations(deg100.adult.ovaries.by.food_density)
 
 # Save results
-write.table(as.data.frame(deg100.adult.ovaries.by.food_density), "deg100.adult.ovaries.by.food_density.tsv", quote = FALSE, sep = "\t")
+write.table(as.data.frame(deg100.adult.ovaries.by.food_density), "model.output/deg100.adult.ovaries.by.food_density.tsv", quote = FALSE, sep = "\t")
 save(meta.i, cts.i, dds.adult.ovaries.by.food_density, res.adult.ovaries.by.food_density, deg100.adult.ovaries.by.food_density,
-     file = "adult.ovaries.by.food_density.rda")
+     file = "model.output/adult.ovaries.by.food_density.rda")
 rm(meta.i, cts.i, dds.adult.ovaries.by.food_density, res.adult.ovaries.by.food_density, vsd.adult.ovaries.by.food_density)
 # load("ovaries.by.food_density.rda", verbose = TRUE)
 
@@ -1497,11 +1522,12 @@ plotPCA(vsd.adult.testes.by.food_density, intgroup=c("food_density"))
 deg100.adult.testes.by.food_density <- res.adult.testes.by.food_density[order(res.adult.testes.by.food_density$padj),]
 deg100.adult.testes.by.food_density <- deg100.adult.testes.by.food_density[1:100,]
 deg100.adult.testes.by.food_density <- apply.annotation(deg100.adult.testes.by.food_density, ann)
+deg100.adult.testes.by.food_density <- add.manual.annotations(deg100.adult.testes.by.food_density)
 
 # Save results
-write.table(as.data.frame(deg100.adult.testes.by.food_density), "deg100.adult.testes.by.food_density.tsv", quote = FALSE, sep = "\t")
+write.table(as.data.frame(deg100.adult.testes.by.food_density), "model.output/deg100.adult.testes.by.food_density.tsv", quote = FALSE, sep = "\t")
 save(meta.i, cts.i, dds.adult.testes.by.food_density, res.adult.testes.by.food_density, deg100.adult.testes.by.food_density,
-     file = "adult.testes.by.food_density.rda")
+     file = "model.output/adult.testes.by.food_density.rda")
 rm(meta.i, cts.i, dds.adult.testes.by.food_density, res.adult.testes.by.food_density, vsd.adult.testes.by.food_density)
 # load("adult.testes.by.food_density.rda", verbose = TRUE)
 
@@ -1555,11 +1581,12 @@ plotPCA(vsd.L5.thorax.by.food_density, intgroup=c("food_density"))
 deg100.L5.thorax.by.food_density <- res.L5.thorax.by.food_density[order(res.L5.thorax.by.food_density$padj),]
 deg100.L5.thorax.by.food_density <- deg100.L5.thorax.by.food_density[1:100,]
 deg100.L5.thorax.by.food_density <- apply.annotation(deg100.L5.thorax.by.food_density, ann)
+deg100.L5.thorax.by.food_density <- add.manual.annotations(deg100.L5.thorax.by.food_density)
 
 # Save results
-write.table(as.data.frame(deg100.L5.thorax.by.food_density), "deg100.L5.thorax.by.food_density.tsv", quote = FALSE, sep = "\t")
+write.table(as.data.frame(deg100.L5.thorax.by.food_density), "model.output/deg100.L5.thorax.by.food_density.tsv", quote = FALSE, sep = "\t")
 save(meta.i, cts.i, dds.L5.thorax.by.food_density, res.L5.thorax.by.food_density, deg100.L5.thorax.by.food_density,
-     file = "L5.thorax.by.food_density.rda")
+     file = "model.output/L5.thorax.by.food_density.rda")
 rm(meta.i, cts.i, dds.L5.thorax.by.food_density, res.L5.thorax.by.food_density, vsd.L5.thorax.by.food_density)
 # load("L5.thorax.by.food_density.rda", verbose = TRUE)
 
@@ -1612,11 +1639,12 @@ plotPCA(vsd.L5.gonad.by.food, intgroup=c("sex"))
 deg100.L5.gonad.by.food <- res.L5.gonad.by.food[order(res.L5.gonad.by.food$padj),]
 deg100.L5.gonad.by.food <- deg100.L5.gonad.by.food[1:100,]
 deg100.L5.gonad.by.food <- apply.annotation(deg100.L5.gonad.by.food, ann)
+deg100.L5.gonad.by.food <- add.manual.annotations(deg100.L5.gonad.by.food)
 
 # Save results
-write.table(as.data.frame(deg100.L5.gonad.by.food), "deg100.L5.gonad.by.food.tsv", quote = FALSE, sep = "\t")
+write.table(as.data.frame(deg100.L5.gonad.by.food), "model.output/deg100.L5.gonad.by.food.tsv", quote = FALSE, sep = "\t")
 save(meta.i, cts.i, dds.L5.gonad.by.food, res.L5.gonad.by.food, deg100.L5.gonad.by.food,
-     file = "L5.gonad.by.food_regime.rda")
+     file = "model.output/L5.gonad.by.food_regime.rda")
 rm(meta.i, cts.i, dds.L5.gonad.by.food, res.L5.gonad.by.food, vsd.L5.gonad.by.food)
 # load("L5.gonad.by.food_regime.rda", verbose = TRUE)
 
@@ -1668,11 +1696,12 @@ plotPCA(vsd.L5.thorax.by.food, intgroup=c("sex"))
 deg100.L5.thorax.by.food <- res.L5.thorax.by.food[order(res.L5.thorax.by.food$padj),]
 deg100.L5.thorax.by.food <- deg100.L5.thorax.by.food[1:100,]
 deg100.L5.thorax.by.food <- apply.annotation(deg100.L5.thorax.by.food, ann)
+deg100.L5.thorax.by.food <- add.manual.annotations(deg100.L5.thorax.by.food)
 
 # Save results
-write.table(as.data.frame(deg100.L5.thorax.by.food), "deg100.L5.thorax.by.food.tsv", quote = FALSE, sep = "\t")
+write.table(as.data.frame(deg100.L5.thorax.by.food), "model.output/deg100.L5.thorax.by.food.tsv", quote = FALSE, sep = "\t")
 save(meta.i, cts.i, dds.L5.thorax.by.food, res.L5.thorax.by.food, deg100.L5.thorax.by.food,
-     file = "L5.thorax.by.food_regime.rda")
+     file = "model.output/L5.thorax.by.food_regime.rda")
 rm(meta.i, cts.i, dds.L5.thorax.by.food, res.L5.thorax.by.food, vsd.L5.thorax.by.food)
 # load("L5.thorax.by.food.rda", verbose = TRUE)
 
@@ -1726,11 +1755,12 @@ plotPCA(vsd.L5.gonad.by.food_density, intgroup=c("food_density"))
 deg100.L5.gonad.by.food_density <- res.L5.gonad.by.food_density[order(res.L5.gonad.by.food_density$padj),]
 deg100.L5.gonad.by.food_density <- deg100.L5.gonad.by.food_density[1:100,]
 deg100.L5.gonad.by.food_density <- apply.annotation(deg100.L5.gonad.by.food_density, ann)
+deg100.L5.gonad.by.food_density <- add.manual.annotations(deg100.L5.gonad.by.food_density)
 
 # Save results
-write.table(as.data.frame(deg100.L5.gonad.by.food_density), "deg100.L5.gonad.by.food_density.tsv", quote = FALSE, sep = "\t")
+write.table(as.data.frame(deg100.L5.gonad.by.food_density), "model.output/deg100.L5.gonad.by.food_density.tsv", quote = FALSE, sep = "\t")
 save(meta.i, cts.i, dds.L5.gonad.by.food_density, res.L5.gonad.by.food_density, deg100.L5.gonad.by.food_density,
-     file = "L5.gonad.by.food_density.rda")
+     file = "model.output/L5.gonad.by.food_density.rda")
 rm(meta.i, cts.i, dds.L5.gonad.by.food_density, res.L5.gonad.by.food_density, vsd.L5.gonad.by.food_density)
 # load("gonad.by.food_density.rda", verbose = TRUE)
 
@@ -1784,11 +1814,12 @@ plotPCA(vsd.L5.ovaries.by.food_density, intgroup=c("food_density"))
 deg100.L5.ovaries.by.food_density <- res.L5.ovaries.by.food_density[order(res.L5.ovaries.by.food_density$padj),]
 deg100.L5.ovaries.by.food_density <- deg100.L5.ovaries.by.food_density[1:100,]
 deg100.L5.ovaries.by.food_density <- apply.annotation(deg100.L5.ovaries.by.food_density, ann)
+deg100.L5.ovaries.by.food_density <- add.manual.annotations(deg100.L5.ovaries.by.food_density)
 
 # Save results
-write.table(as.data.frame(deg100.L5.ovaries.by.food_density), "deg100.L5.ovaries.by.food_density.tsv", quote = FALSE, sep = "\t")
+write.table(as.data.frame(deg100.L5.ovaries.by.food_density), "model.output/deg100.L5.ovaries.by.food_density.tsv", quote = FALSE, sep = "\t")
 save(meta.i, cts.i, dds.L5.ovaries.by.food_density, res.L5.ovaries.by.food_density, deg100.L5.ovaries.by.food_density,
-     file = "L5.ovaries.by.food_density.rda")
+     file = "model.output/L5.ovaries.by.food_density.rda")
 rm(meta.i, cts.i, dds.L5.ovaries.by.food_density, res.L5.ovaries.by.food_density, vsd.L5.ovaries.by.food_density)
 # load("L5.ovaries.by.food_density.rda", verbose = TRUE)
 
@@ -1840,11 +1871,12 @@ plotPCA(vsd.L5.ovaries.by.food, intgroup=c("food_regime"))
 deg100.L5.ovaries.by.food <- res.L5.ovaries.by.food[order(res.L5.ovaries.by.food$padj),]
 deg100.L5.ovaries.by.food <- deg100.L5.ovaries.by.food[1:100,]
 deg100.L5.ovaries.by.food <- apply.annotation(deg100.L5.ovaries.by.food, ann)
+deg100.L5.ovaries.by.food <- add.manual.annotations(deg100.L5.ovaries.by.food)
 
 # Save results
-write.table(as.data.frame(deg100.L5.ovaries.by.food), "deg100.L5.ovaries.by.food.tsv", quote = FALSE, sep = "\t")
+write.table(as.data.frame(deg100.L5.ovaries.by.food), "model.output/deg100.L5.ovaries.by.food.tsv", quote = FALSE, sep = "\t")
 save(meta.i, cts.i, dds.L5.ovaries.by.food, res.L5.ovaries.by.food, deg100.L5.ovaries.by.food,
-     file = "L5.ovaries.by.food_regime.rda")
+     file = "model.output/L5.ovaries.by.food_regime.rda")
 rm(meta.i, cts.i, dds.L5.ovaries.by.food, res.L5.ovaries.by.food, vsd.L5.ovaries.by.food)
 # load("L5.ovaries.by.food_regime.rda", verbose = TRUE)
 
@@ -1898,11 +1930,12 @@ plotPCA(vsd.L5.testes.by.food_density, intgroup=c("food_density"))
 deg100.L5.testes.by.food_density <- res.L5.testes.by.food_density[order(res.L5.testes.by.food_density$padj),]
 deg100.L5.testes.by.food_density <- deg100.L5.testes.by.food_density[1:100,]
 deg100.L5.testes.by.food_density <- apply.annotation(deg100.L5.testes.by.food_density, ann)
+deg100.L5.testes.by.food_density <- add.manual.annotations(deg100.L5.testes.by.food_density)
 
 # Save results
-write.table(as.data.frame(deg100.L5.testes.by.food_density), "deg100.L5.testes.by.food_density.tsv", quote = FALSE, sep = "\t")
+write.table(as.data.frame(deg100.L5.testes.by.food_density), "model.output/deg100.L5.testes.by.food_density.tsv", quote = FALSE, sep = "\t")
 save(meta.i, cts.i, dds.L5.testes.by.food_density, res.L5.testes.by.food_density, deg100.L5.testes.by.food_density,
-     file = "L5.testes.by.food_density.rda")
+     file = "model.output/L5.testes.by.food_density.rda")
 rm(meta.i, cts.i, dds.L5.testes.by.food_density, res.L5.testes.by.food_density, vsd.L5.testes.by.food_density)
 # load("L5.testes.by.food_density.rda", verbose = TRUE)
 
@@ -1955,11 +1988,12 @@ plotPCA(vsd.thorax.by.stage, intgroup=c("food_regime"))
 deg100.thorax.by.stage <- res.thorax.by.stage[order(res.thorax.by.stage$padj),]
 deg100.thorax.by.stage <- deg100.thorax.by.stage[1:100,]
 deg100.thorax.by.stage <- apply.annotation(deg100.thorax.by.stage, ann)
+deg100.thorax.by.stage <- add.manual.annotations(deg100.thorax.by.stage)
 
 # Save results
-write.table(as.data.frame(deg100.thorax.by.stage), "deg100.thorax.by.stage.tsv", quote = FALSE, sep = "\t")
+write.table(as.data.frame(deg100.thorax.by.stage), "model.output/deg100.thorax.by.stage.tsv", quote = FALSE, sep = "\t")
 save(meta.i, cts.i, dds.thorax.by.stage, res.thorax.by.stage, deg100.thorax.by.stage,
-     file = "thorax.by.stage.rda")
+     file = "model.output/thorax.by.stage.rda")
 rm(meta.i, cts.i, dds.thorax.by.stage, res.thorax.by.stage, vsd.thorax.by.stage)
 # load("thorax.by.stage.rda", verbose = TRUE)
 
@@ -2011,11 +2045,12 @@ plotPCA(vsd.ovaries.by.stage, intgroup=c("morph"))
 deg100.ovaries.by.stage <- res.ovaries.by.stage[order(res.ovaries.by.stage$padj),]
 deg100.ovaries.by.stage <- deg100.ovaries.by.stage[1:100,]
 deg100.ovaries.by.stage <- apply.annotation(deg100.ovaries.by.stage, ann)
+deg100.ovaries.by.stage <- add.manual.annotations(deg100.ovaries.by.stage)
 
 # Save results
-write.table(as.data.frame(deg100.ovaries.by.stage), "deg100.ovaries.by.stage.tsv", quote = FALSE, sep = "\t")
+write.table(as.data.frame(deg100.ovaries.by.stage), "model.output/deg100.ovaries.by.stage.tsv", quote = FALSE, sep = "\t")
 save(meta.i, cts.i, dds.ovaries.by.stage, res.ovaries.by.stage, deg100.ovaries.by.stage,
-     file = "ovaries.by.stage.rda")
+     file = "model.output/ovaries.by.stage.rda")
 rm(meta.i, cts.i, dds.ovaries.by.stage, res.ovaries.by.stage, vsd.ovaries.by.stage)
 # load("ovaries.by.stage.rda", verbose = TRUE)
 
@@ -2067,11 +2102,12 @@ plotPCA(vsd.testes.by.stage, intgroup=c("morph"))
 deg100.testes.by.stage <- res.testes.by.stage[order(res.testes.by.stage$padj),]
 deg100.testes.by.stage <- deg100.testes.by.stage[1:100,]
 deg100.testes.by.stage <- apply.annotation(deg100.testes.by.stage, ann)
+deg100.testes.by.stage <- add.manual.annotations(deg100.testes.by.stage)
 
 # Save results
-write.table(as.data.frame(deg100.testes.by.stage), "deg100.testes.by.stage.tsv", quote = FALSE, sep = "\t")
+write.table(as.data.frame(deg100.testes.by.stage), "model.output/deg100.testes.by.stage.tsv", quote = FALSE, sep = "\t")
 save(meta.i, cts.i, dds.testes.by.stage, res.testes.by.stage, deg100.testes.by.stage,
-     file = "testes.by.stage.rda")
+     file = "model.output/testes.by.stage.rda")
 rm(meta.i, cts.i, dds.testes.by.stage, res.testes.by.stage, vsd.testes.by.stage)
 # load("testes.by.stage.rda", verbose = TRUE) 
 
@@ -2080,13 +2116,13 @@ rm(meta.i, cts.i, dds.testes.by.stage, res.testes.by.stage, vsd.testes.by.stage)
 ###################
 save(ann, apply.annotation, gene.read.number.cut.off, 
      dds.adult.gonad.by.food,dds.adult.gonad.by.food_density,dds.adult.gonad.by.girth,dds.adult.gonad.by.morph,dds.adult.gonad.by.sex,dds.adult.gonad.by.txPC1,dds.adult.gonad.by.wingPC1,dds.adult.ovaries.by.food_density,dds.adult.ovaries.by.girth,dds.adult.ovaries.by.morph,dds.adult.ovaries.by.wingPC1,dds.adult.testes.by.food_density,dds.adult.testes.by.girth,dds.adult.testes.by.morph,dds.adult.testes.by.wingPC1,dds.adult.thorax.by.food,dds.adult.thorax.by.food_density,dds.adult.thorax.by.girth,dds.adult.thorax.by.morph,dds.adult.thorax.by.sex,dds.adult.thorax.by.txPC1,dds.adult.thorax.by.wingPC1,dds.L5.gonad.by.food,dds.L5.gonad.by.food_density,dds.L5.gonad.by.girth,dds.L5.gonad.by.sex,dds.L5.gonad.by.txPC1,dds.L5.gonad.by.wingpadPC1,dds.L5.ovaries.by.food,dds.L5.ovaries.by.food_density,dds.L5.ovaries.by.girth,dds.L5.testes.by.food_density,dds.L5.testes.by.girth,dds.L5.thorax.by.food,dds.L5.thorax.by.food_density,dds.L5.thorax.by.girth,dds.L5.thorax.by.sex,dds.L5.thorax.by.txPC1,dds.L5.thorax.by.wingpadPC1,dds.ovaries.by.stage,dds.testes.by.stage,dds.thorax.by.stage,
-     file = "dge.analysis.dds.rda")
+     file = "model.output/dge.analysis.dds.rda")
 rm(dds.adult.gonad.by.food,dds.adult.gonad.by.food_density,dds.adult.gonad.by.girth,dds.adult.gonad.by.morph,dds.adult.gonad.by.sex,dds.adult.gonad.by.txPC1,dds.adult.gonad.by.wingPC1,dds.adult.ovaries.by.food_density,dds.adult.ovaries.by.girth,dds.adult.ovaries.by.morph,dds.adult.ovaries.by.wingPC1,dds.adult.testes.by.food_density,dds.adult.testes.by.girth,dds.adult.testes.by.morph,dds.adult.testes.by.wingPC1,dds.adult.thorax.by.food,dds.adult.thorax.by.food_density,dds.adult.thorax.by.girth,dds.adult.thorax.by.morph,dds.adult.thorax.by.sex,dds.adult.thorax.by.txPC1,dds.adult.thorax.by.wingPC1,dds.L5.gonad.by.food,dds.L5.gonad.by.food_density,dds.L5.gonad.by.girth,dds.L5.gonad.by.sex,dds.L5.gonad.by.txPC1,dds.L5.gonad.by.wingpadPC1,dds.L5.ovaries.by.food,dds.L5.ovaries.by.food_density,dds.L5.ovaries.by.girth,dds.L5.testes.by.food_density,dds.L5.testes.by.girth,dds.L5.thorax.by.food,dds.L5.thorax.by.food_density,dds.L5.thorax.by.girth,dds.L5.thorax.by.sex,dds.L5.thorax.by.txPC1,dds.L5.thorax.by.wingpadPC1,dds.ovaries.by.stage,dds.testes.by.stage,dds.thorax.by.stage)
 save(ann, apply.annotation, gene.read.number.cut.off, 
      res.adult.gonad.by.food,res.adult.gonad.by.food_density,res.adult.gonad.by.girth,res.adult.gonad.by.morph,res.adult.gonad.by.sex,res.adult.gonad.by.txPC1,res.adult.gonad.by.wingPC1,res.adult.ovaries.by.food_density,res.adult.ovaries.by.girth,res.adult.ovaries.by.morph,res.adult.ovaries.by.wingPC1,res.adult.testes.by.food_density,res.adult.testes.by.girth,res.adult.testes.by.morph,res.adult.testes.by.wingPC1,res.adult.thorax.by.food,res.adult.thorax.by.food_density,res.adult.thorax.by.girth,res.adult.thorax.by.morph,res.adult.thorax.by.sex,res.adult.thorax.by.txPC1,res.adult.thorax.by.wingPC1,res.L5.gonad.by.food,res.L5.gonad.by.food_density,res.L5.gonad.by.girth,res.L5.gonad.by.sex,res.L5.gonad.by.txPC1,res.L5.gonad.by.wingpadPC1,res.L5.ovaries.by.food,res.L5.ovaries.by.food_density,res.L5.ovaries.by.girth,res.L5.testes.by.food_density,res.L5.testes.by.girth,res.L5.thorax.by.food,res.L5.thorax.by.food_density,res.L5.thorax.by.girth,res.L5.thorax.by.sex,res.L5.thorax.by.txPC1,res.L5.thorax.by.wingpadPC1,res.ovaries.by.stage,res.testes.by.stage,res.thorax.by.stage,
-     file = "dge.analysis.res.rda")
+     file = "model.output/dge.analysis.res.rda")
 save(deg100.adult.gonad.by.food,deg100.adult.gonad.by.food_density,deg100.adult.gonad.by.girth,deg100.adult.gonad.by.morph,deg100.adult.gonad.by.sex,deg100.adult.gonad.by.txPC1,deg100.adult.gonad.by.wingPC1,deg100.adult.ovaries.by.food_density,deg100.adult.ovaries.by.girth,deg100.adult.ovaries.by.morph,deg100.adult.ovaries.by.wingPC1,deg100.adult.testes.by.food_density,deg100.adult.testes.by.girth,deg100.adult.testes.by.morph,deg100.adult.testes.by.wingPC1,deg100.adult.thorax.by.food,deg100.adult.thorax.by.food_density,deg100.adult.thorax.by.girth,deg100.adult.thorax.by.morph,deg100.adult.thorax.by.sex,deg100.adult.thorax.by.txPC1,deg100.adult.thorax.by.wingPC1,deg100.L5.gonad.by.food,deg100.L5.gonad.by.food_density,deg100.L5.gonad.by.girth,deg100.L5.gonad.by.sex,deg100.L5.gonad.by.txPC1,deg100.L5.gonad.by.wingpadPC1,deg100.L5.ovaries.by.food,deg100.L5.ovaries.by.food_density,deg100.L5.ovaries.by.girth,deg100.L5.testes.by.food_density,deg100.L5.testes.by.girth,deg100.L5.thorax.by.food,deg100.L5.thorax.by.food_density,deg100.L5.thorax.by.girth,deg100.L5.thorax.by.sex,deg100.L5.thorax.by.txPC1,deg100.L5.thorax.by.wingpadPC1,deg100.ovaries.by.stage,deg100.testes.by.stage,deg100.thorax.by.stage,
-     file = "dge.analysis.deg100s.rda")
+     file = "model.output/dge.analysis.deg100s.rda")
 
 ###################
 # Enrichment Analysis
@@ -2104,7 +2140,7 @@ load("enrichment.pvalues.rda",verbose = TRUE)
 
 volcano.plot <- function(
   res, pCutoff = 1e-3, FCcutoff = 1, reverseLFC = FALSE,
-  rightLabel = "LFC < 0", leftLabel = "LFC > 0",
+  NegLFClabel = "LFC < 0", PosLFClabel = "LFC > 0",
   n = NULL,
   title = NULL, caption = NULL,
   text.col = "grey15", max.overlaps = 100) 
@@ -2133,16 +2169,17 @@ volcano.plot <- function(
   # Text reporting the number of up and down regulated DEGs
   degs.up <- sum(res$padj < pCutoff & res$log2FoldChange > 0, na.rm = TRUE)
   degs.down <- sum(res$padj < pCutoff & res$log2FoldChange < 0, na.rm = TRUE)
-  degs.up.pct <- paste0(" (",signif((degs.up/dim(res)[1])*100,3),"%)")
-  degs.down.pct <- paste0(" (",signif((degs.down/dim(res)[1])*100,3),"%)")
+  degs.up.pct <- paste0(" (",signif((degs.up/dim(res)[1])*100,2),"%)")
+  degs.down.pct <- paste0(" (",signif((degs.down/dim(res)[1])*100,2),"%)")
   deg.text <- paste0(deg.text,
-    rightLabel,"-biased: ",degs.down,degs.down.pct,
-    ", ",leftLabel,"-biased: ",degs.up,degs.up.pct,
+    NegLFClabel,"-biased: ",degs.down,degs.down.pct,
+    ", ",PosLFClabel,"-biased: ",degs.up,degs.up.pct,
     ", at p-value cutoff ",pCutoff )
+  deg.text <- gsub("0 \\(0%\\)","0",deg.text)
 
   # Text indicating right and left biases in the LFC
-  rightLabel <- grobTree(textGrob(rightLabel, x=0.05,  y=0.925, hjust=0, gp=gpar(col="grey70", fontsize=12, fontface="bold")))
-  leftLabel  <- grobTree(textGrob(leftLabel,  x=0.95,  y=0.925, hjust=1, gp=gpar(col="grey70", fontsize=12, fontface="bold")))
+  NegLFClabel <- grobTree(textGrob(NegLFClabel, x=0.05,  y=0.925, hjust=0, gp=gpar(col="grey70", fontsize=12, fontface="bold")))
+  PosLFClabel  <- grobTree(textGrob(PosLFClabel,  x=0.95,  y=0.925, hjust=1, gp=gpar(col="grey70", fontsize=12, fontface="bold")))
   
   res %>% 
     ggplot(aes(x=log2FoldChange, y=-log10(padj), color=highlight)) +
@@ -2152,8 +2189,8 @@ volcano.plot <- function(
       legend.position="none",
       panel.grid.minor = element_blank() ) +
     geom_vline(xintercept = 0, color = "grey40") +
-    annotation_custom(rightLabel) +
-    annotation_custom(leftLabel) +
+    annotation_custom(NegLFClabel) +
+    annotation_custom(PosLFClabel) +
     geom_point(size = 0.5, alpha=0.65) +
     geom_text_repel(aes(label=plot.labels), max.overlaps = max.overlaps,
                     color=text.col, size = 2.5 ) +
@@ -2162,98 +2199,162 @@ volcano.plot <- function(
          title = title, caption = deg.text)
 } # End function
 
+# Volcano plots by sex
 {
   volcano.plots.by.sex <- list()
   volcano.plots.by.sex[[1]] <- 
     volcano.plot(res.L5.thorax.by.sex[,1:5], pCutoff = 0.05, reverseLFC = TRUE,
                  title = "Expression in juvenile thorax ~ batch + sex",
-                 rightLabel = "male", leftLabel = "female")
+                 NegLFClabel = "male", PosLFClabel = "female", n = 51)
   volcano.plots.by.sex[[2]] <- 
     volcano.plot(res.adult.thorax.by.sex[,1:5], reverseLFC = TRUE,
                  title = "Expression in adult thorax ~ batch + sex",
-                 rightLabel = "male", leftLabel = "female")
+                 NegLFClabel = "male", PosLFClabel = "female", n = 91)
   volcano.plots.by.sex[[3]] <- 
     volcano.plot(res.L5.gonad.by.sex[,1:5], max.overlaps = 50, reverseLFC = TRUE,
                  title = "Expression in juvenile gonad ~ batch + sex",
-                 rightLabel = "male", leftLabel = "female")
+                 NegLFClabel = "male", PosLFClabel = "female", n = 49)
   volcano.plots.by.sex[[4]] <- 
     volcano.plot(res.adult.gonad.by.sex[,1:5], max.overlaps = 20, reverseLFC = TRUE,
                  title = "Expression in adult gonad ~ batch + sex",
-                 rightLabel = "male", leftLabel = "female")
+                 NegLFClabel = "male", PosLFClabel = "female", n = 89)
+  volcano.plots.by.sex.arranged <- ggarrange(plotlist = volcano.plots.by.sex, ncol = 2, nrow = 2, labels="AUTO")
+  ggsave("plots/volcano.plots.by.sex.jpg", plot = volcano.plots.by.sex.arranged, width = 6.5, height = 6.5, scale = 1.5)
+  ggsave("plots/volcano.plots.by.sex.pdf", plot = volcano.plots.by.sex.arranged, width = 6.5, height = 6.5, scale = 1.5)
 }
 
+# Volcano plots by wingPC1
+{
+  volcano.plots.by.wingPC1 <- list()
+  volcano.plots.by.wingPC1[[1]] <- 
+    volcano.plot(res.adult.thorax.by.wingPC1[,1:5], reverseLFC = TRUE,
+                 title = "Expression in adult thorax ~ batch + sex + wing shape",
+                 NegLFClabel = "short wing", PosLFClabel = "long wing", n=90)
+  volcano.plots.by.wingPC1[[2]] <- 
+    volcano.plot(res.adult.gonad.by.wingPC1[,1:5], reverseLFC = TRUE, pCutoff = 0.05, 
+                 title = "Expression in adult gonad ~ batch + sex + wing shape",
+                 NegLFClabel = "short wing", PosLFClabel = "long wing", n=88)
+  volcano.plots.by.wingPC1[[3]] <- 
+    volcano.plot(res.adult.ovaries.by.wingPC1[,1:5], reverseLFC = TRUE, pCutoff = 0.05, 
+                 title = "Expression in adult ovaries ~ batch + wing shape",
+                 NegLFClabel = "short wing", PosLFClabel = "long wing", n=44)
+  volcano.plots.by.wingPC1[[4]] <- 
+    volcano.plot(res.adult.testes.by.wingPC1[,1:5], reverseLFC = TRUE, pCutoff = 0.05, 
+                 title = "Expression in adult testes ~ batch + wing shape",
+                 NegLFClabel = "short wing", PosLFClabel = "long wing", n=44)
+  volcano.plots.by.wingPC1.arranged <- ggarrange(plotlist = volcano.plots.by.wingPC1, ncol = 2, nrow = 2, labels="AUTO")
+  ggsave("plots/volcano.plots.by.wingPC1.jpg", plot = volcano.plots.by.wingPC1.arranged, width = 6.5, height = 6.5, scale = 1.5)
+  ggsave("plots/volcano.plots.by.wingPC1.pdf", plot = volcano.plots.by.wingPC1.arranged, width = 6.5, height = 6.5, scale = 1.5)
+}
+
+# Volcano plots by txPC1
+{
+  volcano.plots.by.txPC1 <- list()
+  volcano.plots.by.txPC1[[1]] <- 
+    volcano.plot(res.adult.thorax.by.txPC1[,1:5], pCutoff = 0.05, 
+                 title = "Expression in adult thorax ~ batch + sex + thorax shape",
+                 NegLFClabel = "narrower thorax", PosLFClabel = "wider thorax", n=90)
+  volcano.plots.by.txPC1[[2]] <- 
+    volcano.plot(res.adult.gonad.by.txPC1[,1:5], pCutoff = 0.05, 
+                 title = "Expression in adult gonad ~ batch + sex + thorax shape",
+                 NegLFClabel = "narrower thorax", PosLFClabel = "wider thorax", n=88)
+  volcano.plots.by.txPC1.arranged <- ggarrange(plotlist = volcano.plots.by.txPC1, ncol = 2, nrow = 1, labels="AUTO")
+  ggsave("plots/volcano.plots.by.txPC1.jpg", plot = volcano.plots.by.txPC1.arranged, width = 6.5, height = 3.25, scale = 1.5)
+  ggsave("plots/volcano.plots.by.txPC1.pdf", plot = volcano.plots.by.txPC1.arranged, width = 6.5, height = 3.25, scale = 1.5)
+}
+
+# Volcano plots by morph
 {
   volcano.plots.by.morph <- list()
   volcano.plots.by.morph[[1]] <- 
     volcano.plot(res.adult.thorax.by.morph[,1:5], 
                  title = "Expression in adult thorax ~ batch + sex + morph",
-                 rightLabel = "short wing", leftLabel = "long wing")
+                 NegLFClabel = "short wing", PosLFClabel = "long wing", n=91)
   volcano.plots.by.morph[[2]] <- 
     volcano.plot(res.adult.gonad.by.morph[,1:5], pCutoff = 0.05, 
                  title = "Expression in adult gonad ~ batch + sex + morph",
-                 rightLabel = "short wing", leftLabel = "long wing")
+                 NegLFClabel = "short wing", PosLFClabel = "long wing", n=89)
   volcano.plots.by.morph[[3]] <- 
     volcano.plot(res.adult.ovaries.by.morph[,1:5], pCutoff = 0.05, 
                  title = "Expression in adult ovaries ~ batch + morph",
-                 rightLabel = "short wing", leftLabel = "long wing")
+                 NegLFClabel = "short wing", PosLFClabel = "long wing", n=45)
   volcano.plots.by.morph[[4]] <- 
     volcano.plot(res.adult.testes.by.morph[,1:5], pCutoff = 0.05, 
                  title = "Expression in adult testes ~ batch + morph",
-                 rightLabel = "short wing", leftLabel = "long wing")
+                 NegLFClabel = "short wing", PosLFClabel = "long wing", n=44)
+  volcano.plots.by.morph.arranged <- ggarrange(plotlist = volcano.plots.by.morph, ncol = 2, nrow = 2, labels="AUTO")
+  ggsave("plots/volcano.plots.by.morph.jpg", plot = volcano.plots.by.morph.arranged, width = 6.5, height = 6.5, scale = 1.5)
+  ggsave("plots/volcano.plots.by.morph.pdf", plot = volcano.plots.by.morph.arranged, width = 6.5, height = 6.5, scale = 1.5)
 }
 
+# Volcano plots by food density
+{
+  volcano.plots.by.food_density <- list()
+  volcano.plots.by.food_density[[1]] <- 
+    volcano.plot(res.L5.thorax.by.food_density[,1:5], pCutoff = 0.05,
+                 title = "Expression in juvenile thorax ~ batch + sex + food density",
+                 NegLFClabel = "less food", PosLFClabel = "more food", n=51)
+  volcano.plots.by.food_density[[2]] <- 
+    volcano.plot(res.adult.thorax.by.food_density[,1:5], pCutoff = 0.05,
+                 title = "Expression in adult thorax ~ batch + sex + morph + food density",
+                 NegLFClabel = "less food", PosLFClabel = "more food", n=91)
+  volcano.plots.by.food_density[[3]] <- 
+    volcano.plot(res.L5.gonad.by.food_density[,1:5], pCutoff = 0.05,
+                 title = "Expression in juvenile gonad ~ batch + sex + food density",
+                 NegLFClabel = "less food", PosLFClabel = "more food", n=49)
+  volcano.plots.by.food_density[[4]] <- 
+    volcano.plot(res.adult.gonad.by.food_density[,1:5], pCutoff = 0.05,
+                 title = "Expression in adult gonad ~ batch + sex + morph + food density",
+                 NegLFClabel = "less food", PosLFClabel = "more food", n=90)
+  volcano.plots.by.food_density.arranged <- ggarrange(plotlist = volcano.plots.by.food_density, ncol = 2, nrow = 2, labels="AUTO")
+  ggsave("plots/volcano.plots.by.food_density.jpg", plot = volcano.plots.by.food_density.arranged, width = 6.5, height = 6.5, scale = 1.5)
+  ggsave("plots/volcano.plots.by.food_density.pdf", plot = volcano.plots.by.food_density.arranged, width = 6.5, height = 6.5, scale = 1.5)
+}
+
+# Volcano plots by food regime
+{
+  volcano.plots.by.food_regime <- list()
+  volcano.plots.by.food_regime[[1]] <- 
+    volcano.plot(res.L5.thorax.by.food[,1:5], pCutoff = 0.05, reverseLFC = TRUE,
+                 title = "Expression in juvenile thorax ~ batch + sex + food regime",
+                 NegLFClabel = "low food", PosLFClabel = "high food", n=51)
+  volcano.plots.by.food_regime[[2]] <- 
+    volcano.plot(res.adult.thorax.by.food[,1:5], pCutoff = 0.05, reverseLFC = TRUE,
+                 title = "Expression in adult thorax ~ batch + sex + morph + food regime",
+                 NegLFClabel = "low food", PosLFClabel = "high food", n=91)
+  volcano.plots.by.food_regime[[3]] <- 
+    volcano.plot(res.L5.gonad.by.food[,1:5], pCutoff = 0.05, reverseLFC = TRUE,
+                 title = "Expression in juvenile gonad ~ batch + sex + food regime",
+                 NegLFClabel = "low food", PosLFClabel = "high food", n=49)
+  volcano.plots.by.food_regime[[4]] <- 
+    volcano.plot(res.adult.gonad.by.food[,1:5], pCutoff = 0.05, reverseLFC = TRUE,
+                 title = "Expression in adult gonad ~ batch + sex + morph + food regime",
+                 NegLFClabel = "low food", PosLFClabel = "high food", n=90)
+  volcano.plots.by.food_regime.arranged <- ggarrange(plotlist = volcano.plots.by.food_regime, ncol = 2, nrow = 2, labels="AUTO")
+  ggsave("plots/volcano.plots.by.food_regime.jpg", plot = volcano.plots.by.food_regime.arranged, width = 6.5, height = 6.5, scale = 1.5)
+  ggsave("plots/volcano.plots.by.food_regime.pdf", plot = volcano.plots.by.food_regime.arranged, width = 6.5, height = 6.5, scale = 1.5)
+}
+
+# Volcano plots by stage
 {
   volcano.plots.by.stage <- list()
   volcano.plots.by.stage[[1]] <- 
     volcano.plot(res.thorax.by.stage[,1:5], max.overlaps = 40, reverseLFC = TRUE,
                  title = "Expression in thorax ~ batch + sex + stage",
-                 rightLabel = "juvenile", leftLabel = "adult")
-  volcano.plots.by.stage[[2]] <- ggplot() + theme_void() + geom_blank()
-  volcano.plots.by.stage[[3]] <- 
-    volcano.plot(res.ovaries.by.stage[,1:5], max.overlaps = 40, reverseLFC = TRUE, 
+                 NegLFClabel = "juvenile", PosLFClabel = "adult", n=142)
+  # volcano.plots.by.stage[[2]] <- ggplot() + theme_void() + geom_blank()
+  volcano.plots.by.stage[[2]] <- 
+    volcano.plot(res.ovaries.by.stage[,1:5], max.overlaps = 30, reverseLFC = TRUE, 
                  title = "Expression in ovaries ~ batch + stage",
-                 rightLabel = "juvenile", leftLabel = "adult")
-  volcano.plots.by.stage[[4]] <- 
-    volcano.plot(res.testes.by.stage[,1:5], max.overlaps = 40, reverseLFC = TRUE,
+                 NegLFClabel = "juvenile", PosLFClabel = "adult", n=68)
+  volcano.plots.by.stage[[3]] <- 
+    volcano.plot(res.testes.by.stage[,1:5], max.overlaps = 30, reverseLFC = TRUE,
                  title = "Expression in testes ~ batch + stage",
-                 rightLabel = "juvenile", leftLabel = "adult")
+                 NegLFClabel = "juvenile", PosLFClabel = "adult", n=71)
+  volcano.plots.by.stage.arranged <- ggarrange(plotlist = volcano.plots.by.stage, ncol = 3, nrow = 1, labels="AUTO")
+  ggsave("plots/volcano.plots.by.stage.jpg", plot = volcano.plots.by.stage.arranged, width = 9.75, height = 3.25, scale = 1.5)
+  ggsave("plots/volcano.plots.by.stage.pdf", plot = volcano.plots.by.stage.arranged, width = 9.75, height = 3.25, scale = 1.5)
 }
-
-{
-  volcano.plots.by.food <- list()
-  volcano.plots.by.food[[1]] <- 
-    volcano.plot(res.L5.thorax.by.food[,1:5], pCutoff = 0.05, reverseLFC = TRUE,
-                 title = "Expression in juvenile thorax ~ batch + sex + food regime",
-                 rightLabel = "low food", leftLabel = "high food")
-  volcano.plots.by.food[[2]] <- 
-    volcano.plot(res.adult.thorax.by.food[,1:5], pCutoff = 0.05, reverseLFC = TRUE,
-                 title = "Expression in adult thorax ~ batch + sex + morph + food regime",
-                 rightLabel = "low food", leftLabel = "high food")
-  volcano.plots.by.food[[3]] <- 
-    volcano.plot(res.L5.gonad.by.food[,1:5], pCutoff = 0.05, reverseLFC = TRUE,
-                 title = "Expression in juvenile gonad ~ batch + sex + food regime",
-                 rightLabel = "low food", leftLabel = "high food")
-  volcano.plots.by.food[[4]] <- 
-    volcano.plot(res.adult.gonad.by.food[,1:5], pCutoff = 0.05, reverseLFC = TRUE,
-                 title = "Expression in adult gonad ~ batch + sex + morph + food regime",
-                 rightLabel = "low food", leftLabel = "high food")
-}
-
-volcano.plots.by.sex.arranged <- ggarrange(plotlist = volcano.plots.by.sex, ncol = 2, nrow = 2, labels="AUTO")
-ggsave("plots/volcano.plots.by.sex.jpg", plot = volcano.plots.by.sex.arranged, width = 6.5, height = 6.5, scale = 1.5)
-ggsave("plots/volcano.plots.by.sex.pdf", plot = volcano.plots.by.sex.arranged, width = 6.5, height = 6.5, scale = 1.5)
-
-volcano.plots.by.morph.arranged <- ggarrange(plotlist = volcano.plots.by.morph, ncol = 2, nrow = 2, labels="AUTO")
-ggsave("plots/volcano.plots.by.morph.jpg", plot = volcano.plots.by.morph.arranged, width = 6.5, height = 6.5, scale = 1.5)
-ggsave("plots/volcano.plots.by.morph.pdf", plot = volcano.plots.by.morph.arranged, width = 6.5, height = 6.5, scale = 1.5)
-
-volcano.plots.by.stage.arranged <- ggarrange(plotlist = volcano.plots.by.stage, ncol = 2, nrow = 2, labels=c("A","","B","C"))
-ggsave("plots/volcano.plots.by.stage.jpg", plot = volcano.plots.by.stage.arranged, width = 6.5, height = 6.5, scale = 1.5)
-ggsave("plots/volcano.plots.by.stage.pdf", plot = volcano.plots.by.stage.arranged, width = 6.5, height = 6.5, scale = 1.5)
-
-volcano.plots.by.food.arranged <- ggarrange(plotlist = volcano.plots.by.food, ncol = 2, nrow = 2, labels="AUTO")
-ggsave("plots/volcano.plots.by.food.jpg", plot = volcano.plots.by.food.arranged, width = 6.5, height = 6.5, scale = 1.5)
-ggsave("plots/volcano.plots.by.food.pdf", plot = volcano.plots.by.food.arranged, width = 6.5, height = 6.5, scale = 1.5)
 
 
 
