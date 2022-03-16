@@ -18,16 +18,17 @@ TR234543|c0_g1	Argos
 TR284759|c0_g1	aristaless
 TR256497|c1_g1_i7	arkadia
 TR250979|c0_g1_i2	ARS2
-TR234431|c0_g2_i1	ATP-dependent RNA helicase
+TR234431|c0_g2_i1	RNA helicase
 TR192994|c0_g1_i1	ATPA
 TR272793|c1_g1_i1	ATPSYN-D
+TR227404|c0_g2_i1	atrogin-1
 TR278073|c0_g1	axin
 TR285237|c0_g1	bab
 TR252104|c0_g1_i4	bark beetle
 TR264040|c0_g1	belle
-TR206379|c0_g1_i1	beta-catenin
-TR206379|c0_g1_i2	beta-catenin
-TR237602|c1_g1	beta-catenin
+TR206379|c0_g1_i1	b-catenin
+TR206379|c0_g1_i2	b-catenin
+TR237602|c1_g1	b-catenin
 TR285518|c0_g1	boule
 TR232015|c0_g1	bowl
 TR264080|c1_g2_i1	BRD8
@@ -172,7 +173,7 @@ TR235298|c2_g1_i1	Frizzled-2
 TR234156|c0_g1_i1	fruitless
 TR220511|c4_g1	ftz-F1
 TR246568|c2_g9	G3IP
-TR201504|c0_g3_i1	GEK
+TR201504|c0_g3_i1	Genghis Khan
 TR274112|c0_g3_i1	GFAT1
 TR250742|c14_g3_i6	GGH
 TR243781|c0_g2_i2	glycerate kinase

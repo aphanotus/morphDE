@@ -59,6 +59,17 @@ apply.annotation <- function(df, ann) {
   return(df)
 }
 
+add.manual.annotations <- function(res) {
+  manual.ann <- read.delim("manual.annotations.tsv", header = FALSE)
+  colnames(manual.ann) <- c("id","name")
+  res$manual.ann <- NA
+  for (i in 1:(dim(manual.ann)[1])) {
+    id.i <- sub("\\|","\\\\\\|",manual.ann$id[i])
+    res$manual.ann[grep(id.i,rownames(res))] <- manual.ann$name[i]
+  }
+  return(res)
+}
+
 ###################
 # Differential expression analysis
 ###################
@@ -145,7 +156,7 @@ ggsave("plots/pca.null.plot.jpg", pca.null.plot, width = 7, height = 5, scale = 
 rm(cts.i, ctn.null, dds.null, pca.uncorrected, pca.uncorrected.by.biol.grp.plot, pca.uncorrected.by.batch.plot, vsd.cor.null, vsd.null, pca.null)
 
 ###################
-### M v. F for adult gonad
+### Adult gonad by sex
 ###################
 
 #### Sub-setting the data and metadata
@@ -196,14 +207,14 @@ deg100.adult.gonad.by.sex <- deg100.adult.gonad.by.sex[1:100,]
 deg100.adult.gonad.by.sex <- apply.annotation(deg100.adult.gonad.by.sex, ann)
 
 # Save results
-write.table(as.data.frame(deg100.adult.gonad.by.sex), "deg100.adult.gonad.by.sex.tsv", quote = FALSE)
-save(meta.i, cts.i, dds.adult.gonad.by.sex, res.adult.gonad.by.sex, vsd.adult.gonad.by.sex, deg100.adult.gonad.by.sex,
+write.table(as.data.frame(deg100.adult.gonad.by.sex), "deg100.adult.gonad.by.sex.tsv", quote = FALSE, sep = "\t")
+save(meta.i, cts.i, dds.adult.gonad.by.sex, res.adult.gonad.by.sex, deg100.adult.gonad.by.sex,
      file = "adult.gonad.by.sex.rda")
 rm(meta.i, cts.i, dds.adult.gonad.by.sex, res.adult.gonad.by.sex, vsd.adult.gonad.by.sex)
 # load("adult.gonad.by.sex.rda", verbose = TRUE)
 
 ###################
-### M v. F for L5 gonad
+### L5 gonad by sex
 ###################
 
 #### Sub-setting the data and metadata
@@ -249,14 +260,14 @@ deg100.L5.gonad.by.sex <- deg100.L5.gonad.by.sex[1:100,]
 deg100.L5.gonad.by.sex <- apply.annotation(deg100.L5.gonad.by.sex, ann)
 
 # Save results
-write.table(as.data.frame(deg100.L5.gonad.by.sex), "deg100.L5.gonad.by.sex.tsv", quote = FALSE)
-save(meta.i, cts.i, dds.L5.gonad.by.sex, res.L5.gonad.by.sex, vsd.L5.gonad.by.sex, deg100.L5.gonad.by.sex,
+write.table(as.data.frame(deg100.L5.gonad.by.sex), "deg100.L5.gonad.by.sex.tsv", quote = FALSE, sep = "\t")
+save(meta.i, cts.i, dds.L5.gonad.by.sex, res.L5.gonad.by.sex, deg100.L5.gonad.by.sex,
      file = "L5.gonad.by.sex.rda")
 rm(meta.i, cts.i, dds.L5.gonad.by.sex, res.L5.gonad.by.sex, vsd.L5.gonad.by.sex)
 # load("L5.gonad.by.sex.rda", verbose = TRUE)
 
 ###################
-### M v. F for adult thorax
+### Adult thorax by sex
 ###################
 
 #### Sub-setting the data and metadata
@@ -302,14 +313,14 @@ deg100.adult.thorax.by.sex <- deg100.adult.thorax.by.sex[1:100,]
 deg100.adult.thorax.by.sex <- apply.annotation(deg100.adult.thorax.by.sex, ann)
 
 # Save results
-write.table(as.data.frame(deg100.adult.thorax.by.sex), "deg100.adult.thorax.by.sex.tsv", quote = FALSE)
-save(meta.i, cts.i, dds.adult.thorax.by.sex, res.adult.thorax.by.sex, vsd.adult.thorax.by.sex, deg100.adult.thorax.by.sex,
+write.table(as.data.frame(deg100.adult.thorax.by.sex), "deg100.adult.thorax.by.sex.tsv", quote = FALSE, sep = "\t")
+save(meta.i, cts.i, dds.adult.thorax.by.sex, res.adult.thorax.by.sex, deg100.adult.thorax.by.sex,
      file = "adult.thorax.by.sex.rda")
 rm(meta.i, cts.i, dds.adult.thorax.by.sex, res.adult.thorax.by.sex, vsd.adult.thorax.by.sex)
 # load("adult.thorax.by.sex.rda", verbose = TRUE)
 
 ###################
-### M v. F for L5 thorax
+### L5 thorax by sex
 ###################
 
 #### Sub-setting the data and metadata
@@ -355,8 +366,8 @@ deg100.L5.thorax.by.sex <- deg100.L5.thorax.by.sex[1:100,]
 deg100.L5.thorax.by.sex <- apply.annotation(deg100.L5.thorax.by.sex, ann)
 
 # Save results
-write.table(as.data.frame(deg100.L5.thorax.by.sex), "deg100.L5.thorax.by.sex.tsv", quote = FALSE)
-save(meta.i, cts.i, dds.L5.thorax.by.sex, res.L5.thorax.by.sex, vsd.L5.thorax.by.sex, deg100.L5.thorax.by.sex,
+write.table(as.data.frame(deg100.L5.thorax.by.sex), "deg100.L5.thorax.by.sex.tsv", quote = FALSE, sep = "\t")
+save(meta.i, cts.i, dds.L5.thorax.by.sex, res.L5.thorax.by.sex, deg100.L5.thorax.by.sex,
      file = "L5.thorax.by.sex.rda")
 rm(meta.i, cts.i, dds.L5.thorax.by.sex, res.L5.thorax.by.sex, vsd.L5.thorax.by.sex)
 # load("L5.thorax.by.sex.rda", verbose = TRUE)
@@ -420,8 +431,8 @@ deg100.adult.thorax.by.morph <- deg100.adult.thorax.by.morph[1:100,]
 deg100.adult.thorax.by.morph <- apply.annotation(deg100.adult.thorax.by.morph, ann)
 
 # Save results
-write.table(as.data.frame(deg100.adult.thorax.by.morph), "deg100.adult.thorax.by.morph.tsv", quote = FALSE)
-save(meta.i, cts.i, dds.adult.thorax.by.morph, res.adult.thorax.by.morph, vsd.adult.thorax.by.morph, deg100.adult.thorax.by.morph,
+write.table(as.data.frame(deg100.adult.thorax.by.morph), "deg100.adult.thorax.by.morph.tsv", quote = FALSE, sep = "\t")
+save(meta.i, cts.i, dds.adult.thorax.by.morph, res.adult.thorax.by.morph, deg100.adult.thorax.by.morph,
      file = "adult.thorax.by.morph.rda")
 rm(meta.i, cts.i, dds.adult.thorax.by.morph, res.adult.thorax.by.morph, vsd.adult.thorax.by.morph)
 # load("adult.thorax.by.morph.rda", verbose = TRUE)
@@ -474,64 +485,745 @@ deg100.adult.gonad.by.morph <- deg100.adult.gonad.by.morph[1:100,]
 deg100.adult.gonad.by.morph <- apply.annotation(deg100.adult.gonad.by.morph, ann)
 
 # Save results
-write.table(as.data.frame(deg100.adult.gonad.by.morph), "deg100.adult.gonad.by.morph.tsv", quote = FALSE)
-save(meta.i, cts.i, dds.adult.gonad.by.morph, res.adult.gonad.by.morph, vsd.adult.gonad.by.morph, deg100.adult.gonad.by.morph,
+write.table(as.data.frame(deg100.adult.gonad.by.morph), "deg100.adult.gonad.by.morph.tsv", quote = FALSE, sep = "\t")
+save(meta.i, cts.i, dds.adult.gonad.by.morph, res.adult.gonad.by.morph, deg100.adult.gonad.by.morph,
      file = "adult.gonad.by.morph.rda")
 rm(meta.i, cts.i, dds.adult.gonad.by.morph, res.adult.gonad.by.morph, vsd.adult.gonad.by.morph)
 # load("adult.gonad.by.morph.rda", verbose = TRUE)
 
 ###################
-### Adult gonad by food regime
+### Adult ovaries by morph
 ###################
 
 #### Sub-setting the data and metadata
 meta.i <- sample.metadata %>%
-  filter(stage == "adult", tissue == "gonad")
+  filter(stage == "adult", tissue == "gonad", sex =="f")
 cts.i <- cts[,which(colnames(cts) %in% rownames(meta.i))]
 cts.i <- as.matrix(cts.i[which(rowSums(cts.i) > gene.read.number.cut.off),])
 dim(meta.i); dim(cts.i)
-c(with(meta.i, by(sex,sex,length)))
+c(with(meta.i, by(morph,morph,length)))
 
-dds.adult.gonad.by.food <- DESeqDataSetFromMatrix(
+dds.adult.ovaries.by.morph <- DESeqDataSetFromMatrix(
   countData=round(cts.i), colData=meta.i,
-  design = ~ plate + sex + morph + food_regime)
-dds.adult.gonad.by.food <- DESeq(dds.adult.gonad.by.food)
-dds.adult.gonad.by.food <- estimateSizeFactors(dds.adult.gonad.by.food)
+  design = ~ plate + morph )
+dds.adult.ovaries.by.morph <- DESeq(dds.adult.ovaries.by.morph)
+dds.adult.ovaries.by.morph <- estimateSizeFactors(dds.adult.ovaries.by.morph)
 
 # # Extract and save normalized counts
-# ctn.adult.gonad.by.food <- counts(dds.adult.gonad.by.food, normalized=TRUE)
-# write.csv(ctn.adult.gonad.by.food, 'normalized.counts.adult.gonad.by.food.csv')
+# ctn.ovaries.by.morph <- counts(dds.adult.ovaries.by.morph, normalized=TRUE)
+# write.csv(ctn.ovaries.by.morph, 'normalized.counts.ovaries.by.morph.csv')
 # # Use normalized counts for downstream visualization
 
 # Results table with log2 fold changes, p values and adjusted p values.
-resultsNames(dds.adult.gonad.by.food)
-res.adult.gonad.by.food <- results(dds.adult.gonad.by.food, contrast=c("food_regime","low","high"), alpha=0.05, filterFun=ihw)
-res.adult.gonad.by.food <- lfcShrink(dds.adult.gonad.by.food, coef="food_regime_low_vs_high", type="apeglm", res = res.adult.gonad.by.food)
-summary(res.adult.gonad.by.food)
-# out of 54724 with nonzero total read count
+resultsNames(dds.adult.ovaries.by.morph)
+res.adult.ovaries.by.morph <- results(dds.adult.ovaries.by.morph, contrast=c("morph","LW","SW"), alpha=0.05, filterFun=ihw)
+res.adult.ovaries.by.morph <- lfcShrink(dds.adult.ovaries.by.morph, coef="morph_LW_vs_SW", type="apeglm", res = res.adult.ovaries.by.morph)
+summary(res.adult.ovaries.by.morph)
+# out of 26403 with nonzero total read count
 # adjusted p-value < 0.05
-# LFC > 0 (up)       : 40, 0.073%
-# LFC < 0 (down)     : 7, 0.013%
-# outliers [1]       : 430, 0.79%
+# LFC > 0 (up)       : 5, 0.019%
+# LFC < 0 (down)     : 4, 0.015%
+# outliers [1]       : 25, 0.095%
 
-plotMA(res.adult.gonad.by.food, main="apeGLM", ylim = c(-3,5))
-# Positive LFC values are associated with low food regime expression bias
+plotMA(res.adult.ovaries.by.morph, main="apeGLM", ylim = c(-4,5))
+plotCounts(dds.adult.ovaries.by.morph, gene=order(res.adult.ovaries.by.morph$padj)[8], intgroup="morph")
+res.adult.ovaries.by.morph$log2FoldChange[order(res.adult.ovaries.by.morph$padj)[8]]
+# Positive LFC values are associated with LW expression bias
 
 # Use variance stabilizing transformations only for ML applications
-vsd.adult.gonad.by.food <- vst(dds.adult.gonad.by.food, blind=FALSE)
-plotPCA(vsd.adult.gonad.by.food, intgroup=c("food_regime"))
+vsd.adult.ovaries.by.morph <- vst(dds.adult.ovaries.by.morph, blind=FALSE)
+plotPCA(vsd.adult.ovaries.by.morph, intgroup=c("morph"))
 
 # We can order our results table by the smallest p value:
-deg100.adult.gonad.by.food <- res.adult.gonad.by.food[order(res.adult.gonad.by.food$padj),]
-deg100.adult.gonad.by.food <- deg100.adult.gonad.by.food[1:100,]
-deg100.adult.gonad.by.food <- apply.annotation(deg100.adult.gonad.by.food, ann)
+deg100.adult.ovaries.by.morph <- res.adult.ovaries.by.morph[order(res.adult.ovaries.by.morph$padj),]
+deg100.adult.ovaries.by.morph <- deg100.adult.ovaries.by.morph[1:100,]
+deg100.adult.ovaries.by.morph <- apply.annotation(deg100.adult.ovaries.by.morph, ann)
 
 # Save results
-write.table(as.data.frame(deg100.adult.gonad.by.food), "deg100.adult.gonad.by.food.tsv", quote = FALSE)
-save(meta.i, cts.i, dds.adult.gonad.by.food, res.adult.gonad.by.food, vsd.adult.gonad.by.food, deg100.adult.gonad.by.food,
-     file = "adult.gonad.by.food.rda")
-rm(meta.i, cts.i, dds.adult.gonad.by.food, res.adult.gonad.by.food, vsd.adult.gonad.by.food)
-# load("adult.gonad.by.food.rda", verbose = TRUE)
+write.table(as.data.frame(deg100.adult.ovaries.by.morph), "deg100.adult.ovaries.by.morph.tsv", quote = FALSE, sep = "\t")
+save(meta.i, cts.i, dds.adult.ovaries.by.morph, res.adult.ovaries.by.morph, deg100.adult.ovaries.by.morph,
+     file = "ovaries.by.morph.rda")
+rm(meta.i, cts.i, dds.adult.ovaries.by.morph, res.adult.ovaries.by.morph, vsd.adult.ovaries.by.morph)
+# load("ovaries.by.morph.rda", verbose = TRUE)
+
+###################
+### Adult testes by morph
+###################
+
+#### Sub-setting the data and metadata
+meta.i <- sample.metadata %>%
+  filter(stage == "adult", tissue == "gonad", sex =="m")
+cts.i <- cts[,which(colnames(cts) %in% rownames(meta.i))]
+cts.i <- as.matrix(cts.i[which(rowSums(cts.i) > gene.read.number.cut.off),])
+dim(meta.i); dim(cts.i)
+c(with(meta.i, by(morph,morph,length)))
+
+dds.adult.testes.by.morph <- DESeqDataSetFromMatrix(
+  countData=round(cts.i), colData=meta.i,
+  design = ~ plate + morph )
+dds.adult.testes.by.morph <- DESeq(dds.adult.testes.by.morph)
+dds.adult.testes.by.morph <- estimateSizeFactors(dds.adult.testes.by.morph)
+
+# # Extract and save normalized counts
+# ctn.testes.by.morph <- counts(dds.adult.testes.by.morph, normalized=TRUE)
+# write.csv(ctn.testes.by.morph, 'normalized.counts.testes.by.morph.csv')
+# # Use normalized counts for downstream visualization
+
+# Results table with log2 fold changes, p values and adjusted p values.
+resultsNames(dds.adult.testes.by.morph)
+res.adult.testes.by.morph <- results(dds.adult.testes.by.morph, contrast=c("morph","LW","SW"), alpha=0.05, filterFun=ihw)
+res.adult.testes.by.morph <- lfcShrink(dds.adult.testes.by.morph, coef="morph_LW_vs_SW", type="apeglm", res = res.adult.testes.by.morph)
+summary(res.adult.testes.by.morph)
+# out of 41078 with nonzero total read count
+# adjusted p-value < 0.05
+# LFC > 0 (up)       : 1, 0.0024%
+# LFC < 0 (down)     : 7, 0.017%
+# outliers [1]       : 217, 0.53%
+
+plotMA(res.adult.testes.by.morph, main="apeGLM", ylim = c(-4,4.5))
+plotCounts(dds.adult.testes.by.morph, gene=order(res.adult.testes.by.morph$padj)[6], intgroup="morph")
+res.adult.testes.by.morph$log2FoldChange[order(res.adult.testes.by.morph$padj)[6]]
+# Positive LFC values are associated with LW expression bias
+
+# Use variance stabilizing transformations only for ML applications
+vsd.adult.testes.by.morph <- vst(dds.adult.testes.by.morph, blind=FALSE)
+plotPCA(vsd.adult.testes.by.morph, intgroup=c("morph"))
+
+# We can order our results table by the smallest p value:
+deg100.adult.testes.by.morph <- res.adult.testes.by.morph[order(res.adult.testes.by.morph$padj),]
+deg100.adult.testes.by.morph <- deg100.adult.testes.by.morph[1:100,]
+deg100.adult.testes.by.morph <- apply.annotation(deg100.adult.testes.by.morph, ann)
+
+# Save results
+write.table(as.data.frame(deg100.adult.testes.by.morph), "deg100.adult.testes.by.morph.tsv", quote = FALSE, sep = "\t")
+save(meta.i, cts.i, dds.adult.testes.by.morph, res.adult.testes.by.morph, deg100.adult.testes.by.morph,
+     file = "testes.by.morph.rda")
+rm(meta.i, cts.i, dds.adult.testes.by.morph, res.adult.testes.by.morph, vsd.adult.testes.by.morph)
+# load("testes.by.morph.rda", verbose = TRUE)
+
+###################
+### Adult thorax by wing PC1
+###################
+
+#### Sub-setting the data and metadata
+meta.i <- sample.metadata %>%
+  filter(stage=="adult", tissue=="thorax", !is.na(wingPC1))
+cts.i <- cts[,which(colnames(cts) %in% rownames(meta.i))]
+cts.i <- as.matrix(cts.i[which(rowSums(cts.i) > gene.read.number.cut.off),])
+dim(meta.i); dim(cts.i)
+c(with(meta.i, by(morph,morph,length)))
+hist(meta.i$wingPC1) # higher PC1 values are associated with more short-wing shapes
+
+dds.adult.thorax.by.wingPC1 <- DESeqDataSetFromMatrix(
+  countData=round(cts.i), colData=meta.i,
+  design = ~ plate + sex + wingPC1 )
+dds.adult.thorax.by.wingPC1 <- DESeq(dds.adult.thorax.by.wingPC1)
+dds.adult.thorax.by.wingPC1 <- estimateSizeFactors(dds.adult.thorax.by.wingPC1)
+
+# # Extract and save normalized counts
+# ctn.adult.thorax.by.wingPC1 <- counts(dds.adult.thorax.by.wingPC1, normalized=TRUE)
+# write.csv(ctn.adult.thorax.by.wingPC1, 'normalized.counts.adult.thorax.by.wingPC1.csv')
+# # Use normalized counts for downstream visualization
+
+# Results table with log2 fold changes, p values and adjusted p values.
+resultsNames(dds.adult.thorax.by.wingPC1)
+res.adult.thorax.by.wingPC1 <- results(dds.adult.thorax.by.wingPC1, name=c("wingPC1"), alpha=0.05, filterFun=ihw)
+res.adult.thorax.by.wingPC1 <- lfcShrink(dds.adult.thorax.by.wingPC1, coef="wingPC1", type="apeglm", res = res.adult.thorax.by.wingPC1)
+summary(res.adult.thorax.by.wingPC1)
+# out of 32236 with nonzero total read count
+# adjusted p-value < 0.05
+# LFC > 0 (up)       : 1457, 4.5%
+# LFC < 0 (down)     : 1627, 5%
+# outliers [1]       : 0, 0%
+
+plotMA(res.adult.thorax.by.wingPC1, main="apeGLM", ylim=c(-22,13))
+plot(plotCounts(dds.adult.thorax.by.wingPC1, gene=order(res.adult.thorax.by.wingPC1$padj)[4], intgroup="wingPC1", returnData=TRUE))
+res.adult.thorax.by.wingPC1$log2FoldChange[order(res.adult.thorax.by.wingPC1$padj)[4]]
+# Positive LFC values are associated with positive wingPC1 values (short-wing bias)
+
+# Use variance stabilizing transformations only for ML applications
+vsd.adult.thorax.by.wingPC1 <- vst(dds.adult.thorax.by.wingPC1, blind=FALSE)
+plotPCA(vsd.adult.thorax.by.wingPC1, intgroup=c("wingPC1"))
+plotPCA(vsd.adult.thorax.by.wingPC1, intgroup=c("morph"))
+
+# We can order our results table by the smallest p value:
+deg100.adult.thorax.by.wingPC1 <- res.adult.thorax.by.wingPC1[order(res.adult.thorax.by.wingPC1$padj),]
+deg100.adult.thorax.by.wingPC1 <- deg100.adult.thorax.by.wingPC1[1:100,]
+deg100.adult.thorax.by.wingPC1 <- apply.annotation(deg100.adult.thorax.by.wingPC1, ann)
+
+# Save results
+write.table(as.data.frame(deg100.adult.thorax.by.wingPC1), "deg100.adult.thorax.by.wingPC1.tsv", quote = FALSE, sep = "\t")
+save(meta.i, cts.i, dds.adult.thorax.by.wingPC1, res.adult.thorax.by.wingPC1, deg100.adult.thorax.by.wingPC1,
+     file = "adult.thorax.by.wingPC1.rda")
+rm(meta.i, cts.i, dds.adult.thorax.by.wingPC1, res.adult.thorax.by.wingPC1, vsd.adult.thorax.by.wingPC1)
+# load("adult.thorax.by.wingPC1.rda", verbose = TRUE)
+
+###################
+### Adult gonad by wing PC1
+###################
+
+#### Sub-setting the data and metadata
+meta.i <- sample.metadata %>%
+  filter(stage=="adult", tissue=="gonad", !is.na(wingPC1))
+cts.i <- cts[,which(colnames(cts) %in% rownames(meta.i))]
+cts.i <- as.matrix(cts.i[which(rowSums(cts.i) > gene.read.number.cut.off),])
+dim(meta.i); dim(cts.i)
+c(with(meta.i, by(morph,morph,length)))
+hist(meta.i$wingPC1) # higher PC1 values are associated with more short-wing shapes
+
+dds.adult.gonad.by.wingPC1 <- DESeqDataSetFromMatrix(
+  countData=round(cts.i), colData=meta.i,
+  design = ~ plate + sex + wingPC1 )
+dds.adult.gonad.by.wingPC1 <- DESeq(dds.adult.gonad.by.wingPC1)
+dds.adult.gonad.by.wingPC1 <- estimateSizeFactors(dds.adult.gonad.by.wingPC1)
+
+# # Extract and save normalized counts
+# ctn.adult.gonad.by.wingPC1 <- counts(dds.adult.gonad.by.wingPC1, normalized=TRUE)
+# write.csv(ctn.adult.gonad.by.wingPC1, 'normalized.counts.adult.gonad.by.wingPC1.csv')
+# # Use normalized counts for downstream visualization
+
+# Results table with log2 fold changes, p values and adjusted p values.
+resultsNames(dds.adult.gonad.by.wingPC1)
+res.adult.gonad.by.wingPC1 <- results(dds.adult.gonad.by.wingPC1, name=c("wingPC1"), alpha=0.05, filterFun=ihw)
+res.adult.gonad.by.wingPC1 <- lfcShrink(dds.adult.gonad.by.wingPC1, coef="wingPC1", type="apeglm", res = res.adult.gonad.by.wingPC1)
+summary(res.adult.gonad.by.wingPC1)
+# out of 54574 with nonzero total read count
+# adjusted p-value < 0.05
+# LFC > 0 (up)       : 11, 0.02%
+# LFC < 0 (down)     : 15, 0.027%
+# outliers [1]       : 0, 0%
+
+plotMA(res.adult.gonad.by.wingPC1, main="apeGLM", ylim=c(-5.5,9))
+plot(plotCounts(dds.adult.gonad.by.wingPC1, gene=order(res.adult.gonad.by.wingPC1$padj)[2], intgroup="wingPC1", returnData=TRUE))
+res.adult.gonad.by.wingPC1$log2FoldChange[order(res.adult.gonad.by.wingPC1$padj)[2]]
+# Positive LFC values are associated with positive wingPC1 values (short-wing bias)
+
+# Use variance stabilizing transformations only for ML applications
+vsd.adult.gonad.by.wingPC1 <- vst(dds.adult.gonad.by.wingPC1, blind=FALSE)
+plotPCA(vsd.adult.gonad.by.wingPC1, intgroup=c("wingPC1"))
+plotPCA(vsd.adult.gonad.by.wingPC1, intgroup=c("morph"))
+plotPCA(vsd.adult.gonad.by.wingPC1, intgroup=c("population"))
+plotPCA(vsd.adult.gonad.by.wingPC1, intgroup=c("plate"))
+
+# We can order our results table by the smallest p value:
+deg100.adult.gonad.by.wingPC1 <- res.adult.gonad.by.wingPC1[order(res.adult.gonad.by.wingPC1$padj),]
+deg100.adult.gonad.by.wingPC1 <- deg100.adult.gonad.by.wingPC1[1:100,]
+deg100.adult.gonad.by.wingPC1 <- apply.annotation(deg100.adult.gonad.by.wingPC1, ann)
+
+# Save results
+write.table(as.data.frame(deg100.adult.gonad.by.wingPC1), "deg100.adult.gonad.by.wingPC1.tsv", quote = FALSE, sep = "\t")
+save(meta.i, cts.i, dds.adult.gonad.by.wingPC1, res.adult.gonad.by.wingPC1, deg100.adult.gonad.by.wingPC1,
+     file = "adult.gonad.by.wingPC1.rda")
+rm(meta.i, cts.i, dds.adult.gonad.by.wingPC1, res.adult.gonad.by.wingPC1, vsd.adult.gonad.by.wingPC1)
+# load("adult.gonad.by.wingPC1.rda", verbose = TRUE)
+
+###################
+### Adult ovaries by wing PC1
+###################
+
+#### Sub-setting the data and metadata
+meta.i <- sample.metadata %>%
+  filter(stage=="adult", tissue=="gonad", sex=="f", !is.na(wingPC1))
+cts.i <- cts[,which(colnames(cts) %in% rownames(meta.i))]
+cts.i <- as.matrix(cts.i[which(rowSums(cts.i) > gene.read.number.cut.off),])
+dim(meta.i); dim(cts.i)
+c(with(meta.i, by(morph,morph,length)))
+hist(meta.i$wingPC1) # higher PC1 values are associated with more short-wing shapes
+
+dds.adult.ovaries.by.wingPC1 <- DESeqDataSetFromMatrix(
+  countData=round(cts.i), colData=meta.i,
+  design = ~ plate + wingPC1 )
+dds.adult.ovaries.by.wingPC1 <- DESeq(dds.adult.ovaries.by.wingPC1)
+dds.adult.ovaries.by.wingPC1 <- estimateSizeFactors(dds.adult.ovaries.by.wingPC1)
+
+# # Extract and save normalized counts
+# ctn.ovaries.by.wingPC1 <- counts(dds.adult.ovaries.by.wingPC1, normalized=TRUE)
+# write.csv(ctn.ovaries.by.wingPC1, 'normalized.counts.ovaries.by.wingPC1.csv')
+# # Use normalized counts for downstream visualization
+
+# Results table with log2 fold changes, p values and adjusted p values.
+resultsNames(dds.adult.ovaries.by.wingPC1)
+res.adult.ovaries.by.wingPC1 <- results(dds.adult.ovaries.by.wingPC1, name=c("wingPC1"), alpha=0.05, filterFun=ihw)
+res.adult.ovaries.by.wingPC1 <- lfcShrink(dds.adult.ovaries.by.wingPC1, coef="wingPC1", type="apeglm", res = res.adult.ovaries.by.wingPC1)
+summary(res.adult.ovaries.by.wingPC1)
+# out of 26241 with nonzero total read count
+# adjusted p-value < 0.05
+# LFC > 0 (up)       : 10, 0.038%
+# LFC < 0 (down)     : 10, 0.038%
+# outliers [1]       : 0, 0%
+
+plotMA(res.adult.ovaries.by.wingPC1, main="apeGLM")
+plot(plotCounts(dds.adult.ovaries.by.wingPC1, gene=order(res.adult.ovaries.by.wingPC1$padj)[2], intgroup="wingPC1", returnData=TRUE))
+res.adult.ovaries.by.wingPC1$log2FoldChange[order(res.adult.ovaries.by.wingPC1$padj)[2]]
+# Positive LFC values are associated with positive wingPC1 values (short-wing bias)
+
+# Use variance stabilizing transformations only for ML applications
+vsd.adult.ovaries.by.wingPC1 <- vst(dds.adult.ovaries.by.wingPC1, blind=FALSE)
+plotPCA(vsd.adult.ovaries.by.wingPC1, intgroup=c("wingPC1"))
+
+# We can order our results table by the smallest p value:
+deg100.adult.ovaries.by.wingPC1 <- res.adult.ovaries.by.wingPC1[order(res.adult.ovaries.by.wingPC1$padj),]
+deg100.adult.ovaries.by.wingPC1 <- deg100.adult.ovaries.by.wingPC1[1:100,]
+deg100.adult.ovaries.by.wingPC1 <- apply.annotation(deg100.adult.ovaries.by.wingPC1, ann)
+
+# Save results
+write.table(as.data.frame(deg100.adult.ovaries.by.wingPC1), "deg100.adult.ovaries.by.wingPC1.tsv", quote = FALSE, sep = "\t")
+save(meta.i, cts.i, dds.adult.ovaries.by.wingPC1, res.adult.ovaries.by.wingPC1, deg100.adult.ovaries.by.wingPC1,
+     file = "adult.ovaries.by.wingPC1.rda")
+rm(meta.i, cts.i, dds.adult.ovaries.by.wingPC1, res.adult.ovaries.by.wingPC1, vsd.adult.ovaries.by.wingPC1)
+# load("adult.ovaries.by.wingPC1.rda", verbose = TRUE)
+
+###################
+### Adult testes by wing PC1
+###################
+
+#### Sub-setting the data and metadata
+meta.i <- sample.metadata %>%
+  filter(stage=="adult", tissue=="gonad", sex=="m", !is.na(wingPC1))
+cts.i <- cts[,which(colnames(cts) %in% rownames(meta.i))]
+cts.i <- as.matrix(cts.i[which(rowSums(cts.i) > gene.read.number.cut.off),])
+dim(meta.i); dim(cts.i)
+c(with(meta.i, by(morph,morph,length)))
+hist(meta.i$wingPC1) # higher PC1 values are associated with more short-wing shapes
+
+dds.adult.testes.by.wingPC1 <- DESeqDataSetFromMatrix(
+  countData=round(cts.i), colData=meta.i,
+  design = ~ plate + wingPC1 )
+dds.adult.testes.by.wingPC1 <- DESeq(dds.adult.testes.by.wingPC1)
+dds.adult.testes.by.wingPC1 <- estimateSizeFactors(dds.adult.testes.by.wingPC1)
+
+# # Extract and save normalized counts
+# ctn.testes.by.wingPC1 <- counts(dds.adult.testes.by.wingPC1, normalized=TRUE)
+# write.csv(ctn.testes.by.wingPC1, 'normalized.counts.testes.by.wingPC1.csv')
+# # Use normalized counts for downstream visualization
+
+# Results table with log2 fold changes, p values and adjusted p values.
+resultsNames(dds.adult.testes.by.wingPC1)
+res.adult.testes.by.wingPC1 <- results(dds.adult.testes.by.wingPC1, name=c("wingPC1"), alpha=0.05, filterFun=ihw)
+res.adult.testes.by.wingPC1 <- lfcShrink(dds.adult.testes.by.wingPC1, coef="wingPC1", type="apeglm", res = res.adult.testes.by.wingPC1)
+summary(res.adult.testes.by.wingPC1)
+# out of 41085 with nonzero total read count
+# adjusted p-value < 0.05
+# LFC > 0 (up)       : 7, 0.017%
+# LFC < 0 (down)     : 45, 0.11%
+# outliers [1]       : 0, 0%
+
+plotMA(res.adult.testes.by.wingPC1, main="apeGLM")
+plot(plotCounts(dds.adult.testes.by.wingPC1, gene=order(res.adult.testes.by.wingPC1$padj)[1], intgroup="wingPC1", returnData=TRUE))
+res.adult.testes.by.wingPC1$log2FoldChange[order(res.adult.testes.by.wingPC1$padj)[1]]
+# Positive LFC values are associated with positive wingPC1 values (short-wing bias)
+
+# Use variance stabilizing transformations only for ML applications
+vsd.adult.testes.by.wingPC1 <- vst(dds.adult.testes.by.wingPC1, blind=FALSE)
+plotPCA(vsd.adult.testes.by.wingPC1, intgroup=c("wingPC1"))
+plotPCA(vsd.adult.testes.by.wingPC1, intgroup=c("morph"))
+
+# We can order our results table by the smallest p value:
+deg100.adult.testes.by.wingPC1 <- res.adult.testes.by.wingPC1[order(res.adult.testes.by.wingPC1$padj),]
+deg100.adult.testes.by.wingPC1 <- deg100.adult.testes.by.wingPC1[1:100,]
+deg100.adult.testes.by.wingPC1 <- apply.annotation(deg100.adult.testes.by.wingPC1, ann)
+
+# Save results
+write.table(as.data.frame(deg100.adult.testes.by.wingPC1), "deg100.adult.testes.by.wingPC1.tsv", quote = FALSE, sep = "\t")
+save(meta.i, cts.i, dds.adult.testes.by.wingPC1, res.adult.testes.by.wingPC1, deg100.adult.testes.by.wingPC1,
+     file = "adult.testes.by.wingPC1.rda")
+rm(meta.i, cts.i, dds.adult.testes.by.wingPC1, res.adult.testes.by.wingPC1, vsd.adult.testes.by.wingPC1)
+# load("adult.testes.by.wingPC1.rda", verbose = TRUE)
+
+###################
+### L5 thorax by wingpad PC1
+###################
+
+#### Sub-setting the data and metadata
+meta.i <- sample.metadata %>%
+  filter(stage=="L5", tissue=="thorax", !is.na(wingpadPC1))
+cts.i <- cts[,which(colnames(cts) %in% rownames(meta.i))]
+cts.i <- as.matrix(cts.i[which(rowSums(cts.i) > gene.read.number.cut.off),])
+dim(meta.i); dim(cts.i)
+c(with(meta.i, by(food_regime,food_regime,length)))
+hist(meta.i$wingpadPC1) # higher PC1 values are associated with more short-wing shapes
+
+dds.L5.thorax.by.wingpadPC1 <- DESeqDataSetFromMatrix(
+  countData=round(cts.i), colData=meta.i,
+  design = ~ plate + sex + wingpadPC1 )
+dds.L5.thorax.by.wingpadPC1 <- DESeq(dds.L5.thorax.by.wingpadPC1)
+dds.L5.thorax.by.wingpadPC1 <- estimateSizeFactors(dds.L5.thorax.by.wingpadPC1)
+
+# # Extract and save normalized counts
+# ctn.L5.thorax.by.wingpadPC1 <- counts(dds.L5.thorax.by.wingpadPC1, normalized=TRUE)
+# write.csv(ctn.L5.thorax.by.wingpadPC1, 'normalized.counts.L5.thorax.by.wingpadPC1.csv')
+# # Use normalized counts for downstream visualization
+
+# Results table with log2 fold changes, p values and adjusted p values.
+resultsNames(dds.L5.thorax.by.wingpadPC1)
+res.L5.thorax.by.wingpadPC1 <- results(dds.L5.thorax.by.wingpadPC1, name=c("wingpadPC1"), alpha=0.05, filterFun=ihw)
+res.L5.thorax.by.wingpadPC1 <- lfcShrink(dds.L5.thorax.by.wingpadPC1, coef="wingpadPC1", type="apeglm", res = res.L5.thorax.by.wingpadPC1)
+summary(res.L5.thorax.by.wingpadPC1)
+# out of 24958 with nonzero total read count
+# adjusted p-value < 0.05
+# LFC > 0 (up)       : 1, 0.004%
+# LFC < 0 (down)     : 0, 0%
+# outliers [1]       : 0, 0%
+
+plotMA(res.L5.thorax.by.wingpadPC1, main="apeGLM")
+plot(plotCounts(dds.L5.thorax.by.wingpadPC1, gene=order(res.L5.thorax.by.wingpadPC1$padj)[4], intgroup="wingpadPC1", returnData=TRUE))
+res.L5.thorax.by.wingpadPC1$log2FoldChange[order(res.L5.thorax.by.wingpadPC1$padj)[4]]
+# Positive LFC values are associated with positive wingpadPC1 values
+
+# Use variance stabilizing transformations only for ML applications
+vsd.L5.thorax.by.wingpadPC1 <- vst(dds.L5.thorax.by.wingpadPC1, blind=FALSE)
+plotPCA(vsd.L5.thorax.by.wingpadPC1, intgroup=c("wingpadPC1"))
+
+# We can order our results table by the smallest p value:
+deg100.L5.thorax.by.wingpadPC1 <- res.L5.thorax.by.wingpadPC1[order(res.L5.thorax.by.wingpadPC1$padj),]
+deg100.L5.thorax.by.wingpadPC1 <- deg100.L5.thorax.by.wingpadPC1[1:100,]
+deg100.L5.thorax.by.wingpadPC1 <- apply.annotation(deg100.L5.thorax.by.wingpadPC1, ann)
+
+# Save results
+write.table(as.data.frame(deg100.L5.thorax.by.wingpadPC1), "deg100.L5.thorax.by.wingpadPC1.tsv", quote = FALSE, sep = "\t")
+save(meta.i, cts.i, dds.L5.thorax.by.wingpadPC1, res.L5.thorax.by.wingpadPC1, deg100.L5.thorax.by.wingpadPC1,
+     file = "L5.thorax.by.wingpadPC1.rda")
+rm(meta.i, cts.i, dds.L5.thorax.by.wingpadPC1, res.L5.thorax.by.wingpadPC1, vsd.L5.thorax.by.wingpadPC1)
+# load("L5.thorax.by.wingpadPC1.rda", verbose = TRUE)
+
+###################
+### L5 gonad by wingpad PC1
+###################
+
+#### Sub-setting the data and metadata
+meta.i <- sample.metadata %>%
+  filter(stage=="L5", tissue!="thorax", !is.na(wingpadPC1))
+cts.i <- cts[,which(colnames(cts) %in% rownames(meta.i))]
+cts.i <- as.matrix(cts.i[which(rowSums(cts.i) > gene.read.number.cut.off),])
+dim(meta.i); dim(cts.i)
+c(with(meta.i, by(food_regime,food_regime,length)))
+hist(meta.i$wingpadPC1) # higher PC1 values are associated with more short-wing shapes
+
+dds.L5.gonad.by.wingpadPC1 <- DESeqDataSetFromMatrix(
+  countData=round(cts.i), colData=meta.i,
+  design = ~ plate + sex + wingpadPC1 )
+dds.L5.gonad.by.wingpadPC1 <- DESeq(dds.L5.gonad.by.wingpadPC1)
+dds.L5.gonad.by.wingpadPC1 <- estimateSizeFactors(dds.L5.gonad.by.wingpadPC1)
+
+# # Extract and save normalized counts
+# ctn.L5.gonad.by.wingpadPC1 <- counts(dds.L5.gonad.by.wingpadPC1, normalized=TRUE)
+# write.csv(ctn.L5.gonad.by.wingpadPC1, 'normalized.counts.L5.gonad.by.wingpadPC1.csv')
+# # Use normalized counts for downstream visualization
+
+# Results table with log2 fold changes, p values and adjusted p values.
+resultsNames(dds.L5.gonad.by.wingpadPC1)
+res.L5.gonad.by.wingpadPC1 <- results(dds.L5.gonad.by.wingpadPC1, name=c("wingpadPC1"), alpha=0.05, filterFun=ihw)
+res.L5.gonad.by.wingpadPC1 <- lfcShrink(dds.L5.gonad.by.wingpadPC1, coef="wingpadPC1", type="apeglm", res = res.L5.gonad.by.wingpadPC1)
+summary(res.L5.gonad.by.wingpadPC1)
+# out of 32603 with nonzero total read count
+# adjusted p-value < 0.05
+# LFC > 0 (up)       : 1, 0.0031%
+# LFC < 0 (down)     : 5, 0.015%
+# outliers [1]       : 0, 0%
+
+plotMA(res.L5.gonad.by.wingpadPC1, main="apeGLM")
+plot(plotCounts(dds.L5.gonad.by.wingpadPC1, gene=order(res.L5.gonad.by.wingpadPC1$padj)[4], intgroup="wingpadPC1", returnData=TRUE))
+res.L5.gonad.by.wingpadPC1$log2FoldChange[order(res.L5.gonad.by.wingpadPC1$padj)[4]]
+# Positive LFC values are associated with positive wingpadPC1 values
+
+# Use variance stabilizing transformations only for ML applications
+vsd.L5.gonad.by.wingpadPC1 <- vst(dds.L5.gonad.by.wingpadPC1, blind=FALSE)
+plotPCA(vsd.L5.gonad.by.wingpadPC1, intgroup=c("wingpadPC1"))
+
+# We can order our results table by the smallest p value:
+deg100.L5.gonad.by.wingpadPC1 <- res.L5.gonad.by.wingpadPC1[order(res.L5.gonad.by.wingpadPC1$padj),]
+deg100.L5.gonad.by.wingpadPC1 <- deg100.L5.gonad.by.wingpadPC1[1:100,]
+deg100.L5.gonad.by.wingpadPC1 <- apply.annotation(deg100.L5.gonad.by.wingpadPC1, ann)
+
+# Save results
+write.table(as.data.frame(deg100.L5.gonad.by.wingpadPC1), "deg100.L5.gonad.by.wingpadPC1.tsv", quote = FALSE, sep = "\t")
+save(meta.i, cts.i, dds.L5.gonad.by.wingpadPC1, res.L5.gonad.by.wingpadPC1, deg100.L5.gonad.by.wingpadPC1,
+     file = "L5.gonad.by.wingpadPC1.rda")
+rm(meta.i, cts.i, dds.L5.gonad.by.wingpadPC1, res.L5.gonad.by.wingpadPC1, vsd.L5.gonad.by.wingpadPC1)
+# load("L5.gonad.by.wingpadPC1.rda", verbose = TRUE)
+
+###################
+### Adult thorax by thorax shape PC1
+###################
+
+#### Sub-setting the data and metadata
+meta.i <- sample.metadata %>%
+  filter(stage=="adult", tissue=="thorax", !is.na(txPC1))
+cts.i <- cts[,which(colnames(cts) %in% rownames(meta.i))]
+cts.i <- as.matrix(cts.i[which(rowSums(cts.i) > gene.read.number.cut.off),])
+dim(meta.i); dim(cts.i)
+c(with(meta.i, by(morph,morph,length)))
+hist(meta.i$txPC1) # higher PC1 values are associated with more short-wing shapes
+
+dds.adult.thorax.by.txPC1 <- DESeqDataSetFromMatrix(
+  countData=round(cts.i), colData=meta.i,
+  design = ~ plate + sex + txPC1 )
+dds.adult.thorax.by.txPC1 <- DESeq(dds.adult.thorax.by.txPC1)
+dds.adult.thorax.by.txPC1 <- estimateSizeFactors(dds.adult.thorax.by.txPC1)
+
+# # Extract and save normalized counts
+# ctn.adult.thorax.by.txPC1 <- counts(dds.adult.thorax.by.txPC1, normalized=TRUE)
+# write.csv(ctn.adult.thorax.by.txPC1, 'normalized.counts.adult.thorax.by.txPC1.csv')
+# # Use normalized counts for downstream visualization
+
+# Results table with log2 fold changes, p values and adjusted p values.
+resultsNames(dds.adult.thorax.by.txPC1)
+res.adult.thorax.by.txPC1 <- results(dds.adult.thorax.by.txPC1, name=c("txPC1"), alpha=0.05, filterFun=ihw)
+res.adult.thorax.by.txPC1 <- lfcShrink(dds.adult.thorax.by.txPC1, coef="txPC1", type="apeglm", res = res.adult.thorax.by.txPC1)
+summary(res.adult.thorax.by.txPC1)
+# out of 32236 with nonzero total read count
+# adjusted p-value < 0.05
+# LFC > 0 (up)       : 169, 0.52%
+# LFC < 0 (down)     : 37, 0.11%
+# outliers [1]       : 0, 0%
+
+plotMA(res.adult.thorax.by.txPC1, main="apeGLM", ylim=c(-30,30))
+plot(plotCounts(dds.adult.thorax.by.txPC1, gene=order(res.adult.thorax.by.txPC1$padj)[1], intgroup="txPC1", returnData=TRUE))
+res.adult.thorax.by.txPC1$log2FoldChange[order(res.adult.thorax.by.txPC1$padj)[1]]
+# Positive LFC values are associated with positive txPC1 values (wider-thorax bias)
+
+# Use variance stabilizing transformations only for ML applications
+vsd.adult.thorax.by.txPC1 <- vst(dds.adult.thorax.by.txPC1, blind=FALSE)
+plotPCA(vsd.adult.thorax.by.txPC1, intgroup=c("txPC1"))
+plotPCA(vsd.adult.thorax.by.txPC1, intgroup=c("morph"))
+
+# We can order our results table by the smallest p value:
+deg100.adult.thorax.by.txPC1 <- res.adult.thorax.by.txPC1[order(res.adult.thorax.by.txPC1$padj),]
+deg100.adult.thorax.by.txPC1 <- deg100.adult.thorax.by.txPC1[1:100,]
+deg100.adult.thorax.by.txPC1 <- apply.annotation(deg100.adult.thorax.by.txPC1, ann)
+
+# Save results
+write.table(as.data.frame(deg100.adult.thorax.by.txPC1), "deg100.adult.thorax.by.txPC1.tsv", quote = FALSE, sep = "\t")
+save(meta.i, cts.i, dds.adult.thorax.by.txPC1, res.adult.thorax.by.txPC1, deg100.adult.thorax.by.txPC1,
+     file = "adult.thorax.by.txPC1.rda")
+rm(meta.i, cts.i, dds.adult.thorax.by.txPC1, res.adult.thorax.by.txPC1, vsd.adult.thorax.by.txPC1)
+# load("adult.thorax.by.txPC1.rda", verbose = TRUE)
+
+###################
+### Adult gonad by thorax shape PC1
+###################
+
+#### Sub-setting the data and metadata
+meta.i <- sample.metadata %>%
+  filter(stage=="adult", tissue=="gonad", !is.na(txPC1))
+cts.i <- cts[,which(colnames(cts) %in% rownames(meta.i))]
+cts.i <- as.matrix(cts.i[which(rowSums(cts.i) > gene.read.number.cut.off),])
+dim(meta.i); dim(cts.i)
+c(with(meta.i, by(morph,morph,length)))
+hist(meta.i$txPC1) # higher PC1 values are associated with more short-wing shapes
+
+dds.adult.gonad.by.txPC1 <- DESeqDataSetFromMatrix(
+  countData=round(cts.i), colData=meta.i,
+  design = ~ plate + sex + txPC1 )
+dds.adult.gonad.by.txPC1 <- DESeq(dds.adult.gonad.by.txPC1)
+dds.adult.gonad.by.txPC1 <- estimateSizeFactors(dds.adult.gonad.by.txPC1)
+
+# # Extract and save normalized counts
+# ctn.adult.gonad.by.txPC1 <- counts(dds.adult.gonad.by.txPC1, normalized=TRUE)
+# write.csv(ctn.adult.gonad.by.txPC1, 'normalized.counts.adult.gonad.by.txPC1.csv')
+# # Use normalized counts for downstream visualization
+
+# Results table with log2 fold changes, p values and adjusted p values.
+resultsNames(dds.adult.gonad.by.txPC1)
+res.adult.gonad.by.txPC1 <- results(dds.adult.gonad.by.txPC1, name=c("txPC1"), alpha=0.05, filterFun=ihw)
+res.adult.gonad.by.txPC1 <- lfcShrink(dds.adult.gonad.by.txPC1, coef="txPC1", type="apeglm", res = res.adult.gonad.by.txPC1)
+summary(res.adult.gonad.by.txPC1)
+# out of 54574 with nonzero total read count
+# adjusted p-value < 0.05
+# LFC > 0 (up)       : 0, 0%
+# LFC < 0 (down)     : 0, 0%
+# outliers [1]       : 0, 0%
+
+plotMA(res.adult.gonad.by.txPC1, main="apeGLM", ylim=c(-30,30))
+plot(plotCounts(dds.adult.gonad.by.txPC1, gene=order(res.adult.gonad.by.txPC1$padj)[1], intgroup="txPC1", returnData=TRUE))
+res.adult.gonad.by.txPC1$log2FoldChange[order(res.adult.gonad.by.txPC1$padj)[1]]
+# Positive LFC values are associated with positive txPC1 values (wider-gonad bias)
+
+# Use variance stabilizing transformations only for ML applications
+vsd.adult.gonad.by.txPC1 <- vst(dds.adult.gonad.by.txPC1, blind=FALSE)
+plotPCA(vsd.adult.gonad.by.txPC1, intgroup=c("txPC1"))
+plotPCA(vsd.adult.gonad.by.txPC1, intgroup=c("morph"))
+
+# We can order our results table by the smallest p value:
+deg100.adult.gonad.by.txPC1 <- res.adult.gonad.by.txPC1[order(res.adult.gonad.by.txPC1$padj),]
+deg100.adult.gonad.by.txPC1 <- deg100.adult.gonad.by.txPC1[1:100,]
+deg100.adult.gonad.by.txPC1 <- apply.annotation(deg100.adult.gonad.by.txPC1, ann)
+
+# Save results
+write.table(as.data.frame(deg100.adult.gonad.by.txPC1), "deg100.adult.gonad.by.txPC1.tsv", quote = FALSE, sep = "\t")
+save(meta.i, cts.i, dds.adult.gonad.by.txPC1, res.adult.gonad.by.txPC1, deg100.adult.gonad.by.txPC1,
+     file = "adult.gonad.by.txPC1.rda")
+rm(meta.i, cts.i, dds.adult.gonad.by.txPC1, res.adult.gonad.by.txPC1, vsd.adult.gonad.by.txPC1)
+# load("adult.gonad.by.txPC1.rda", verbose = TRUE)
+
+###################
+### L5 thorax by thorax shape PC1
+###################
+
+#### Sub-setting the data and metadata
+meta.i <- sample.metadata %>%
+  filter(stage=="L5", tissue=="thorax", !is.na(txPC1))
+cts.i <- cts[,which(colnames(cts) %in% rownames(meta.i))]
+cts.i <- as.matrix(cts.i[which(rowSums(cts.i) > gene.read.number.cut.off),])
+dim(meta.i); dim(cts.i)
+hist(meta.i$txPC1) # higher PC1 values are associated with more short-wing shapes
+
+dds.L5.thorax.by.txPC1 <- DESeqDataSetFromMatrix(
+  countData=round(cts.i), colData=meta.i,
+  design = ~ plate + sex + txPC1 )
+dds.L5.thorax.by.txPC1 <- DESeq(dds.L5.thorax.by.txPC1)
+dds.L5.thorax.by.txPC1 <- estimateSizeFactors(dds.L5.thorax.by.txPC1)
+
+# # Extract and save normalized counts
+# ctn.L5.thorax.by.txPC1 <- counts(dds.L5.thorax.by.txPC1, normalized=TRUE)
+# write.csv(ctn.L5.thorax.by.txPC1, 'normalized.counts.L5.thorax.by.txPC1.csv')
+# # Use normalized counts for downstream visualization
+
+# Results table with log2 fold changes, p values and adjusted p values.
+resultsNames(dds.L5.thorax.by.txPC1)
+res.L5.thorax.by.txPC1 <- results(dds.L5.thorax.by.txPC1, name=c("txPC1"), alpha=0.05, filterFun=ihw)
+res.L5.thorax.by.txPC1 <- lfcShrink(dds.L5.thorax.by.txPC1, coef="txPC1", type="apeglm", res = res.L5.thorax.by.txPC1)
+summary(res.L5.thorax.by.txPC1)
+# out of 24549 with nonzero total read count
+# adjusted p-value < 0.05
+# LFC > 0 (up)       : 0, 0%
+# LFC < 0 (down)     : 0, 0%
+# outliers [1]       : 0, 0%
+
+plotMA(res.L5.thorax.by.txPC1, main="apeGLM")
+plot(plotCounts(dds.L5.thorax.by.txPC1, gene=order(res.L5.thorax.by.txPC1$padj)[1], intgroup="txPC1", returnData=TRUE))
+res.L5.thorax.by.txPC1$log2FoldChange[order(res.L5.thorax.by.txPC1$padj)[1]]
+# Positive LFC values are associated with positive txPC1 values (narrower-mesonotum bias)
+
+# Use variance stabilizing transformations only for ML applications
+vsd.L5.thorax.by.txPC1 <- vst(dds.L5.thorax.by.txPC1, blind=FALSE)
+plotPCA(vsd.L5.thorax.by.txPC1, intgroup=c("txPC1"))
+plotPCA(vsd.L5.thorax.by.txPC1, intgroup=c("food_regime"))
+
+# We can order our results table by the smallest p value:
+deg100.L5.thorax.by.txPC1 <- res.L5.thorax.by.txPC1[order(res.L5.thorax.by.txPC1$padj),]
+deg100.L5.thorax.by.txPC1 <- deg100.L5.thorax.by.txPC1[1:100,]
+deg100.L5.thorax.by.txPC1 <- apply.annotation(deg100.L5.thorax.by.txPC1, ann)
+
+# Save results
+write.table(as.data.frame(deg100.L5.thorax.by.txPC1), "deg100.L5.thorax.by.txPC1.tsv", quote = FALSE, sep = "\t")
+save(meta.i, cts.i, dds.L5.thorax.by.txPC1, res.L5.thorax.by.txPC1, deg100.L5.thorax.by.txPC1,
+     file = "L5.thorax.by.txPC1.rda")
+rm(meta.i, cts.i, dds.L5.thorax.by.txPC1, res.L5.thorax.by.txPC1, vsd.L5.thorax.by.txPC1)
+# load("L5.thorax.by.txPC1.rda", verbose = TRUE)
+
+###################
+### L5 gonad by thorax shape PC1
+###################
+
+#### Sub-setting the data and metadata
+meta.i <- sample.metadata %>%
+  filter(stage=="L5", tissue!="thorax", !is.na(txPC1))
+cts.i <- cts[,which(colnames(cts) %in% rownames(meta.i))]
+cts.i <- as.matrix(cts.i[which(rowSums(cts.i) > gene.read.number.cut.off),])
+dim(meta.i); dim(cts.i)
+hist(meta.i$txPC1) # higher PC1 values are associated with more short-wing shapes
+
+dds.L5.gonad.by.txPC1 <- DESeqDataSetFromMatrix(
+  countData=round(cts.i), colData=meta.i,
+  design = ~ plate + sex + txPC1 )
+dds.L5.gonad.by.txPC1 <- DESeq(dds.L5.gonad.by.txPC1)
+dds.L5.gonad.by.txPC1 <- estimateSizeFactors(dds.L5.gonad.by.txPC1)
+
+# # Extract and save normalized counts
+# ctn.L5.gonad.by.txPC1 <- counts(dds.L5.gonad.by.txPC1, normalized=TRUE)
+# write.csv(ctn.L5.gonad.by.txPC1, 'normalized.counts.L5.gonad.by.txPC1.csv')
+# # Use normalized counts for downstream visualization
+
+# Results table with log2 fold changes, p values and adjusted p values.
+resultsNames(dds.L5.gonad.by.txPC1)
+res.L5.gonad.by.txPC1 <- results(dds.L5.gonad.by.txPC1, name=c("txPC1"), alpha=0.05, filterFun=ihw)
+res.L5.gonad.by.txPC1 <- lfcShrink(dds.L5.gonad.by.txPC1, coef="txPC1", type="apeglm", res = res.L5.gonad.by.txPC1)
+summary(res.L5.gonad.by.txPC1)
+# out of 32155 with nonzero total read count
+# adjusted p-value < 0.05
+# LFC > 0 (up)       : 0, 0%
+# LFC < 0 (down)     : 0, 0%
+# outliers [1]       : 0, 0%
+
+plotMA(res.L5.gonad.by.txPC1, main="apeGLM")
+plot(plotCounts(dds.L5.gonad.by.txPC1, gene=order(res.L5.gonad.by.txPC1$padj)[1], intgroup="txPC1", returnData=TRUE))
+res.L5.gonad.by.txPC1$log2FoldChange[order(res.L5.gonad.by.txPC1$padj)[1]]
+# Positive LFC values are associated with positive txPC1 values (narrower-mesonotum bias)
+
+# Use variance stabilizing transformations only for ML applications
+vsd.L5.gonad.by.txPC1 <- vst(dds.L5.gonad.by.txPC1, blind=FALSE)
+plotPCA(vsd.L5.gonad.by.txPC1, intgroup=c("txPC1"))
+plotPCA(vsd.L5.gonad.by.txPC1, intgroup=c("food_regime"))
+
+# We can order our results table by the smallest p value:
+deg100.L5.gonad.by.txPC1 <- res.L5.gonad.by.txPC1[order(res.L5.gonad.by.txPC1$padj),]
+deg100.L5.gonad.by.txPC1 <- deg100.L5.gonad.by.txPC1[1:100,]
+deg100.L5.gonad.by.txPC1 <- apply.annotation(deg100.L5.gonad.by.txPC1, ann)
+
+# Save results
+write.table(as.data.frame(deg100.L5.gonad.by.txPC1), "deg100.L5.gonad.by.txPC1.tsv", quote = FALSE, sep = "\t")
+save(meta.i, cts.i, dds.L5.gonad.by.txPC1, res.L5.gonad.by.txPC1, deg100.L5.gonad.by.txPC1,
+     file = "L5.gonad.by.txPC1.rda")
+rm(meta.i, cts.i, dds.L5.gonad.by.txPC1, res.L5.gonad.by.txPC1, vsd.L5.gonad.by.txPC1)
+# load("L5.gonad.by.txPC1.rda", verbose = TRUE)
+
+###################
+### Adult thorax by food density
+###################
+
+#### Sub-setting the data and metadata
+meta.i <- sample.metadata %>%
+  filter(stage=="adult", tissue == "thorax")
+cts.i <- cts[,which(colnames(cts) %in% rownames(meta.i))]
+cts.i <- as.matrix(cts.i[which(rowSums(cts.i) > gene.read.number.cut.off),])
+dim(meta.i); dim(cts.i)
+c(with(meta.i, by(morph_sex,morph_sex,length)))
+
+meta.i$food_density <- log10(meta.i$seeds/meta.i$cohort)
+
+dds.adult.thorax.by.food_density <- DESeqDataSetFromMatrix(
+  countData=round(cts.i), colData=meta.i,
+  design = ~ plate + sex + morph + food_density )
+dds.adult.thorax.by.food_density <- DESeq(dds.adult.thorax.by.food_density)
+dds.adult.thorax.by.food_density <- estimateSizeFactors(dds.adult.thorax.by.food_density)
+
+# # Extract and save normalized counts
+# ctn.adult.thorax.by.food_density <- counts(dds.adult.thorax.by.food_density, normalized=TRUE)
+# write.csv(ctn.adult.thorax.by.food_density, 'normalized.counts.adult.thorax.by.food_density.csv')
+# # Use normalized counts for downstream visualization
+
+# Results table with log2 fold changes, p values and adjusted p values.
+resultsNames(dds.adult.thorax.by.food_density)
+res.adult.thorax.by.food_density <- results(dds.adult.thorax.by.food_density, name=c("food_density"), alpha=0.05, filterFun=ihw)
+res.adult.thorax.by.food_density <- lfcShrink(dds.adult.thorax.by.food_density, coef="food_density", type="apeglm", res = res.adult.thorax.by.food_density)
+summary(res.adult.thorax.by.food_density)
+# out of 32368 with nonzero total read count
+# adjusted p-value < 0.05
+# LFC > 0 (up)       : 9, 0.028%
+# LFC < 0 (down)     : 13, 0.04%
+# outliers [1]       : 145, 0.45%
+
+plotMA(res.adult.thorax.by.food_density, main="apeGLM", ylim=c(-4,5))
+plot(plotCounts(dds.adult.thorax.by.food_density, gene=order(res.adult.thorax.by.food_density$padj)[6], intgroup="food_density", returnData=TRUE))
+res.adult.thorax.by.food_density$log2FoldChange[order(res.adult.thorax.by.food_density$padj)[6]]
+# Positive LFC values are associated with higher food density expression bias
+
+# Use variance stabilizing transformations only for ML applications
+vsd.adult.thorax.by.food_density <- vst(dds.adult.thorax.by.food_density, blind=FALSE)
+plotPCA(vsd.adult.thorax.by.food_density, intgroup=c("food_density"))
+
+# We can order our results table by the smallest p value:
+deg100.adult.thorax.by.food_density <- res.adult.thorax.by.food_density[order(res.adult.thorax.by.food_density$padj),]
+deg100.adult.thorax.by.food_density <- deg100.adult.thorax.by.food_density[1:100,]
+deg100.adult.thorax.by.food_density <- apply.annotation(deg100.adult.thorax.by.food_density, ann)
+
+# Save results
+write.table(as.data.frame(deg100.adult.thorax.by.food_density), "deg100.adult.thorax.by.food_density.tsv", quote = FALSE, sep = "\t")
+save(meta.i, cts.i, dds.adult.thorax.by.food_density, res.adult.thorax.by.food_density, deg100.adult.thorax.by.food_density,
+     file = "adult.thorax.by.food_density.rda")
+rm(meta.i, cts.i, dds.adult.thorax.by.food_density, res.adult.thorax.by.food_density, vsd.adult.thorax.by.food_density)
+# load("ovaries.by.food_density.rda", verbose = TRUE)
 
 ###################
 ### Adult thorax by food regime
@@ -582,11 +1274,294 @@ deg100.adult.thorax.by.food <- deg100.adult.thorax.by.food[1:100,]
 deg100.adult.thorax.by.food <- apply.annotation(deg100.adult.thorax.by.food, ann)
 
 # Save results
-write.table(as.data.frame(deg100.adult.thorax.by.food), "deg100.adult.thorax.by.food.tsv", quote = FALSE)
-save(meta.i, cts.i, dds.adult.thorax.by.food, res.adult.thorax.by.food, vsd.adult.thorax.by.food, deg100.adult.thorax.by.food,
-     file = "adult.thorax.by.food.rda")
+write.table(as.data.frame(deg100.adult.thorax.by.food), "deg100.adult.thorax.by.food.tsv", quote = FALSE, sep = "\t")
+save(meta.i, cts.i, dds.adult.thorax.by.food, res.adult.thorax.by.food, deg100.adult.thorax.by.food,
+     file = "adult.thorax.by.food_regime.rda")
 rm(meta.i, cts.i, dds.adult.thorax.by.food, res.adult.thorax.by.food, vsd.adult.thorax.by.food)
-# load("adult.thorax.by.food.rda", verbose = TRUE)
+# load("adult.thorax.by.food_regime.rda", verbose = TRUE)
+
+###################
+### Adult gonad by food density
+###################
+
+#### Sub-setting the data and metadata
+meta.i <- sample.metadata %>%
+  filter(stage=="adult", tissue != "thorax")
+cts.i <- cts[,which(colnames(cts) %in% rownames(meta.i))]
+cts.i <- as.matrix(cts.i[which(rowSums(cts.i) > gene.read.number.cut.off),])
+dim(meta.i); dim(cts.i)
+c(with(meta.i, by(morph_sex,morph_sex,length)))
+
+meta.i$food_density <- log10(meta.i$seeds/meta.i$cohort)
+
+dds.adult.gonad.by.food_density <- DESeqDataSetFromMatrix(
+  countData=round(cts.i), colData=meta.i,
+  design = ~ plate + sex + morph + food_density )
+dds.adult.gonad.by.food_density <- DESeq(dds.adult.gonad.by.food_density)
+dds.adult.gonad.by.food_density <- estimateSizeFactors(dds.adult.gonad.by.food_density)
+
+# # Extract and save normalized counts
+# ctn.adult.gonad.by.food_density <- counts(dds.adult.gonad.by.food_density, normalized=TRUE)
+# write.csv(ctn.adult.gonad.by.food_density, 'normalized.counts.adult.gonad.by.food_density.csv')
+# # Use normalized counts for downstream visualization
+
+# Results table with log2 fold changes, p values and adjusted p values.
+resultsNames(dds.adult.gonad.by.food_density)
+res.adult.gonad.by.food_density <- results(dds.adult.gonad.by.food_density, name=c("food_density"), alpha=0.05, filterFun=ihw)
+res.adult.gonad.by.food_density <- lfcShrink(dds.adult.gonad.by.food_density, coef="food_density", type="apeglm", res = res.adult.gonad.by.food_density)
+summary(res.adult.gonad.by.food_density)
+# out of 54952 with nonzero total read count
+# adjusted p-value < 0.05
+# LFC > 0 (up)       : 9, 0.016%
+# LFC < 0 (down)     : 49, 0.089%
+# outliers [1]       : 165, 0.3%
+
+plotMA(res.adult.gonad.by.food_density, main="apeGLM", ylim=c(-8,3))
+plot(plotCounts(dds.adult.gonad.by.food_density, gene=order(res.adult.gonad.by.food_density$padj)[1], intgroup="food_density", returnData=TRUE))
+res.adult.gonad.by.food_density$log2FoldChange[order(res.adult.gonad.by.food_density$padj)[6]]
+# Positive LFC values are associated with higher food density expression bias
+
+# Use variance stabilizing transformations only for ML applications
+vsd.adult.gonad.by.food_density <- vst(dds.adult.gonad.by.food_density, blind=FALSE)
+plotPCA(vsd.adult.gonad.by.food_density, intgroup=c("food_density"))
+
+# We can order our results table by the smallest p value:
+deg100.adult.gonad.by.food_density <- res.adult.gonad.by.food_density[order(res.adult.gonad.by.food_density$padj),]
+deg100.adult.gonad.by.food_density <- deg100.adult.gonad.by.food_density[1:100,]
+deg100.adult.gonad.by.food_density <- apply.annotation(deg100.adult.gonad.by.food_density, ann)
+
+# Save results
+write.table(as.data.frame(deg100.adult.gonad.by.food_density), "deg100.adult.gonad.by.food_density.tsv", quote = FALSE, sep = "\t")
+save(meta.i, cts.i, dds.adult.gonad.by.food_density, res.adult.gonad.by.food_density, deg100.adult.gonad.by.food_density,
+     file = "adult.gonad.by.food_density.rda")
+rm(meta.i, cts.i, dds.adult.gonad.by.food_density, res.adult.gonad.by.food_density, vsd.adult.gonad.by.food_density)
+# load("adult.gonad.by.food_density.rda", verbose = TRUE)
+
+###################
+### Adult gonad by food regime
+###################
+
+#### Sub-setting the data and metadata
+meta.i <- sample.metadata %>%
+  filter(stage == "adult", tissue == "gonad")
+cts.i <- cts[,which(colnames(cts) %in% rownames(meta.i))]
+cts.i <- as.matrix(cts.i[which(rowSums(cts.i) > gene.read.number.cut.off),])
+dim(meta.i); dim(cts.i)
+c(with(meta.i, by(sex,sex,length)))
+
+dds.adult.gonad.by.food <- DESeqDataSetFromMatrix(
+  countData=round(cts.i), colData=meta.i,
+  design = ~ plate + sex + morph + food_regime)
+dds.adult.gonad.by.food <- DESeq(dds.adult.gonad.by.food)
+dds.adult.gonad.by.food <- estimateSizeFactors(dds.adult.gonad.by.food)
+
+# # Extract and save normalized counts
+# ctn.adult.gonad.by.food <- counts(dds.adult.gonad.by.food, normalized=TRUE)
+# write.csv(ctn.adult.gonad.by.food, 'normalized.counts.adult.gonad.by.food.csv')
+# # Use normalized counts for downstream visualization
+
+# Results table with log2 fold changes, p values and adjusted p values.
+resultsNames(dds.adult.gonad.by.food)
+res.adult.gonad.by.food <- results(dds.adult.gonad.by.food, contrast=c("food_regime","low","high"), alpha=0.05, filterFun=ihw)
+res.adult.gonad.by.food <- lfcShrink(dds.adult.gonad.by.food, coef="food_regime_low_vs_high", type="apeglm", res = res.adult.gonad.by.food)
+summary(res.adult.gonad.by.food)
+# out of 54724 with nonzero total read count
+# adjusted p-value < 0.05
+# LFC > 0 (up)       : 40, 0.073%
+# LFC < 0 (down)     : 7, 0.013%
+# outliers [1]       : 430, 0.79%
+
+plotMA(res.adult.gonad.by.food, main="apeGLM", ylim = c(-3,5))
+# Positive LFC values are associated with low food regime expression bias
+
+# Use variance stabilizing transformations only for ML applications
+vsd.adult.gonad.by.food <- vst(dds.adult.gonad.by.food, blind=FALSE)
+plotPCA(vsd.adult.gonad.by.food, intgroup=c("food_regime"))
+
+# We can order our results table by the smallest p value:
+deg100.adult.gonad.by.food <- res.adult.gonad.by.food[order(res.adult.gonad.by.food$padj),]
+deg100.adult.gonad.by.food <- deg100.adult.gonad.by.food[1:100,]
+deg100.adult.gonad.by.food <- apply.annotation(deg100.adult.gonad.by.food, ann)
+
+# Save results
+write.table(as.data.frame(deg100.adult.gonad.by.food), "deg100.adult.gonad.by.food.tsv", quote = FALSE, sep = "\t")
+save(meta.i, cts.i, dds.adult.gonad.by.food, res.adult.gonad.by.food, deg100.adult.gonad.by.food,
+     file = "adult.gonad.by.food_regime.rda")
+rm(meta.i, cts.i, dds.adult.gonad.by.food, res.adult.gonad.by.food, vsd.adult.gonad.by.food)
+# load("adult.gonad.by.food_regime.rda", verbose = TRUE)
+
+###################
+### Adult ovaries by food density
+###################
+
+#### Sub-setting the data and metadata
+meta.i <- sample.metadata %>%
+  filter(stage=="adult", sex == "f", tissue != "thorax")
+cts.i <- cts[,which(colnames(cts) %in% rownames(meta.i))]
+cts.i <- as.matrix(cts.i[which(rowSums(cts.i) > gene.read.number.cut.off),])
+dim(meta.i); dim(cts.i)
+c(with(meta.i, by(morph_sex,morph_sex,length)))
+
+meta.i$food_density <- log10(meta.i$seeds/meta.i$cohort)
+
+dds.adult.ovaries.by.food_density <- DESeqDataSetFromMatrix(
+  countData=round(cts.i), colData=meta.i,
+  design = ~ plate + morph + food_density )
+dds.adult.ovaries.by.food_density <- DESeq(dds.adult.ovaries.by.food_density)
+dds.adult.ovaries.by.food_density <- estimateSizeFactors(dds.adult.ovaries.by.food_density)
+
+# # Extract and save normalized counts
+# ctn.adult.ovaries.by.food_density <- counts(dds.adult.ovaries.by.food_density, normalized=TRUE)
+# write.csv(ctn.adult.ovaries.by.food_density, 'normalized.counts.adult.ovaries.by.food_density.csv')
+# # Use normalized counts for downstream visualization
+
+# Results table with log2 fold changes, p values and adjusted p values.
+resultsNames(dds.adult.ovaries.by.food_density)
+res.adult.ovaries.by.food_density <- results(dds.adult.ovaries.by.food_density, name=c("food_density"), alpha=0.05, filterFun=ihw)
+res.adult.ovaries.by.food_density <- lfcShrink(dds.adult.ovaries.by.food_density, coef="food_density", type="apeglm", res = res.adult.ovaries.by.food_density)
+summary(res.adult.ovaries.by.food_density)
+# out of 26681 with nonzero total read count
+# adjusted p-value < 0.05
+# LFC > 0 (up)       : 21, 0.079%
+# LFC < 0 (down)     : 16, 0.06%
+# outliers [1]       : 0, 0%
+
+plotMA(res.adult.ovaries.by.food_density, main="apeGLM", ylim=c(-8,3))
+plot(plotCounts(dds.adult.ovaries.by.food_density, gene=order(res.adult.ovaries.by.food_density$padj)[1], intgroup="food_density", returnData=TRUE))
+res.adult.ovaries.by.food_density$log2FoldChange[order(res.adult.ovaries.by.food_density$padj)[6]]
+# Positive LFC values are associated with higher food density expression bias
+
+# Use variance stabilizing transformations only for ML applications
+vsd.adult.ovaries.by.food_density <- vst(dds.adult.ovaries.by.food_density, blind=FALSE)
+plotPCA(vsd.adult.ovaries.by.food_density, intgroup=c("food_density"))
+
+# We can order our results table by the smallest p value:
+deg100.adult.ovaries.by.food_density <- res.adult.ovaries.by.food_density[order(res.adult.ovaries.by.food_density$padj),]
+deg100.adult.ovaries.by.food_density <- deg100.adult.ovaries.by.food_density[1:100,]
+deg100.adult.ovaries.by.food_density <- apply.annotation(deg100.adult.ovaries.by.food_density, ann)
+
+# Save results
+write.table(as.data.frame(deg100.adult.ovaries.by.food_density), "deg100.adult.ovaries.by.food_density.tsv", quote = FALSE, sep = "\t")
+save(meta.i, cts.i, dds.adult.ovaries.by.food_density, res.adult.ovaries.by.food_density, deg100.adult.ovaries.by.food_density,
+     file = "adult.ovaries.by.food_density.rda")
+rm(meta.i, cts.i, dds.adult.ovaries.by.food_density, res.adult.ovaries.by.food_density, vsd.adult.ovaries.by.food_density)
+# load("ovaries.by.food_density.rda", verbose = TRUE)
+
+###################
+### Adult testes by food density
+###################
+
+#### Sub-setting the data and metadata
+meta.i <- sample.metadata %>%
+  filter(stage=="adult", sex == "m", tissue != "thorax")
+cts.i <- cts[,which(colnames(cts) %in% rownames(meta.i))]
+cts.i <- as.matrix(cts.i[which(rowSums(cts.i) > gene.read.number.cut.off),])
+dim(meta.i); dim(cts.i)
+c(with(meta.i, by(morph_sex,morph_sex,length)))
+
+meta.i$food_density <- log10(meta.i$seeds/meta.i$cohort)
+hist(meta.i$food_density)
+
+dds.adult.testes.by.food_density <- DESeqDataSetFromMatrix(
+  countData=round(cts.i), colData=meta.i,
+  design = ~ plate + morph + food_density )
+dds.adult.testes.by.food_density <- DESeq(dds.adult.testes.by.food_density)
+dds.adult.testes.by.food_density <- estimateSizeFactors(dds.adult.testes.by.food_density)
+
+# # Extract and save normalized counts
+# ctn.adult.testes.by.food_density <- counts(dds.adult.testes.by.food_density, normalized=TRUE)
+# write.csv(ctn.adult.testes.by.food_density, 'normalized.counts.adult.testes.by.food_density.csv')
+# # Use normalized counts for downstream visualization
+
+# Results table with log2 fold changes, p values and adjusted p values.
+resultsNames(dds.adult.testes.by.food_density)
+res.adult.testes.by.food_density <- results(dds.adult.testes.by.food_density, name=c("food_density"), alpha=0.05, filterFun=ihw)
+res.adult.testes.by.food_density <- lfcShrink(dds.adult.testes.by.food_density, coef="food_density", type="apeglm", res = res.adult.testes.by.food_density)
+summary(res.adult.testes.by.food_density)
+# out of 41085 with nonzero total read count
+# adjusted p-value < 0.05
+# LFC > 0 (up)       : 9, 0.022%
+# LFC < 0 (down)     : 4, 0.0097%
+# outliers [1]       : 350, 0.85%
+
+plotMA(res.adult.testes.by.food_density, main="apeGLM", ylim=c(-5,1.5))
+plot(plotCounts(dds.adult.testes.by.food_density, gene=order(res.adult.testes.by.food_density$padj)[1], intgroup="food_density", returnData=TRUE))
+res.adult.testes.by.food_density$log2FoldChange[order(res.adult.testes.by.food_density$padj)[6]]
+# Positive LFC values are associated with higher food density expression bias
+
+# Use variance stabilizing transformations only for ML applications
+vsd.adult.testes.by.food_density <- vst(dds.adult.testes.by.food_density, blind=FALSE)
+plotPCA(vsd.adult.testes.by.food_density, intgroup=c("food_density"))
+
+# We can order our results table by the smallest p value:
+deg100.adult.testes.by.food_density <- res.adult.testes.by.food_density[order(res.adult.testes.by.food_density$padj),]
+deg100.adult.testes.by.food_density <- deg100.adult.testes.by.food_density[1:100,]
+deg100.adult.testes.by.food_density <- apply.annotation(deg100.adult.testes.by.food_density, ann)
+
+# Save results
+write.table(as.data.frame(deg100.adult.testes.by.food_density), "deg100.adult.testes.by.food_density.tsv", quote = FALSE, sep = "\t")
+save(meta.i, cts.i, dds.adult.testes.by.food_density, res.adult.testes.by.food_density, deg100.adult.testes.by.food_density,
+     file = "adult.testes.by.food_density.rda")
+rm(meta.i, cts.i, dds.adult.testes.by.food_density, res.adult.testes.by.food_density, vsd.adult.testes.by.food_density)
+# load("adult.testes.by.food_density.rda", verbose = TRUE)
+
+###################
+### L5 thorax by food density
+###################
+
+#### Sub-setting the data and metadata
+meta.i <- sample.metadata %>%
+  filter(stage=="L5", tissue == "thorax")
+cts.i <- cts[,which(colnames(cts) %in% rownames(meta.i))]
+cts.i <- as.matrix(cts.i[which(rowSums(cts.i) > gene.read.number.cut.off),])
+dim(meta.i); dim(cts.i)
+c(with(meta.i, by(sex,sex,length)))
+
+meta.i$food_density <- log10(meta.i$seeds/meta.i$cohort)
+hist(meta.i$food_density)
+
+dds.L5.thorax.by.food_density <- DESeqDataSetFromMatrix(
+  countData=round(cts.i), colData=meta.i,
+  design = ~ plate + sex + food_density )
+dds.L5.thorax.by.food_density <- DESeq(dds.L5.thorax.by.food_density)
+dds.L5.thorax.by.food_density <- estimateSizeFactors(dds.L5.thorax.by.food_density)
+
+# # Extract and save normalized counts
+# ctn.L5.thorax.by.food_density <- counts(dds.L5.thorax.by.food_density, normalized=TRUE)
+# write.csv(ctn.L5.thorax.by.food_density, 'normalized.counts.L5.thorax.by.food_density.csv')
+# # Use normalized counts for downstream visualization
+
+# Results table with log2 fold changes, p values and adjusted p values.
+resultsNames(dds.L5.thorax.by.food_density)
+res.L5.thorax.by.food_density <- results(dds.L5.thorax.by.food_density, name=c("food_density"), alpha=0.05, filterFun=ihw)
+res.L5.thorax.by.food_density <- lfcShrink(dds.L5.thorax.by.food_density, coef="food_density", type="apeglm", res = res.L5.thorax.by.food_density)
+summary(res.L5.thorax.by.food_density)
+# out of 24958 with nonzero total read count
+# adjusted p-value < 0.05
+# LFC > 0 (up)       : 10, 0.04%
+# LFC < 0 (down)     : 6, 0.024%
+# outliers [1]       : 229, 0.92%
+
+plotMA(res.L5.thorax.by.food_density, main="apeGLM", ylim=c(-4,2))
+plot(plotCounts(dds.L5.thorax.by.food_density, gene=order(res.L5.thorax.by.food_density$padj)[1], intgroup="food_density", returnData=TRUE))
+res.L5.thorax.by.food_density$log2FoldChange[order(res.L5.thorax.by.food_density$padj)[1]]
+# Positive LFC values are associated with higher food density expression bias
+
+# Use variance stabilizing transformations only for ML applications
+vsd.L5.thorax.by.food_density <- vst(dds.L5.thorax.by.food_density, blind=FALSE)
+plotPCA(vsd.L5.thorax.by.food_density, intgroup=c("food_density"))
+
+# We can order our results table by the smallest p value:
+deg100.L5.thorax.by.food_density <- res.L5.thorax.by.food_density[order(res.L5.thorax.by.food_density$padj),]
+deg100.L5.thorax.by.food_density <- deg100.L5.thorax.by.food_density[1:100,]
+deg100.L5.thorax.by.food_density <- apply.annotation(deg100.L5.thorax.by.food_density, ann)
+
+# Save results
+write.table(as.data.frame(deg100.L5.thorax.by.food_density), "deg100.L5.thorax.by.food_density.tsv", quote = FALSE, sep = "\t")
+save(meta.i, cts.i, dds.L5.thorax.by.food_density, res.L5.thorax.by.food_density, deg100.L5.thorax.by.food_density,
+     file = "L5.thorax.by.food_density.rda")
+rm(meta.i, cts.i, dds.L5.thorax.by.food_density, res.L5.thorax.by.food_density, vsd.L5.thorax.by.food_density)
+# load("L5.thorax.by.food_density.rda", verbose = TRUE)
 
 ###################
 ### L5 gonad by food regime
@@ -639,11 +1614,11 @@ deg100.L5.gonad.by.food <- deg100.L5.gonad.by.food[1:100,]
 deg100.L5.gonad.by.food <- apply.annotation(deg100.L5.gonad.by.food, ann)
 
 # Save results
-write.table(as.data.frame(deg100.L5.gonad.by.food), "deg100.L5.gonad.by.food.tsv", quote = FALSE)
-save(meta.i, cts.i, dds.L5.gonad.by.food, res.L5.gonad.by.food, vsd.L5.gonad.by.food, deg100.L5.gonad.by.food,
-     file = "L5.gonad.by.food.rda")
+write.table(as.data.frame(deg100.L5.gonad.by.food), "deg100.L5.gonad.by.food.tsv", quote = FALSE, sep = "\t")
+save(meta.i, cts.i, dds.L5.gonad.by.food, res.L5.gonad.by.food, deg100.L5.gonad.by.food,
+     file = "L5.gonad.by.food_regime.rda")
 rm(meta.i, cts.i, dds.L5.gonad.by.food, res.L5.gonad.by.food, vsd.L5.gonad.by.food)
-# load("L5.gonad.by.food.rda", verbose = TRUE)
+# load("L5.gonad.by.food_regime.rda", verbose = TRUE)
 
 ###################
 ### L5 thorax by food regime
@@ -672,7 +1647,7 @@ dds.L5.thorax.by.food <- estimateSizeFactors(dds.L5.thorax.by.food)
 resultsNames(dds.L5.thorax.by.food)
 res.L5.thorax.by.food <- results(dds.L5.thorax.by.food, contrast=c("food_regime","low","high"), alpha=0.05, filterFun=ihw)
 res.L5.thorax.by.food <- lfcShrink(dds.L5.thorax.by.food, coef="food_regime_low_vs_high", type="apeglm", res = res.L5.thorax.by.food)
-# summary(res.L5.thorax.by.food)
+summary(res.L5.thorax.by.food)
 # out of 24956 with nonzero total read count
 # adjusted p-value < 0.05
 # LFC > 0 (up)       : 0, 0%
@@ -695,121 +1670,241 @@ deg100.L5.thorax.by.food <- deg100.L5.thorax.by.food[1:100,]
 deg100.L5.thorax.by.food <- apply.annotation(deg100.L5.thorax.by.food, ann)
 
 # Save results
-write.table(as.data.frame(deg100.L5.thorax.by.food), "deg100.L5.thorax.by.food.tsv", quote = FALSE)
-save(meta.i, cts.i, dds.L5.thorax.by.food, res.L5.thorax.by.food, vsd.L5.thorax.by.food, deg100.L5.thorax.by.food,
-     file = "L5.thorax.by.food.rda")
+write.table(as.data.frame(deg100.L5.thorax.by.food), "deg100.L5.thorax.by.food.tsv", quote = FALSE, sep = "\t")
+save(meta.i, cts.i, dds.L5.thorax.by.food, res.L5.thorax.by.food, deg100.L5.thorax.by.food,
+     file = "L5.thorax.by.food_regime.rda")
 rm(meta.i, cts.i, dds.L5.thorax.by.food, res.L5.thorax.by.food, vsd.L5.thorax.by.food)
 # load("L5.thorax.by.food.rda", verbose = TRUE)
 
 ###################
-### Ovaries by morph
+### L5 gonad by food density
 ###################
 
 #### Sub-setting the data and metadata
 meta.i <- sample.metadata %>%
-  filter(stage == "adult", tissue == "gonad", sex =="f")
+  filter(stage=="L5", tissue != "thorax")
 cts.i <- cts[,which(colnames(cts) %in% rownames(meta.i))]
 cts.i <- as.matrix(cts.i[which(rowSums(cts.i) > gene.read.number.cut.off),])
 dim(meta.i); dim(cts.i)
-c(with(meta.i, by(morph,morph,length)))
+c(with(meta.i, by(sex,sex,length)))
 
-dds.ovaries.by.morph <- DESeqDataSetFromMatrix(
+meta.i$food_density <- log10(meta.i$seeds/meta.i$cohort)
+hist(meta.i$food_density)
+
+dds.L5.gonad.by.food_density <- DESeqDataSetFromMatrix(
   countData=round(cts.i), colData=meta.i,
-  design = ~ plate + morph )
-dds.ovaries.by.morph <- DESeq(dds.ovaries.by.morph)
-dds.ovaries.by.morph <- estimateSizeFactors(dds.ovaries.by.morph)
+  design = ~ plate + sex + food_density )
+dds.L5.gonad.by.food_density <- DESeq(dds.L5.gonad.by.food_density)
+dds.L5.gonad.by.food_density <- estimateSizeFactors(dds.L5.gonad.by.food_density)
 
 # # Extract and save normalized counts
-# ctn.ovaries.by.morph <- counts(dds.ovaries.by.morph, normalized=TRUE)
-# write.csv(ctn.ovaries.by.morph, 'normalized.counts.ovaries.by.morph.csv')
+# ctn.L5.gonad.by.food_density <- counts(dds.L5.gonad.by.food_density, normalized=TRUE)
+# write.csv(ctn.L5.gonad.by.food_density, 'normalized.counts.L5.gonad.by.food_density.csv')
 # # Use normalized counts for downstream visualization
 
 # Results table with log2 fold changes, p values and adjusted p values.
-resultsNames(dds.ovaries.by.morph)
-res.ovaries.by.morph <- results(dds.ovaries.by.morph, contrast=c("morph","LW","SW"), alpha=0.05, filterFun=ihw)
-res.ovaries.by.morph <- lfcShrink(dds.ovaries.by.morph, coef="morph_LW_vs_SW", type="apeglm", res = res.ovaries.by.morph)
-summary(res.ovaries.by.morph)
-# out of 26403 with nonzero total read count
+resultsNames(dds.L5.gonad.by.food_density)
+res.L5.gonad.by.food_density <- results(dds.L5.gonad.by.food_density, name=c("food_density"), alpha=0.05, filterFun=ihw)
+res.L5.gonad.by.food_density <- lfcShrink(dds.L5.gonad.by.food_density, coef="food_density", type="apeglm", res = res.L5.gonad.by.food_density)
+summary(res.L5.gonad.by.food_density)
+# out of 32603 with nonzero total read count
 # adjusted p-value < 0.05
-# LFC > 0 (up)       : 5, 0.019%
-# LFC < 0 (down)     : 4, 0.015%
-# outliers [1]       : 25, 0.095%
+# LFC > 0 (up)       : 4, 0.012%
+# LFC < 0 (down)     : 3, 0.0092%
+# outliers [1]       : 188, 0.58%
 
-plotMA(res.ovaries.by.morph, main="apeGLM", ylim = c(-4,5))
-plotCounts(dds.ovaries.by.morph, gene=order(res.ovaries.by.morph$padj)[8], intgroup="morph")
-res.ovaries.by.morph$log2FoldChange[order(res.ovaries.by.morph$padj)[8]]
-# Positive LFC values are associated with LW expression bias
+plotMA(res.L5.gonad.by.food_density, main="apeGLM", ylim=c(-3.5,3))
+plot(plotCounts(dds.L5.gonad.by.food_density, gene=order(res.L5.gonad.by.food_density$padj)[1], intgroup="food_density", returnData=TRUE))
+res.L5.gonad.by.food_density$log2FoldChange[order(res.L5.gonad.by.food_density$padj)[1]]
+# Positive LFC values are associated with higher food density expression bias
 
 # Use variance stabilizing transformations only for ML applications
-vsd.ovaries.by.morph <- vst(dds.ovaries.by.morph, blind=FALSE)
-plotPCA(vsd.ovaries.by.morph, intgroup=c("morph"))
+vsd.L5.gonad.by.food_density <- vst(dds.L5.gonad.by.food_density, blind=FALSE)
+plotPCA(vsd.L5.gonad.by.food_density, intgroup=c("food_density"))
 
 # We can order our results table by the smallest p value:
-deg100.ovaries.by.morph <- res.ovaries.by.morph[order(res.ovaries.by.morph$padj),]
-deg100.ovaries.by.morph <- deg100.ovaries.by.morph[1:100,]
-deg100.ovaries.by.morph <- apply.annotation(deg100.ovaries.by.morph, ann)
+deg100.L5.gonad.by.food_density <- res.L5.gonad.by.food_density[order(res.L5.gonad.by.food_density$padj),]
+deg100.L5.gonad.by.food_density <- deg100.L5.gonad.by.food_density[1:100,]
+deg100.L5.gonad.by.food_density <- apply.annotation(deg100.L5.gonad.by.food_density, ann)
 
 # Save results
-write.table(as.data.frame(deg100.ovaries.by.morph), "deg100.ovaries.by.morph.tsv", quote = FALSE)
-save(meta.i, cts.i, dds.ovaries.by.morph, res.ovaries.by.morph, vsd.ovaries.by.morph, deg100.ovaries.by.morph,
-     file = "ovaries.by.morph.rda")
-rm(meta.i, cts.i, dds.ovaries.by.morph, res.ovaries.by.morph, vsd.ovaries.by.morph)
-# load("ovaries.by.morph.rda", verbose = TRUE)
+write.table(as.data.frame(deg100.L5.gonad.by.food_density), "deg100.L5.gonad.by.food_density.tsv", quote = FALSE, sep = "\t")
+save(meta.i, cts.i, dds.L5.gonad.by.food_density, res.L5.gonad.by.food_density, deg100.L5.gonad.by.food_density,
+     file = "L5.gonad.by.food_density.rda")
+rm(meta.i, cts.i, dds.L5.gonad.by.food_density, res.L5.gonad.by.food_density, vsd.L5.gonad.by.food_density)
+# load("gonad.by.food_density.rda", verbose = TRUE)
 
 ###################
-### Testes by morph
+### L5 ovaries by food density
 ###################
 
 #### Sub-setting the data and metadata
 meta.i <- sample.metadata %>%
-  filter(stage == "adult", tissue == "gonad", sex =="m")
+  filter(stage=="L5", tissue != "thorax" & sex == "f")
 cts.i <- cts[,which(colnames(cts) %in% rownames(meta.i))]
 cts.i <- as.matrix(cts.i[which(rowSums(cts.i) > gene.read.number.cut.off),])
 dim(meta.i); dim(cts.i)
-c(with(meta.i, by(morph,morph,length)))
+c(with(meta.i, by(food_regime,food_regime,length)))
 
-dds.testes.by.morph <- DESeqDataSetFromMatrix(
+meta.i$food_density <- log10(meta.i$seeds/meta.i$cohort)
+
+dds.L5.ovaries.by.food_density <- DESeqDataSetFromMatrix(
   countData=round(cts.i), colData=meta.i,
-  design = ~ plate + morph )
-dds.testes.by.morph <- DESeq(dds.testes.by.morph)
-dds.testes.by.morph <- estimateSizeFactors(dds.testes.by.morph)
+  design = ~ plate + food_density )
+dds.L5.ovaries.by.food_density <- DESeq(dds.L5.ovaries.by.food_density)
+dds.L5.ovaries.by.food_density <- estimateSizeFactors(dds.L5.ovaries.by.food_density)
 
 # # Extract and save normalized counts
-# ctn.testes.by.morph <- counts(dds.testes.by.morph, normalized=TRUE)
-# write.csv(ctn.testes.by.morph, 'normalized.counts.testes.by.morph.csv')
+# ctn.L5.ovaries.by.food_density <- counts(dds.L5.ovaries.by.food_density, normalized=TRUE)
+# write.csv(ctn.L5.ovaries.by.food_density, 'normalized.counts.L5.ovaries.by.food_density.csv')
 # # Use normalized counts for downstream visualization
 
 # Results table with log2 fold changes, p values and adjusted p values.
-resultsNames(dds.testes.by.morph)
-res.testes.by.morph <- results(dds.testes.by.morph, contrast=c("morph","LW","SW"), alpha=0.05, filterFun=ihw)
-res.testes.by.morph <- lfcShrink(dds.testes.by.morph, coef="morph_LW_vs_SW", type="apeglm", res = res.testes.by.morph)
-summary(res.testes.by.morph)
-# out of 41078 with nonzero total read count
+resultsNames(dds.L5.ovaries.by.food_density)
+res.L5.ovaries.by.food_density <- results(dds.L5.ovaries.by.food_density, name=c("food_density"), alpha=0.05, filterFun=ihw)
+res.L5.ovaries.by.food_density <- lfcShrink(dds.L5.ovaries.by.food_density, coef="food_density", type="apeglm", res = res.L5.ovaries.by.food_density)
+summary(res.L5.ovaries.by.food_density)
+# out of 17635 with nonzero total read count
 # adjusted p-value < 0.05
-# LFC > 0 (up)       : 1, 0.0024%
-# LFC < 0 (down)     : 7, 0.017%
-# outliers [1]       : 217, 0.53%
+# LFC > 0 (up)       : 9, 0.051%
+# LFC < 0 (down)     : 7, 0.04%
+# outliers [1]       : 68, 0.39%
 
-plotMA(res.testes.by.morph, main="apeGLM", ylim = c(-4,4.5))
-plotCounts(dds.testes.by.morph, gene=order(res.testes.by.morph$padj)[6], intgroup="morph")
-res.testes.by.morph$log2FoldChange[order(res.testes.by.morph$padj)[6]]
-# Positive LFC values are associated with LW expression bias
+plotMA(res.L5.ovaries.by.food_density, main="apeGLM")
+plotMA(res.L5.ovaries.by.food_density, main="apeGLM", ylim=c(-3.5,2.5))
+plot(plotCounts(dds.L5.ovaries.by.food_density, gene=order(res.L5.ovaries.by.food_density$padj)[8], intgroup="food_density", returnData=TRUE))
+res.L5.ovaries.by.food_density$log2FoldChange[order(res.L5.ovaries.by.food_density$padj)[8]]
+# Positive LFC values are associated with low food expression bias
 
 # Use variance stabilizing transformations only for ML applications
-vsd.testes.by.morph <- vst(dds.testes.by.morph, blind=FALSE)
-plotPCA(vsd.testes.by.morph, intgroup=c("morph"))
+vsd.L5.ovaries.by.food_density <- vst(dds.L5.ovaries.by.food_density, blind=FALSE)
+plotPCA(vsd.L5.ovaries.by.food_density, intgroup=c("food_density"))
 
 # We can order our results table by the smallest p value:
-deg100.testes.by.morph <- res.testes.by.morph[order(res.testes.by.morph$padj),]
-deg100.testes.by.morph <- deg100.testes.by.morph[1:100,]
-deg100.testes.by.morph <- apply.annotation(deg100.testes.by.morph, ann)
+deg100.L5.ovaries.by.food_density <- res.L5.ovaries.by.food_density[order(res.L5.ovaries.by.food_density$padj),]
+deg100.L5.ovaries.by.food_density <- deg100.L5.ovaries.by.food_density[1:100,]
+deg100.L5.ovaries.by.food_density <- apply.annotation(deg100.L5.ovaries.by.food_density, ann)
 
 # Save results
-write.table(as.data.frame(deg100.testes.by.morph), "deg100.testes.by.morph.tsv", quote = FALSE)
-save(meta.i, cts.i, dds.testes.by.morph, res.testes.by.morph, vsd.testes.by.morph, deg100.testes.by.morph,
-     file = "testes.by.morph.rda")
-rm(meta.i, cts.i, dds.testes.by.morph, res.testes.by.morph, vsd.testes.by.morph)
-# load("testes.by.morph.rda", verbose = TRUE)
+write.table(as.data.frame(deg100.L5.ovaries.by.food_density), "deg100.L5.ovaries.by.food_density.tsv", quote = FALSE, sep = "\t")
+save(meta.i, cts.i, dds.L5.ovaries.by.food_density, res.L5.ovaries.by.food_density, deg100.L5.ovaries.by.food_density,
+     file = "L5.ovaries.by.food_density.rda")
+rm(meta.i, cts.i, dds.L5.ovaries.by.food_density, res.L5.ovaries.by.food_density, vsd.L5.ovaries.by.food_density)
+# load("L5.ovaries.by.food_density.rda", verbose = TRUE)
+
+
+###################
+### L5 ovaries by food regime
+###################
+
+#### Sub-setting the data and metadata
+meta.i <- sample.metadata %>%
+  filter(stage=="L5", tissue != "thorax" & sex == "f")
+cts.i <- cts[,which(colnames(cts) %in% rownames(meta.i))]
+cts.i <- as.matrix(cts.i[which(rowSums(cts.i) > gene.read.number.cut.off),])
+dim(meta.i); dim(cts.i)
+c(with(meta.i, by(food_regime,food_regime,length)))
+
+dds.L5.ovaries.by.food <- DESeqDataSetFromMatrix(
+  countData=round(cts.i), colData=meta.i,
+  design = ~ plate + food_regime )
+dds.L5.ovaries.by.food <- DESeq(dds.L5.ovaries.by.food)
+dds.L5.ovaries.by.food <- estimateSizeFactors(dds.L5.ovaries.by.food)
+
+# # Extract and save normalized counts
+# ctn.L5.ovaries.by.food <- counts(dds.L5.ovaries.by.food, normalized=TRUE)
+# write.csv(ctn.L5.ovaries.by.food, 'normalized.counts.L5.ovaries.by.food.csv')
+# # Use normalized counts for downstream visualization
+
+# Results table with log2 fold changes, p values and adjusted p values.
+resultsNames(dds.L5.ovaries.by.food)
+res.L5.ovaries.by.food <- results(dds.L5.ovaries.by.food, contrast=c("food_regime","low","high"), alpha=0.05, filterFun=ihw)
+res.L5.ovaries.by.food <- lfcShrink(dds.L5.ovaries.by.food, coef="food_regime_low_vs_high", type="apeglm", res = res.L5.ovaries.by.food)
+summary(res.L5.ovaries.by.food)
+# out of 17633 with nonzero total read count
+# adjusted p-value < 0.05
+# LFC > 0 (up)       : 4, 0.023%
+# LFC < 0 (down)     : 4, 0.023%
+# outliers [1]       : 117, 0.66%
+
+plotMA(res.L5.ovaries.by.food, main="apeGLM", ylim=c(-4,8.5))
+plotCounts(dds.L5.ovaries.by.food, gene=order(res.L5.ovaries.by.food$padj)[3], intgroup="food_regime")
+res.L5.ovaries.by.food$log2FoldChange[order(res.L5.ovaries.by.food$padj)[3]]
+# Positive LFC values are associated with low food expression bias
+
+# Use variance stabilizing transformations only for ML applications
+vsd.L5.ovaries.by.food <- vst(dds.L5.ovaries.by.food, blind=FALSE)
+plotPCA(vsd.L5.ovaries.by.food, intgroup=c("food_regime"))
+
+# We can order our results table by the smallest p value:
+deg100.L5.ovaries.by.food <- res.L5.ovaries.by.food[order(res.L5.ovaries.by.food$padj),]
+deg100.L5.ovaries.by.food <- deg100.L5.ovaries.by.food[1:100,]
+deg100.L5.ovaries.by.food <- apply.annotation(deg100.L5.ovaries.by.food, ann)
+
+# Save results
+write.table(as.data.frame(deg100.L5.ovaries.by.food), "deg100.L5.ovaries.by.food.tsv", quote = FALSE, sep = "\t")
+save(meta.i, cts.i, dds.L5.ovaries.by.food, res.L5.ovaries.by.food, deg100.L5.ovaries.by.food,
+     file = "L5.ovaries.by.food_regime.rda")
+rm(meta.i, cts.i, dds.L5.ovaries.by.food, res.L5.ovaries.by.food, vsd.L5.ovaries.by.food)
+# load("L5.ovaries.by.food_regime.rda", verbose = TRUE)
+
+###################
+### L5 testes by food density
+###################
+
+#### Sub-setting the data and metadata
+meta.i <- sample.metadata %>%
+  filter(stage=="L5", sex == "m", tissue != "thorax")
+cts.i <- cts[,which(colnames(cts) %in% rownames(meta.i))]
+cts.i <- as.matrix(cts.i[which(rowSums(cts.i) > gene.read.number.cut.off),])
+dim(meta.i); dim(cts.i)
+c(with(meta.i, by(morph_sex,morph_sex,length)))
+
+meta.i$food_density <- log10(meta.i$seeds/meta.i$cohort)
+hist(meta.i$food_density)
+
+dds.L5.testes.by.food_density <- DESeqDataSetFromMatrix(
+  countData=round(cts.i), colData=meta.i,
+  design = ~ plate + food_density )
+dds.L5.testes.by.food_density <- DESeq(dds.L5.testes.by.food_density)
+dds.L5.testes.by.food_density <- estimateSizeFactors(dds.L5.testes.by.food_density)
+
+# # Extract and save normalized counts
+# ctn.L5.testes.by.food_density <- counts(dds.L5.testes.by.food_density, normalized=TRUE)
+# write.csv(ctn.L5.testes.by.food_density, 'normalized.counts.L5.testes.by.food_density.csv')
+# # Use normalized counts for downstream visualization
+
+# Results table with log2 fold changes, p values and adjusted p values.
+resultsNames(dds.L5.testes.by.food_density)
+res.L5.testes.by.food_density <- results(dds.L5.testes.by.food_density, name=c("food_density"), alpha=0.05, filterFun=ihw)
+res.L5.testes.by.food_density <- lfcShrink(dds.L5.testes.by.food_density, coef="food_density", type="apeglm", res = res.L5.testes.by.food_density)
+summary(res.L5.testes.by.food_density)
+# out of 24508 with nonzero total read count
+# adjusted p-value < 0.05
+# LFC > 0 (up)       : 29, 0.12%
+# LFC < 0 (down)     : 20, 0.082%
+# outliers [1]       : 278, 1.1%
+
+plotMA(res.L5.testes.by.food_density, main="apeGLM", ylim=c(-7,5))
+plot(plotCounts(dds.L5.testes.by.food_density, gene=order(res.L5.testes.by.food_density$padj)[1], intgroup="food_density", returnData=TRUE))
+res.L5.testes.by.food_density$log2FoldChange[order(res.L5.testes.by.food_density$padj)[1]]
+# Positive LFC values are associated with higher food density expression bias
+
+# Use variance stabilizing transformations only for ML applications
+vsd.L5.testes.by.food_density <- vst(dds.L5.testes.by.food_density, blind=FALSE)
+plotPCA(vsd.L5.testes.by.food_density, intgroup=c("food_density"))
+
+# We can order our results table by the smallest p value:
+deg100.L5.testes.by.food_density <- res.L5.testes.by.food_density[order(res.L5.testes.by.food_density$padj),]
+deg100.L5.testes.by.food_density <- deg100.L5.testes.by.food_density[1:100,]
+deg100.L5.testes.by.food_density <- apply.annotation(deg100.L5.testes.by.food_density, ann)
+
+# Save results
+write.table(as.data.frame(deg100.L5.testes.by.food_density), "deg100.L5.testes.by.food_density.tsv", quote = FALSE, sep = "\t")
+save(meta.i, cts.i, dds.L5.testes.by.food_density, res.L5.testes.by.food_density, deg100.L5.testes.by.food_density,
+     file = "L5.testes.by.food_density.rda")
+rm(meta.i, cts.i, dds.L5.testes.by.food_density, res.L5.testes.by.food_density, vsd.L5.testes.by.food_density)
+# load("L5.testes.by.food_density.rda", verbose = TRUE)
 
 ###################
 ### Thorax by stage
@@ -862,8 +1957,8 @@ deg100.thorax.by.stage <- deg100.thorax.by.stage[1:100,]
 deg100.thorax.by.stage <- apply.annotation(deg100.thorax.by.stage, ann)
 
 # Save results
-write.table(as.data.frame(deg100.thorax.by.stage), "deg100.thorax.by.stage.tsv", quote = FALSE)
-save(meta.i, cts.i, dds.thorax.by.stage, res.thorax.by.stage, vsd.thorax.by.stage, deg100.thorax.by.stage,
+write.table(as.data.frame(deg100.thorax.by.stage), "deg100.thorax.by.stage.tsv", quote = FALSE, sep = "\t")
+save(meta.i, cts.i, dds.thorax.by.stage, res.thorax.by.stage, deg100.thorax.by.stage,
      file = "thorax.by.stage.rda")
 rm(meta.i, cts.i, dds.thorax.by.stage, res.thorax.by.stage, vsd.thorax.by.stage)
 # load("thorax.by.stage.rda", verbose = TRUE)
@@ -918,8 +2013,8 @@ deg100.ovaries.by.stage <- deg100.ovaries.by.stage[1:100,]
 deg100.ovaries.by.stage <- apply.annotation(deg100.ovaries.by.stage, ann)
 
 # Save results
-write.table(as.data.frame(deg100.ovaries.by.stage), "deg100.ovaries.by.stage.tsv", quote = FALSE)
-save(meta.i, cts.i, dds.ovaries.by.stage, res.ovaries.by.stage, vsd.ovaries.by.stage, deg100.ovaries.by.stage,
+write.table(as.data.frame(deg100.ovaries.by.stage), "deg100.ovaries.by.stage.tsv", quote = FALSE, sep = "\t")
+save(meta.i, cts.i, dds.ovaries.by.stage, res.ovaries.by.stage, deg100.ovaries.by.stage,
      file = "ovaries.by.stage.rda")
 rm(meta.i, cts.i, dds.ovaries.by.stage, res.ovaries.by.stage, vsd.ovaries.by.stage)
 # load("ovaries.by.stage.rda", verbose = TRUE)
@@ -974,8 +2069,8 @@ deg100.testes.by.stage <- deg100.testes.by.stage[1:100,]
 deg100.testes.by.stage <- apply.annotation(deg100.testes.by.stage, ann)
 
 # Save results
-write.table(as.data.frame(deg100.testes.by.stage), "deg100.testes.by.stage.tsv", quote = FALSE)
-save(meta.i, cts.i, dds.testes.by.stage, res.testes.by.stage, vsd.testes.by.stage, deg100.testes.by.stage,
+write.table(as.data.frame(deg100.testes.by.stage), "deg100.testes.by.stage.tsv", quote = FALSE, sep = "\t")
+save(meta.i, cts.i, dds.testes.by.stage, res.testes.by.stage, deg100.testes.by.stage,
      file = "testes.by.stage.rda")
 rm(meta.i, cts.i, dds.testes.by.stage, res.testes.by.stage, vsd.testes.by.stage)
 # load("testes.by.stage.rda", verbose = TRUE) 
@@ -984,13 +2079,13 @@ rm(meta.i, cts.i, dds.testes.by.stage, res.testes.by.stage, vsd.testes.by.stage)
 # Save the results
 ###################
 save(ann, apply.annotation, gene.read.number.cut.off, 
-     dds.adult.gonad.by.food, dds.adult.gonad.by.morph, dds.adult.gonad.by.sex, dds.adult.thorax.by.food, dds.adult.thorax.by.morph, dds.adult.thorax.by.sex, dds.L5.gonad.by.food, dds.L5.gonad.by.sex, dds.L5.thorax.by.food, dds.L5.thorax.by.sex, dds.ovaries.by.morph, dds.ovaries.by.stage, dds.testes.by.morph, dds.testes.by.stage, dds.thorax.by.stage, 
+     dds.adult.gonad.by.food,dds.adult.gonad.by.food_density,dds.adult.gonad.by.girth,dds.adult.gonad.by.morph,dds.adult.gonad.by.sex,dds.adult.gonad.by.txPC1,dds.adult.gonad.by.wingPC1,dds.adult.ovaries.by.food_density,dds.adult.ovaries.by.girth,dds.adult.ovaries.by.morph,dds.adult.ovaries.by.wingPC1,dds.adult.testes.by.food_density,dds.adult.testes.by.girth,dds.adult.testes.by.morph,dds.adult.testes.by.wingPC1,dds.adult.thorax.by.food,dds.adult.thorax.by.food_density,dds.adult.thorax.by.girth,dds.adult.thorax.by.morph,dds.adult.thorax.by.sex,dds.adult.thorax.by.txPC1,dds.adult.thorax.by.wingPC1,dds.L5.gonad.by.food,dds.L5.gonad.by.food_density,dds.L5.gonad.by.girth,dds.L5.gonad.by.sex,dds.L5.gonad.by.txPC1,dds.L5.gonad.by.wingpadPC1,dds.L5.ovaries.by.food,dds.L5.ovaries.by.food_density,dds.L5.ovaries.by.girth,dds.L5.testes.by.food_density,dds.L5.testes.by.girth,dds.L5.thorax.by.food,dds.L5.thorax.by.food_density,dds.L5.thorax.by.girth,dds.L5.thorax.by.sex,dds.L5.thorax.by.txPC1,dds.L5.thorax.by.wingpadPC1,dds.ovaries.by.stage,dds.testes.by.stage,dds.thorax.by.stage,
      file = "dge.analysis.dds.rda")
+rm(dds.adult.gonad.by.food,dds.adult.gonad.by.food_density,dds.adult.gonad.by.girth,dds.adult.gonad.by.morph,dds.adult.gonad.by.sex,dds.adult.gonad.by.txPC1,dds.adult.gonad.by.wingPC1,dds.adult.ovaries.by.food_density,dds.adult.ovaries.by.girth,dds.adult.ovaries.by.morph,dds.adult.ovaries.by.wingPC1,dds.adult.testes.by.food_density,dds.adult.testes.by.girth,dds.adult.testes.by.morph,dds.adult.testes.by.wingPC1,dds.adult.thorax.by.food,dds.adult.thorax.by.food_density,dds.adult.thorax.by.girth,dds.adult.thorax.by.morph,dds.adult.thorax.by.sex,dds.adult.thorax.by.txPC1,dds.adult.thorax.by.wingPC1,dds.L5.gonad.by.food,dds.L5.gonad.by.food_density,dds.L5.gonad.by.girth,dds.L5.gonad.by.sex,dds.L5.gonad.by.txPC1,dds.L5.gonad.by.wingpadPC1,dds.L5.ovaries.by.food,dds.L5.ovaries.by.food_density,dds.L5.ovaries.by.girth,dds.L5.testes.by.food_density,dds.L5.testes.by.girth,dds.L5.thorax.by.food,dds.L5.thorax.by.food_density,dds.L5.thorax.by.girth,dds.L5.thorax.by.sex,dds.L5.thorax.by.txPC1,dds.L5.thorax.by.wingpadPC1,dds.ovaries.by.stage,dds.testes.by.stage,dds.thorax.by.stage)
 save(ann, apply.annotation, gene.read.number.cut.off, 
-     res.adult.gonad.by.food, res.adult.gonad.by.morph, res.adult.gonad.by.sex, res.adult.thorax.by.food, res.adult.thorax.by.morph, res.adult.thorax.by.sex, res.L5.gonad.by.food, res.L5.gonad.by.sex, res.L5.thorax.by.food, res.L5.thorax.by.sex, res.ovaries.by.morph, res.ovaries.by.stage, res.testes.by.morph, res.testes.by.stage, res.thorax.by.stage,
+     res.adult.gonad.by.food,res.adult.gonad.by.food_density,res.adult.gonad.by.girth,res.adult.gonad.by.morph,res.adult.gonad.by.sex,res.adult.gonad.by.txPC1,res.adult.gonad.by.wingPC1,res.adult.ovaries.by.food_density,res.adult.ovaries.by.girth,res.adult.ovaries.by.morph,res.adult.ovaries.by.wingPC1,res.adult.testes.by.food_density,res.adult.testes.by.girth,res.adult.testes.by.morph,res.adult.testes.by.wingPC1,res.adult.thorax.by.food,res.adult.thorax.by.food_density,res.adult.thorax.by.girth,res.adult.thorax.by.morph,res.adult.thorax.by.sex,res.adult.thorax.by.txPC1,res.adult.thorax.by.wingPC1,res.L5.gonad.by.food,res.L5.gonad.by.food_density,res.L5.gonad.by.girth,res.L5.gonad.by.sex,res.L5.gonad.by.txPC1,res.L5.gonad.by.wingpadPC1,res.L5.ovaries.by.food,res.L5.ovaries.by.food_density,res.L5.ovaries.by.girth,res.L5.testes.by.food_density,res.L5.testes.by.girth,res.L5.thorax.by.food,res.L5.thorax.by.food_density,res.L5.thorax.by.girth,res.L5.thorax.by.sex,res.L5.thorax.by.txPC1,res.L5.thorax.by.wingpadPC1,res.ovaries.by.stage,res.testes.by.stage,res.thorax.by.stage,
      file = "dge.analysis.res.rda")
-save(deg100.adult.gonad.by.food, deg100.adult.gonad.by.morph, deg100.adult.gonad.by.sex, deg100.adult.thorax.by.food, deg100.adult.thorax.by.morph, deg100.adult.thorax.by.sex, deg100.L5.gonad.by.sex, deg100.L5.thorax.by.sex, deg100.L5.gonad.by.food, deg100.L5.thorax.by.food,
-     deg100.ovaries.by.morph, deg100.testes.by.morph, deg100.thorax.by.stage, deg100.ovaries.by.stage, deg100.testes.by.stage,
+save(deg100.adult.gonad.by.food,deg100.adult.gonad.by.food_density,deg100.adult.gonad.by.girth,deg100.adult.gonad.by.morph,deg100.adult.gonad.by.sex,deg100.adult.gonad.by.txPC1,deg100.adult.gonad.by.wingPC1,deg100.adult.ovaries.by.food_density,deg100.adult.ovaries.by.girth,deg100.adult.ovaries.by.morph,deg100.adult.ovaries.by.wingPC1,deg100.adult.testes.by.food_density,deg100.adult.testes.by.girth,deg100.adult.testes.by.morph,deg100.adult.testes.by.wingPC1,deg100.adult.thorax.by.food,deg100.adult.thorax.by.food_density,deg100.adult.thorax.by.girth,deg100.adult.thorax.by.morph,deg100.adult.thorax.by.sex,deg100.adult.thorax.by.txPC1,deg100.adult.thorax.by.wingPC1,deg100.L5.gonad.by.food,deg100.L5.gonad.by.food_density,deg100.L5.gonad.by.girth,deg100.L5.gonad.by.sex,deg100.L5.gonad.by.txPC1,deg100.L5.gonad.by.wingpadPC1,deg100.L5.ovaries.by.food,deg100.L5.ovaries.by.food_density,deg100.L5.ovaries.by.girth,deg100.L5.testes.by.food_density,deg100.L5.testes.by.girth,deg100.L5.thorax.by.food,deg100.L5.thorax.by.food_density,deg100.L5.thorax.by.girth,deg100.L5.thorax.by.sex,deg100.L5.thorax.by.txPC1,deg100.L5.thorax.by.wingpadPC1,deg100.ovaries.by.stage,deg100.testes.by.stage,deg100.thorax.by.stage,
      file = "dge.analysis.deg100s.rda")
 
 ###################
@@ -1006,32 +2101,23 @@ load("enrichment.pvalues.rda",verbose = TRUE)
 ###################
 # Volcano Plots
 ###################
-add.manual.annotations <- function(res) {
-  manual.ann <- read.delim("manual.annotations.tsv", header = FALSE)
-  colnames(manual.ann) <- c("id","name")
-  res$manual.ann <- NA
-  for (i in 1:(dim(manual.ann)[1])) {
-    id.i <- sub("\\|","\\\\\\|",manual.ann$id[i])
-    res$manual.ann[grep(id.i,rownames(res))] <- manual.ann$name[i]
-  }
-  return(res)
-}
 
 volcano.plot <- function(
   res, pCutoff = 1e-3, FCcutoff = 1, reverseLFC = FALSE,
   rightLabel = "LFC < 0", leftLabel = "LFC > 0",
+  n = NULL,
   title = NULL, caption = NULL,
   text.col = "grey15", max.overlaps = 100) 
 {
   require(magrittr)
   require(ggplot2)
   require(ggrepel)
-  # require(grid)
+  require(grid)
   require(paletteer)
   
   if (reverseLFC) { res$log2FoldChange <- -res$log2FoldChange }
   
-  res <- apply.annotation(res, ann)
+  res <- apply.annotation(as.data.frame(res), ann)
   res$highlight <- (abs(res$log2FoldChange)>FCcutoff & res$padj<pCutoff ) 
   if (!("manual.ann" %in% colnames(res))) {
     cat("Adding annotations.\n")
@@ -1041,12 +2127,16 @@ volcano.plot <- function(
   plot.labels <- res$manual.ann
   plot.labels[which(!res$highlight)] <- NA
   
+  # Test reporting the dataset
+  if (is.null(n)) { deg.text <- "" } else { deg.text <- paste0("Samples: ",n,"; ") }
+  deg.text <- paste0(deg.text,"Transcripts: ",dim(res)[1],"\n")
   # Text reporting the number of up and down regulated DEGs
   degs.up <- sum(res$padj < pCutoff & res$log2FoldChange > 0, na.rm = TRUE)
   degs.down <- sum(res$padj < pCutoff & res$log2FoldChange < 0, na.rm = TRUE)
   degs.up.pct <- paste0(" (",signif((degs.up/dim(res)[1])*100,3),"%)")
   degs.down.pct <- paste0(" (",signif((degs.down/dim(res)[1])*100,3),"%)")
-  deg.text <- paste0(rightLabel,"-biased: ",degs.down,degs.down.pct,
+  deg.text <- paste0(deg.text,
+    rightLabel,"-biased: ",degs.down,degs.down.pct,
     ", ",leftLabel,"-biased: ",degs.up,degs.up.pct,
     ", at p-value cutoff ",pCutoff )
 
@@ -1061,7 +2151,7 @@ volcano.plot <- function(
       plot.title = element_text(size=12),
       legend.position="none",
       panel.grid.minor = element_blank() ) +
-    geom_vline(xintercept = 0, color = "grey35") +
+    geom_vline(xintercept = 0, color = "grey40") +
     annotation_custom(rightLabel) +
     annotation_custom(leftLabel) +
     geom_point(size = 0.5, alpha=0.65) +
@@ -1103,11 +2193,11 @@ volcano.plot <- function(
                  title = "Expression in adult gonad ~ batch + sex + morph",
                  rightLabel = "short wing", leftLabel = "long wing")
   volcano.plots.by.morph[[3]] <- 
-    volcano.plot(res.ovaries.by.morph[,1:5], pCutoff = 0.05, 
+    volcano.plot(res.adult.ovaries.by.morph[,1:5], pCutoff = 0.05, 
                  title = "Expression in adult ovaries ~ batch + morph",
                  rightLabel = "short wing", leftLabel = "long wing")
   volcano.plots.by.morph[[4]] <- 
-    volcano.plot(res.testes.by.morph[,1:5], pCutoff = 0.05, 
+    volcano.plot(res.adult.testes.by.morph[,1:5], pCutoff = 0.05, 
                  title = "Expression in adult testes ~ batch + morph",
                  rightLabel = "short wing", leftLabel = "long wing")
 }

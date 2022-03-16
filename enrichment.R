@@ -35,12 +35,11 @@ apply.annotation <- function(df, ann) {
   return(df)
 }
 
-
 enrichment.go <- function(res, ann, padj.cutoff = 0.05) {
   # See:
   # https://www.pathwaycommons.org/guide/primers/statistics/fishers_exact_test/
   # https://seqqc.wordpress.com/2019/07/25/how-to-use-phyper-in-r/
-  
+  res <- as.data.frame(res)
   # Annotate table
   res <- apply.annotation(res, ann)
   # number of DEGs
@@ -86,6 +85,7 @@ enrichment.go <- function(res, ann, padj.cutoff = 0.05) {
 } # end function
 
 enrichment.kegg <- function(res, ann, padj.cutoff = 0.05) {
+  res <- as.data.frame(res)
   # Annotate table
   res <- apply.annotation(res, ann)
   # number of DEGs
@@ -125,6 +125,7 @@ enrichment.kegg <- function(res, ann, padj.cutoff = 0.05) {
 } # end function
 
 enrichment.pd <- function(res, ann, padj.cutoff = 0.05) {
+  res <- as.data.frame(res)
   # Annotate table
   res <- apply.annotation(res, ann)
   # number of DEGs
@@ -175,6 +176,7 @@ enrichment.pd <- function(res, ann, padj.cutoff = 0.05) {
 } # end function
 
 enrichment.xenic <- function(res, ann, padj.cutoff = 0.05) {
+  res <- as.data.frame(res)
   # Annotate table
   res <- apply.annotation(res, ann)
   # number of DEGs
@@ -286,12 +288,84 @@ save(
   file="enrichment.pvalues.rda"
 )
 
+enrichment.go.adult.thorax.by.food_density <- enrichment.go(res.adult.thorax.by.food_density, ann)
+enrichment.go.adult.gonad.by.food_density <- enrichment.go(res.adult.gonad.by.food_density, ann)
+enrichment.go.adult.ovaries.by.food_density <- enrichment.go(res.adult.ovaries.by.food_density, ann)
+enrichment.go.adult.testes.by.food_density <- enrichment.go(res.adult.testes.by.food_density, ann)
+enrichment.go.L5.thorax.by.food_density <- enrichment.go(res.L5.thorax.by.food_density, ann)
+enrichment.go.L5.gonad.by.food_density <- enrichment.go(res.L5.gonad.by.food_density, ann)
+enrichment.go.L5.ovaries.by.food_density <- enrichment.go(res.L5.ovaries.by.food_density, ann)
+enrichment.go.L5.testes.by.food_density <- enrichment.go(res.L5.testes.by.food_density, ann)
+enrichment.go.adult.thorax.by.wingPC1 <- enrichment.go(res.adult.thorax.by.wingPC1, ann)
+enrichment.go.adult.gonad.by.wingPC1 <- enrichment.go(res.adult.gonad.by.wingPC1, ann)
+enrichment.go.ovaries.by.wingPC1 <- enrichment.go(res.ovaries.by.wingPC1, ann)
+enrichment.go.testes.by.wingPC1 <- enrichment.go(res.testes.by.wingPC1, ann)
+enrichment.go.adult.thorax.by.txPC1 <- enrichment.go(res.adult.thorax.by.txPC1, ann)
+enrichment.go.L5.gonad.by.wingpadPC1 <- enrichment.go(res.L5.gonad.by.wingpadPC1, ann)
+
+enrichment.kegg.adult.thorax.by.food_density <- enrichment.kegg(res.adult.thorax.by.food_density, ann)
+enrichment.kegg.adult.gonad.by.food_density <- enrichment.kegg(res.adult.gonad.by.food_density, ann)
+enrichment.kegg.adult.ovaries.by.food_density <- enrichment.kegg(res.adult.ovaries.by.food_density, ann)
+enrichment.kegg.adult.testes.by.food_density <- enrichment.kegg(res.adult.testes.by.food_density, ann)
+enrichment.kegg.L5.thorax.by.food_density <- enrichment.kegg(res.L5.thorax.by.food_density, ann)
+enrichment.kegg.L5.gonad.by.food_density <- enrichment.kegg(res.L5.gonad.by.food_density, ann)
+enrichment.kegg.L5.ovaries.by.food_density <- enrichment.kegg(res.L5.ovaries.by.food_density, ann)
+enrichment.kegg.L5.testes.by.food_density <- enrichment.kegg(res.L5.testes.by.food_density, ann)
+enrichment.kegg.adult.thorax.by.wingPC1 <- enrichment.kegg(res.adult.thorax.by.wingPC1, ann)
+enrichment.kegg.adult.gonad.by.wingPC1 <- enrichment.kegg(res.adult.gonad.by.wingPC1, ann)
+enrichment.kegg.ovaries.by.wingPC1 <- enrichment.kegg(res.ovaries.by.wingPC1, ann)
+enrichment.kegg.testes.by.wingPC1 <- enrichment.kegg(res.testes.by.wingPC1, ann)
+enrichment.kegg.adult.thorax.by.txPC1 <- enrichment.kegg(res.adult.thorax.by.txPC1, ann)
+enrichment.kegg.L5.gonad.by.wingpadPC1 <- enrichment.kegg(res.L5.gonad.by.wingpadPC1, ann)
+
+enrichment.pd.adult.thorax.by.food_density <- enrichment.pd(res.adult.thorax.by.food_density, ann)
+enrichment.pd.adult.gonad.by.food_density <- enrichment.pd(res.adult.gonad.by.food_density, ann)
+enrichment.pd.adult.ovaries.by.food_density <- enrichment.pd(res.adult.ovaries.by.food_density, ann)
+enrichment.pd.adult.testes.by.food_density <- enrichment.pd(res.adult.testes.by.food_density, ann)
+enrichment.pd.L5.thorax.by.food_density <- enrichment.pd(res.L5.thorax.by.food_density, ann)
+enrichment.pd.L5.gonad.by.food_density <- enrichment.pd(res.L5.gonad.by.food_density, ann)
+enrichment.pd.L5.ovaries.by.food_density <- enrichment.pd(res.L5.ovaries.by.food_density, ann)
+enrichment.pd.L5.testes.by.food_density <- enrichment.pd(res.L5.testes.by.food_density, ann)
+enrichment.pd.adult.thorax.by.wingPC1 <- enrichment.pd(res.adult.thorax.by.wingPC1, ann)
+enrichment.pd.adult.gonad.by.wingPC1 <- enrichment.pd(res.adult.gonad.by.wingPC1, ann)
+enrichment.pd.ovaries.by.wingPC1 <- enrichment.pd(res.ovaries.by.wingPC1, ann)
+enrichment.pd.testes.by.wingPC1 <- enrichment.pd(res.testes.by.wingPC1, ann)
+enrichment.pd.adult.thorax.by.txPC1 <- enrichment.pd(res.adult.thorax.by.txPC1, ann)
+enrichment.pd.L5.gonad.by.wingpadPC1 <- enrichment.pd(res.L5.gonad.by.wingpadPC1, ann)
+
+enrichment.xenic.adult.thorax.by.food_density <- enrichment.xenic(res.adult.thorax.by.food_density, ann)
+enrichment.xenic.adult.gonad.by.food_density <- enrichment.xenic(res.adult.gonad.by.food_density, ann)
+enrichment.xenic.adult.ovaries.by.food_density <- enrichment.xenic(res.adult.ovaries.by.food_density, ann)
+enrichment.xenic.adult.testes.by.food_density <- enrichment.xenic(res.adult.testes.by.food_density, ann)
+enrichment.xenic.L5.thorax.by.food_density <- enrichment.xenic(res.L5.thorax.by.food_density, ann)
+enrichment.xenic.L5.gonad.by.food_density <- enrichment.xenic(res.L5.gonad.by.food_density, ann)
+enrichment.xenic.L5.ovaries.by.food_density <- enrichment.xenic(res.L5.ovaries.by.food_density, ann)
+enrichment.xenic.L5.testes.by.food_density <- enrichment.xenic(res.L5.testes.by.food_density, ann)
+enrichment.xenic.adult.thorax.by.wingPC1 <- enrichment.xenic(res.adult.thorax.by.wingPC1, ann)
+enrichment.xenic.adult.gonad.by.wingPC1 <- enrichment.xenic(res.adult.gonad.by.wingPC1, ann)
+enrichment.xenic.ovaries.by.wingPC1 <- enrichment.xenic(res.ovaries.by.wingPC1, ann)
+enrichment.xenic.testes.by.wingPC1 <- enrichment.xenic(res.testes.by.wingPC1, ann)
+enrichment.xenic.adult.thorax.by.txPC1 <- enrichment.xenic(res.adult.thorax.by.txPC1, ann)
+enrichment.xenic.L5.gonad.by.wingpadPC1 <- enrichment.xenic(res.L5.gonad.by.wingpadPC1, ann)
+
+save(
+  enrichment.go.adult.thorax.by.food_density, enrichment.go.adult.gonad.by.food_density, enrichment.go.adult.ovaries.by.food_density, enrichment.go.adult.testes.by.food_density, enrichment.go.L5.thorax.by.food_density, enrichment.go.L5.gonad.by.food_density, enrichment.go.L5.ovaries.by.food_density, enrichment.go.L5.testes.by.food_density, enrichment.go.adult.thorax.by.wingPC1, enrichment.go.adult.gonad.by.wingPC1, enrichment.go.ovaries.by.wingPC1, enrichment.go.testes.by.wingPC1, enrichment.go.adult.thorax.by.txPC1, enrichment.go.L5.gonad.by.wingpadPC1,
+  enrichment.kegg.adult.thorax.by.food_density, enrichment.kegg.adult.gonad.by.food_density, enrichment.kegg.adult.ovaries.by.food_density, enrichment.kegg.adult.testes.by.food_density, enrichment.kegg.L5.thorax.by.food_density, enrichment.kegg.L5.gonad.by.food_density, enrichment.kegg.L5.ovaries.by.food_density, enrichment.kegg.L5.testes.by.food_density, enrichment.kegg.adult.thorax.by.wingPC1, enrichment.kegg.adult.gonad.by.wingPC1, enrichment.kegg.ovaries.by.wingPC1, enrichment.kegg.testes.by.wingPC1, enrichment.kegg.adult.thorax.by.txPC1, enrichment.kegg.L5.gonad.by.wingpadPC1,
+  enrichment.pd.adult.thorax.by.food_density, enrichment.pd.adult.gonad.by.food_density, enrichment.pd.adult.ovaries.by.food_density, enrichment.pd.adult.testes.by.food_density, enrichment.pd.L5.thorax.by.food_density, enrichment.pd.L5.gonad.by.food_density, enrichment.pd.L5.ovaries.by.food_density, enrichment.pd.L5.testes.by.food_density, enrichment.pd.adult.thorax.by.wingPC1, enrichment.pd.adult.gonad.by.wingPC1, enrichment.pd.ovaries.by.wingPC1, enrichment.pd.testes.by.wingPC1, enrichment.pd.adult.thorax.by.txPC1, enrichment.pd.L5.gonad.by.wingpadPC1,
+  enrichment.xenic.adult.thorax.by.food_density, enrichment.xenic.adult.gonad.by.food_density, enrichment.xenic.adult.ovaries.by.food_density, enrichment.xenic.adult.testes.by.food_density, enrichment.xenic.L5.thorax.by.food_density, enrichment.xenic.L5.gonad.by.food_density, enrichment.xenic.L5.ovaries.by.food_density, enrichment.xenic.L5.testes.by.food_density, enrichment.xenic.adult.thorax.by.wingPC1, enrichment.xenic.adult.gonad.by.wingPC1, enrichment.xenic.ovaries.by.wingPC1, enrichment.xenic.testes.by.wingPC1, enrichment.xenic.adult.thorax.by.txPC1, enrichment.xenic.L5.gonad.by.wingpadPC1, 
+  file="enrichment.pvalues.part2.rda"
+)
+
 # Number of significant terms
-unlist(lapply(ls()[grep("^enrichment",ls())], function (x) {
-  sig <- sum(p.adjust(get(x), method = "fdr") < 0.05, na.rm = TRUE)
+x <- unlist(lapply(ls()[grep("^enrichment\\.go",ls())], function (x) {
+  p.x <- get(x)
+  p.x <- p.x[!grepl("L=[01]",names(p.x))]
+  sig <- sum(p.adjust(p.x, method = "fdr") < 0.05, na.rm = TRUE)
   names(sig) <- x
   return(sig)
 }) )
+cat(names(x))
+cat(unname(x))
 
 # Find the top GO term descriptions via API 
 top.go.terms <- function(x, top = 10, return.string = TRUE) {
@@ -341,10 +415,29 @@ top.go.terms(enrichment.go.ovaries.by.morph)
 top.go.terms(enrichment.go.ovaries.by.stage)
 top.go.terms(enrichment.go.testes.by.morph)
 top.go.terms(enrichment.go.thorax.by.stage)
+top.go.terms(enrichment.go.adult.thorax.by.food_density)
+top.go.terms(enrichment.go.adult.gonad.by.food_density)
+top.go.terms(enrichment.go.adult.gonad.by.wingPC1)
+top.go.terms(enrichment.go.adult.ovaries.by.food_density)
+top.go.terms(enrichment.go.adult.testes.by.food_density)
+top.go.terms(enrichment.go.adult.thorax.by.wingPC1)
+top.go.terms(enrichment.go.L5.gonad.by.food_density)
+top.go.terms(enrichment.go.L5.ovaries.by.food_density)
+top.go.terms(enrichment.go.ovaries.by.wingPC1)
+top.go.terms(enrichment.go.testes.by.wingPC1)
 
 # Finding descriptions of the KEGG and EggNOG terms must be done manually
 ls()[grep("enrichment\\.kegg",ls())]
 # https://www.genome.jp/kegg/kegg2.html
+
+x <- unlist(lapply(ls()[grep("^enrichment\\.kegg",ls())], function (x) {
+  sig <- sum(p.adjust(get(x), method = "fdr") < 0.05, na.rm = TRUE)
+  names(sig) <- x
+  return(sig)
+}) )
+cat(names(x))
+cat(unname(x))
+
 head(sort(p.adjust(enrichment.kegg.adult.gonad.by.food, method = "fdr")),2)
 head(sort(p.adjust(enrichment.kegg.adult.gonad.by.morph, method = "fdr")),10)
 head(sort(p.adjust(enrichment.kegg.adult.thorax.by.morph, method = "fdr")),10)
@@ -353,9 +446,24 @@ head(sort(p.adjust(enrichment.kegg.L5.gonad.by.sex, method = "fdr")),10)
 head(sort(p.adjust(enrichment.kegg.ovaries.by.morph, method = "fdr")),10)
 head(sort(p.adjust(enrichment.kegg.testes.by.morph, method = "fdr")),7)
 head(sort(p.adjust(enrichment.kegg.thorax.by.stage, method = "fdr")),10)
+head(sort(p.adjust(enrichment.kegg.adult.gonad.by.food_density, method = "fdr")),2)
+head(sort(p.adjust(enrichment.kegg.adult.gonad.by.wingPC1, method = "fdr")),5)
+head(sort(p.adjust(enrichment.kegg.adult.testes.by.food_density, method = "fdr")),4)
+head(sort(p.adjust(enrichment.kegg.adult.thorax.by.wingPC1, method = "fdr")),10)
+head(sort(p.adjust(enrichment.kegg.L5.gonad.by.food_density, method = "fdr")),10)
+head(sort(p.adjust(enrichment.kegg.L5.gonad.by.wingpadPC1, method = "fdr")),3)
 
 ls()[grep("enrichment\\.pd",ls())]
 # https://www.ncbi.nlm.nih.gov/Structure/cdd/cdd.shtml
+
+x <- unlist(lapply(ls()[grep("^enrichment\\.pd",ls())], function (x) {
+  sig <- sum(p.adjust(get(x), method = "fdr") < 0.05, na.rm = TRUE)
+  names(sig) <- x
+  return(sig)
+}) )
+cat(names(x))
+cat(unname(x))
+
 head(sort(p.adjust(enrichment.pd.adult.gonad.by.food, method = "fdr")),8)
 head(sort(p.adjust(enrichment.pd.adult.gonad.by.morph, method = "fdr")),10)
 head(sort(p.adjust(enrichment.pd.adult.thorax.by.food, method = "fdr")),5)
@@ -369,6 +477,23 @@ head(sort(p.adjust(enrichment.pd.ovaries.by.morph, method = "fdr")),10)
 head(sort(p.adjust(enrichment.pd.ovaries.by.stage, method = "fdr")),5)
 head(sort(p.adjust(enrichment.pd.testes.by.morph, method = "fdr")),7)
 head(sort(p.adjust(enrichment.pd.thorax.by.stage, method = "fdr")),10)
+head(sort(p.adjust(enrichment.pd.adult.gonad.by.food_density, method = "fdr")),10)
+head(sort(p.adjust(enrichment.pd.adult.gonad.by.wingPC1, method = "fdr")),10)
+head(sort(p.adjust(enrichment.pd.adult.ovaries.by.food_density, method = "fdr")),10)
+head(sort(p.adjust(enrichment.pd.adult.testes.by.food_density, method = "fdr")),9)
+head(sort(p.adjust(enrichment.pd.adult.thorax.by.food_density, method = "fdr")),10)
+head(sort(p.adjust(enrichment.pd.adult.thorax.by.txPC1, method = "fdr")),10)
+head(sort(p.adjust(enrichment.pd.adult.thorax.by.wingPC1, method = "fdr")),10)
+head(sort(p.adjust(enrichment.pd.L5.gonad.by.food_density, method = "fdr")),10)
+head(sort(p.adjust(enrichment.pd.L5.gonad.by.wingpadPC1, method = "fdr")),1)
+head(sort(p.adjust(enrichment.pd.L5.ovaries.by.food_density, method = "fdr")),10)
+head(sort(p.adjust(enrichment.pd.L5.thorax.by.food_density, method = "fdr")),10)
+head(sort(p.adjust(enrichment.pd.ovaries.by.wingPC1, method = "fdr")),6)
+head(sort(p.adjust(enrichment.pd.testes.by.wingPC1, method = "fdr")),10)
 
-
+unlist(lapply(ls()[grep("^enrichment\\.xenic",ls())], function (x) {
+  sig <- sum(p.adjust(get(x), method = "fdr") < 0.05, na.rm = TRUE)
+  names(sig) <- x
+  return(sig)
+}) )
 

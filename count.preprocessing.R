@@ -42,8 +42,9 @@ all(colnames(cts) %in% sample.metadata$kallisto_name)
 
 sample.metadata <- sample.metadata %>%
   column_to_rownames(var = "kallisto_name") %>%
-  select(class, population, stage, sex, morph, morph_sex, tissue, food_regime,
-         seeds, cohort, plate, well, seq_date, note) %>%
+  select(stage, sex, morph, morph_sex, tissue, food_regime, seeds, cohort, population, 
+         girth,wingCS,wingPC1,wingPC2,wingPC3,wingPC4,txCS,txPC1,wingpadCS,wingpadPC1,wingpadPC2,wingpadPC3,wingpadPC4,
+         plate, well, seq_date, note) %>%
   mutate(plate = as.factor(plate), seq_date = as.factor(seq_date)) %>%
   mutate(tissue = fct_relevel(tissue, "thorax")) %>%
   mutate(morph = fct_relevel(morph, "SW", "LW"))
