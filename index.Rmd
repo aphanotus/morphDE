@@ -13,8 +13,10 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 > **This is a pre-submission DRAFT**.  Some of this text will be moved into the Methods and Results section of the manuscript's main text. Other text may remain in supplemental materials. 
+>
 > Details that may be important now, but should likely be removed before publication are given as block quotes.
-> While any process is running on nscc, you can monitor it's progress indirectly by checking the CPU usage on [NSCC node 28](http://schupflab.colby.edu/mrtg/nscc/nscc-n28.load.html).
+>
+> Code is available at https://github.com/aphanotus/morphDE. While any process is running on nscc, you can monitor it's progress indirectly by checking the CPU usage on [NSCC node 28](http://schupflab.colby.edu/mrtg/nscc/nscc-n28.load.html).
 
 In order to characterize the development of polyphenic traits in the wings, flight muscles and gonads of the soapberry bug, *Jadera haematoloma*, we sequenced transcriptomes from a multidimensional matrix of life stage, tissue, sex, food regime and host population.
 
