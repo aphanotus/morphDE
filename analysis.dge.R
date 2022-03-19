@@ -2125,16 +2125,6 @@ save(deg100.adult.gonad.by.food,deg100.adult.gonad.by.food_density,deg100.adult.
      file = "model.output/dge.analysis.deg100s.rda")
 
 ###################
-# Enrichment Analysis
-###################
-# Enrichment Analysis for GO, KEGG and EggNOG Protein Domain terms 
-# was performed using the hypergeometric test as implemented in stats::phyper
-# 
-# source('enrichment.R')
-
-load("enrichment.pvalues.rda",verbose = TRUE)
-
-###################
 # Volcano Plots
 ###################
 
@@ -2356,6 +2346,15 @@ volcano.plot <- function(
   ggsave("plots/volcano.plots.by.stage.pdf", plot = volcano.plots.by.stage.arranged, width = 9.75, height = 3.25, scale = 1.5)
 }
 
+###################
+# Enrichment Analysis
+###################
+# Enrichment Analysis for GO, KEGG and EggNOG Protein Domain terms 
+# was performed using the hypergeometric test as implemented in stats::phyper
+# 
+# source('enrichment.R')
+
+load("enrichment.pvalues.rda",verbose = TRUE)
 
 
 

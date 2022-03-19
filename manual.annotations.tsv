@@ -1,13 +1,24 @@
+TR216609|c2_g1_i3	AAC
+TR216609|c2_g5_i1	AAC
 TR238592|c0_g1	abrupt
 TR203462|c0_g1_i1	Aconitase
+TR263020|c0_g1_i1	aconitate hydratase
 TR168372|c0_g1_i1	aggrecan
 TR198895|c7_g2	Ago1
 TR252598|c0_g1_i1	Ago2
 TR231150|c0_g1	Ago3
+TR253138|c0_g1_i1	Ago3
 TR276028|c0_g1_i2	AIG1
 TR278472|c6_g6	Akt
 TR219566|c0_g1_i1	ALAS
+TR205357|c0_g1_i9	ALP1
+TR205997|c0_g1_i2	ANKRD28
+TR286623|c1_g1_i1	ANKRD28
+TR109325|c0_g1_i1	ankyrin repeat
+TR227423|c8_g1_i1	ankyrin repeat
 TR278467|c0_g1_i1	ankyrin repeat
+TR35344|c0_g1_i1	ankyrin repeat
+TR280699|c2_g3_i1	ankyrin-2/3
 TR239876|c5_g5_i1	Antp
 TR234543|c0_g1_i1	aos
 TR258574|c0_g1	apterous
@@ -18,17 +29,21 @@ TR234543|c0_g1	Argos
 TR284759|c0_g1	aristaless
 TR256497|c1_g1_i7	arkadia
 TR250979|c0_g1_i2	ARS2
-TR234431|c0_g2_i1	RNA helicase
+TR91121|c0_g1_i2	ATP5D
+TR258824|c0_g1_i1	ATP5MC3
+TR267306|c5_g5_i1	ATP5ME
 TR192994|c0_g1_i1	ATPA
 TR272793|c1_g1_i1	ATPSYN-D
 TR227404|c0_g2_i1	atrogin-1
 TR278073|c0_g1	axin
-TR285237|c0_g1	bab
-TR252104|c0_g1_i4	bark beetle
-TR264040|c0_g1	belle
 TR206379|c0_g1_i1	b-catenin
 TR206379|c0_g1_i2	b-catenin
 TR237602|c1_g1	b-catenin
+TR227654|c0_g1_i1	b-tubulin
+TR285237|c0_g1	bab
+TR152168|c0_g2_i1	band 7
+TR252104|c0_g1_i4	bark beetle
+TR264040|c0_g1	belle
 TR285518|c0_g1	boule
 TR232015|c0_g1	bowl
 TR264080|c1_g2_i1	BRD8
@@ -39,9 +54,11 @@ TR201861|c1_g1_i2	BTB/POZ domain
 TR246152|c0_g2_i1	bursicon
 TR269005|c0_g2_	buttonless
 TR237569|c0_g2_i4	C-lectin
+TR200754|c1_g1_i1	C9orf116
 TR227572|c0_g1_i1	cabin-1
 TR201752|c0_g1_i1	cactus
 TR245051|c0_g1_i1	calcineurin
+TR261399|c2_g1_i1	calcyphosin
 TR211230|c0_g1	calmodulin
 TR267473|c7_g2	calmodulin
 TR73847|c0_g2	calmodulin-related
@@ -50,6 +67,10 @@ TR211469|c1_g1_i1	CASP
 TR201825|c0_g7_i4	castor
 TR262382|c0_g1_i1	cathepsin
 TR286166|c1_g1_i1	cathepsin
+TR204666|c0_g7_i1	cathepsin B
+TR240880|c2_g2_i1	cathepsin L
+TR286166|c0_g2_i1	cathepsin L
+TR77256|c0_g1_i1	cathepsin L
 TR208630|c0_g2_i1	CBG10000
 TR197054|c0_g1_i1	CBT
 TR258525|c0_g1_i1	CBX3A
@@ -59,10 +80,13 @@ TR197681|c0_g1_i1	CCDC39
 TR207117|c0_g1_i1	CCT3
 TR241252|c0_g1_i1	cdc42
 TR93439|c0_g1_i1	Cdk10
+TR88346|c0_g1_i1	CELA1
+TR216366|c0_g1_i1	CENPE
 TR207292|c0_g1_i1	centractin
 TR278202|c2_g1_i3	CEP72
 TR219129|c0_g1_i2	CEP78
 TR210879|c0_g2_i9	CHAF1A
+TR202917|c2_g5_i1	chemosensory protein
 TR42968|c1_g1_i1	chic
 TR243146|c2_g1_i6	Chico
 TR221622|c0_g1_i1	Chromo
@@ -76,20 +100,36 @@ TR268499|c0_g1_i2	CLIPD1
 TR237591|c3_g1	cll-C15
 TR216863|c1_g2_i1	CLUAP1
 TR204462|c0_g2	cnc
+TR255799|c0_g1_i7	CNGA
 TR54414|c0_g1_i1	COP-zeta
+TR100516|c0_g1_i1	Cox4i1
+TR78671|c0_g1_i1	COX6B1
 TR224120|c2_g1_i1	crumbs
 TR228596|c0_g1	ctla2a
 TR280725|c0_g2_i1	CTLSE1
 TR237950|c0_g2	cut
+TR213413|c0_g1_i2	cut up
+TR198006|c1_g1_i2	cuticle protein
 TR203799|c0_g1_i1	cuticle protein
 TR208820|c0_g1_i1	cuticle protein
 TR218304|c0_g1_i1	cuticle protein
 TR237511|c0_g1_i1	cuticle protein
+TR242072|c3_g17_i2	cuticle protein
+TR250928|c5_g3_i1	cuticle protein
 TR53065|c0_g1_i1	cuticle protein
+TR271336|c0_g14_i1	cuticle protein 7
+TR253134|c0_g1_i2	cuticle protein A2B
+TR79941|c0_g1_i1	cuticle protein C1B
+TR95293|c0_g1_i1	cuticle protein C1B
+TR215886|c0_g1_i1	cuticle protein G1A
 TR211746|c0_g1_i1	Cyclin-B3
 TR208784|c0_g1_i1	Cyclin-E
 TR216330|c0_g1_i3	Cyclin-N
 TR261596|c1_g1_i1	cystatin-1
+TR251546|c0_g1_i1	cysteine-rich secreted protein
+TR278246|c0_g2_i1	cysteine-rich secreted protein
+TR285509|c0_g1_i1	cysteine-rich secreted protein
+TR77179|c0_g1_i1	cysteine-rich secreted protein
 TR231476|c0_g1_i1	cytochrome P450
 TR243046|c7_g2	dac
 TR211485|c0_g5	DDC
@@ -101,6 +141,7 @@ TR230836|c0_g1_i6	deadpan
 TR267297|c2_g1	debcl
 TR251775|c2_g1_i1	Delta
 TR285165|c0_g2	derailed
+TR106791|c0_g2_i1	diazepam binding inhibitor
 TR36282|c0_g1_i1	Dicer1
 TR234370|c6_g1	Dicer2
 TR198894|c2_g1	discs overgrown
@@ -140,14 +181,17 @@ TR200725|c4_g1_i2	E3 ubiquitin ligase
 TR209480|c0_g1_i1	E3 ubiquitin ligase
 TR225757|c0_g3	eagle
 TR255764|c0_g1	eagle
-TR220061|c3_g1	Ecad
 TR280484|c0_g1	eclosion hormone
 TR233904|c0_g2_i2	EF2B
+TR215840|c1_g4	EGF
 TR250969|c3_g1	egfr
 TR86935|c1_g3	eIF3I
+TR247863|c0_g1_i1	eIF4E
 TR238143|c2_g3	eIF5
 TR213301|c0_g1_i2	eIF5B
 TR258059|c0_g1	eip74EF
+TR277311|c0_g1_i1	elastin
+TR284785|c1_g1_i1	endocuticle glycoprotein
 TR204446|c1_g1_i1	engrailed
 TR239719|c0_g1	erk
 TR218623|c0_g1_i1	esmb
@@ -156,12 +200,14 @@ TR74081|c0_g1_i1	eve
 TR261552|c0_g1	exd
 TR265394|c0_g1_i1	expanded
 TR283764|c0_g5_i1	FAM120A
+TR243053|c11_g1_i1	FAM46C
 TR206243|c1_g1	fat-ds
 TR266396|c0_g1	fat-ds
 TR284940|c0_g1	fat-ds
 TR211235|c0_g1	fj
 TR206285|c1_g11_i1	FLAD1
 TR89791|c0_g1_i1	flightin
+TR91067|c0_g1_i1	flightin
 TR283730|c3_g1	FMRFaR
 TR219489|c0_g4_i2	FNIP1
 TR248072|c3_g2_i7	FORM3
@@ -186,24 +232,34 @@ TR202200|c0_g1_i1	HAND2
 TR261636|c0_g1_i1	HDAC6
 TR245295|c1_g2	heartless
 TR243150|c0_g3	hedgehog
+TR200005|c10_g9_i1	hemiptericin
+TR217337|c0_g1_i1	hemiptericin
 TR213742|c0_g1	henna
 TR263459|c0_g1_i4	HID1
 TR262253|c0_g1	Hippo
-TR206320|c0_g2_i2 	HP1B
+TR274032|c5_g2_i6	HLX
+TR206320|c0_g2_i2	HP1B
 TR205269|c4_g1_i1	hrg1-B
+TR278526|c5_g3_i2	HRP-2
 TR221533|c0_g1_i2	hsp70
 TR87016|c0_g1_i1	hsp70
 TR243272|c2_g1_i1	hsp90
 TR263466|c0_g2	hth
 TR211096|c0_g1	iap1
 TR259469|c2_g1_i2	iap2
+TR211477|c3_g1_i1	ice-structuring glycoprotein
 TR202697|c1_g1	InR1
 TR230867|c1_g4	InR2
 TR202926|c2_g1_i1	intersex
 TR269077|c1_g1_i1	isoprenoid synthase
+TR222272|c1_g2_i1	jagged-2-like
+TR59669|c0_g1_i1	jagged-2-like
 TR285672|c2_g1_i4	JAZF1
 TR261437|c0_g1_i1	JH esterase
 TR61405|c0_g1_i1	JH hydrolase
+TR251070|c3_g1_i1	jockey RT
+TR262817|c3_g5_i4	jockey RT
+TR270866|c1_g3_i1	jockey RT
 TR239628|c0_g1_i2	katanin
 TR219520|c2_g1_i1	ken
 TR228605|c0_g2_i16	keratin
@@ -214,7 +270,6 @@ TR205281|c0_g1_i2	KIF4
 TR244856|c2_g1_i1	kinesin
 TR199544|c0_g1	knirps
 TR278036|c0_g1	knot-collier
-TR215840|c1_g4	Krn
 TR206243|c1_g12_i1	kugelei
 TR284940|c0_g1_i1	kugelei
 TR231208|c0_g1_i1	l2gl
@@ -225,6 +280,10 @@ TR254073|c0_g1_i1	LARK
 TR221651|c1_g1_i1	LDLR
 TR207354|c0_g1	lifeguard
 TR244851|c3_g1_i2	LIM/PDZ
+TR213314|c0_g8_i1	LITAF
+TR274811|c0_g3_i2	lola
+TR204414|c1_g3_i1	loquacious
+TR264570|c1_g1_i1	LRRK1
 TR214248|c0_g1_i1	maelstrom
 TR242526|c1_g1_i1	Mak10
 TR198854|c3_g1_i5	MAP7
@@ -232,9 +291,11 @@ TR239916|c0_g1_i1	mbt
 TR39429|c1_g1_i1	Mcm6
 TR203153|c0_g2_i1	MDH2
 TR225577|c1_g1_i2	ME31B
+TR110057|c0_g1_i1	MED2
 TR252094|c1_g1_i1	Med28
 TR238560|c9_g1	mek
 TR283476|c0_g1	Met
+TR233133|c2_g3_i1	MIC10
 TR202085|c11_g1_i3	milton
 TR267303|c0_g1_i1	MINPP1
 TR285223|c1_g3_i2	MINPP1
@@ -251,22 +312,35 @@ TR248022|c2_g1_i1	msl1
 TR221524|c0_g1_i2	msl2
 TR208840|c1_g1_i3	msl3
 TR281082|c0_g1_i1	Msp2
+TR210201|c8_g1_i1	mucin-19
+TR210201|c8_g12_i1	mucin-19
+TR210201|c8_g9_i1	mucin-19
+TR230433|c0_g1_i1	mucin-19
 TR264445|c0_g1_i2	musashi
 TR248645|c0_g1_i1	muscle wasted
 TR265392|c0_g1	mwh
+TR263089|c2_g4_i1	MYL2
 TR248063|c3_g1	myoblast city
 TR223095|c3_g1_i1	myosin
 TR239854|c1_g1_i1	myosin HC
 TR256753|c16_g1	myosin HC
+TR264193|c0_g2_i1	myosin HC
+TR198120|c0_g2_i1	myrosinase-binding protein 2-like
+TR255293|c0_g4_i1	myrosinase-binding protein 2-like
 TR205984|c0_g1_i1	mysoin LC
 TR277535|c0_g1	mysoin LC
 TR261395|c1_g1_i1	Na/solute symporter
+TR280405|c1_g2_i1	NACA
+TR250742|c14_g3_i9	NADH dehydrogenase
 TR216408|c11_g4	nanos
 TR216506|c0_g1_i2	ncl-1
+TR242133|c0_g1_i1	ND1
+TR236763|c193_g1_i1	ND2
 TR135868|c0_g1_i1	NDUFA12
 TR224540|c4_g1_i1	nemo
 TR223244|c3_g3	NF-kappa-B
 TR76994|c0_g1_i1	NHP2
+TR274272|c0_g1_i2	Nkx-2.2a-like
 TR253294|c1_g1_i1	NOA1
 TR241830|c0_g1_i1	nostrin
 TR239200|c0_g1	Notch
@@ -275,6 +349,7 @@ TR202855|c1_g1	nubbin
 TR285192|c0_g2	numb
 TR164005|c0_g1_i1	NUOI
 TR206427|c3_g1_i1	nurf38
+TR216882|c0_g2_i1	Obp
 TR203818|c0_g1_i1	OBP19D
 TR240761|c1_g1	odd
 TR269762|c0_g1	omb
@@ -285,6 +360,9 @@ TR241209|c0_g1	otd
 TR207286|c0_g7_i1	p25-alpha
 TR211487|c2_g3_i3	p53
 TR264101|c4_g1_i1	PABP
+TR278542|c3_g6_i1	pacifastin-like protease inhibitor
+TR278542|c3_g9_i4	pacifastin-like protease inhibitor cvp4
+TR88423|c0_g1_i2	pacifastin-like protease inhibitor cvp4
 TR222007|c0_g1	paired
 TR160888|c0_g1_i1	PAL
 TR259347|c0_g1	pale
@@ -296,11 +374,15 @@ TR202917|c1_g1_i2	PEBIII
 TR247158|c6_g1_i2	PEBIII
 TR224521|c7_g1_i2	perlecan
 TR219504|c5_g1_i1	PEX1
+TR204795|c1_g1_i5	PGBD4
 TR223060|c1_g3_i7	PGI
 TR219039|c13_g4_i2	PGRPLC
 TR202211|c0_g1_i2	phantom
 TR235695|c2_g2_i4	PI3K
+TR285745|c1_g4_i2	PI4KA
 TR110151|c0_g1_i1	pickled eggs
+TR200420|c0_g1_i1	PiCot
+TR239612|c6_g1_i2	PIF1
 TR216606|c1_g1_i3	piggyBac
 TR275599|c1_g1_i1	piggyBac
 TR263766|c0_g1	piwi-aubergine
@@ -311,7 +393,9 @@ TR284794|c1_g2	pkc98F
 TR260359|c0_g1_i1	pL6
 TR238545|c5_g1	plc21C
 TR237530|c3_g1	pnt
+TR218384|c2_g1_i1	pre-mRNA-splicing factor
 TR200602|c0_g1	proboscipedia
+TR244084|c0_g1_i1	proline-rich protein 4
 TR205328|c20_g3_i1	PRRC2C
 TR221974|c3_g1_i3	PSMG4
 TR201861|c0_g3	PTEN
@@ -323,6 +407,7 @@ TR199939|c0_g1_i2	Rad50
 TR203576|c2_g2	raptor
 TR238279|c0_g1	ras
 TR238584|c0_g1_i1	rheb
+TR234431|c0_g2_i1	RNA helicase
 R252077|c1_g1_i2	RNA pol II
 TR252077|c1_g1_i1	RNA pol II
 TR252077|c1_g2_i1	RNA pol II
@@ -341,18 +426,31 @@ TR227695|c1_g2_i1	rpL40
 TR287385|c0_g1_i1	rpL41
 TR275316|c0_g1_i1	rpL6
 TR245810|c0_g1_i1	rpL7
+TR264594|c10_g1_i1	rpS8-like
 TR75328|c0_g2_i1	RPSK
 TR122255|c0_g1_i1	RPSM
 TR201766|c0_g1_i1	RT
 TR204802|c0_g1_i1	RT
 TR205766|c4_g4_i1	runt
+TR102167|c0_g1_i1	salivary protein
+TR201990|c1_g1_i1	salivary protein
+TR212075|c0_g1_i2	salivary protein
+TR224430|c1_g1_i1	salivary protein
+TR224430|c1_g7_i2	salivary protein
+TR279864|c1_g1_i1	salivary protein
 TR252894|c0_g1	sals
 TR251743|c2_g1_i1	salvador
 TR237960|c0_g2_i1	sarah-nebula
 TR205315|c1_g1	scalloped
 TR239876|c5_g5	Scr
 TR254354|c0_g1_i1	scute
+TR227511|c0_g1_i1	SEC20
 TR36240|c0_g2_i1	SenC
+TR91140|c1_g1_i1	serine protease
+TR198084|c2_g1_i1	serine-rich protein
+TR210393|c7_g1_i1	serine-rich protein
+TR210393|c7_g1_i5	serine-rich protein
+TR221658|c1_g1_i4	serine-rich protein
 TR199471|c1_g1	SH2B
 TR233865|c2_g2	shade
 TR233865|c2_g2_i3	shade
@@ -368,17 +466,20 @@ TR213734|c0_g1_i1	small wing
 TR274047|c1_g3_i2	SMC4
 TR237661|c0_g1_i1	smooth
 TR283626|c0_g1_i1	snail
+TR250931|c0_g7_i1	SNAP29
 TR252107|c1_g1_i2	SNCAIP
 TR259780|c0_g1_i1	snf
 TR259780|c0_g1_i2	snf
+TR91737|c0_g1_i1	SNRPE
 TR267299|c0_g1_i3	socs36E
 TR252663|c0_g1_i2	SOX14
 TR253332|c0_g1	Sp8
 TR220289|c0_g1	spalt
 TR233019|c1_g2_i3	spf45
 TR201046|c2_g1	spineless
-TR215840|c1_g4	spitz
+TR216378|c1_g3_i4	spo15-like
 TR206628|c0_g1_i1	spook
+TR259386|c0_g2_i1	SRR1
 TR202839|c0_g1_i1	SSPO
 TR221483|c3_g2_i1	STL1
 TR212357|c0_g1_i1	stromal cell-derived factor
@@ -387,43 +488,70 @@ TR275672|c1_g1_i1	Sulfatase
 TR223473|c0_g3_i1	syntaxin-1A
 TR205606|c0_g1_i1	t-complex protein 1 subunit
 TR209447|c0_g2_i1	TAF6
+TR215967|c3_g1_i2	takeout
 TR106644|c0_g1_i1	TAP-delta
 TR93481|c0_g1_i1	TBP-1
+TR266353|c0_g1_i1	TC3A transposase
 TR209736|c4_g1_i1	TER94
-TR229914|c4_g1_i5	Thioredoxin
+TR209938|c1_g1_i2	testis-specific ST-kinase 6
+TR287121|c9_g1_i1	THAP12
+TR229914|c4_g1_i5	thioredoxin
 TR278957|c1_g3_i1	thioredoxin
 TR107973|c0_g1	thor
 TR206699|c1_g1	tiptop
+TR205317|c0_g1_i1	titin
 TR211503|c0_g3_i1	titin
 TR243928|c0_g1_i1	titin
 TR228878|c0_g1	tkv
+TR219589|c0_g4_i1	TLCD5
 TR102250|c0_g1_i1	Tmp21-I
 TR270931|c1_g1_i1	tobi
 TR283202|c0_g1_i1	TOR
+TR283613|c0_g3_i1	TPRP-F1
 TR201446|c0_g1	tra2
 TR247343|c0_g1	trachealess
 TR222053|c0_g1_i1	TRAF3IP1
 TR229916|c0_g1_i1	traffic jam
+TR248170|c1_g1_i1	transferrin
 TR216390|c0_g2	transformer
+TR238018|c6_g1_i1	transposase
 TR201423|c0_g1_i1	trichohyalin
 TR252075|c10_g5	tropomyosin 1
 TR224521|c3_g1_i2	tropomyosin 2
+TR133693|c0_g1_i1	troponin C
 TR36566|c0_g1_i1	troponin C
 TR214216|c1_g1_i1	troponin I
-TR133693|c0_g1_i1	troponin-C
 TR197136|c6_g1_i1	trypsin
 TR211445|c1_g1_i1	trypsin
+TR227438|c1_g22_i1	trypsin
+TR98132|c0_g1_i1	trypsin
 TR198914|c4_g6	tryptophan hydroxylase
+TR243006|c0_g3_i1	Tsr3
 TR111903|c0_g1_i1	tubulin-beta 2b
 TR284741|c0_g1	tudor
 TR198107|c0_g2_i1	twist
+TR66400|c0_g1_i1	UbE2W
 TR205944|c2_g1	Ubx
 TR261362|c1_g1	ultraspiracle
+TR239691|c0_g1_i1	unconventional myosin-XVIIIa-like
 TR206411|c1_g1	upd
+TR228875|c0_g1_i1	UQCRQ
+TR280872|c0_g1_i1	USO1
 TR283400|c6_g1	Van gogh
 TR252906|c1_g1	vasa
+TR206937|c0_g1_i1	vasotab
+TR230732|c0_g1_i1	vasotab
+TR58971|c0_g2_i1	vasotab
 TR257235|c0_g4	vein
+TR240292|c1_g1_i1	venom peptide Pp23b
+TR244757|c0_g15_i1	venom peptide Pp23b
+TR133747|c0_g1_i1	venom protein
+TR228923|c0_g1_i1	venom protein
+TR103620|c0_g1_i1	venom S1 protease
+TR266753|c0_g3_i1	venom S1 protease
+TR286619|c2_g1_i1	venom S1 protease
 TR232362|c0_g1_i3	venom serine protease
+TR262950|c0_g1_i1	venom serine protease
 TR286619|c3_g1_i1	venom serine protease
 TR51692|c1_g1_i1	vestigial
 TR243520|c0_g1	virilizer
@@ -442,6 +570,13 @@ TR254962|c0_g1	wingless
 TR207837|c0_g1	yan
 TR214140|c4_g5_i1	yellow
 TR208025|c0_g1	yorkie
+TR209741|c0_g1_i1	ZFX
+TR278770|c4_g1_i1	ZMYM1
+TR54578|c0_g1_i1	ZMYM1
+TR234574|c1_g1_i1	ZMYM6
 TR202093|c1_g1_i1	Zn transporter
+TR245071|c2_g1_i1	Zn transporter 7
+TR230625|c0_g1_i3	ZnF
 TR235318|c17_g1_i1	ZnF135
+TR274222|c0_g1_i2	ZnF22-like
 TR270835|c7_g1_i1	zyxin
