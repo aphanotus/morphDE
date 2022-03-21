@@ -152,8 +152,11 @@ pca.null.plot <- pca.null$x %>%
   coord_fixed()
 pca.null.plot
 
-ggsave("plots/pca.null.plot.pdf", pca.null.plot, width = 7, height = 5, scale = 1)
-ggsave("plots/pca.null.plot.jpg", pca.null.plot, width = 7, height = 5, scale = 0.95)
+pca.uncorrected.and.null.plots <- ggpubr::ggarrange(
+  pca.uncorrected.by.biol.grp.plot, pca.uncorrected.by.batch.plot, pca.null.plot,
+  ncol = 3)
+
+ggsave("plots/pca.uncorrected.and.null.plots.pdf", pca.uncorrected.and.null.plots, width = 21, height = 5, scale = 1)
 
 rm(cts.i, ctn.null, dds.null, pca.uncorrected, pca.uncorrected.by.biol.grp.plot, pca.uncorrected.by.batch.plot, vsd.cor.null, vsd.null, pca.null)
 
@@ -2123,6 +2126,44 @@ save(ann, apply.annotation, gene.read.number.cut.off,
      file = "model.output/dge.analysis.res.rda")
 save(deg100.adult.gonad.by.food,deg100.adult.gonad.by.food_density,deg100.adult.gonad.by.girth,deg100.adult.gonad.by.morph,deg100.adult.gonad.by.sex,deg100.adult.gonad.by.txPC1,deg100.adult.gonad.by.wingPC1,deg100.adult.ovaries.by.food_density,deg100.adult.ovaries.by.girth,deg100.adult.ovaries.by.morph,deg100.adult.ovaries.by.wingPC1,deg100.adult.testes.by.food_density,deg100.adult.testes.by.girth,deg100.adult.testes.by.morph,deg100.adult.testes.by.wingPC1,deg100.adult.thorax.by.food,deg100.adult.thorax.by.food_density,deg100.adult.thorax.by.girth,deg100.adult.thorax.by.morph,deg100.adult.thorax.by.sex,deg100.adult.thorax.by.txPC1,deg100.adult.thorax.by.wingPC1,deg100.L5.gonad.by.food,deg100.L5.gonad.by.food_density,deg100.L5.gonad.by.girth,deg100.L5.gonad.by.sex,deg100.L5.gonad.by.txPC1,deg100.L5.gonad.by.wingpadPC1,deg100.L5.ovaries.by.food,deg100.L5.ovaries.by.food_density,deg100.L5.ovaries.by.girth,deg100.L5.testes.by.food_density,deg100.L5.testes.by.girth,deg100.L5.thorax.by.food,deg100.L5.thorax.by.food_density,deg100.L5.thorax.by.girth,deg100.L5.thorax.by.sex,deg100.L5.thorax.by.txPC1,deg100.L5.thorax.by.wingpadPC1,deg100.ovaries.by.stage,deg100.testes.by.stage,deg100.thorax.by.stage,
      file = "model.output/dge.analysis.deg100s.rda")
+
+# Record all the annotated DEGs into one file
+x <- unlist(lapply(ls()[grep("^res\\.",ls())], function (x) {
+  cat(x,"\n")
+  res <- get(x)
+  if (sum(res$padj<0.05, na.rm = TRUE) < 1) {
+    s <- "No DEGs!"
+    names(s) <- paste0("\n### ",x)
+    return(s)
+  } 
+  x <- sub("^res\\.","",x)
+  x <- gsub("\\."," ",x)
+  x <- gsub("_"," ",x)
+  x <- gsub("txPC1","thoraxPC1",x)
+  x <- gsub("PC1"," PC1",x)
+  x <- sub("food$","food regime",x)
+  res <- res[which(res$padj<0.05),]
+  res <- res[order(res$padj),]
+  res$baseMean <- signif(res$baseMean, 5)
+  res$log2FoldChange <- signif(res$log2FoldChange, 5)
+  res$padj <- signif(res$padj, 5)
+  if (length(colnames(res)) <= 5) { 
+    res <- apply.annotation(res, ann)
+    res <- add.manual.annotations(res)
+  }
+  res$rank <- 1:dim(res)[1]
+  COLS <- c(22,1,2,5,21,14:15,20,8,9)
+  s <- apply(res[,COLS], 1, paste0, collapse = "\t")
+  s <- s[which(!grepl("\\\tNA\\\t\\\t\\\t\\\t\\\tFALSE",s))]
+  s <- s[which(!grepl("\\\tNA\\\t\\\t\\\t\\\tNo\\\tFALSE",s))]
+  s <- paste0(paste0(names(s),"\t",s), collapse = "\n")
+  names(s) <- paste0("\n### ",x)
+  return(s)
+}) )
+write(paste0(c("transcript","DEG rank", "baseMean", "log2FoldChange", "padj","manual.ann","EggNOG.Predicted.Gene","EggNOG.Description","EggNOG.Protein.Domains","Contaminant","xenic"),collapse="\t"),
+      file = "complete.deg.list.txt", sep = "\n", append = FALSE)
+write.table(tibble::enframe(x),
+            file = "complete.deg.list.txt", sep = "\n", quote = FALSE, row.names = FALSE, col.names = FALSE, append = TRUE)
 
 ###################
 # Volcano Plots
