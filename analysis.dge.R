@@ -84,8 +84,8 @@ add.manual.annotations <- function(res) {
 cts.i <- as.matrix(cts[which(rowSums(cts) > gene.read.number.cut.off),])
 dim(cts.i)
 
-# Why a null model accounting for batch is critical!
 pca.uncorrected <- prcomp(t(cts.i))
+# https://github.com/aphanotus/borealis
 (pc.variance <- head(borealis::pcvar(pca.uncorrected)))
 
 pca.uncorrected.by.biol.grp.plot <- pca.uncorrected$x %>%
@@ -109,13 +109,6 @@ pca.uncorrected.by.batch.plot <- pca.uncorrected$x %>%
        y=paste0("PC2 (",pc.variance[2]," variance)")) +
   coord_fixed()
 pca.uncorrected.by.batch.plot
-
-pca.uncorrected.plots <- ggpubr::ggarrange(
-  pca.uncorrected.by.biol.grp.plot, pca.uncorrected.by.batch.plot,
-  ncol = 2)
-
-ggsave("plots/pca.uncorrected.plots.pdf", pca.uncorrected.plots, width = 14, height = 5, scale = 1)
-ggsave("plots/pca.uncorrected.plots.jpg", pca.uncorrected.plots, width = 14, height = 5, scale = 1)
 
 # DESeq2
 dds.null <- DESeqDataSetFromMatrix(
@@ -156,6 +149,7 @@ pca.uncorrected.and.null.plots <- ggpubr::ggarrange(
   pca.uncorrected.by.biol.grp.plot, pca.uncorrected.by.batch.plot, pca.null.plot,
   ncol = 3)
 
+ggsave("plots/pca.uncorrected.and.null.plots.jpg", pca.uncorrected.and.null.plots, width = 21, height = 5, scale = 1)
 ggsave("plots/pca.uncorrected.and.null.plots.pdf", pca.uncorrected.and.null.plots, width = 21, height = 5, scale = 1)
 
 rm(cts.i, ctn.null, dds.null, pca.uncorrected, pca.uncorrected.by.biol.grp.plot, pca.uncorrected.by.batch.plot, vsd.cor.null, vsd.null, pca.null)
@@ -2156,14 +2150,25 @@ x <- unlist(lapply(ls()[grep("^res\\.",ls())], function (x) {
   s <- apply(res[,COLS], 1, paste0, collapse = "\t")
   s <- s[which(!grepl("\\\tNA\\\t\\\t\\\t\\\t\\\tFALSE",s))]
   s <- s[which(!grepl("\\\tNA\\\t\\\t\\\t\\\tNo\\\tFALSE",s))]
-  s <- paste0(paste0(names(s),"\t",s), collapse = "\n")
+  s <- paste0(paste0(x,"\t",names(s),"\t",s), collapse = "\n")
   names(s) <- paste0("\n### ",x)
   return(s)
 }) )
-write(paste0(c("transcript","DEG rank", "baseMean", "log2FoldChange", "padj","manual.ann","EggNOG.Predicted.Gene","EggNOG.Description","EggNOG.Protein.Domains","Contaminant","xenic"),collapse="\t"),
-      file = "complete.deg.list.txt", sep = "\n", append = FALSE)
+write(paste0(c("model","transcript","DEG rank", "baseMean", "log2FoldChange", "padj","manual.ann","EggNOG.Predicted.Gene","EggNOG.Description","EggNOG.Protein.Domains","Contaminant","xenic"),collapse="\t"),
+      file = "annotated.deg.list.tsv", sep = "\n", append = FALSE)
 write.table(tibble::enframe(x),
-            file = "complete.deg.list.txt", sep = "\n", quote = FALSE, row.names = FALSE, col.names = FALSE, append = TRUE)
+            file = "annotated.deg.list.tsv", sep = "\n", quote = FALSE, row.names = FALSE, col.names = FALSE, append = TRUE)
+
+# An example query of the annotated DEG list
+annotated.deg.list <- read.delim("annotated.deg.list.tsv", blank.lines.skip = TRUE, comment.char = "#")
+colnames(annotated.deg.list)
+
+annotated.deg.list %>% 
+  filter(grepl("by sex",model)) %>% 
+  filter(grepl("dsx",manual.ann) | grepl("dsx",EggNOG.Predicted.Gene)) %>% 
+  select(-EggNOG.Description, -EggNOG.Protein.Domains, -Contaminant, -xenic) %>% 
+  arrange(transcript)
+
 
 ###################
 # Volcano Plots
