@@ -117,11 +117,6 @@ dds.null <- DESeqDataSetFromMatrix(
 dds.null <- DESeq(dds.null)
 dds.null <- estimateSizeFactors(dds.null)
 
-# # Extract and save normalized counts
-# ctn.null <- counts(dds.null, normalized=TRUE)
-# write.csv(ctn.null, 'normalized.counts.null.csv')
-# # Use normalized counts for downstream visualization
-
 vsd.null <- vst(dds.null, blind=FALSE)
 
 ### hierarchical clustering
@@ -172,14 +167,8 @@ dds.adult.gonad.by.sex <- DESeqDataSetFromMatrix(
 dds.adult.gonad.by.sex <- DESeq(dds.adult.gonad.by.sex)
 dds.adult.gonad.by.sex <- estimateSizeFactors(dds.adult.gonad.by.sex)
 
-# # Extract and save normalized counts
-# ctn.adult.gonad.by.sex <- counts(dds.adult.gonad.by.sex, normalized=TRUE)
-# write.csv(ctn.adult.gonad.by.sex, 'normalized.counts.adult.gonad.by.sex.csv')
-# # Use normalized counts for downstream visualization
-
 # Results table with log2 fold changes, p values and adjusted p values.
 resultsNames(dds.adult.gonad.by.sex)
-res.adult.gonad.by.sex <- results(dds.adult.gonad.by.sex, contrast=c("sex","m","f"), alpha=0.05, filterFun=ihw)
 res.adult.gonad.by.sex <- lfcShrink(dds.adult.gonad.by.sex, coef="sex_m_vs_f", type="apeglm", res = res.adult.gonad.by.sex)
 summary(res.adult.gonad.by.sex)
 # out of 54709 with nonzero total read count
@@ -188,7 +177,7 @@ summary(res.adult.gonad.by.sex)
 # LFC < 0 (down)     : 10205, 19%
 # outliers [1]       : 0, 0%
 
-# plotMA(res.adult.gonad.by.sex, main="apeGLM")
+# plotMA(res.adult.gonad.by.sex)
 # # interactively detect the row number
 # i <- identify(res.adult.gonad.by.sex$baseMean, res.adult.gonad.by.sex$log2FoldChange)
 # plotCounts(dds.adult.gonad.by.sex, gene=i[1], intgroup="sex", main="adult.gonad.by.sex")
@@ -231,14 +220,8 @@ dds.L5.gonad.by.sex <- DESeqDataSetFromMatrix(
 dds.L5.gonad.by.sex <- DESeq(dds.L5.gonad.by.sex)
 dds.L5.gonad.by.sex <- estimateSizeFactors(dds.L5.gonad.by.sex)
 
-# # Extract and save normalized counts
-# ctn.L5.gonad.by.sex <- counts(dds.L5.gonad.by.sex, normalized=TRUE)
-# write.csv(ctn.L5.gonad.by.sex, 'normalized.counts.L5.gonad.by.sex.csv')
-# # Use normalized counts for downstream visualization
-
 # Results table with log2 fold changes, p values and adjusted p values.
 resultsNames(dds.L5.gonad.by.sex)
-res.L5.gonad.by.sex <- results(dds.L5.gonad.by.sex, contrast=c("sex","m","f"), alpha=0.05, filterFun=ihw)
 res.L5.gonad.by.sex <- lfcShrink(dds.L5.gonad.by.sex, coef="sex_m_vs_f", type="apeglm", res = res.L5.gonad.by.sex)
 summary(res.L5.gonad.by.sex)
 # out of 32596 with nonzero total read count
@@ -247,7 +230,7 @@ summary(res.L5.gonad.by.sex)
 # LFC < 0 (down)     : 2367, 7.3%
 # outliers [1]       : 114, 0.35%
 
-# plotMA(res.L5.gonad.by.sex, main="apeGLM")
+# plotMA(res.L5.gonad.by.sex)
 # # Positive LFC values are associated with male expression bias
 
 # Use variance stabilizing transformations only for ML applications
@@ -285,11 +268,6 @@ dds.adult.thorax.by.sex <- DESeqDataSetFromMatrix(
 dds.adult.thorax.by.sex <- DESeq(dds.adult.thorax.by.sex)
 dds.adult.thorax.by.sex <- estimateSizeFactors(dds.adult.thorax.by.sex)
 
-# # Extract and save normalized counts
-# ctn.adult.thorax.by.sex <- counts(dds.adult.thorax.by.sex, normalized=TRUE)
-# write.csv(ctn.adult.thorax.by.sex, 'normalized.counts.adult.thorax.by.sex.csv')
-# # Use normalized counts for downstream visualization
-
 # Results table with log2 fold changes, p values and adjusted p values.
 resultsNames(dds.adult.thorax.by.sex)
 res.adult.thorax.by.sex <- results(dds.adult.thorax.by.sex, contrast=c("sex","m","f"), alpha=0.05, filterFun=ihw)
@@ -301,7 +279,7 @@ summary(res.adult.thorax.by.sex)
 # LFC < 0 (down)     : 745, 2.3%
 # outliers [1]       : 0, 0%
 
-# plotMA(res.adult.thorax.by.sex, main="apeGLM")
+# plotMA(res.adult.thorax.by.sex)
 # # Positive LFC values are associated with male expression bias
 
 # Use variance stabilizing transformations only for ML applications
@@ -339,14 +317,8 @@ dds.L5.thorax.by.sex <- DESeqDataSetFromMatrix(
 dds.L5.thorax.by.sex <- DESeq(dds.L5.thorax.by.sex)
 dds.L5.thorax.by.sex <- estimateSizeFactors(dds.L5.thorax.by.sex)
 
-# # Extract and save normalized counts
-# ctn.L5.thorax.by.sex <- counts(dds.L5.thorax.by.sex, normalized=TRUE)
-# write.csv(ctn.L5.thorax.by.sex, 'normalized.counts.L5.thorax.by.sex.csv')
-# # Use normalized counts for downstream visualization
-
 # Results table with log2 fold changes, p values and adjusted p values.
 resultsNames(dds.L5.thorax.by.sex)
-res.L5.thorax.by.sex <- results(dds.L5.thorax.by.sex, contrast=c("sex","m","f"), alpha=0.05, filterFun=ihw)
 res.L5.thorax.by.sex <- lfcShrink(dds.L5.thorax.by.sex, coef="sex_m_vs_f", type="apeglm", res = res.L5.thorax.by.sex)
 summary(res.L5.thorax.by.sex)
 # out of 24940 with nonzero total read count
@@ -355,7 +327,7 @@ summary(res.L5.thorax.by.sex)
 # LFC < 0 (down)     : 21, 0.084%
 # outliers [1]       : 55, 0.22%
 
-plotMA(res.L5.thorax.by.sex, main="apeGLM")
+plotMA(res.L5.thorax.by.sex)
 # Positive LFC values are associated with male expression bias
 
 # Use variance stabilizing transformations only for ML applications
@@ -393,11 +365,6 @@ dds.adult.thorax.by.morph <- DESeqDataSetFromMatrix(
 dds.adult.thorax.by.morph <- DESeq(dds.adult.thorax.by.morph)
 dds.adult.thorax.by.morph <- estimateSizeFactors(dds.adult.thorax.by.morph)
 
-# # Extract and save normalized counts
-# ctn.adult.thorax.by.morph <- counts(dds.adult.thorax.by.morph, normalized=TRUE)
-# write.csv(ctn.adult.thorax.by.morph, 'normalized.counts.adult.thorax.by.morph.csv')
-# # Use normalized counts for downstream visualization
-
 # Results table with log2 fold changes, p values and adjusted p values.
 resultsNames(dds.adult.thorax.by.morph)
 res.adult.thorax.by.morph <- results(dds.adult.thorax.by.morph, contrast=c("morph","LW","SW"), alpha=0.05, filterFun=ihw)
@@ -409,19 +376,11 @@ summary(res.adult.thorax.by.morph)
 # LFC < 0 (down)     : 1364, 4.2%
 # outliers [1]       : 67, 0.21%
 
-plotMA(res.adult.thorax.by.morph, main="apeGLM")
-# # interactively detect the row number
-# i <- identify(res.adult.thorax.by.morph$baseMean, res.adult.thorax.by.morph$log2FoldChange)
-# res.adult.thorax.by.morph[i[1],]
-# rownames(ctn.adult.thorax.by.morph)[i[1]]
-# data.frame(
-#   counts = ctn.adult.thorax.by.morph[i[1],],
-#   morph = meta.i$morph) %>%
-#   ggplot(aes(morph,counts)) +
-#   geom_violin(fill="gray85", color = NA, alpha = 0.65) +
-#   geom_point(position=position_jitter(w=0.1,h=0), alpha = 0.65) +
-#   scale_y_log10()
-# # Positive LFC values are associated with LW expression bias
+plotMA(res.adult.thorax.by.morph, ylim=c(-5,7))
+# TR89791|c0_g1_i1 is flightin, a gene known to be up-regulated in the long-wing thorax
+plotCounts(dds.adult.thorax.by.morph, gene="TR89791|c0_g1_i1", intgroup="morph")
+res.adult.thorax.by.morph["TR89791|c0_g1_i1",]
+# Positive LFC values are associated with LW expression bias
 
 # Use variance stabilizing transformations only for ML applications
 vsd.adult.thorax.by.morph <- vst(dds.adult.thorax.by.morph, blind=FALSE)
@@ -459,11 +418,6 @@ dds.adult.gonad.by.morph <- DESeqDataSetFromMatrix(
 dds.adult.gonad.by.morph <- DESeq(dds.adult.gonad.by.morph)
 dds.adult.gonad.by.morph <- estimateSizeFactors(dds.adult.gonad.by.morph)
 
-# # Extract and save normalized counts
-# ctn.adult.gonad.by.morph <- counts(dds.adult.gonad.by.morph, normalized=TRUE)
-# write.csv(ctn.adult.gonad.by.morph, 'normalized.counts.adult.gonad.by.morph.csv')
-# # Use normalized counts for downstream visualization
-
 # Results table with log2 fold changes, p values and adjusted p values.
 resultsNames(dds.adult.gonad.by.morph)
 res.adult.gonad.by.morph <- results(dds.adult.gonad.by.morph, contrast=c("morph","LW","SW"), alpha=0.05, filterFun=ihw)
@@ -475,7 +429,7 @@ summary(res.adult.gonad.by.morph)
 # LFC < 0 (down)     : 2, 0.0037%
 # outliers [1]       : 119, 0.22%
 
-plotMA(res.adult.gonad.by.morph, main="apeGLM")
+plotMA(res.adult.gonad.by.morph)
 # Positive LFC values are associated with LW expression bias
 
 # Use variance stabilizing transformations only for ML applications
@@ -514,11 +468,6 @@ dds.adult.ovaries.by.morph <- DESeqDataSetFromMatrix(
 dds.adult.ovaries.by.morph <- DESeq(dds.adult.ovaries.by.morph)
 dds.adult.ovaries.by.morph <- estimateSizeFactors(dds.adult.ovaries.by.morph)
 
-# # Extract and save normalized counts
-# ctn.ovaries.by.morph <- counts(dds.adult.ovaries.by.morph, normalized=TRUE)
-# write.csv(ctn.ovaries.by.morph, 'normalized.counts.ovaries.by.morph.csv')
-# # Use normalized counts for downstream visualization
-
 # Results table with log2 fold changes, p values and adjusted p values.
 resultsNames(dds.adult.ovaries.by.morph)
 res.adult.ovaries.by.morph <- results(dds.adult.ovaries.by.morph, contrast=c("morph","LW","SW"), alpha=0.05, filterFun=ihw)
@@ -530,7 +479,7 @@ summary(res.adult.ovaries.by.morph)
 # LFC < 0 (down)     : 4, 0.015%
 # outliers [1]       : 25, 0.095%
 
-plotMA(res.adult.ovaries.by.morph, main="apeGLM", ylim = c(-4,5))
+plotMA(res.adult.ovaries.by.morph, ylim = c(-4,5))
 plotCounts(dds.adult.ovaries.by.morph, gene=order(res.adult.ovaries.by.morph$padj)[8], intgroup="morph")
 res.adult.ovaries.by.morph$log2FoldChange[order(res.adult.ovaries.by.morph$padj)[8]]
 # Positive LFC values are associated with LW expression bias
@@ -570,11 +519,6 @@ dds.adult.testes.by.morph <- DESeqDataSetFromMatrix(
 dds.adult.testes.by.morph <- DESeq(dds.adult.testes.by.morph)
 dds.adult.testes.by.morph <- estimateSizeFactors(dds.adult.testes.by.morph)
 
-# # Extract and save normalized counts
-# ctn.testes.by.morph <- counts(dds.adult.testes.by.morph, normalized=TRUE)
-# write.csv(ctn.testes.by.morph, 'normalized.counts.testes.by.morph.csv')
-# # Use normalized counts for downstream visualization
-
 # Results table with log2 fold changes, p values and adjusted p values.
 resultsNames(dds.adult.testes.by.morph)
 res.adult.testes.by.morph <- results(dds.adult.testes.by.morph, contrast=c("morph","LW","SW"), alpha=0.05, filterFun=ihw)
@@ -586,7 +530,7 @@ summary(res.adult.testes.by.morph)
 # LFC < 0 (down)     : 7, 0.017%
 # outliers [1]       : 217, 0.53%
 
-plotMA(res.adult.testes.by.morph, main="apeGLM", ylim = c(-4,4.5))
+plotMA(res.adult.testes.by.morph, ylim = c(-4,4.5))
 plotCounts(dds.adult.testes.by.morph, gene=order(res.adult.testes.by.morph$padj)[6], intgroup="morph")
 res.adult.testes.by.morph$log2FoldChange[order(res.adult.testes.by.morph$padj)[6]]
 # Positive LFC values are associated with LW expression bias
@@ -627,11 +571,6 @@ dds.adult.thorax.by.wingPC1 <- DESeqDataSetFromMatrix(
 dds.adult.thorax.by.wingPC1 <- DESeq(dds.adult.thorax.by.wingPC1)
 dds.adult.thorax.by.wingPC1 <- estimateSizeFactors(dds.adult.thorax.by.wingPC1)
 
-# # Extract and save normalized counts
-# ctn.adult.thorax.by.wingPC1 <- counts(dds.adult.thorax.by.wingPC1, normalized=TRUE)
-# write.csv(ctn.adult.thorax.by.wingPC1, 'normalized.counts.adult.thorax.by.wingPC1.csv')
-# # Use normalized counts for downstream visualization
-
 # Results table with log2 fold changes, p values and adjusted p values.
 resultsNames(dds.adult.thorax.by.wingPC1)
 res.adult.thorax.by.wingPC1 <- results(dds.adult.thorax.by.wingPC1, name=c("wingPC1"), alpha=0.05, filterFun=ihw)
@@ -643,9 +582,11 @@ summary(res.adult.thorax.by.wingPC1)
 # LFC < 0 (down)     : 1627, 5%
 # outliers [1]       : 0, 0%
 
-plotMA(res.adult.thorax.by.wingPC1, main="apeGLM", ylim=c(-22,13))
-plot(plotCounts(dds.adult.thorax.by.wingPC1, gene=order(res.adult.thorax.by.wingPC1$padj)[4], intgroup="wingPC1", returnData=TRUE))
-res.adult.thorax.by.wingPC1$log2FoldChange[order(res.adult.thorax.by.wingPC1$padj)[4]]
+plotMA(res.adult.thorax.by.wingPC1, ylim=c(-22,13))
+# TR89791|c0_g1_i1 is flightin, a gene known to be up-regulated in the long-wing thorax
+x <- plotCounts(dds.adult.thorax.by.wingPC1, gene="TR89791|c0_g1_i1", intgroup="wingPC1", returnData=TRUE)
+plot(x$wingPC1,x$count)
+res.adult.thorax.by.wingPC1["TR89791|c0_g1_i1",]
 # Positive LFC values are associated with positive wingPC1 values (short-wing bias)
 
 # Use variance stabilizing transformations only for ML applications
@@ -685,11 +626,6 @@ dds.adult.gonad.by.wingPC1 <- DESeqDataSetFromMatrix(
 dds.adult.gonad.by.wingPC1 <- DESeq(dds.adult.gonad.by.wingPC1)
 dds.adult.gonad.by.wingPC1 <- estimateSizeFactors(dds.adult.gonad.by.wingPC1)
 
-# # Extract and save normalized counts
-# ctn.adult.gonad.by.wingPC1 <- counts(dds.adult.gonad.by.wingPC1, normalized=TRUE)
-# write.csv(ctn.adult.gonad.by.wingPC1, 'normalized.counts.adult.gonad.by.wingPC1.csv')
-# # Use normalized counts for downstream visualization
-
 # Results table with log2 fold changes, p values and adjusted p values.
 resultsNames(dds.adult.gonad.by.wingPC1)
 res.adult.gonad.by.wingPC1 <- results(dds.adult.gonad.by.wingPC1, name=c("wingPC1"), alpha=0.05, filterFun=ihw)
@@ -701,7 +637,7 @@ summary(res.adult.gonad.by.wingPC1)
 # LFC < 0 (down)     : 15, 0.027%
 # outliers [1]       : 0, 0%
 
-plotMA(res.adult.gonad.by.wingPC1, main="apeGLM", ylim=c(-5.5,9))
+plotMA(res.adult.gonad.by.wingPC1, ylim=c(-5.5,9))
 plot(plotCounts(dds.adult.gonad.by.wingPC1, gene=order(res.adult.gonad.by.wingPC1$padj)[2], intgroup="wingPC1", returnData=TRUE))
 res.adult.gonad.by.wingPC1$log2FoldChange[order(res.adult.gonad.by.wingPC1$padj)[2]]
 # Positive LFC values are associated with positive wingPC1 values (short-wing bias)
@@ -745,11 +681,6 @@ dds.adult.ovaries.by.wingPC1 <- DESeqDataSetFromMatrix(
 dds.adult.ovaries.by.wingPC1 <- DESeq(dds.adult.ovaries.by.wingPC1)
 dds.adult.ovaries.by.wingPC1 <- estimateSizeFactors(dds.adult.ovaries.by.wingPC1)
 
-# # Extract and save normalized counts
-# ctn.ovaries.by.wingPC1 <- counts(dds.adult.ovaries.by.wingPC1, normalized=TRUE)
-# write.csv(ctn.ovaries.by.wingPC1, 'normalized.counts.ovaries.by.wingPC1.csv')
-# # Use normalized counts for downstream visualization
-
 # Results table with log2 fold changes, p values and adjusted p values.
 resultsNames(dds.adult.ovaries.by.wingPC1)
 res.adult.ovaries.by.wingPC1 <- results(dds.adult.ovaries.by.wingPC1, name=c("wingPC1"), alpha=0.05, filterFun=ihw)
@@ -761,7 +692,7 @@ summary(res.adult.ovaries.by.wingPC1)
 # LFC < 0 (down)     : 10, 0.038%
 # outliers [1]       : 0, 0%
 
-plotMA(res.adult.ovaries.by.wingPC1, main="apeGLM")
+plotMA(res.adult.ovaries.by.wingPC1)
 plot(plotCounts(dds.adult.ovaries.by.wingPC1, gene=order(res.adult.ovaries.by.wingPC1$padj)[2], intgroup="wingPC1", returnData=TRUE))
 res.adult.ovaries.by.wingPC1$log2FoldChange[order(res.adult.ovaries.by.wingPC1$padj)[2]]
 # Positive LFC values are associated with positive wingPC1 values (short-wing bias)
@@ -802,11 +733,6 @@ dds.adult.testes.by.wingPC1 <- DESeqDataSetFromMatrix(
 dds.adult.testes.by.wingPC1 <- DESeq(dds.adult.testes.by.wingPC1)
 dds.adult.testes.by.wingPC1 <- estimateSizeFactors(dds.adult.testes.by.wingPC1)
 
-# # Extract and save normalized counts
-# ctn.testes.by.wingPC1 <- counts(dds.adult.testes.by.wingPC1, normalized=TRUE)
-# write.csv(ctn.testes.by.wingPC1, 'normalized.counts.testes.by.wingPC1.csv')
-# # Use normalized counts for downstream visualization
-
 # Results table with log2 fold changes, p values and adjusted p values.
 resultsNames(dds.adult.testes.by.wingPC1)
 res.adult.testes.by.wingPC1 <- results(dds.adult.testes.by.wingPC1, name=c("wingPC1"), alpha=0.05, filterFun=ihw)
@@ -818,7 +744,7 @@ summary(res.adult.testes.by.wingPC1)
 # LFC < 0 (down)     : 45, 0.11%
 # outliers [1]       : 0, 0%
 
-plotMA(res.adult.testes.by.wingPC1, main="apeGLM")
+plotMA(res.adult.testes.by.wingPC1)
 plot(plotCounts(dds.adult.testes.by.wingPC1, gene=order(res.adult.testes.by.wingPC1$padj)[1], intgroup="wingPC1", returnData=TRUE))
 res.adult.testes.by.wingPC1$log2FoldChange[order(res.adult.testes.by.wingPC1$padj)[1]]
 # Positive LFC values are associated with positive wingPC1 values (short-wing bias)
@@ -860,11 +786,6 @@ dds.L5.thorax.by.wingpadPC1 <- DESeqDataSetFromMatrix(
 dds.L5.thorax.by.wingpadPC1 <- DESeq(dds.L5.thorax.by.wingpadPC1)
 dds.L5.thorax.by.wingpadPC1 <- estimateSizeFactors(dds.L5.thorax.by.wingpadPC1)
 
-# # Extract and save normalized counts
-# ctn.L5.thorax.by.wingpadPC1 <- counts(dds.L5.thorax.by.wingpadPC1, normalized=TRUE)
-# write.csv(ctn.L5.thorax.by.wingpadPC1, 'normalized.counts.L5.thorax.by.wingpadPC1.csv')
-# # Use normalized counts for downstream visualization
-
 # Results table with log2 fold changes, p values and adjusted p values.
 resultsNames(dds.L5.thorax.by.wingpadPC1)
 res.L5.thorax.by.wingpadPC1 <- results(dds.L5.thorax.by.wingpadPC1, name=c("wingpadPC1"), alpha=0.05, filterFun=ihw)
@@ -876,7 +797,7 @@ summary(res.L5.thorax.by.wingpadPC1)
 # LFC < 0 (down)     : 0, 0%
 # outliers [1]       : 0, 0%
 
-plotMA(res.L5.thorax.by.wingpadPC1, main="apeGLM")
+plotMA(res.L5.thorax.by.wingpadPC1)
 plot(plotCounts(dds.L5.thorax.by.wingpadPC1, gene=order(res.L5.thorax.by.wingpadPC1$padj)[4], intgroup="wingpadPC1", returnData=TRUE))
 res.L5.thorax.by.wingpadPC1$log2FoldChange[order(res.L5.thorax.by.wingpadPC1$padj)[4]]
 # Positive LFC values are associated with positive wingpadPC1 values
@@ -917,11 +838,6 @@ dds.L5.gonad.by.wingpadPC1 <- DESeqDataSetFromMatrix(
 dds.L5.gonad.by.wingpadPC1 <- DESeq(dds.L5.gonad.by.wingpadPC1)
 dds.L5.gonad.by.wingpadPC1 <- estimateSizeFactors(dds.L5.gonad.by.wingpadPC1)
 
-# # Extract and save normalized counts
-# ctn.L5.gonad.by.wingpadPC1 <- counts(dds.L5.gonad.by.wingpadPC1, normalized=TRUE)
-# write.csv(ctn.L5.gonad.by.wingpadPC1, 'normalized.counts.L5.gonad.by.wingpadPC1.csv')
-# # Use normalized counts for downstream visualization
-
 # Results table with log2 fold changes, p values and adjusted p values.
 resultsNames(dds.L5.gonad.by.wingpadPC1)
 res.L5.gonad.by.wingpadPC1 <- results(dds.L5.gonad.by.wingpadPC1, name=c("wingpadPC1"), alpha=0.05, filterFun=ihw)
@@ -933,7 +849,7 @@ summary(res.L5.gonad.by.wingpadPC1)
 # LFC < 0 (down)     : 5, 0.015%
 # outliers [1]       : 0, 0%
 
-plotMA(res.L5.gonad.by.wingpadPC1, main="apeGLM")
+plotMA(res.L5.gonad.by.wingpadPC1)
 plot(plotCounts(dds.L5.gonad.by.wingpadPC1, gene=order(res.L5.gonad.by.wingpadPC1$padj)[4], intgroup="wingpadPC1", returnData=TRUE))
 res.L5.gonad.by.wingpadPC1$log2FoldChange[order(res.L5.gonad.by.wingpadPC1$padj)[4]]
 # Positive LFC values are associated with positive wingpadPC1 values
@@ -974,11 +890,6 @@ dds.adult.thorax.by.txPC1 <- DESeqDataSetFromMatrix(
 dds.adult.thorax.by.txPC1 <- DESeq(dds.adult.thorax.by.txPC1)
 dds.adult.thorax.by.txPC1 <- estimateSizeFactors(dds.adult.thorax.by.txPC1)
 
-# # Extract and save normalized counts
-# ctn.adult.thorax.by.txPC1 <- counts(dds.adult.thorax.by.txPC1, normalized=TRUE)
-# write.csv(ctn.adult.thorax.by.txPC1, 'normalized.counts.adult.thorax.by.txPC1.csv')
-# # Use normalized counts for downstream visualization
-
 # Results table with log2 fold changes, p values and adjusted p values.
 resultsNames(dds.adult.thorax.by.txPC1)
 res.adult.thorax.by.txPC1 <- results(dds.adult.thorax.by.txPC1, name=c("txPC1"), alpha=0.05, filterFun=ihw)
@@ -990,7 +901,7 @@ summary(res.adult.thorax.by.txPC1)
 # LFC < 0 (down)     : 37, 0.11%
 # outliers [1]       : 0, 0%
 
-plotMA(res.adult.thorax.by.txPC1, main="apeGLM", ylim=c(-30,30))
+plotMA(res.adult.thorax.by.txPC1, ylim=c(-30,30))
 plot(plotCounts(dds.adult.thorax.by.txPC1, gene=order(res.adult.thorax.by.txPC1$padj)[1], intgroup="txPC1", returnData=TRUE))
 res.adult.thorax.by.txPC1$log2FoldChange[order(res.adult.thorax.by.txPC1$padj)[1]]
 # Positive LFC values are associated with positive txPC1 values (wider-thorax bias)
@@ -1032,11 +943,6 @@ dds.adult.gonad.by.txPC1 <- DESeqDataSetFromMatrix(
 dds.adult.gonad.by.txPC1 <- DESeq(dds.adult.gonad.by.txPC1)
 dds.adult.gonad.by.txPC1 <- estimateSizeFactors(dds.adult.gonad.by.txPC1)
 
-# # Extract and save normalized counts
-# ctn.adult.gonad.by.txPC1 <- counts(dds.adult.gonad.by.txPC1, normalized=TRUE)
-# write.csv(ctn.adult.gonad.by.txPC1, 'normalized.counts.adult.gonad.by.txPC1.csv')
-# # Use normalized counts for downstream visualization
-
 # Results table with log2 fold changes, p values and adjusted p values.
 resultsNames(dds.adult.gonad.by.txPC1)
 res.adult.gonad.by.txPC1 <- results(dds.adult.gonad.by.txPC1, name=c("txPC1"), alpha=0.05, filterFun=ihw)
@@ -1048,7 +954,7 @@ summary(res.adult.gonad.by.txPC1)
 # LFC < 0 (down)     : 0, 0%
 # outliers [1]       : 0, 0%
 
-plotMA(res.adult.gonad.by.txPC1, main="apeGLM", ylim=c(-30,30))
+plotMA(res.adult.gonad.by.txPC1, ylim=c(-30,30))
 plot(plotCounts(dds.adult.gonad.by.txPC1, gene=order(res.adult.gonad.by.txPC1$padj)[1], intgroup="txPC1", returnData=TRUE))
 res.adult.gonad.by.txPC1$log2FoldChange[order(res.adult.gonad.by.txPC1$padj)[1]]
 # Positive LFC values are associated with positive txPC1 values (wider-gonad bias)
@@ -1089,11 +995,6 @@ dds.L5.thorax.by.txPC1 <- DESeqDataSetFromMatrix(
 dds.L5.thorax.by.txPC1 <- DESeq(dds.L5.thorax.by.txPC1)
 dds.L5.thorax.by.txPC1 <- estimateSizeFactors(dds.L5.thorax.by.txPC1)
 
-# # Extract and save normalized counts
-# ctn.L5.thorax.by.txPC1 <- counts(dds.L5.thorax.by.txPC1, normalized=TRUE)
-# write.csv(ctn.L5.thorax.by.txPC1, 'normalized.counts.L5.thorax.by.txPC1.csv')
-# # Use normalized counts for downstream visualization
-
 # Results table with log2 fold changes, p values and adjusted p values.
 resultsNames(dds.L5.thorax.by.txPC1)
 res.L5.thorax.by.txPC1 <- results(dds.L5.thorax.by.txPC1, name=c("txPC1"), alpha=0.05, filterFun=ihw)
@@ -1105,7 +1006,7 @@ summary(res.L5.thorax.by.txPC1)
 # LFC < 0 (down)     : 0, 0%
 # outliers [1]       : 0, 0%
 
-plotMA(res.L5.thorax.by.txPC1, main="apeGLM")
+plotMA(res.L5.thorax.by.txPC1)
 plot(plotCounts(dds.L5.thorax.by.txPC1, gene=order(res.L5.thorax.by.txPC1$padj)[1], intgroup="txPC1", returnData=TRUE))
 res.L5.thorax.by.txPC1$log2FoldChange[order(res.L5.thorax.by.txPC1$padj)[1]]
 # Positive LFC values are associated with positive txPC1 values (narrower-mesonotum bias)
@@ -1146,11 +1047,6 @@ dds.L5.gonad.by.txPC1 <- DESeqDataSetFromMatrix(
 dds.L5.gonad.by.txPC1 <- DESeq(dds.L5.gonad.by.txPC1)
 dds.L5.gonad.by.txPC1 <- estimateSizeFactors(dds.L5.gonad.by.txPC1)
 
-# # Extract and save normalized counts
-# ctn.L5.gonad.by.txPC1 <- counts(dds.L5.gonad.by.txPC1, normalized=TRUE)
-# write.csv(ctn.L5.gonad.by.txPC1, 'normalized.counts.L5.gonad.by.txPC1.csv')
-# # Use normalized counts for downstream visualization
-
 # Results table with log2 fold changes, p values and adjusted p values.
 resultsNames(dds.L5.gonad.by.txPC1)
 res.L5.gonad.by.txPC1 <- results(dds.L5.gonad.by.txPC1, name=c("txPC1"), alpha=0.05, filterFun=ihw)
@@ -1162,7 +1058,7 @@ summary(res.L5.gonad.by.txPC1)
 # LFC < 0 (down)     : 0, 0%
 # outliers [1]       : 0, 0%
 
-plotMA(res.L5.gonad.by.txPC1, main="apeGLM")
+plotMA(res.L5.gonad.by.txPC1)
 plot(plotCounts(dds.L5.gonad.by.txPC1, gene=order(res.L5.gonad.by.txPC1$padj)[1], intgroup="txPC1", returnData=TRUE))
 res.L5.gonad.by.txPC1$log2FoldChange[order(res.L5.gonad.by.txPC1$padj)[1]]
 # Positive LFC values are associated with positive txPC1 values (narrower-mesonotum bias)
@@ -1205,11 +1101,6 @@ dds.adult.thorax.by.food_density <- DESeqDataSetFromMatrix(
 dds.adult.thorax.by.food_density <- DESeq(dds.adult.thorax.by.food_density)
 dds.adult.thorax.by.food_density <- estimateSizeFactors(dds.adult.thorax.by.food_density)
 
-# # Extract and save normalized counts
-# ctn.adult.thorax.by.food_density <- counts(dds.adult.thorax.by.food_density, normalized=TRUE)
-# write.csv(ctn.adult.thorax.by.food_density, 'normalized.counts.adult.thorax.by.food_density.csv')
-# # Use normalized counts for downstream visualization
-
 # Results table with log2 fold changes, p values and adjusted p values.
 resultsNames(dds.adult.thorax.by.food_density)
 res.adult.thorax.by.food_density <- results(dds.adult.thorax.by.food_density, name=c("food_density"), alpha=0.05, filterFun=ihw)
@@ -1221,7 +1112,7 @@ summary(res.adult.thorax.by.food_density)
 # LFC < 0 (down)     : 13, 0.04%
 # outliers [1]       : 145, 0.45%
 
-plotMA(res.adult.thorax.by.food_density, main="apeGLM", ylim=c(-4,5))
+plotMA(res.adult.thorax.by.food_density, ylim=c(-4,5))
 plot(plotCounts(dds.adult.thorax.by.food_density, gene=order(res.adult.thorax.by.food_density$padj)[6], intgroup="food_density", returnData=TRUE))
 res.adult.thorax.by.food_density$log2FoldChange[order(res.adult.thorax.by.food_density$padj)[6]]
 # Positive LFC values are associated with higher food density expression bias
@@ -1262,11 +1153,6 @@ dds.adult.thorax.by.food <- DESeqDataSetFromMatrix(
 dds.adult.thorax.by.food <- DESeq(dds.adult.thorax.by.food)
 dds.adult.thorax.by.food <- estimateSizeFactors(dds.adult.thorax.by.food)
 
-# # Extract and save normalized counts
-# ctn.adult.thorax.by.food <- counts(dds.adult.thorax.by.food, normalized=TRUE)
-# write.csv(ctn.adult.thorax.by.food, 'normalized.counts.adult.thorax.by.food.csv')
-# # Use normalized counts for downstream visualization
-
 # Results table with log2 fold changes, p values and adjusted p values.
 resultsNames(dds.adult.thorax.by.food)
 res.adult.thorax.by.food <- results(dds.adult.thorax.by.food, contrast=c("food_regime","low","high"), alpha=0.05, filterFun=ihw)
@@ -1278,7 +1164,7 @@ summary(res.adult.thorax.by.food)
 # LFC < 0 (down)     : 6, 0.019%
 # outliers [1]       : 161, 0.5%
 
-plotMA(res.adult.thorax.by.food, main="apeGLM", ylim = c(-3,3) )
+plotMA(res.adult.thorax.by.food, ylim = c(-3,3) )
 # Positive LFC values are associated with low food regime expression bias
 
 # Use variance stabilizing transformations only for ML applications
@@ -1319,11 +1205,6 @@ dds.adult.gonad.by.food_density <- DESeqDataSetFromMatrix(
 dds.adult.gonad.by.food_density <- DESeq(dds.adult.gonad.by.food_density)
 dds.adult.gonad.by.food_density <- estimateSizeFactors(dds.adult.gonad.by.food_density)
 
-# # Extract and save normalized counts
-# ctn.adult.gonad.by.food_density <- counts(dds.adult.gonad.by.food_density, normalized=TRUE)
-# write.csv(ctn.adult.gonad.by.food_density, 'normalized.counts.adult.gonad.by.food_density.csv')
-# # Use normalized counts for downstream visualization
-
 # Results table with log2 fold changes, p values and adjusted p values.
 resultsNames(dds.adult.gonad.by.food_density)
 res.adult.gonad.by.food_density <- results(dds.adult.gonad.by.food_density, name=c("food_density"), alpha=0.05, filterFun=ihw)
@@ -1335,7 +1216,7 @@ summary(res.adult.gonad.by.food_density)
 # LFC < 0 (down)     : 49, 0.089%
 # outliers [1]       : 165, 0.3%
 
-plotMA(res.adult.gonad.by.food_density, main="apeGLM", ylim=c(-8,3))
+plotMA(res.adult.gonad.by.food_density, ylim=c(-8,3))
 plot(plotCounts(dds.adult.gonad.by.food_density, gene=order(res.adult.gonad.by.food_density$padj)[1], intgroup="food_density", returnData=TRUE))
 res.adult.gonad.by.food_density$log2FoldChange[order(res.adult.gonad.by.food_density$padj)[6]]
 # Positive LFC values are associated with higher food density expression bias
@@ -1375,11 +1256,6 @@ dds.adult.gonad.by.food <- DESeqDataSetFromMatrix(
 dds.adult.gonad.by.food <- DESeq(dds.adult.gonad.by.food)
 dds.adult.gonad.by.food <- estimateSizeFactors(dds.adult.gonad.by.food)
 
-# # Extract and save normalized counts
-# ctn.adult.gonad.by.food <- counts(dds.adult.gonad.by.food, normalized=TRUE)
-# write.csv(ctn.adult.gonad.by.food, 'normalized.counts.adult.gonad.by.food.csv')
-# # Use normalized counts for downstream visualization
-
 # Results table with log2 fold changes, p values and adjusted p values.
 resultsNames(dds.adult.gonad.by.food)
 res.adult.gonad.by.food <- results(dds.adult.gonad.by.food, contrast=c("food_regime","low","high"), alpha=0.05, filterFun=ihw)
@@ -1391,7 +1267,7 @@ summary(res.adult.gonad.by.food)
 # LFC < 0 (down)     : 7, 0.013%
 # outliers [1]       : 430, 0.79%
 
-plotMA(res.adult.gonad.by.food, main="apeGLM", ylim = c(-3,5))
+plotMA(res.adult.gonad.by.food, ylim = c(-3,5))
 # Positive LFC values are associated with low food regime expression bias
 
 # Use variance stabilizing transformations only for ML applications
@@ -1431,11 +1307,6 @@ dds.adult.ovaries.by.food_density <- DESeqDataSetFromMatrix(
 dds.adult.ovaries.by.food_density <- DESeq(dds.adult.ovaries.by.food_density)
 dds.adult.ovaries.by.food_density <- estimateSizeFactors(dds.adult.ovaries.by.food_density)
 
-# # Extract and save normalized counts
-# ctn.adult.ovaries.by.food_density <- counts(dds.adult.ovaries.by.food_density, normalized=TRUE)
-# write.csv(ctn.adult.ovaries.by.food_density, 'normalized.counts.adult.ovaries.by.food_density.csv')
-# # Use normalized counts for downstream visualization
-
 # Results table with log2 fold changes, p values and adjusted p values.
 resultsNames(dds.adult.ovaries.by.food_density)
 res.adult.ovaries.by.food_density <- results(dds.adult.ovaries.by.food_density, name=c("food_density"), alpha=0.05, filterFun=ihw)
@@ -1447,7 +1318,7 @@ summary(res.adult.ovaries.by.food_density)
 # LFC < 0 (down)     : 16, 0.06%
 # outliers [1]       : 0, 0%
 
-plotMA(res.adult.ovaries.by.food_density, main="apeGLM", ylim=c(-8,3))
+plotMA(res.adult.ovaries.by.food_density, ylim=c(-8,3))
 plot(plotCounts(dds.adult.ovaries.by.food_density, gene=order(res.adult.ovaries.by.food_density$padj)[1], intgroup="food_density", returnData=TRUE))
 res.adult.ovaries.by.food_density$log2FoldChange[order(res.adult.ovaries.by.food_density$padj)[6]]
 # Positive LFC values are associated with higher food density expression bias
@@ -1490,11 +1361,6 @@ dds.adult.testes.by.food_density <- DESeqDataSetFromMatrix(
 dds.adult.testes.by.food_density <- DESeq(dds.adult.testes.by.food_density)
 dds.adult.testes.by.food_density <- estimateSizeFactors(dds.adult.testes.by.food_density)
 
-# # Extract and save normalized counts
-# ctn.adult.testes.by.food_density <- counts(dds.adult.testes.by.food_density, normalized=TRUE)
-# write.csv(ctn.adult.testes.by.food_density, 'normalized.counts.adult.testes.by.food_density.csv')
-# # Use normalized counts for downstream visualization
-
 # Results table with log2 fold changes, p values and adjusted p values.
 resultsNames(dds.adult.testes.by.food_density)
 res.adult.testes.by.food_density <- results(dds.adult.testes.by.food_density, name=c("food_density"), alpha=0.05, filterFun=ihw)
@@ -1506,7 +1372,7 @@ summary(res.adult.testes.by.food_density)
 # LFC < 0 (down)     : 4, 0.0097%
 # outliers [1]       : 350, 0.85%
 
-plotMA(res.adult.testes.by.food_density, main="apeGLM", ylim=c(-5,1.5))
+plotMA(res.adult.testes.by.food_density, ylim=c(-5,1.5))
 plot(plotCounts(dds.adult.testes.by.food_density, gene=order(res.adult.testes.by.food_density$padj)[1], intgroup="food_density", returnData=TRUE))
 res.adult.testes.by.food_density$log2FoldChange[order(res.adult.testes.by.food_density$padj)[6]]
 # Positive LFC values are associated with higher food density expression bias
@@ -1549,11 +1415,6 @@ dds.L5.thorax.by.food_density <- DESeqDataSetFromMatrix(
 dds.L5.thorax.by.food_density <- DESeq(dds.L5.thorax.by.food_density)
 dds.L5.thorax.by.food_density <- estimateSizeFactors(dds.L5.thorax.by.food_density)
 
-# # Extract and save normalized counts
-# ctn.L5.thorax.by.food_density <- counts(dds.L5.thorax.by.food_density, normalized=TRUE)
-# write.csv(ctn.L5.thorax.by.food_density, 'normalized.counts.L5.thorax.by.food_density.csv')
-# # Use normalized counts for downstream visualization
-
 # Results table with log2 fold changes, p values and adjusted p values.
 resultsNames(dds.L5.thorax.by.food_density)
 res.L5.thorax.by.food_density <- results(dds.L5.thorax.by.food_density, name=c("food_density"), alpha=0.05, filterFun=ihw)
@@ -1565,7 +1426,7 @@ summary(res.L5.thorax.by.food_density)
 # LFC < 0 (down)     : 6, 0.024%
 # outliers [1]       : 229, 0.92%
 
-plotMA(res.L5.thorax.by.food_density, main="apeGLM", ylim=c(-4,2))
+plotMA(res.L5.thorax.by.food_density, ylim=c(-4,2))
 plot(plotCounts(dds.L5.thorax.by.food_density, gene=order(res.L5.thorax.by.food_density$padj)[1], intgroup="food_density", returnData=TRUE))
 res.L5.thorax.by.food_density$log2FoldChange[order(res.L5.thorax.by.food_density$padj)[1]]
 # Positive LFC values are associated with higher food density expression bias
@@ -1606,11 +1467,6 @@ dds.L5.gonad.by.food <- DESeqDataSetFromMatrix(
 dds.L5.gonad.by.food <- DESeq(dds.L5.gonad.by.food)
 dds.L5.gonad.by.food <- estimateSizeFactors(dds.L5.gonad.by.food)
 
-# # Extract and save normalized counts
-# ctn.L5.gonad.by.food <- counts(dds.L5.gonad.by.food, normalized=TRUE)
-# write.csv(ctn.L5.gonad.by.food, 'normalized.counts.L5.gonad.by.food.csv')
-# # Use normalized counts for downstream visualization
-
 # Results table with log2 fold changes, p values and adjusted p values.
 resultsNames(dds.L5.gonad.by.food)
 res.L5.gonad.by.food <- results(dds.L5.gonad.by.food, contrast=c("food_regime","low","high"), alpha=0.05, filterFun=ihw)
@@ -1622,7 +1478,7 @@ summary(res.L5.gonad.by.food)
 # LFC < 0 (down)     : 24, 0.074%
 # outliers [1]       : 151, 0.46%
 
-plotMA(res.L5.gonad.by.food, main="apeGLM", ylim=c(-3,5))
+plotMA(res.L5.gonad.by.food, ylim=c(-3,5))
 plotCounts(dds.L5.gonad.by.food, gene=order(res.L5.gonad.by.food$padj)[2], intgroup="food_regime")
 res.L5.gonad.by.food$log2FoldChange[order(res.L5.gonad.by.food$padj)[2]]
 # Positive LFC values are associated with low food expression bias
@@ -1663,11 +1519,6 @@ dds.L5.thorax.by.food <- DESeqDataSetFromMatrix(
 dds.L5.thorax.by.food <- DESeq(dds.L5.thorax.by.food)
 dds.L5.thorax.by.food <- estimateSizeFactors(dds.L5.thorax.by.food)
 
-# # Extract and save normalized counts
-# ctn.L5.thorax.by.food <- counts(dds.L5.thorax.by.food, normalized=TRUE)
-# write.csv(ctn.L5.thorax.by.food, 'normalized.counts.L5.thorax.by.food.csv')
-# # Use normalized counts for downstream visualization
-
 # Results table with log2 fold changes, p values and adjusted p values.
 resultsNames(dds.L5.thorax.by.food)
 res.L5.thorax.by.food <- results(dds.L5.thorax.by.food, contrast=c("food_regime","low","high"), alpha=0.05, filterFun=ihw)
@@ -1679,7 +1530,7 @@ summary(res.L5.thorax.by.food)
 # LFC < 0 (down)     : 2, 0.008%
 # outliers [1]       : 244, 0.98%
 
-plotMA(res.L5.thorax.by.food, main="apeGLM", ylim = c(-2.5,3.5))
+plotMA(res.L5.thorax.by.food, ylim = c(-2.5,3.5))
 plotCounts(dds.L5.thorax.by.food, gene=order(res.L5.thorax.by.food$padj)[2], intgroup="food_regime")
 res.L5.thorax.by.food$log2FoldChange[order(res.L5.thorax.by.food$padj)[2]]
 # Positive LFC values are associated with low food expression bias
@@ -1723,11 +1574,6 @@ dds.L5.gonad.by.food_density <- DESeqDataSetFromMatrix(
 dds.L5.gonad.by.food_density <- DESeq(dds.L5.gonad.by.food_density)
 dds.L5.gonad.by.food_density <- estimateSizeFactors(dds.L5.gonad.by.food_density)
 
-# # Extract and save normalized counts
-# ctn.L5.gonad.by.food_density <- counts(dds.L5.gonad.by.food_density, normalized=TRUE)
-# write.csv(ctn.L5.gonad.by.food_density, 'normalized.counts.L5.gonad.by.food_density.csv')
-# # Use normalized counts for downstream visualization
-
 # Results table with log2 fold changes, p values and adjusted p values.
 resultsNames(dds.L5.gonad.by.food_density)
 res.L5.gonad.by.food_density <- results(dds.L5.gonad.by.food_density, name=c("food_density"), alpha=0.05, filterFun=ihw)
@@ -1739,7 +1585,7 @@ summary(res.L5.gonad.by.food_density)
 # LFC < 0 (down)     : 3, 0.0092%
 # outliers [1]       : 188, 0.58%
 
-plotMA(res.L5.gonad.by.food_density, main="apeGLM", ylim=c(-3.5,3))
+plotMA(res.L5.gonad.by.food_density, ylim=c(-3.5,3))
 plot(plotCounts(dds.L5.gonad.by.food_density, gene=order(res.L5.gonad.by.food_density$padj)[1], intgroup="food_density", returnData=TRUE))
 res.L5.gonad.by.food_density$log2FoldChange[order(res.L5.gonad.by.food_density$padj)[1]]
 # Positive LFC values are associated with higher food density expression bias
@@ -1781,11 +1627,6 @@ dds.L5.ovaries.by.food_density <- DESeqDataSetFromMatrix(
 dds.L5.ovaries.by.food_density <- DESeq(dds.L5.ovaries.by.food_density)
 dds.L5.ovaries.by.food_density <- estimateSizeFactors(dds.L5.ovaries.by.food_density)
 
-# # Extract and save normalized counts
-# ctn.L5.ovaries.by.food_density <- counts(dds.L5.ovaries.by.food_density, normalized=TRUE)
-# write.csv(ctn.L5.ovaries.by.food_density, 'normalized.counts.L5.ovaries.by.food_density.csv')
-# # Use normalized counts for downstream visualization
-
 # Results table with log2 fold changes, p values and adjusted p values.
 resultsNames(dds.L5.ovaries.by.food_density)
 res.L5.ovaries.by.food_density <- results(dds.L5.ovaries.by.food_density, name=c("food_density"), alpha=0.05, filterFun=ihw)
@@ -1797,8 +1638,8 @@ summary(res.L5.ovaries.by.food_density)
 # LFC < 0 (down)     : 7, 0.04%
 # outliers [1]       : 68, 0.39%
 
-plotMA(res.L5.ovaries.by.food_density, main="apeGLM")
-plotMA(res.L5.ovaries.by.food_density, main="apeGLM", ylim=c(-3.5,2.5))
+plotMA(res.L5.ovaries.by.food_density)
+plotMA(res.L5.ovaries.by.food_density, ylim=c(-3.5,2.5))
 plot(plotCounts(dds.L5.ovaries.by.food_density, gene=order(res.L5.ovaries.by.food_density$padj)[8], intgroup="food_density", returnData=TRUE))
 res.L5.ovaries.by.food_density$log2FoldChange[order(res.L5.ovaries.by.food_density$padj)[8]]
 # Positive LFC values are associated with low food expression bias
@@ -1839,11 +1680,6 @@ dds.L5.ovaries.by.food <- DESeqDataSetFromMatrix(
 dds.L5.ovaries.by.food <- DESeq(dds.L5.ovaries.by.food)
 dds.L5.ovaries.by.food <- estimateSizeFactors(dds.L5.ovaries.by.food)
 
-# # Extract and save normalized counts
-# ctn.L5.ovaries.by.food <- counts(dds.L5.ovaries.by.food, normalized=TRUE)
-# write.csv(ctn.L5.ovaries.by.food, 'normalized.counts.L5.ovaries.by.food.csv')
-# # Use normalized counts for downstream visualization
-
 # Results table with log2 fold changes, p values and adjusted p values.
 resultsNames(dds.L5.ovaries.by.food)
 res.L5.ovaries.by.food <- results(dds.L5.ovaries.by.food, contrast=c("food_regime","low","high"), alpha=0.05, filterFun=ihw)
@@ -1855,7 +1691,7 @@ summary(res.L5.ovaries.by.food)
 # LFC < 0 (down)     : 4, 0.023%
 # outliers [1]       : 117, 0.66%
 
-plotMA(res.L5.ovaries.by.food, main="apeGLM", ylim=c(-4,8.5))
+plotMA(res.L5.ovaries.by.food, ylim=c(-4,8.5))
 plotCounts(dds.L5.ovaries.by.food, gene=order(res.L5.ovaries.by.food$padj)[3], intgroup="food_regime")
 res.L5.ovaries.by.food$log2FoldChange[order(res.L5.ovaries.by.food$padj)[3]]
 # Positive LFC values are associated with low food expression bias
@@ -1898,11 +1734,6 @@ dds.L5.testes.by.food_density <- DESeqDataSetFromMatrix(
 dds.L5.testes.by.food_density <- DESeq(dds.L5.testes.by.food_density)
 dds.L5.testes.by.food_density <- estimateSizeFactors(dds.L5.testes.by.food_density)
 
-# # Extract and save normalized counts
-# ctn.L5.testes.by.food_density <- counts(dds.L5.testes.by.food_density, normalized=TRUE)
-# write.csv(ctn.L5.testes.by.food_density, 'normalized.counts.L5.testes.by.food_density.csv')
-# # Use normalized counts for downstream visualization
-
 # Results table with log2 fold changes, p values and adjusted p values.
 resultsNames(dds.L5.testes.by.food_density)
 res.L5.testes.by.food_density <- results(dds.L5.testes.by.food_density, name=c("food_density"), alpha=0.05, filterFun=ihw)
@@ -1914,7 +1745,7 @@ summary(res.L5.testes.by.food_density)
 # LFC < 0 (down)     : 20, 0.082%
 # outliers [1]       : 278, 1.1%
 
-plotMA(res.L5.testes.by.food_density, main="apeGLM", ylim=c(-7,5))
+plotMA(res.L5.testes.by.food_density, ylim=c(-7,5))
 plot(plotCounts(dds.L5.testes.by.food_density, gene=order(res.L5.testes.by.food_density$padj)[1], intgroup="food_density", returnData=TRUE))
 res.L5.testes.by.food_density$log2FoldChange[order(res.L5.testes.by.food_density$padj)[1]]
 # Positive LFC values are associated with higher food density expression bias
@@ -1954,11 +1785,6 @@ dds.thorax.by.stage <- DESeqDataSetFromMatrix(
 dds.thorax.by.stage <- DESeq(dds.thorax.by.stage)
 dds.thorax.by.stage <- estimateSizeFactors(dds.thorax.by.stage)
 
-# # Extract and save normalized counts
-# ctn.thorax.by.stage <- counts(dds.thorax.by.stage, normalized=TRUE)
-# write.csv(ctn.thorax.by.stage, 'normalized.counts.thorax.by.stage.csv')
-# # Use normalized counts for downstream visualization
-
 # Results table with log2 fold changes, p values and adjusted p values.
 resultsNames(dds.thorax.by.stage)
 res.thorax.by.stage <- results(dds.thorax.by.stage, contrast=c("stage","L5","adult"), alpha=0.05, filterFun=ihw)
@@ -1970,7 +1796,7 @@ summary(res.thorax.by.stage)
 # LFC < 0 (down)     : 4286, 9.8%
 # outliers [1]       : 30, 0.069%
 
-plotMA(res.thorax.by.stage, main="apeGLM", ylim=c(-10,10))
+plotMA(res.thorax.by.stage, ylim=c(-10,10))
 plotCounts(dds.thorax.by.stage, gene=which.min(res.thorax.by.stage$padj), intgroup="stage")
 res.thorax.by.stage$log2FoldChange[which.min(res.thorax.by.stage$padj)]
 # Positive LFC values are associated with L5 expression bias
@@ -2012,11 +1838,6 @@ dds.ovaries.by.stage <- DESeqDataSetFromMatrix(
 dds.ovaries.by.stage <- DESeq(dds.ovaries.by.stage)
 dds.ovaries.by.stage <- estimateSizeFactors(dds.ovaries.by.stage)
 
-# # Extract and save normalized counts
-# ctn.ovaries.by.stage <- counts(dds.ovaries.by.stage, normalized=TRUE)
-# write.csv(ctn.ovaries.by.stage, 'normalized.counts.ovaries.by.stage.csv')
-# # Use normalized counts for downstream visualization
-
 # Results table with log2 fold changes, p values and adjusted p values.
 resultsNames(dds.ovaries.by.stage)
 res.ovaries.by.stage <- results(dds.ovaries.by.stage, contrast=c("stage","L5","adult"), alpha=0.05, filterFun=ihw)
@@ -2028,7 +1849,7 @@ summary(res.ovaries.by.stage)
 # LFC < 0 (down)     : 8016, 24%
 # outliers [1]       : 38, 0.11%
 
-plotMA(res.ovaries.by.stage, main="apeGLM", ylim=c(-10,10))
+plotMA(res.ovaries.by.stage, ylim=c(-10,10))
 plotCounts(dds.ovaries.by.stage, gene=which.min(res.ovaries.by.stage$padj), intgroup="stage")
 res.ovaries.by.stage$log2FoldChange[which.min(res.ovaries.by.stage$padj)]
 # Positive LFC values are associated with L5 expression bias
@@ -2069,11 +1890,6 @@ dds.testes.by.stage <- DESeqDataSetFromMatrix(
 dds.testes.by.stage <- DESeq(dds.testes.by.stage)
 dds.testes.by.stage <- estimateSizeFactors(dds.testes.by.stage)
 
-# # Extract and save normalized counts
-# ctn.testes.by.stage <- counts(dds.testes.by.stage, normalized=TRUE)
-# write.csv(ctn.testes.by.stage, 'normalized.counts.testes.by.stage.csv')
-# # Use normalized counts for downstream visualization
-
 # Results table with log2 fold changes, p values and adjusted p values.
 resultsNames(dds.testes.by.stage)
 res.testes.by.stage <- results(dds.testes.by.stage, contrast=c("stage","L5","adult"), alpha=0.05, filterFun=ihw)
@@ -2085,7 +1901,7 @@ summary(res.testes.by.stage)
 # LFC < 0 (down)     : 23090, 44%
 # outliers [1]       : 42, 0.08%
 
-plotMA(res.testes.by.stage, main="apeGLM", ylim=c(-10,10))
+plotMA(res.testes.by.stage, ylim=c(-10,10))
 plotCounts(dds.testes.by.stage, gene=which.min(res.testes.by.stage$padj), intgroup="stage")
 res.testes.by.stage$log2FoldChange[which.min(res.testes.by.stage$padj)]
 # Positive LFC values are associated with L5 expression bias
