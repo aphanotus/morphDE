@@ -1,0 +1,38 @@
+adult gonad by food regime	TR274702|c0_g1_i3	7	41.694	-2.8404	1.6763e-05	SLC5A8	SLC5A8	solute carrier family 5	PFAM (SSF), SMART (TRANS)	No	FALSE
+adult gonad by food regime	TR265369|c0_g2_i1	21	8.6472	2.3623	0.0013724	NA		Inherit from biNOG: chromosome 9 open reading frame 172	PFAM (zf-MYND)	No	FALSE
+adult gonad by food regime	TR211445|c1_g1_i1	23	32.021	2.9074	0.0043472	trypsin		serine-type endopeptidase activity	PFAM (Trypsin, CUB), SMART (Tryp_SPc, CUB, SIGNAL, TRANS)	No	FALSE
+adult gonad by food regime	TR220259|c2_g1_i1	34	30.341	2.0761	0.012204	NA		Esterase	PFAM (COesterase, Abhydrolase_3), SMART (SIGNAL, TRANS)	No	FALSE
+adult gonad by food regime	TR52176|c0_g1_i1	40	62.288	2.5381	0.020857	NA		serine-type endopeptidase activity	PFAM (Trypsin, CUB), SMART (Tryp_SPc, CUB, SIGNAL, TRANS)	No	FALSE
+adult gonad by food density	TR233861|c2_g1_i1	2	183.87	-5.9027	0.00013348	NA		Multiple inositol polyphosphate phosphatase	PFAM (Acid_phosphat_A), SMART (SIGNAL, TRANS)	No	FALSE
+adult gonad by food density	TR211445|c1_g1_i1	9	31.541	-6.2303	0.00045873	trypsin		serine-type endopeptidase activity	PFAM (Trypsin, CUB), SMART (Tryp_SPc, CUB, SIGNAL, TRANS)	No	FALSE
+adult gonad by food density	TR220259|c2_g1_i1	11	29.825	-4.875	0.0006248	NA		Esterase	PFAM (COesterase, Abhydrolase_3), SMART (SIGNAL, TRANS)	No	FALSE
+adult gonad by food density	TR242526|c1_g1_i1	12	65.836	-6.4258	0.0006248	Mak10		Mak10 subunit, NatC N(alpha)-terminal acetyltransferase	PFAM (Mak10, CwfJ_C_1, CwfJ_C_2), SMART (COIL, SIGNAL, TRANS)	No	FALSE
+adult gonad by food density	TR52176|c0_g1_i1	34	61.71	-5.3325	0.0049055	NA		serine-type endopeptidase activity	PFAM (Trypsin, CUB), SMART (Tryp_SPc, CUB, SIGNAL, TRANS)	No	FALSE
+adult gonad by food density	TR267303|c0_g1_i1	47	291.44	-3.4961	0.015355	MINPP1	MINPP1	Multiple inositol polyphosphate phosphatase	PFAM (Acid_phosphat_A), SMART (SIGNAL, TRANS)	No	FALSE
+adult gonad by food density	TR110072|c0_g1_i1	54	38.809	-3.6155	0.03453	NA		NA	PFAM (Allatostatin), SMART (SIGNAL, TRANS)	No	FALSE
+adult ovaries by food density	TR242133|c0_g1_i1	22	5409.7	1.3079	0.012417	ND1					FALSE
+adult thorax by food regime	TR242627|c0_g1_i5	9	4.3486	-2.6305	0.025532	vitellogenin	VG	vitellogenin	PFAM (Vitellogenin_N, VWD, DUF1943, Sod_Cu), SMART (LPD_N, VWD, DUF1943, SIGNAL, COIL)	No	FALSE
+adult thorax by food regime	TR216882|c0_g2_i1	13	1.5371	2.584	0.034457	Obp					FALSE
+adult thorax by food density	TR218304|c0_g1_i1	13	91.551	-1.114	0.018201	cuticle protein		Insect cuticle protein	PFAM (Chitin_bind_4), SMART (SIGNAL, COIL, TRANS)	No	FALSE
+adult thorax by food density	TR242627|c0_g1_i5	19	4.3486	4.653	0.037606	vitellogenin	VG	vitellogenin	PFAM (Vitellogenin_N, VWD, DUF1943, Sod_Cu), SMART (LPD_N, VWD, DUF1943, SIGNAL, COIL)	No	FALSE
+adult thorax by food density	TR250713|c0_g1_i1	22	38.416	-1.8628	0.048688	NA		Sulfotransferase domain	PFAM (Sulfotransfer_1), SMART (SIGNAL)	No	FALSE
+L5 gonad by food regime	TR246152|c0_g2_i1	3	30.931	4.5051	0.023865	bursicon	BURS	bursicon	PFAM (DAN), SMART (SIGNAL, TRANS)	No	FALSE
+L5 gonad by food regime	TR204802|c0_g1_i1	12	13.396	-1.5503	0.039714	RT		Reverse transcriptase (RNA-dependent DNA polymerase)	PFAM (RVT_1, RnaseH, zf-CCHC, DUF1891, Exo_endo_phos), SMART (COIL, ZnF_C2HC)	No	FALSE
+L5 ovaries by food regime	TR245809|c0_g1_i1	8	12.053	8.1826	0.028588	NA	SU(W[A])	Alternative splicing regulator  	PFAM (Surp, DRY_EERY, DUF706), SMART (SWAP, DRY_EERY, COIL)	No	FALSE
+L5 testes by food density	TR224540|c2_g1_i2	12	11.564	-6.2254	0.013001	NA		SH3 domain-binding protein 5 (SH3BP5)	PFAM (SH3BP5, Chitin_bind_4), SMART (COIL)	No	FALSE
+L5 testes by food density	TR285162|c6_g2_i1	14	65.643	1.6877	0.017625	NA		Inherit from biNOG: Ganglioside induced differentiation associated protein	PFAM (Macro, CRAL_TRIO, RVT_1), SMART (SEC14, A1pp)	No	FALSE
+L5 testes by food density	TR224117|c0_g1_i1	16	359.65	-1.5574	0.022597	NA		Fatty acid	PFAM (KR, Ketoacyl-synt_C, ADH_zinc_N, adh_short, ketoacyl-synt, Acyl_transf_1, Thioesterase, PP-binding, Thiolase_N), SMART (PKS_ER, PKS_KR, PKS_KS)	No	FALSE
+L5 testes by food density	TR239691|c0_g1_i1	18	226.16	1.0483	0.022929	unconventional myosin-XVIIIa-like					FALSE
+L5 testes by food density	TR78632|c0_g1_i1	24	6.608	-3.566	0.027737	PHK-3	PHK-3	chemosensory protein	PFAM (OS-D), SMART (SIGNAL, TRANS)	No	FALSE
+L5 testes by food density	TR54578|c0_g1_i1	26	6.8335	-4.6998	0.028122	ZMYM1					FALSE
+L5 testes by food density	TR238012|c4_g1_i5	27	58.003	2.008	0.028758	NA		Inherit from euNOG: to H28G03.4 Hydra magnipapillata 		No	FALSE
+L5 testes by food density	TR256480|c0_g1_i1	28	11.461	2.4721	0.039763	NA		26S proteasome non-ATPase regulatory subunit	PFAM (UIM, Ssl1, VWA), SMART (UIM, VWA, COIL)	No	FALSE
+L5 testes by food density	TR250365|c0_g1_i1	31	25.892	2.1901	0.041334	NA	KLHL10	Kelch motif	PFAM (Kelch_1, Kelch_2, BTB, BACK), SMART (Kelch, BTB, BACK)	No	FALSE
+L5 testes by food density	TR253148|c1_g2_i1	32	390.2	-1.2764	0.041334	NA		NA	PFAM (JHBP), SMART (SIGNAL, JHBP)	No	FALSE
+L5 testes by food density	TR254920|c1_g1_i1	37	123.82	1.173	0.047948	MLF	MLF	Myeloid leukemia factor	PFAM (Mlf1IP), SMART (TRANS)	No	FALSE
+L5 testes by food density	TR224992|c0_g1_i1	39	82.513	1.5499	0.049407	formin		SH3 domain	PFAM (SH3_1, SH3_2), SMART (SH3, COIL)	No	FALSE
+L5 testes by food density	TR229545|c0_g1_i1	40	39.49	1.1348	0.049407	NA	KPNA5	Functions in nuclear protein import (By similarity)	PFAM (Arm, HEAT, IBB), SMART (ARM)	No	FALSE
+L5 testes by food density	TR232346|c0_g1_i2	41	19.046	-2.933	0.049407	NA		Acyltransferase family	PFAM (Acyl_transf_3, Peptidase_M14), SMART (TRANS, SIGNAL, NRF)	No	FALSE
+L5 testes by food density	TR250931|c0_g7_i1	42	112.72	1.6658	0.049407	SNAP29					FALSE
+L5 testes by food density	TR66400|c0_g1_i1	48	165.03	1.1579	0.049811	UbE2W					FALSE
+L5 thorax by food density	TR206354|c0_g2_i1	14	10.838	-1.5501	0.019961	NA	YAHD	ankyrin repeat protein YahD	PFAM (Ank), SMART (ANK)	No	FALSE

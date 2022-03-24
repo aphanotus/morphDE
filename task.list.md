@@ -14,3 +14,4 @@
 ## After submission
 
 - ¿Try again for WGCNA?
+- ¿Color-coded KEGG pathway maps?
