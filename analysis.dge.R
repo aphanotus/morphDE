@@ -2291,14 +2291,14 @@ volcano.plot <- function(
     volcano.plot(res.adult.gonad.by.wingPC1[,1:5], reverseLFC = TRUE, pCutoff = 0.05,
                  title = "Expression in adult gonad ~ batch + sex + wing shape",
                  NegLFClabel = "short wing", PosLFClabel = "long wing", n=88)
-  # volcano.plots.by.wingPC1[[3]] <- 
-  #   volcano.plot(res.adult.ovaries.by.wingPC1[,1:5], reverseLFC = TRUE, pCutoff = 0.05, 
-  #                title = "Expression in adult ovaries ~ batch + wing shape",
-  #                NegLFClabel = "short wing", PosLFClabel = "long wing", n=44)
-  # volcano.plots.by.wingPC1[[4]] <- 
-  #   volcano.plot(res.adult.testes.by.wingPC1[,1:5], reverseLFC = TRUE, pCutoff = 0.05, 
-  #                title = "Expression in adult testes ~ batch + wing shape",
-  #                NegLFClabel = "short wing", PosLFClabel = "long wing", n=44)
+  volcano.plots.by.wingPC1[[3]] <-
+    volcano.plot(res.adult.ovaries.by.wingPC1[,1:5], reverseLFC = TRUE, pCutoff = 0.05,
+                 title = "Expression in adult ovaries ~ batch + wing shape",
+                 NegLFClabel = "short wing", PosLFClabel = "long wing", n=44)
+  volcano.plots.by.wingPC1[[4]] <-
+    volcano.plot(res.adult.testes.by.wingPC1[,1:5], reverseLFC = TRUE, pCutoff = 0.05,
+                 title = "Expression in adult testes ~ batch + wing shape",
+                 NegLFClabel = "short wing", PosLFClabel = "long wing", n=44)
   # volcano.plots.by.wingPC1.arranged <- ggarrange(plotlist = volcano.plots.by.wingPC1, ncol = 2, nrow = 2, labels="AUTO")
   # ggsave("plots/volcano.plots.by.wingPC1.jpg", plot = volcano.plots.by.wingPC1.arranged, width = 6.5, height = 6.5, scale = 1.5)
   # ggsave("plots/volcano.plots.by.wingPC1.pdf", plot = volcano.plots.by.wingPC1.arranged, width = 6.5, height = 6.5, scale = 1.5)
@@ -2331,14 +2331,14 @@ volcano.plot <- function(
     volcano.plot(res.adult.gonad.by.morph[,1:5], pCutoff = 0.05,
                  title = "Expression in adult gonad ~ batch + sex + morph",
                  NegLFClabel = "short wing", PosLFClabel = "long wing", n=89)
-  # volcano.plots.by.morph[[3]] <- 
-  #   volcano.plot(res.adult.ovaries.by.morph[,1:5], pCutoff = 0.05, 
-  #                title = "Expression in adult ovaries ~ batch + morph",
-  #                NegLFClabel = "short wing", PosLFClabel = "long wing", n=45)
-  # volcano.plots.by.morph[[4]] <- 
-  #   volcano.plot(res.adult.testes.by.morph[,1:5], pCutoff = 0.05, 
-  #                title = "Expression in adult testes ~ batch + morph",
-  #                NegLFClabel = "short wing", PosLFClabel = "long wing", n=44)
+  volcano.plots.by.morph[[3]] <-
+    volcano.plot(res.adult.ovaries.by.morph[,1:5], pCutoff = 0.05,
+                 title = "Expression in adult ovaries ~ batch + morph",
+                 NegLFClabel = "short wing", PosLFClabel = "long wing", n=45)
+  volcano.plots.by.morph[[4]] <-
+    volcano.plot(res.adult.testes.by.morph[,1:5], pCutoff = 0.05,
+                 title = "Expression in adult testes ~ batch + morph",
+                 NegLFClabel = "short wing", PosLFClabel = "long wing", n=44)
   # volcano.plots.by.morph.arranged <- ggarrange(plotlist = volcano.plots.by.morph, ncol = 2, nrow = 2, labels="AUTO")
   # ggsave("plots/volcano.plots.by.morph.jpg", plot = volcano.plots.by.morph.arranged, width = 6.5, height = 6.5, scale = 1.5)
   # ggsave("plots/volcano.plots.by.morph.pdf", plot = volcano.plots.by.morph.arranged, width = 6.5, height = 6.5, scale = 1.5)
@@ -2352,15 +2352,18 @@ volcano.plot <- function(
   ggsave("plots/volcano.plots.thorax.by.morph.alt.pdf", plot = volcano.plots.thorax.by.morph.alt, width = 9.75, height = 3.25, scale = 1.5)
 }
 
-# Plots of adult gonad expression by morph, wing & thorax shapes
+# Plots of adult gonad expression by morph, wing & thorax shapes -- Supplementary Figure
 {
-  volcano.plots.gonad.by.morph.alt <- ggarrange(volcano.plots.by.morph[[2]],volcano.plots.by.wingPC1[[2]],volcano.plots.by.txPC1[[2]],
-                                          ncol = 3, nrow = 1, labels="AUTO")
-  ggsave("plots/volcano.plots.gonad.by.morph.alt.jpg", plot = volcano.plots.gonad.by.morph.alt, width = 9.75, height = 3.25, scale = 1.5)
-  ggsave("plots/volcano.plots.gonad.by.morph.alt.pdf", plot = volcano.plots.gonad.by.morph.alt, width = 9.75, height = 3.25, scale = 1.5)
+  volcano.plots.gonad.by.morph.alt <- 
+    ggarrange(volcano.plots.by.morph[[2]],volcano.plots.by.morph[[3]],volcano.plots.by.morph[[4]],
+              volcano.plots.by.wingPC1[[2]],volcano.plots.by.wingPC1[[3]],volcano.plots.by.wingPC1[[4]],
+              volcano.plots.by.txPC1[[2]],
+                                          ncol = 3, nrow = 3, labels="AUTO")
+  ggsave("plots/volcano.plots.gonad.by.morph.alt.jpg", plot = volcano.plots.gonad.by.morph.alt, width = 9.75, height = 9.75, scale = 1.5)
+  ggsave("plots/volcano.plots.gonad.by.morph.alt.pdf", plot = volcano.plots.gonad.by.morph.alt, width = 9.75, height = 9.75, scale = 1.5)
 }
 
-# Plots of juvenile expression by wing pad and thorax shapes -- Not very interesting!
+# Plots of juvenile expression by wing pad and thorax shapes -- Supplementary Figure
 {
   volcano.plots.for.juv.shape <- list()
   volcano.plots.for.juv.shape[[1]] <- 
