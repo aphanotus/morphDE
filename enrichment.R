@@ -592,7 +592,7 @@ top.go.terms <- function(x, top = 10) {
   x.i <- x.i[which(x.i$negative.DEGs.fdr<0.05),]
   x.i$description <- Term(x.i$term)
   # Record output string
-  s <- paste0("postive\t",n.sig.pos,"\t",s,"\nnegative\t",n.sig.neg,"\t")
+  s <- paste0("positive\t",n.sig.pos,"\t",s,"\nnegative\t",n.sig.neg,"\t")
   s <- paste0(s,with(x.i, paste0(term, " ", description, ", ", signif(negative.DEGs.fdr,2), collapse = "; ") ) )
   return(s)
 } # End function
@@ -631,7 +631,7 @@ top.kegg.terms <- function(x, top = 10) {
   x.i$description <- getURL(paste0("http://togows.dbcls.jp/entry/pathway/",x.i$term,"/name"))
   x.i$description <- sub("\n$","",x.i$description)
   # Record output string
-  s <- paste0("postive\t",n.sig.pos,"\t",s,"\nnegative\t",n.sig.neg,"\t")
+  s <- paste0("positive\t",n.sig.pos,"\t",s,"\nnegative\t",n.sig.neg,"\t")
   s <- paste0(s,with(x.i, paste0(term, " ", description, ", ", signif(negative.DEGs.fdr,2), collapse = "; ") ) )
   return(s)
 } # End function
@@ -674,7 +674,7 @@ top.pd.terms <- function(x, top = 10) {
   x.i <- x.i[c(1:top),]
   x.i <- x.i[which(x.i$negative.DEGs.fdr<0.05),]
   # Record output string
-  s <- paste0("postive\t",n.sig.pos,"\t",s,"\nnegative\t",n.sig.neg,"\t")
+  s <- paste0("positive\t",n.sig.pos,"\t",s,"\nnegative\t",n.sig.neg,"\t")
   s <- paste0(s,with(x.i, paste0(term, ", ", signif(negative.DEGs.fdr,2), collapse = "; ") ) )
   return(s)
 } # End function

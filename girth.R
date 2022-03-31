@@ -49,11 +49,6 @@ dds.L5.thorax.by.girth <- DESeqDataSetFromMatrix(
 dds.L5.thorax.by.girth <- DESeq(dds.L5.thorax.by.girth)
 dds.L5.thorax.by.girth <- estimateSizeFactors(dds.L5.thorax.by.girth)
 
-# # Extract and save normalized counts
-# ctn.L5.thorax.by.girth <- counts(dds.L5.thorax.by.girth, normalized=TRUE)
-# write.csv(ctn.L5.thorax.by.girth, 'normalized.counts.L5.thorax.by.girth.csv')
-# # Use normalized counts for downstream visualization
-
 # Results table with log2 fold changes, p values and adjusted p values.
 resultsNames(dds.L5.thorax.by.girth)
 res.L5.thorax.by.girth <- results(dds.L5.thorax.by.girth, name=c("girth"), alpha=0.05, filterFun=ihw)
@@ -104,11 +99,6 @@ dds.L5.gonad.by.girth <- DESeqDataSetFromMatrix(
   design = ~ plate + sex + girth )
 dds.L5.gonad.by.girth <- DESeq(dds.L5.gonad.by.girth)
 dds.L5.gonad.by.girth <- estimateSizeFactors(dds.L5.gonad.by.girth)
-
-# # Extract and save normalized counts
-# ctn.L5.gonad.by.girth <- counts(dds.L5.gonad.by.girth, normalized=TRUE)
-# write.csv(ctn.L5.gonad.by.girth, 'normalized.counts.L5.gonad.by.girth.csv')
-# # Use normalized counts for downstream visualization
 
 # Results table with log2 fold changes, p values and adjusted p values.
 resultsNames(dds.L5.gonad.by.girth)
@@ -161,11 +151,6 @@ dds.L5.ovaries.by.girth <- DESeqDataSetFromMatrix(
 dds.L5.ovaries.by.girth <- DESeq(dds.L5.ovaries.by.girth)
 dds.L5.ovaries.by.girth <- estimateSizeFactors(dds.L5.ovaries.by.girth)
 
-# # Extract and save normalized counts
-# ctn.L5.ovaries.by.girth <- counts(dds.L5.ovaries.by.girth, normalized=TRUE)
-# write.csv(ctn.L5.ovaries.by.girth, 'normalized.counts.L5.ovaries.by.girth.csv')
-# # Use normalized counts for downstream visualization
-
 # Results table with log2 fold changes, p values and adjusted p values.
 resultsNames(dds.L5.ovaries.by.girth)
 res.L5.ovaries.by.girth <- results(dds.L5.ovaries.by.girth, name=c("girth"), alpha=0.05, filterFun=ihw)
@@ -216,11 +201,6 @@ dds.L5.testes.by.girth <- DESeqDataSetFromMatrix(
 dds.L5.testes.by.girth <- DESeq(dds.L5.testes.by.girth)
 dds.L5.testes.by.girth <- estimateSizeFactors(dds.L5.testes.by.girth)
 
-# # Extract and save normalized counts
-# ctn.L5.testes.by.girth <- counts(dds.L5.testes.by.girth, normalized=TRUE)
-# write.csv(ctn.L5.testes.by.girth, 'normalized.counts.L5.testes.by.girth.csv')
-# # Use normalized counts for downstream visualization
-
 # Results table with log2 fold changes, p values and adjusted p values.
 resultsNames(dds.L5.testes.by.girth)
 res.L5.testes.by.girth <- results(dds.L5.testes.by.girth, name=c("girth"), alpha=0.05, filterFun=ihw)
@@ -270,11 +250,6 @@ dds.adult.thorax.by.girth <- DESeqDataSetFromMatrix(
   design = ~ plate + sex + morph + girth )
 dds.adult.thorax.by.girth <- DESeq(dds.adult.thorax.by.girth)
 dds.adult.thorax.by.girth <- estimateSizeFactors(dds.adult.thorax.by.girth)
-
-# # Extract and save normalized counts
-# ctn.adult.thorax.by.girth <- counts(dds.adult.thorax.by.girth, normalized=TRUE)
-# write.csv(ctn.adult.thorax.by.girth, 'normalized.counts.adult.thorax.by.girth.csv')
-# # Use normalized counts for downstream visualization
 
 # Results table with log2 fold changes, p values and adjusted p values.
 resultsNames(dds.adult.thorax.by.girth)
@@ -327,11 +302,6 @@ dds.adult.gonad.by.girth <- DESeqDataSetFromMatrix(
 dds.adult.gonad.by.girth <- DESeq(dds.adult.gonad.by.girth)
 dds.adult.gonad.by.girth <- estimateSizeFactors(dds.adult.gonad.by.girth)
 
-# # Extract and save normalized counts
-# ctn.adult.gonad.by.girth <- counts(dds.adult.gonad.by.girth, normalized=TRUE)
-# write.csv(ctn.adult.gonad.by.girth, 'normalized.counts.adult.gonad.by.girth.csv')
-# # Use normalized counts for downstream visualization
-
 # Results table with log2 fold changes, p values and adjusted p values.
 resultsNames(dds.adult.gonad.by.girth)
 res.adult.gonad.by.girth <- results(dds.adult.gonad.by.girth, name=c("girth"), alpha=0.05, filterFun=ihw)
@@ -383,11 +353,6 @@ dds.adult.ovaries.by.girth <- DESeqDataSetFromMatrix(
 dds.adult.ovaries.by.girth <- DESeq(dds.adult.ovaries.by.girth)
 dds.adult.ovaries.by.girth <- estimateSizeFactors(dds.adult.ovaries.by.girth)
 
-# # Extract and save normalized counts
-# ctn.adult.ovaries.by.girth <- counts(dds.adult.ovaries.by.girth, normalized=TRUE)
-# write.csv(ctn.adult.ovaries.by.girth, 'normalized.counts.adult.ovaries.by.girth.csv')
-# # Use normalized counts for downstream visualization
-
 # Results table with log2 fold changes, p values and adjusted p values.
 resultsNames(dds.adult.ovaries.by.girth)
 res.adult.ovaries.by.girth <- results(dds.adult.ovaries.by.girth, name=c("girth"), alpha=0.05, filterFun=ihw)
@@ -438,11 +403,6 @@ dds.adult.testes.by.girth <- DESeqDataSetFromMatrix(
 dds.adult.testes.by.girth <- DESeq(dds.adult.testes.by.girth)
 dds.adult.testes.by.girth <- estimateSizeFactors(dds.adult.testes.by.girth)
 
-# # Extract and save normalized counts
-# ctn.adult.testes.by.girth <- counts(dds.adult.testes.by.girth, normalized=TRUE)
-# write.csv(ctn.adult.testes.by.girth, 'normalized.counts.adult.testes.by.girth.csv')
-# # Use normalized counts for downstream visualization
-
 # Results table with log2 fold changes, p values and adjusted p values.
 resultsNames(dds.adult.testes.by.girth)
 res.adult.testes.by.girth <- results(dds.adult.testes.by.girth, name=c("girth"), alpha=0.05, filterFun=ihw)
@@ -479,6 +439,53 @@ rm(meta.i, cts.i, dds.adult.testes.by.girth, res.adult.testes.by.girth, vsd.adul
 save(ann, apply.annotation, gene.read.number.cut.off, 
      res.adult.gonad.by.girth,res.adult.ovaries.by.girth,res.adult.testes.by.girth,res.adult.thorax.by.girth,res.L5.gonad.by.girth,res.L5.ovaries.by.girth,res.L5.testes.by.girth,res.L5.thorax.by.girth,
      file = "dge.analysis.res.girth.rda")
+
+###################
+# Volcano plots by girth
+###################
+
+{
+  volcano.plots.by.girth <- list()
+  volcano.plots.by.girth[[1]] <- 
+    volcano.plot(res.L5.thorax.by.girth[,1:5], pCutoff = 0.05,
+                 title = "Expression in juvenile thorax ~ batch + sex + girth",
+                 NegLFClabel = "narrower", PosLFClabel = "wider", n=1)
+  volcano.plots.by.girth[[2]] <- 
+    volcano.plot(res.L5.gonad.by.girth[,1:5], pCutoff = 0.05,  
+                 title = "Expression in juvenile gonads ~ batch + sex + girth",
+                 NegLFClabel = "narrower", PosLFClabel = "wider", n=1)
+  volcano.plots.by.girth[[3]] <- 
+    volcano.plot(res.L5.ovaries.by.girth[,1:5], pCutoff = 0.05,  
+                 title = "Expression in juvenile ovaries ~ batch + girth",
+                 NegLFClabel = "narrower", PosLFClabel = "wider", n=1)
+  volcano.plots.by.girth[[4]] <- 
+    volcano.plot(res.L5.testes.by.girth[,1:5], pCutoff = 0.05, 
+                 title = "Expression in juvenile testes ~ batch + girth",
+                 NegLFClabel = "narrower", PosLFClabel = "wider", n=1)
+  volcano.plots.by.girth[[5]] <- 
+    volcano.plot(res.adult.thorax.by.girth[,1:5], pCutoff = 0.05, 
+                 title = "Expression in adult thorax ~ batch + sex + girth",
+                 NegLFClabel = "narrower", PosLFClabel = "wider", n=1)
+  volcano.plots.by.girth[[6]] <- 
+    volcano.plot(res.adult.gonad.by.girth[,1:5], pCutoff = 0.05,  
+                 title = "Expression in adult gonads ~ batch + sex + girth",
+                 NegLFClabel = "narrower", PosLFClabel = "wider", n=1)
+  volcano.plots.by.girth[[7]] <- 
+    volcano.plot(res.adult.ovaries.by.girth[,1:5], pCutoff = 0.05,  
+                 title = "Expression in adult ovaries ~ batch + girth",
+                 NegLFClabel = "narrower", PosLFClabel = "wider", n=1)
+  volcano.plots.by.girth[[8]] <- 
+    volcano.plot(res.adult.testes.by.girth[,1:5], pCutoff = 0.05, 
+                 title = "Expression in adult testes ~ batch + girth",
+                 NegLFClabel = "narrower", PosLFClabel = "wider", n=1)
+  volcano.plots.by.girth.arranged <- ggarrange(plotlist = volcano.plots.by.girth, ncol = 4, nrow = 2, labels="AUTO")
+  ggsave("plots/volcano.plots.by.girth.jpg", plot = volcano.plots.by.girth.arranged, width = 13, height = 6.5, scale = 1.5)
+  ggsave("plots/volcano.plots.by.girth.pdf", plot = volcano.plots.by.girth.arranged, width = 13, height = 6.5, scale = 1.5)
+}
+
+###################
+# Enrichment
+###################
 
 enrichment.go.adult.gonad.by.girth <- enrichment.go(res.adult.gonad.by.girth, ann)
 enrichment.go.adult.ovaries.by.girth <- enrichment.go(res.adult.ovaries.by.girth, ann)
@@ -524,4 +531,68 @@ save( # Error with enrichment.go.adult.testes.by.girth
   file="enrichment.pvalues.girth.rda"
 )
 
+objs <- ls()[which(grepl("^enrichment\\.go\\.",ls()) & grepl("girth$",ls()))]
+x <- unlist(lapply(objs, function (x) {
+  meta.s <- sub("enrichment\\.","",x)
+  meta.s <- sub("by\\.","by ",meta.s)
+  meta.s <- paste0(unlist(str_split(meta.s,"\\.")), collapse = "\t")
+  fdr.x <- get(x)
+  s <- paste0(meta.s,"\t",top.go.terms(fdr.x) )
+  s <- sub("\\\nnegative",paste0("\n",meta.s,"\tnegative"),s)
+  return(s)
+}) )
+# Output to a text file
+write.table(x,"enrichment.descriptions.txt", sep = "\t", quote = FALSE, row.names = FALSE, col.names = FALSE,
+            append = TRUE)
 
+objs <- ls()[which(grepl("^enrichment\\.kegg\\.",ls()) & grepl("girth$",ls()))]
+x <- unlist(lapply(objs, function (x) {
+  meta.s <- sub("enrichment\\.","",x)
+  meta.s <- sub("by\\.","by ",meta.s)
+  meta.s <- paste0(unlist(str_split(meta.s,"\\.")), collapse = "\t")
+  fdr.x <- get(x)
+  if (is.null(fdr.x)) { 
+    s <- paste0(meta.s,"\tpositive\t0\n",meta.s,"\tnegative\t0" ) 
+  } else {
+    s <- paste0(meta.s,"\t",top.kegg.terms(fdr.x) )
+    s <- sub("\\\nnegative",paste0("\n",meta.s,"\tnegative"),s)
+  }
+  return(s)
+}) )
+# Output to a text file
+write.table(x,"enrichment.descriptions.txt", sep = "\t", quote = FALSE, row.names = FALSE, col.names = FALSE,
+            append = TRUE)
+
+objs <- ls()[which(grepl("^enrichment\\.pd\\.",ls()) & grepl("girth$",ls()))]
+x <- unlist(lapply(objs, function (x) {
+  meta.s <- sub("enrichment\\.","",x)
+  meta.s <- sub("by\\.","by ",meta.s)
+  meta.s <- paste0(unlist(str_split(meta.s,"\\.")), collapse = "\t")
+  fdr.x <- get(x)
+  if (is.null(fdr.x)) { 
+    s <- paste0(meta.s,"\tpositive\t0\n",meta.s,"\tnegative\t0" ) 
+  } else {
+    s <- paste0(meta.s,"\t",top.pd.terms(fdr.x) )
+    s <- sub("\\\nnegative",paste0("\n",meta.s,"\tnegative"),s)
+  }
+  return(s)
+}) )
+# Output to a text file
+write.table(x,"enrichment.descriptions.txt", sep = "\t", quote = FALSE, row.names = FALSE, col.names = FALSE,
+            append = TRUE)
+
+# Are contaminant or xenic transcripts enriched in any datasets? -- No
+objs <- ls()[which(grepl("^enrichment\\.xenic\\.",ls()) & grepl("girth$",ls()))]
+any(unlist(lapply(objs, function (x) {
+  fdr.x <- get(x)
+  return(any(unlist(fdr.x[,4:5]) < 0.05))
+}) ))
+
+# There's a significant enrichment of xenic transcripts in
+# adult.gonad.by.girth *
+# adult.ovaries.by.girth *
+# adult.testes.by.girth *
+# all associated with negative abdominal girth
+# I spot check one of these transcripts with the greatest baseMean
+# TR75328|c0_g2_i1 is a perfect BLASTn hit for AP013028 Wolbachia endosymbiont of Cimex lectularius 
+# and it appears to encode the 30S ribosomal protein S11 

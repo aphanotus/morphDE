@@ -117,13 +117,38 @@ dds.null <- DESeqDataSetFromMatrix(
 dds.null <- DESeq(dds.null)
 dds.null <- estimateSizeFactors(dds.null)
 
+# Extract and save normalized counts - This does not normalize based on the model design, only size factors
+ctn <- counts(dds.null, normalized=TRUE)
+write.csv(ctn, 'normalized.counts.csv')
+
 vsd.null <- vst(dds.null, blind=FALSE)
 
 ### hierarchical clustering
 vsd.cor.null <- cor(assay(vsd.null))
 colnames(sample.metadata)
-sample.metadata %>% select(7,3,4,8,5,2) %>%
-  pheatmap(vsd.cor.null, annotation = ., labels_row = " ", labels_col = " ")
+
+# Specify colors
+ann_colors = list(
+  tissue = c(gonad = "wheat", thorax = "brown3"),
+  sex = c(f = "#ff9933", m = "#666699"),
+  stage = c(adult = "darkkhaki", L5 = "darkolivegreen1"),
+  morph = c(LW = "chartreuse4", SW = "sienna3"),
+  food_regime = c(high = "goldenrod1", low = "lightblue"),
+  population = rev(viridis(n=4))
+)
+names(ann_colors$population) <- c("AC","FR","KL","PK")
+
+sample.metadata %>% 
+  dplyr::select(tissue, sex, stage, morph, food_regime, population) %>%
+  mutate(tissue = sub("abdomen","gonad",tissue),
+         population = strtrim(population,2) ) %>% 
+  pheatmap(vsd.cor.null, annotation = ., kmeans_k = 16, 
+           # clustering_method = "ward.D2", 
+           clustering_method = "single", 
+           show_rownames = FALSE, show_colnames = FALSE,
+           color=viridis(n=100,option="magma"), 
+           annotation_colors = ann_colors,
+           filename = "figures/FigS1.pheatmap.null.model.pdf", width = 10, height = 6.5)
 
 # PCA
 pca.null <- prcomp(t(assay(vsd.null)))
@@ -142,10 +167,10 @@ pca.null.plot
 
 pca.uncorrected.and.null.plots <- ggpubr::ggarrange(
   pca.uncorrected.by.biol.grp.plot, pca.uncorrected.by.batch.plot, pca.null.plot,
-  ncol = 3)
+  ncol = 3, labels = "AUTO")
 
-ggsave("plots/pca.uncorrected.and.null.plots.jpg", pca.uncorrected.and.null.plots, width = 21, height = 5, scale = 1)
-ggsave("plots/pca.uncorrected.and.null.plots.pdf", pca.uncorrected.and.null.plots, width = 21, height = 5, scale = 1)
+ggsave("figures/Fig2.pca.uncorrected.and.null.plots.jpg", pca.uncorrected.and.null.plots, width = 21, height = 5, scale = 1)
+ggsave("figures/Fig2.pca.uncorrected.and.null.plots.pdf", pca.uncorrected.and.null.plots, width = 21, height = 5, scale = 1)
 
 rm(cts.i, ctn.null, dds.null, pca.uncorrected, pca.uncorrected.by.biol.grp.plot, pca.uncorrected.by.batch.plot, vsd.cor.null, vsd.null, pca.null)
 
@@ -1925,6 +1950,52 @@ rm(meta.i, cts.i, dds.testes.by.stage, res.testes.by.stage, vsd.testes.by.stage)
 # load("testes.by.stage.rda", verbose = TRUE) 
 
 ###################
+# Question of sexual conflict
+###################
+# Are there transcripts that are differentially regulated in ovaries and testes 
+# that might explain reduced short-winged male fertility?
+
+pCutoff <- 0.1
+
+sum(res.adult.gonad.by.morph$padj<pCutoff, na.rm = TRUE)
+deg100.adult.gonad.by.morph %>% 
+  as.data.frame() %>% 
+  filter(padj<pCutoff) %>% 
+  mutate(bias = (log2FoldChange>0) ) %>% 
+  arrange(bias, padj) %>% 
+  select(c(1,2,5,21,14,15))
+
+sum(res.adult.ovaries.by.morph$padj<pCutoff, na.rm = TRUE)
+deg100.adult.ovaries.by.morph %>% 
+  as.data.frame() %>% 
+  filter(padj<pCutoff) %>% 
+  mutate(bias = (log2FoldChange>0) ) %>% 
+  arrange(bias, padj) %>% 
+  select(c(1,2,5,21,14,15)) 
+
+ovary.degs <- deg100.adult.ovaries.by.morph %>% 
+  as.data.frame() %>% 
+  filter(padj<pCutoff) %>% 
+  rownames()
+
+sum(res.adult.testes.by.morph$padj<pCutoff, na.rm = TRUE)
+deg100.adult.testes.by.morph %>% 
+  as.data.frame() %>% 
+  filter(padj<pCutoff) %>% 
+  mutate(bias = (log2FoldChange>0) ) %>% 
+  arrange(bias, padj) %>% 
+  select(c(1,2,5,21,14,15)) 
+
+testes.degs <- deg100.adult.testes.by.morph %>% 
+  as.data.frame() %>% 
+  filter(padj<pCutoff) %>% 
+  rownames()
+
+any(ovary.degs %in% testes.degs)
+any(testes.degs %in% ovary.degs)
+
+
+###################
 # Save the results
 ###################
 save(ann, apply.annotation, gene.read.number.cut.off, 
@@ -1938,6 +2009,7 @@ save(deg100.adult.gonad.by.food,deg100.adult.gonad.by.food_density,deg100.adult.
      file = "model.output/dge.analysis.deg100s.rda")
 
 # Record all the annotated DEGs into one file
+# load("model.output/dge.analysis.res.rda", verbose = TRUE)
 x <- unlist(lapply(ls()[grep("^res\\.",ls())], function (x) {
   cat(x,"\n")
   res <- get(x)
@@ -1994,16 +2066,16 @@ annotated.deg.list <- read.delim("annotated.deg.list.tsv", blank.lines.skip = TR
   write.table(x, file = "annotated.degs.by.stage.tsv", sep = "\t", quote = FALSE, row.names = FALSE, col.names = FALSE, append = FALSE)
 }
 
-# An example query of the annotated DEG list
-query.string <- "dsx"
-annotated.deg.list %>% 
-  filter(grepl("by sex",model)) %>% 
-  filter(grepl(query.string,manual.ann, ignore.case = TRUE) | 
-         grepl(query.string,EggNOG.Predicted.Gene, ignore.case = TRUE) |
-         grepl(query.string,EggNOG.Description, ignore.case = TRUE) |
-         grepl(query.string,EggNOG.Protein.Domains, ignore.case = TRUE)) %>% 
-  select(-EggNOG.Description, -EggNOG.Protein.Domains, -Contaminant, -xenic) %>% 
-  arrange(transcript)
+# # An example query of the annotated DEG list
+# query.string <- "dsx"
+# annotated.deg.list %>% 
+#   filter(grepl("by sex",model)) %>% 
+#   filter(grepl(query.string,manual.ann, ignore.case = TRUE) | 
+#          grepl(query.string,EggNOG.Predicted.Gene, ignore.case = TRUE) |
+#          grepl(query.string,EggNOG.Description, ignore.case = TRUE) |
+#          grepl(query.string,EggNOG.Protein.Domains, ignore.case = TRUE)) %>% 
+#   select(-EggNOG.Description, -EggNOG.Protein.Domains, -Contaminant, -xenic) %>% 
+#   arrange(transcript)
 
 
 ###################
@@ -2084,16 +2156,16 @@ volcano.plot <- function(
                  title = "Expression in adult thorax ~ batch + sex",
                  NegLFClabel = "male", PosLFClabel = "female", n = 91)
   volcano.plots.by.sex[[3]] <- 
-    volcano.plot(res.L5.gonad.by.sex[,1:5], max.overlaps = 35, reverseLFC = TRUE,
+    volcano.plot(res.L5.gonad.by.sex[,1:5], max.overlaps = 26, reverseLFC = TRUE,
                  title = "Expression in juvenile gonad ~ batch + sex",
                  NegLFClabel = "male", PosLFClabel = "female", n = 49)
   volcano.plots.by.sex[[4]] <- 
-    volcano.plot(res.adult.gonad.by.sex[,1:5], max.overlaps = 20, reverseLFC = TRUE,
+    volcano.plot(res.adult.gonad.by.sex[,1:5], max.overlaps = 18, reverseLFC = TRUE,
                  title = "Expression in adult gonad ~ batch + sex",
                  NegLFClabel = "male", PosLFClabel = "female", n = 89)
   volcano.plots.by.sex.arranged <- ggarrange(plotlist = volcano.plots.by.sex, ncol = 2, nrow = 2, labels="AUTO")
-  ggsave("plots/volcano.plots.by.sex.jpg", plot = volcano.plots.by.sex.arranged, width = 6.5, height = 6.5, scale = 1.5)
-  ggsave("plots/volcano.plots.by.sex.pdf", plot = volcano.plots.by.sex.arranged, width = 6.5, height = 6.5, scale = 1.5)
+  ggsave("figures/Fig3.volcano.plots.by.sex.jpg", plot = volcano.plots.by.sex.arranged, width = 6.5, height = 6.5, scale = 1.5)
+  ggsave("figures/Fig3.volcano.plots.by.sex.pdf", plot = volcano.plots.by.sex.arranged, width = 6.5, height = 6.5, scale = 1.5)
 }
 
 # Volcano plots by wingPC1
@@ -2164,8 +2236,8 @@ volcano.plot <- function(
 {
   volcano.plots.thorax.by.morph.alt <- ggarrange(volcano.plots.by.morph[[1]],volcano.plots.by.wingPC1[[1]],volcano.plots.by.txPC1[[1]],
                                           ncol = 3, nrow = 1, labels="AUTO")
-  ggsave("plots/volcano.plots.thorax.by.morph.alt.jpg", plot = volcano.plots.thorax.by.morph.alt, width = 9.75, height = 3.25, scale = 1.5)
-  ggsave("plots/volcano.plots.thorax.by.morph.alt.pdf", plot = volcano.plots.thorax.by.morph.alt, width = 9.75, height = 3.25, scale = 1.5)
+  ggsave("figures/Fig4.volcano.plots.thorax.by.morph.alt.jpg", plot = volcano.plots.thorax.by.morph.alt, width = 9.75, height = 3.25, scale = 1.5)
+  ggsave("figures/Fig4.volcano.plots.thorax.by.morph.alt.pdf", plot = volcano.plots.thorax.by.morph.alt, width = 9.75, height = 3.25, scale = 1.5)
 }
 
 # Plots of adult gonad expression by morph, wing & thorax shapes -- Supplementary Figure
@@ -2175,8 +2247,8 @@ volcano.plot <- function(
               volcano.plots.by.wingPC1[[2]],volcano.plots.by.wingPC1[[3]],volcano.plots.by.wingPC1[[4]],
               volcano.plots.by.txPC1[[2]],
                                           ncol = 3, nrow = 3, labels="AUTO")
-  ggsave("plots/volcano.plots.gonad.by.morph.alt.jpg", plot = volcano.plots.gonad.by.morph.alt, width = 9.75, height = 9.75, scale = 1.5)
-  ggsave("plots/volcano.plots.gonad.by.morph.alt.pdf", plot = volcano.plots.gonad.by.morph.alt, width = 9.75, height = 9.75, scale = 1.5)
+  ggsave("figures/FigS2.volcano.plots.gonad.by.morph.alt.jpg", plot = volcano.plots.gonad.by.morph.alt, width = 9.75, height = 9.75, scale = 1.5)
+  ggsave("figures/FigS2.volcano.plots.gonad.by.morph.alt.pdf", plot = volcano.plots.gonad.by.morph.alt, width = 9.75, height = 9.75, scale = 1.5)
 }
 
 # Plots of juvenile expression by wing pad and thorax shapes -- Supplementary Figure
@@ -2222,9 +2294,9 @@ volcano.plot <- function(
     volcano.plot(res.adult.gonad.by.food_density[,1:5], pCutoff = 0.05,
                  title = "Expression in adult gonad ~ batch + sex + morph + food density",
                  NegLFClabel = "less food", PosLFClabel = "more food", n=90)
-  volcano.plots.by.food_density.arranged <- ggarrange(plotlist = volcano.plots.by.food_density, ncol = 2, nrow = 2, labels="AUTO")
-  ggsave("plots/volcano.plots.by.food_density.jpg", plot = volcano.plots.by.food_density.arranged, width = 6.5, height = 6.5, scale = 1.5)
-  ggsave("plots/volcano.plots.by.food_density.pdf", plot = volcano.plots.by.food_density.arranged, width = 6.5, height = 6.5, scale = 1.5)
+  # volcano.plots.by.food_density.arranged <- ggarrange(plotlist = volcano.plots.by.food_density, ncol = 2, nrow = 2, labels="AUTO")
+  # ggsave("plots/volcano.plots.by.food_density.jpg", plot = volcano.plots.by.food_density.arranged, width = 6.5, height = 6.5, scale = 1.5)
+  # ggsave("plots/volcano.plots.by.food_density.pdf", plot = volcano.plots.by.food_density.arranged, width = 6.5, height = 6.5, scale = 1.5)
 }
 
 # Volcano plots by food regime
@@ -2246,9 +2318,29 @@ volcano.plot <- function(
     volcano.plot(res.adult.gonad.by.food[,1:5], pCutoff = 0.05, reverseLFC = TRUE,
                  title = "Expression in adult gonad ~ batch + sex + morph + food regime",
                  NegLFClabel = "low food", PosLFClabel = "high food", n=90)
-  volcano.plots.by.food_regime.arranged <- ggarrange(plotlist = volcano.plots.by.food_regime, ncol = 2, nrow = 2, labels="AUTO")
-  ggsave("plots/volcano.plots.by.food_regime.jpg", plot = volcano.plots.by.food_regime.arranged, width = 6.5, height = 6.5, scale = 1.5)
-  ggsave("plots/volcano.plots.by.food_regime.pdf", plot = volcano.plots.by.food_regime.arranged, width = 6.5, height = 6.5, scale = 1.5)
+  # volcano.plots.by.food_regime.arranged <- ggarrange(plotlist = volcano.plots.by.food_regime, ncol = 2, nrow = 2, labels="AUTO")
+  # ggsave("plots/volcano.plots.by.food_regime.jpg", plot = volcano.plots.by.food_regime.arranged, width = 6.5, height = 6.5, scale = 1.5)
+  # ggsave("plots/volcano.plots.by.food_regime.pdf", plot = volcano.plots.by.food_regime.arranged, width = 6.5, height = 6.5, scale = 1.5)
+}
+
+# Combined food plot
+{
+  volcano.plots.by.food.arranged <- ggarrange(
+    volcano.plots.by.food_regime[[1]], volcano.plots.by.food_regime[[2]], volcano.plots.by.food_regime[[3]], volcano.plots.by.food_regime[[4]], 
+    volcano.plots.by.food_density[[1]], volcano.plots.by.food_density[[2]], volcano.plots.by.food_density[[3]], volcano.plots.by.food_density[[4]], 
+    ncol = 4, nrow = 2, labels="AUTO")
+  ggsave("figures/FigS3.volcano.plots.by.food.jpg", plot = volcano.plots.by.food.arranged, width = 13, height = 6.5, scale = 1.5)
+  ggsave("figures/FigS3.volcano.plots.by.food.pdf", plot = volcano.plots.by.food.arranged, width = 13, height = 6.5, scale = 1.5)
+}
+
+# volcano.plots.by.food_density.testes
+{
+  volcano.plots.by.food_density.testes <- 
+    volcano.plot(res.L5.testes.by.food_density[,1:5], pCutoff = 0.05, max.overlaps = Inf,
+                 title = "Expression in juvenile testes ~ batch + food density",
+                 NegLFClabel = "less food", PosLFClabel = "more food", n=27)
+  ggsave("figures/Fig5.volcano.plots.by.food_density.testes.jpg", plot = volcano.plots.by.food_density.testes, width = 3.25, height = 3.25, scale = 1.5)
+  ggsave("figures/Fig5.volcano.plots.by.food_density.testes.pdf", plot = volcano.plots.by.food_density.testes, width = 3.25, height = 3.25, scale = 1.5)
 }
 
 # Volcano plots by stage

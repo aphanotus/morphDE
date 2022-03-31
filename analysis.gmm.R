@@ -5,22 +5,22 @@ gc()
 library(borealis)
 
 # Adult and juvenile wing shapes are different enough that they use
-# seperate landmark systems. So the analysis must be conducted seperately.
+# separate landmark systems. So the analysis must be conducted separately.
 
-# Convert raw XY coordinates into TPS format
-create.tps(
-  input.filename = "protoTPS.adult.csv",
-  output.filename = "shapes.adult.tps",
-  id.factors = c("population","morph","sex","cohort","seeds","food_regime"), separator = "__",
-  include.scale = TRUE, invert.scale = TRUE
-)
-
-create.tps(
-  input.filename = "protoTPS.juvenile.csv",
-  output.filename = "shapes.juvenile.tps",
-  id.factors = c("population","sex","cohort","seeds","food_regime"), separator = "__",
-  include.scale = TRUE, invert.scale = TRUE
-)
+# # Convert raw XY coordinates into TPS format
+# create.tps(
+#   input.filename = "protoTPS.adult.csv",
+#   output.filename = "shapes.adult.tps",
+#   id.factors = c("population","morph","sex","cohort","seeds","food_regime"), separator = "__",
+#   include.scale = TRUE, invert.scale = TRUE
+# )
+# 
+# create.tps(
+#   input.filename = "protoTPS.juvenile.csv",
+#   output.filename = "shapes.juvenile.tps",
+#   id.factors = c("population","sex","cohort","seeds","food_regime"), separator = "__",
+#   include.scale = TRUE, invert.scale = TRUE
+# )
 
 load("gmm.objects.adult.rda", verbose = TRUE)
 load("gmm.objects.juvenile.rda", verbose = TRUE)
@@ -335,7 +335,7 @@ save(links.head, links.tx.in.context, links.tx, links.wing.in.context, links.win
 links.head <- matrix(c(1,2, 2,3, 3,4, 4,5, 5,6, 6,7, 7,8, 8,9, 9,1, 1,3, 7,9), ncol=2, byrow=TRUE)
 links.tx.in.context <- matrix(c(10,11, 11,17, 15,16, 16,17, 15,12, 12,13, 13,14, 14,10, 14,16, 17,18, 15,18), ncol=2, byrow=TRUE)
 links.tx <- links.tx.in.context-10+1
-links.wingpad.in.context <- matrix(c(19,21, 21,22, 20,22, 20,26, 25,26, 25,31, 31,30, 30,33, 33,34, 34,32, 32,35, 35,36, 36,29, 29,38, 38,37, 37,39, 39,19, 19,23, 23,28, 19,24, 24,27, 27,28, 28,29, 24,25), ncol=2, byrow=TRUE)
+links.wingpad.in.context <- matrix(c(19,21, 21,22, 20,22, 20,26, 23,24, 25,26, 25,31, 31,30, 30,33, 33,34, 34,32, 32,35, 35,36, 36,29, 29,38, 38,37, 37,39, 39,19, 19,23, 23,28, 19,24, 24,27, 27,28, 28,29, 24,25), ncol=2, byrow=TRUE)
 links.wingpad <- links.wingpad.in.context-19+1
 links.juv <- rbind(links.head, links.tx.in.context, links.wingpad.in.context)
 
