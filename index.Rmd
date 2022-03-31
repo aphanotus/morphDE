@@ -1,40 +1,26 @@
 ---
 title: "Supplemental Methods"
-author: "from Angelini, Steele and O'Brien. Gene expression during development of a dispersal polyphenism identifies regulators and effectors of growth in muscle and germline. *Integrative & Comparative Biology*."
+author: "from Angelini, Steele, Yorsz & O'Brien. Expression analysis in a dispersal-fecundity polyphenism identifies growth regulators and effectors. *Integrative & Comparative Biology*."
 date: "Updated `r format(Sys.time(), '%d %B %Y')`"
 output:
   html_document:
     toc: true
-    toc_depth: 2
+    toc_float: true
+    highlight: tango
+    code_folding: show
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-> **This is a pre-submission DRAFT**.  Some of this text will be moved into the Methods and Results section of the manuscript's main text. Other text may remain in supplemental materials. 
->
-> Details that may be important now, but should likely be removed before publication are given as block quotes.
->
-> Code is available at https://github.com/aphanotus/morphDE. While any process is running on nscc, you can monitor it's progress indirectly by checking the CPU usage on [NSCC node 28](http://schupflab.colby.edu/mrtg/nscc/nscc-n28.load.html).
-
-In order to characterize the development of polyphenic traits in the wings, flight muscles and gonads of the soapberry bug, *Jadera haematoloma*, we sequenced transcriptomes from a multidimensional matrix of life stage, tissue, sex, food regime and host population.
-
-### Sampling design
-
-Transcriptome studies proceeded through three phases. Initially, we sampled whole bodies from 12 individuals, including three biological replicates of each sex-and-morph combination from the Plantation Key, FL population (phase 1). Next we sampled dorsal thorax and gonads from three individuals of each sex-and-morph combination from the Plantation Key, FL and Aurora, CO populations (phase 2). Samples from these phases were prepared as full-length 150-bp paired-end Illumina libraries and used to assemble a reference transcriptome. 
-
-The final phase utilized 3'-tag sequencing with the exclusive goal of quantifying gene expression. The sampling design at this phase included two stages (fifth instars and nascent adults), two tissues (dorsal thorax and gonads), two sexes, long- and short-wing adult morphs, high and low food regimes, four populations (collected from Key Largo, FL, Plantation Key, FL, Aurora, CO, and Frederick, MD), and three biological replicates of each unique combination of the preceding factors. Thus the full matrix contained 288 samples. Seven samples were lost or did not pass library quality controls, resulting in 281 samples in the analysis.
+This document is intended to supplement the Materials and Methods provided in the main article text. Scripts and related files can be found at https://github.com/aphanotus/morphDE.
 
 ### Shape analysis
 
-Most *J. haematoloma* can be qualitatively identified as "long winged" or "short winged" based on the shape of the wings and whether their distal tips extend beyond the posterior of the abdomen when folded up at rest. However, closer inspection reveals that some individuals have intermediate shapes and lengths. We reasoned that gene expression was likely to also follow a more continuous distribution. Therefore, rather than relying on a categorical assignment of specimens into morphs, gene expression was modeled based on the quantification of wing shapes. (Categorical modeling by morph was also performed, and the two approaches identified similar lists of top DEGs.) Thoracic muscles are required for flight, therefore we also tested for correlations between gene expression and thorax shape.  
+Wing landmarks were taken from Fawcett et al. (2018) and are described in Table S1.
 
-Bugs were anesthetized using CO~2~ and imaged on a trinocular stereo microscope (VWR International, Radnor, Pennsylvania, USA) with a Moticam 5 digital camera. Dorsal and ventral images of each specimen were recorded with a millimeter-scale ruler to scale pixel measurements. ImageJ was used to place landmarks.
-
-Adult wing shape was quantified as described by Fawcett et al. (2018). 
-
-**Table SX**: Wing landmark positions 
+#### **Table S1**: Wing landmark positions 
 
 | landmark | position                                                     |
 |:-------- |:------------------------------------------------------------ |
@@ -55,9 +41,9 @@ Adult wing shape was quantified as described by Fawcett et al. (2018).
 | 22-24*   | Three equally spaced semilandmarks along the anterior wing margin, between landmarks 1 and 11 |
 |          | * semilandmark                                               |
 
-This system of landmarks was adapted to quantify juvenile wing pad shapes as described in Table SX.
+This system of landmarks was adapted to quantify juvenile wing pad shapes as described in Table S2.
 
-**Table SX**: Juvenile wing pad landmark positions.
+#### **Table S2**: Juvenile wing pad landmark positions.
 
 | landmark | position                                                     |
 |:-------- |:------------------------------------------------------------ |
@@ -77,9 +63,9 @@ This system of landmarks was adapted to quantify juvenile wing pad shapes as des
 | 19-21*   | Three equally spaced semilandmarks along the anterior wing margin, between landmarks 1 and 11 |
 |          | * semilandmark                                               |
 
-Thorax shapes of juvenile and adult bugs were digitized using the same set of landmarks (Table SX) .
+Thorax shapes of juvenile and adult bugs were digitized using the same set of landmarks (Table S3) .
 
-**Table SX**: Thorax landmark positions.
+#### **Table S3**: Thorax landmark positions.
 
 | landmark | position                                             |
 |:-------- |:---------------------------------------------------- |
@@ -97,16 +83,11 @@ Variation in shapes was analyzed using the geometric morphometric methods implem
 
 ![](https://i.imgur.com/QVa7Q9i.jpg)
 
-**Figure SX**. Morphospace plotting the first two principle component axes for the shapes of juvenile wing pads (A) and adult wings (B). Specimens are color-coded by sex and morph (for adults), and colored convex hulls show the space occupied by these groups. Deformation grids illustrate shapes at the extremes of each axis. (Anterior is up; distal is right.) The percent of total shape variance described by each principle component in given on the axis. 
+> **Fig. S1**. Morphospace plotting the first two principle component axes for the shapes of juvenile wing pads (A) and adult wings (B). Specimens are color-coded by sex and morph (for adults), and colored convex hulls show the space occupied by these groups. Deformation grids illustrate shapes at the extremes of each axis. (Anterior is up; distal is right.) The percent of total shape variance described by each principle component in given on the axis. 
 
 ![](https://i.imgur.com/1SD7sZe.jpg)
 
-**Figure SX**. Morphospace plotting the first two principle component axes for the shapes of juvenile (A) and adult pronotum and mesonotum (B). Specimens are color-coded by sex and morph (for adults), and colored convex hulls show the space occupied by these groups. Deformation grids illustrate shapes at the extremes of each axis. (Anterior is up.) The percent of total shape variance described by each principle component in given on the axis. 
-
-
-### Nucleic acid extractions
-
-Individuals were collected from laboratory cultures, anesthetized using CO<sub>2</sub> exposure, photographed, and flash frozen in liquid nitrogen. Samples were stored at -80˚C until further processing. The thorax was removed from head and abdomen with a clean scalpel blade, and the dorsal thorax was separated above the legs while tissue was still frozen. Gonads were then dissected from the abdomen of adults. For juveniles, the entire abdomen was included. Nucleic acid extractions used the Invitrogen PureLink RNA extraction kit.
+> **Fig. S2**. Morphospace plotting the first two principle component axes for the shapes of juvenile (A) and adult pronotum and mesonotum (B). Specimens are color-coded by sex and morph (for adults), and colored convex hulls show the space occupied by these groups. Deformation grids illustrate shapes at the extremes of each axis. (Anterior is up.) The percent of total shape variance described by each principle component in given on the axis. 
 
 ### Sequencing and assembly of a reference transcriptome
 
@@ -116,7 +97,6 @@ Samples used for transcriptome assembly (phases 1 and 2) were delivered on dry i
 cd /research/drangeli/phase2_BCG_RNAseq/Jhae_GU_trinity_assembly/
 cd-hit-est -i GU.Trinity.fa -o GU.Trinity.c90.fa -c 0.90 -n 10 -d 0 -M 64000 -T 12
 ```
-> This took about 3.5 days on node 26.
 
 [TransDecoder](https://github.com/TransDecoder/TransDecoder/wiki) identified coding sequences. At each stage, [BUSCO](https://busco.ezlab.org/) version 5.2.2 ([Manni et al. 2021](https://doi.org/10.1093/molbev/msab199)) was used to assess transcriptome completeness.
 
@@ -129,7 +109,7 @@ busco --in GU.Trinity.fa \
 
 Consolidation by `cd-hist-est` dramatically reduced the number of sequences flagged as duplicates (Table S1).
 
-**Table S1**: Details of transcriptome datasets at each stage of processing.
+#### **Table S4**: Details of transcriptome datasets at each stage of processing.
 
 | dataset               | contigs | BUSCO short summary                           |
 |:--------------------- | -------:|:--------------------------------------------- |
@@ -151,15 +131,13 @@ EnTAP --runP --threads 24 \
 --ini /export/groups/drangeli/Jhae.genome/entap_config.ini 
 ```
 
-The *J. haematoloma* sequences were matched to other Hemiptera, primarily *Halyomorpha halys*, *Cimex lectularius* and *Nilaparavata lugens* for the RefSeq comparisons and *Oncopeltus*, *Lygus* and *Riptortus* from TrEMBL. The contaminant sequence species are also as expected, coming from bacteria and yeasts. Only 12 potential contaminant sequences had homology to humans. 
+The *J. haematoloma* sequences were matched to other Hemiptera, primarily *Halyomorpha halys*, *Cimex lectularius* and *Nilaparavata lugens* for the RefSeq comparisons and *Oncopeltus*, *Lygus* and *Riptortus* from TrEMBL. The contaminant sequence species are also as expected, coming from bacteria and yeasts. 
 
 ### Sequencing for gene expression quantification
 
 For gene expression analysis, RNA samples were shipped overnight on dry ice to the [DNA Technologies Core](https://dnatech.genomecenter.ucdavis.edu/) at the University of California at Davis. Libraries were prepared using the QuantSeq 3' mRNA-Seq Library Prep Kit (Lexogen, Greenland, New Hampshire, USA) in the three batches for sequencing in separate Illumina HiSeq lanes. Batch 3 was sequenced twice and reads counts for each run were added together for each sample after filtering.
 
-These batches were sequenced in three lanes yielding 115.9×10^9^ bp. These data
-
-Short read sequences were inspected for quality using FastQC (http://www.bioinformatics.babraham.ac.uk/projects/fastqc/), before and after trimmed using [Trimmomatic](http://www.usadellab.org/cms/?page=trimmomatic) version 0.33, as in the example command below.
+These batches were sequenced in three lanes yielding 115.9×10^9^ bp. Short read sequences were inspected for quality using FastQC (http://www.bioinformatics.babraham.ac.uk/projects/fastqc/), before and after trimmed using [Trimmomatic](http://www.usadellab.org/cms/?page=trimmomatic) version 0.33, as in the example command below.
 
 ```bash
 java -jar trimmomatic-0.33.jar SE \
@@ -169,10 +147,9 @@ ILLUMINACLIP:/export/local/src/Trimmomatic-0.33/adapters/TruSeq3-SE.fa:2:30:10 \
 HEADCROP:16 LEADING:3 TRAILING:3 SLIDINGWINDOW:3:15 MINLEN:79
 ```
 
-> A simple [bash script](https://github.com/aphanotus/Jhae.genome/blob/main/trimming.3seq.reads.sh) was used to apply trimming to all read files and save the output in a separate folder.FastQC inspection after trimming revealed notable improvements.
->
+A simple [bash script](https://github.com/aphanotus/Jhae.genome/blob/main/trimming.3seq.reads.sh) was used to apply trimming to all read files and save the output in a separate folder.FastQC inspection after trimming revealed notable improvements.
 
-**Table S2**: Read numbers before and after quality filtering.
+#### **Table S5**: Read numbers before and after quality filtering.
 
 | batch   |     raw reads | filtered reads | passing filter |
 | :------ | ------------: | -------------: | --------------:|
@@ -183,9 +160,7 @@ HEADCROP:16 LEADING:3 TRAILING:3 SLIDINGWINDOW:3:15 MINLEN:79
 
 ### Mapping 3seq reads to the transcriptome
 
-[Kallisto](https://pachterlab.github.io/kallisto/about) was used to quantify the abundance of transcripts from 3seq data using a pseudo-alignment method ([Bray et al. 2016](https://www.nature.com/articles/nbt.3519)). First, a Kallisto index was created from the assembled transcripts, collapsed by cd-hit-est. 
-
-> We chose to use this target, rather than the TransDecoder CDS files, because if there are fragmentary or non-coding RNAs that were sequenced, then some reads will correspond to those RNAs too.
+[Kallisto](https://pachterlab.github.io/kallisto/about) was used to quantify the abundance of transcripts from 3seq data using a pseudo-alignment method ([Bray et al. 2016](https://www.nature.com/articles/nbt.3519)). First, a Kallisto index was created from the assembled transcripts, collapsed by cd-hit-est. We chose to use this target, rather than the TransDecoder CDS files, because if there are fragmentary or non-coding RNAs that were sequenced, then some reads will correspond to those RNAs too.
 
 ```bash
 cd /research/drangeli/phase2_BCG_RNAseq/Jhae_GU_trinity_assembly/
@@ -212,87 +187,27 @@ Mean and  standard deviation were calculated using `awk`.
 cat read.lengths.txt | awk '{for(i=1;i<=NF;i++) {sum[i] += $i; sumsq[i] += ($i)^2}} END {for (i=1;i<=NF;i++) { printf "%f %f \n", sum[i]/NR, sqrt((sumsq[i]-sum[i]^2/NR)/NR)} }'
 ```
 
+The results:
+
 - mean = 84.892739 bp
 - SD = 0.507056 bp
 
-A [bash script](https://github.com/aphanotus/Jhae.genome/blob/main/Jhae.kallisto.mapping.sh) was used to run `kallisto quant` for each sample and to rename the output files with the sample names. 
-
-> The result is a folder `kallisto.vs.JhaeGUtx` that contains `.abundance.tsv` files for each sample, listing the counts for each transcript. 
-
-The resulting output files were then merged into a single comma-separated values (CSV) file with columns for each sample.
-
-> This file `kallisto.counts.csv` is 309 Mb, which is too large to post to GitHub.
+A [bash script](https://github.com/aphanotus/Jhae.genome/blob/main/Jhae.kallisto.mapping.sh) was used to run `kallisto quant` for each sample and to rename the output files with the sample names. The script outputs to a folder `kallisto.vs.JhaeGUtx` that contains `.abundance.tsv` files for each sample, listing the counts for each transcript. The resulting output files were then merged into a single comma-separated values (CSV) file (309 Mb) with columns for each sample.
 
 ### Differential gene expression analysis
 
 Gene expression differences were examined using the Bioconductor package DESeq2 version 1.32.0 ([Love et al. 2014](https://genomebiology.biomedcentral.com/articles/10.1186/s13059-014-0550-8)) in R version 4.1.1 ([R Core Team 2021](https://www.R-project.org/)). The function `DESeq` fits a generalized linear model where counts are modeled using a negative binomial distribution with a gene-specific dispersion parameter. Means were estimated using approximate posterior estimation for generalized linear models ([Zhu et al. 2018](https://academic.oup.com/bioinformatics/article/35/12/2084/5159452)). We extracted log<sub>2</sub> fold-change and p-values corrected by independent hypothesis weighing ([Ignatiadis et al. 2016](https://www.nature.com/articles/nmeth.3885)) and applied a critical threshold of 0.05. Contrasts were made for sex, wing morph and food regime, after accounting for batch effects (multiple sequencing runs). Data were analyzed separately for each stage (fifth instar juveniles and nascent adults) and for each tissue (thorax and gonads). Differential gene expression was visualized by customized plots generated using ggplot2. Variance stabilizing transformation, using the function `vst`,  was applied before ordination using principle component analysis.
 
-> For more details see the R script [`analysis.dge.R`](https://github.com/aphanotus/morphDE/blob/main/analysis.dge.R)
-
-Batch effects were introduced by the need to sequence samples in multiple lanes (Figure S1).
-
-![](https://i.imgur.com/MAjpAP7.jpg)
-
-**Figure S1**. Principle components of uncorrected counts, color-coded by biological factors (A) and sequencing batch (B). 
-
-DESeq2 allows variance from confounding factors, such as sequencing batch, to be accounted for through generalized linear modeling. The normalized counts that result from the model then reflect biologically meaningful variance (Figure S2).
-
-<img src="https://i.imgur.com/XFd0Alf.jpg" style="zoom:25%;" />
-
-**Figure S2**. Principle components of transcript counts for each sample, following normalization for sequencing run (batch). Samples are color-coded by biological origin. 
-
-More complex models can be applied to examine specific contrasts of biological interest. These models partition the variance in gene expression sequentially to factors in the model. For more complex models, less power exists to detect differences, but it allows for the influence of multiple factors to be disentangle from one another. 
-
-#### Expression differences by sex
-
-Sex is often an important factor effecting gene expression. While it is not our focus of study, examining our dataset for differences between females and males in each tissue is a useful confirmation of these expectations (Figure S3. Moreover, sexually dimorphic gene expression has not previously been described in *J. haematoloma*. Genes were differentially expressed at both sampled stages and in both sampled tissues. Adults had a larger number of sexually dimorphic DEGs (84% in gonad; 29% in thorax) compared to juveniles (6.1% in gonads, 0.18% in thorax). The gonads also had more sexually dimorphic gene expression than did the thorax. Within the gonads, males had more significantly biased genes than did females, at both stages (Figure S3C-D). Several genes with roles in somatic sex determination were among these, including *doublesex* (*dsx*) and *transformer* [ref]. The histone acetyltransferase encoded by *mof* is known to increase expression on the X chromosome in *D. melanogaster* males (Smith et al. 2000), although the *mof* ortholog appears up-regulated in the  *J. haematoloma* female thorax (Fig S3B). In the adult gonad contrast, *upd* is significantly biased towards male expression. In *D. melanogaster* testis, *upd* is expressed by hub cells promote maintenance of spermatogenic stem cells (reviewed by Matunis et al 2012).
-
-![](https://i.imgur.com/TejKrlQ.jpg)
-
-**Figure S3**. Volcano plots, showing log<sub>2</sub> fold-change (LFC) and -log<sub>10</sub> FDR-adjusted p-values for contrasts by sex in the juvenile thorax (A), adult thorax (B), juvenile gonads (C) and adult gonads (D). Genes are highlighted in red if they have an absolute LFC values > 1 (two-fold difference) and an FDR-adjusted p-value < 0.05 (panels A) or 10<sup>-3</sup>  (panels B-D). Highlighted transcript are annotated where possible. 
-
-#### Expression differences by morph
-
-> Add here!
-
-![](https://i.imgur.com/UwSOU3H.jpg)
-
-**Figure S4**. Volcano plots, showing log<sub>2</sub> fold-change (LFC) and -log<sub>10</sub> FDR-adjusted p-values from models of gene expression based on correlation to wing shape PC1 in the adult thorax (A), adult gonads (B), adult ovaries (C) and adult testes (D). Greater log-fold change is associated with long-wing shapes. Genes are highlighted in red if they have an absolute LFC values > 1 (two-fold difference) and an FDR-adjusted p-value < 10<sup>-3</sup>  (panels A) or 0.05 (panels B-D). Highlighted transcript are annotated where possible. 
-
-![](https://i.imgur.com/d7rYsNy.jpg)
-
-**Figure S4**. Volcano plots, showing log<sub>2</sub> fold-change (LFC) and -log<sub>10</sub> FDR-adjusted p-values from models of gene expression based on correlation to thorax shape PC1 in the adult thorax (A), adult gonads (B), adult ovaries (C) and adult testes (D). Greater log-fold change is associated with relatively wider thorax shapes. Genes are highlighted in red if they have an absolute LFC values > 1 (two-fold difference) and an FDR-adjusted p-value < 10<sup>-3</sup>  (panels A) or 0.05 (panels B-D). Highlighted transcript are annotated where possible. 
-
-> Not sure if we also want to show the figures for models by morph?
-
-![](https://i.imgur.com/J1UKjhj.jpg)
-
-**Figure SX**. Volcano plots, showing log<sub>2</sub> fold-change (LFC) and -log<sub>10</sub> FDR-adjusted p-values from contrasts by morph in the adult thorax (A), adult gonads (B), adult ovaries (C) and adult testes (D). Greater log-fold change is associated with long-wing morphs. Genes are highlighted in red if they have an absolute LFC values > 1 (two-fold difference) and an FDR-adjusted p-value < 10<sup>-3</sup>  (panels A) or 0.05 (panels B-D). Highlighted transcript are annotated where possible. 
-
-#### Expression differences by food regime
-
-> Add here!
-
-![](https://i.imgur.com/GjGvP7m.jpg)
-
-**Figure SX**. Volcano plots, showing log<sub>2</sub> fold-change (LFC) and -log<sub>10</sub> FDR-adjusted p-values from models of gene expression based on correlation to food density (log~10~ seeds/bug) in the juvenile thorax (A), adult thorax (B), juvenile gonads (C), and adult gonads (D). Greater log-fold change is associated with more available seeds per bug. Genes are highlighted in red if they have an absolute LFC values > 1 (two-fold difference) and an FDR-adjusted p-value < 0.05. Highlighted transcript are annotated where possible. 
-
-#### Expression differences by stage
-
-> Add here!
-
-![](https://i.imgur.com/F2Fmd7N.jpg)
-
-**Figure SX**. Volcano plots, showing log<sub>2</sub> fold-change (LFC) and -log<sub>10</sub> FDR-adjusted p-values for contrasts by stage in the thorax (A), ovaries (B), and testes (C). Genes are highlighted in red if they have an absolute LFC values > 1 (two-fold difference) and an FDR-adjusted p-value < 10<sup>-3</sup>. Highlighted transcript are annotated where possible. 
+Code used in model building can be found in the R script [`analysis.dge.R`](https://github.com/aphanotus/morphDE/blob/main/analysis.dge.R)
 
 
 <h3 id="enrichment-analysis">Enrichment analysis</h1>
 
-Enrichment analyses were performed for differentially expressed genes from each model based on annotations with terms from the GO and KEGG ontologies, as well as EggNOG protein domains, applied to transcripts by EnTAP (Table S3). Genes significant positive and negative expression bias were analyzed separately. We also tested for enrichment of xenic or contaminant transcripts among those that were differentially expressed, and neither of these categories was significantly over-represented. For each term, p-values from the hypergeometric test, implemented in the base R function `phyper`, were adjusted for false discovery rates (FDR). Descriptions of GO terms were obtained using the R package `GO.db` (Carlson, 2021). Names of KEGG pathways can be obtained from the KEGG website via, e.g. `curl http://togows.dbcls.jp/entry/pathway/map04974/name`. This call was automated using the R function `RCurl::getURL` (Temple Lang, 2022).
+Enrichment analyses were performed for differentially expressed genes from each model based on annotations with terms from the GO and KEGG ontologies, as well as EggNOG protein domains, applied to transcripts by EnTAP. Genes significant positive and negative expression bias were analyzed separately. We also tested for enrichment of xenic or contaminant transcripts among those that were differentially expressed, and neither of these categories was significantly over-represented. For each term, p-values from the hypergeometric test, implemented in the base R function `phyper`, were adjusted for false discovery rates (FDR). Descriptions of GO terms were obtained using the R package `GO.db` (Carlson, 2021). Names of KEGG pathways can be obtained from the KEGG website via, e.g. `curl http://togows.dbcls.jp/entry/pathway/map04974/name`. This call was automated using the R function `RCurl::getURL` (Temple Lang, 2022).
 
-> For more details on the enrichment analysis see the R script [`enrichment.R`](https://github.com/aphanotus/morphDE/blob/main/enrichment.R)
+For more details on the enrichment analysis see the R script [`enrichment.R`](https://github.com/aphanotus/morphDE/blob/main/enrichment.R)
 
-**Table S3**: Terms from GO and KEGG ontologies and EggNOG protein domains over-represented in differentially expressed genes in each dataset and contrast.
+#### **Table S6**: Terms from GO and KEGG ontologies and EggNOG protein domains over-represented in differentially expressed genes in each dataset and contrast.
 
 <div style="border: 1px solid #ddd; padding: 5px; overflow-y: scroll; height:500px; table-layout: fixed; overflow-x: scroll; width:925px;">
 
