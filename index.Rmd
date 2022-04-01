@@ -131,7 +131,7 @@ EnTAP --runP --threads 24 \
 --ini /export/groups/drangeli/Jhae.genome/entap_config.ini 
 ```
 
-The *J. haematoloma* sequences were matched to other Hemiptera, primarily *Halyomorpha halys*, *Cimex lectularius* and *Nilaparavata lugens* for the RefSeq comparisons and *Oncopeltus*, *Lygus* and *Riptortus* from TrEMBL. The contaminant sequence species are also as expected, coming from bacteria and yeasts. 
+The *J. haematoloma* sequences were matched to other Hemiptera, primarily *Halyomorpha halys*, *Cimex lectularius* and *Nilaparvata lugens* for the RefSeq comparisons and *Oncopeltus*, *Lygus* and *Riptortus* from TrEMBL. The contaminant sequence species are also as expected, coming from bacteria and yeasts. 
 
 ### Sequencing for gene expression quantification
 
@@ -206,22 +206,26 @@ Code used in model building can be found in the R script [`analysis.dge.R`](http
 > **Fig. S3** Hierarchical clustering heatmap of samples using k-means (k=16, vertical) and single-linkage (horizontal). Population, food regime, morph, stage, sex and tissue are color-coded by bars across the top. 
 
 
-![](figures/FigS4.volcano.plots.gonad.by.morph.alt.png)
+![](https://i.imgur.com/1u50MoA.png)
 
 > **Fig. S4** Volcano plots, showing log~2~ fold-change (LFC) and -log~10~ FDR-adjusted p-values from models of gene expression in the adult gonads based on correlation to morph (A-C), wing shape PC1 (D-F), and thorax shape PC1 (G). Greater log-fold change is associated with long-wing morphs (A-C), long-wing shapes (D-F), or wider thorax shapes (G). Genes are highlighted in red if they have an absolute LFC value > 1 (two-fold difference) and an FDR-adjusted p-value < 0.05.
 
-![](figures/FigS5.volcano.plots.by.food.jpg)
+![](https://i.imgur.com/69BC1S1.jpg)
 
 > **Fig. S5** Volcano plots, showing log~2~ fold-change (LFC) and -log~10~ FDR-adjusted p-values from models of gene expression in the juvenile thorax (A,E), adult thorax (B,F), juvenile abdomen (C,G) and adult gonads (D,H) based on correlation to food regime (A-D) and continuous food density (E-H). Greater log-fold change is associated with higher food availability. Genes are highlighted in red if they have an absolute LFC value > 1 (two-fold difference) and an FDR-adjusted p-value < 0.05. Transcripts associated with transposons are labeled “r.t.”. 
 
 
-![](figures/FigS6.GoI.TXF.plots.png)
+![](https://i.imgur.com/gxLM71Z.png)
 
 > **Fig. S6** Gene expression by morph for select transcription factors: *schnurri* (A-D), *Mohawk* (E-H), *castor* (I-L) and *Sox14* (M-N) in the adult thorax (A,E,I), gonads (B,F,J,M), ovaries (C,G,K,N) and testes (D,H,L). Expression is given as read counts normalized for library size in each tissue dataset. For thorax and gonads (combining females and males) counts are seperated by morph and sex. Within panels, points represent normalized counts for each sample. The distribution is summarized by a density-based violin plot and by a box plot bounded at the upper and lower quartiles with a crossbar at the median. Expression differences between morphs were tested for ther data in each panel using Welsh's t-test with FDR-correction for multiple tests. P-values < 0.05 are shown in the title of panels where they apply. *Sox14* expression did not pass the minimum count cutoff for analysis in the thorax and testes. 
 
-![](figures/FigS7.GoI.insulin.plots.jpg)
+![](https://i.imgur.com/EbC37qj.jpg)
 
-> **Fig. S7** Gene expression by morph for genes related to the insulin and TOR signaling pathways: *InR2* (A-D), *Akt* (E-H), *FoxO* (I-L), *slimfast* (M-P), *rheb* (Q-T), *TOR* (U-X), *charybde* (Y-BB) and *S6K* (CC-FF) in the adult thorax, gonads, ovaries and testes. Expression is given as read counts normalized for library size in each tissue dataset. For thorax and gonads (combining females and males) counts are seperated by morph and sex. Within panels, points represent normalized counts for each sample. The distribution is summarized by a density-based violin plot and by a box plot bounded at the upper and lower quartiles with a crossbar at the median. Expression differences between morphs were tested for ther data in each panel using Welsh's t-test with FDR-correction for multiple tests. P-values < 0.05 are shown in the title of panels where they apply. *InR1* expression did not pass the minimum count cutoff for analysis in any of the sampled tissues.  
+> **Fig. S7** Gene expression by morph for insulin signaling pathway components: *InR2* (A-D), *Akt* (E-H) and *FoxO* (I-L) in the adult thorax, gonads, ovaries and testes. Expression is given as read counts normalized for library size in each tissue dataset. For thorax and gonads (combining females and males) counts are seperated by morph and sex. Within panels, points represent normalized counts for each sample. The distribution is summarized by a density-based violin plot and by a box plot bounded at the upper and lower quartiles with a crossbar at the median. Expression differences between morphs were tested for ther data in each panel using Welsh's t-test with FDR-correction for multiple tests. P-values < 0.05 are shown in the title of panels where they apply. *InR1* expression did not pass the minimum count cutoff for analysis in any of the sampled tissues.  
+
+![](https://i.imgur.com/dBA4S4p.jpg)
+
+> **Fig. S8** Gene expression by morph for genes related to the TOR signaling pathway: *slimfast* (A-D), *rheb* (E-H), *charybde* (I-L), *TOR* (M-P) and *S6K* (Q-T) in the adult thorax, gonads, ovaries and testes. Expression is given as read counts normalized for library size in each tissue dataset. For thorax and gonads (combining females and males) counts are seperated by morph and sex. Within panels, points represent normalized counts for each sample. The distribution is summarized by a density-based violin plot and by a box plot bounded at the upper and lower quartiles with a crossbar at the median. Expression differences between morphs were tested for ther data in each panel using Welsh's t-test with FDR-correction for multiple tests. P-values < 0.05 are shown in the title of panels where they apply. 
 
 
 <h3 id="enrichment-analysis">Enrichment analysis</h1>
