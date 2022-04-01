@@ -22,7 +22,7 @@ This document is intended to supplement the Materials and Methods provided in th
 
 ### Shape analysis
 
-Wing landmarks were taken from Fawcett et al. (2018) and are described in Table S1.
+Wing landmarks were taken from [Fawcett et al. (2018)](https://dx.doi.org/10.1038%2Fs41467-018-04102-1) and are described in Table S1.
 
 #### **Table S1** Wing landmark positions 
 
@@ -202,7 +202,7 @@ A [bash script](https://github.com/aphanotus/Jhae.genome/blob/main/Jhae.kallisto
 
 ### Differential gene expression analysis
 
-Gene expression differences were examined using the Bioconductor package DESeq2 version 1.32.0 ([Love et al. 2014](https://genomebiology.biomedcentral.com/articles/10.1186/s13059-014-0550-8)) in R version 4.1.1 ([R Core Team 2021](https://www.R-project.org/)). The function `DESeq` fits a generalized linear model where counts are modeled using a negative binomial distribution with a gene-specific dispersion parameter. Means were estimated using approximate posterior estimation for generalized linear models ([Zhu et al. 2018](https://academic.oup.com/bioinformatics/article/35/12/2084/5159452)). We extracted log<sub>2</sub> fold-change and p-values corrected by independent hypothesis weighing ([Ignatiadis et al. 2016](https://www.nature.com/articles/nmeth.3885)) and applied a critical threshold of 0.05. Contrasts were made for sex, wing morph and food regime, after accounting for batch effects (multiple sequencing runs). Data were analyzed separately for each stage (fifth instar juveniles and nascent adults) and for each tissue (thorax and gonads). Differential gene expression was visualized by customized plots generated using ggplot2. Variance stabilizing transformation, using the function `vst`,  was applied before ordination using principle component analysis. Hierarchical clustering by k-means and single-linkage was examined using the pheatmap R package (Kolde 2019).  
+Gene expression differences were examined using the Bioconductor package DESeq2 version 1.32.0 ([Love et al. 2014](https://genomebiology.biomedcentral.com/articles/10.1186/s13059-014-0550-8)) in R version 4.1.1 ([R Core Team 2021](https://www.R-project.org/)). The function `DESeq` fits a generalized linear model where counts are modeled using a negative binomial distribution with a gene-specific dispersion parameter. Means were estimated using approximate posterior estimation for generalized linear models ([Zhu et al. 2018](https://academic.oup.com/bioinformatics/article/35/12/2084/5159452)). We extracted log<sub>2</sub> fold-change and p-values corrected by independent hypothesis weighing ([Ignatiadis et al. 2016](https://www.nature.com/articles/nmeth.3885)) and applied a critical threshold of 0.05. Contrasts were made for sex, wing morph and food regime, after accounting for batch effects (multiple sequencing runs). Data were analyzed separately for each stage (fifth instar juveniles and nascent adults) and for each tissue (thorax and gonads). Differential gene expression was visualized by customized plots generated using ggplot2. Variance stabilizing transformation, using the function `vst`,  was applied before ordination using principle component analysis. Hierarchical clustering by k-means and single-linkage was examined using the pheatmap R package ([Kolde 2019](https://github.com/raivokolde/pheatmap)).
 
 Code used in model building can be found in the R script [`analysis.dge.R`](https://github.com/aphanotus/morphDE/blob/main/analysis.dge.R)
 
@@ -243,13 +243,13 @@ Code used to generate plots of normalized expression for genes-of-interest can b
 
 <h3 id="enrichment-analysis">Enrichment analysis</h1>
 
-Enrichment analyses were performed for differentially expressed genes from each model based on annotations with terms from the GO and KEGG ontologies, as well as EggNOG protein domains, applied to transcripts by EnTAP. Genes significant positive and negative expression bias were analyzed separately. We also tested for enrichment of xenic or contaminant transcripts among those that were differentially expressed, and neither of these categories was significantly over-represented. For each term, p-values from the hypergeometric test, implemented in the base R function `phyper`, were adjusted for false discovery rates (FDR). Descriptions of GO terms were obtained using the R package `GO.db` (Carlson, 2021). Names of KEGG pathways can be obtained from the KEGG website via, e.g. `curl http://togows.dbcls.jp/entry/pathway/map04974/name`. This call was automated using the R function `RCurl::getURL` (Temple Lang, 2022). Terms from GO and KEGG ontologies and EggNOG protein domains over-represented in differentially expressed genes in each dataset and contrast are listed in Table S6.
+Enrichment analyses were performed for differentially expressed genes from each model based on annotations with terms from the GO and KEGG ontologies, as well as EggNOG protein domains, applied to transcripts by EnTAP. Genes significant positive and negative expression bias were analyzed separately. We also tested for enrichment of xenic or contaminant transcripts among those that were differentially expressed, and neither of these categories was significantly over-represented. For each term, p-values from the hypergeometric test, implemented in the base R function `phyper`, were adjusted for false discovery rates (FDR). Descriptions of GO terms were obtained using the R package `GO.db` ([Carlson 2021](https://bioconductor.org/packages/release/data/annotation/html/GO.db.html)). Names of KEGG pathways can be obtained from the KEGG website via, e.g. `curl http://togows.dbcls.jp/entry/pathway/map04974/name`. This call was automated using the R function `RCurl::getURL` ([Temple Lang 2022](https://CRAN.R-project.org/package=RCurl )). Terms from GO and KEGG ontologies and EggNOG protein domains over-represented in differentially expressed genes in each dataset and contrast are listed in Table S6.
 
 For more details on the enrichment analysis see the R script [`enrichment.R`](https://github.com/aphanotus/morphDE/blob/main/enrichment.R)
 
 #### **Table S6**  Enriched annotation terms.
 
-<div style="border: 1px solid #ddd; padding: 5px; overflow-y: scroll; height:500px; table-layout: fixed; overflow-x: scroll; width:925px;">
+<div style="border: 1px solid #ddd; padding: 5px; overflow-y: scroll; height:600px; table-layout: fixed; overflow-x: scroll; width:900px;">
 
 | stage | tissue | model      | bias | ontology | enriched terms | descriptions of top terms (adjusted *p*-values from HGT)                          |
 |:----- |:------ |:---------- |:---- |:-------- |:--------------:|:---------------------------------------------------------------------- |
@@ -399,6 +399,39 @@ For more details on the enrichment analysis see the R script [`enrichment.R`](ht
 |  | testes | sex + stage | adult | eggNOG | 0 |  |
 
 </div>
+
+### Rerferences
+
+Angelini DR. 2021. borealis: Tools for reproducible geometric morphometric analysis. R package. [Link](https://github.com/aphanotus/borealis) 
+
+Bolger AM, Lohse M, Usadel B. 2014. Trimmomatic: a flexible trimmer for Illumina sequence data. Bioinformatics 30:2114–20. [Link](https://doi.org/10.1093/bioinformatics/btu170) 
+
+Bray NL, Pimentel H, Melsted P, Pachter L. 2016. Near-optimal probabilistic RNA-seq quantification. Nature Biotechnology 34:525–27. [Link](https://www.nature.com/articles/nbt.3519) 
+
+Carlson M. 2021. GO.db: A set of annotation maps describing the entire Gene Ontology. R package. [Link](https://bioconductor.org/packages/release/data/annotation/html/GO.db.html)
+
+Fawcett MM, Parks MC, Tibbetts AE, Swart JS, Richards EM, Vanegas JC, Cenzer M, Crowley L, Simmons WR, Hou WS, Angelini DR. 2018. Manipulation of insulin signaling phenocopies evolution of a host-associated polyphenism. Nature Communications 9:1699. [Link](https://dx.doi.org/10.1038%2Fs41467-018-04102-1) 
+
+Grabherr MG, Haas BJ, Yassour M, Levin JZ, Thompson DA, Amit I, Adiconis X, Fan L, Raychowdhury R, Zeng Q, Chen Z, Mauceli E, Hacohen N, Gnirke A, Rhind N, di Palma F, Birren BW, Nusbaum C, Lindblad-Toh K, Friedman N, Regev A. 2011. Full-length transcriptome assembly from RNA-Seq data without a reference genome. Nature Biotechnology 29:644–52. [Link](https://www.nature.com/articles/nbt.1883) 
+
+Hart AJ, Ginzburg S, Xu M (Sam), Fisher CR, Rahmatpour N, Mitton JB, Paul R, Wegrzyn JL. 2020. EnTAP: Bringing faster and smarter functional annotation to non-model eukaryotic transcriptomes. Mol Ecol Resour 20:591–604. [Link](https://doi.org/10.1111/1755-0998.13106) 
+
+Ignatiadis N, Klaus B, Zaugg JB, Huber W. 2016. Data-driven hypothesis weighting increases detection power in genome-scale multiple testing. Nat Methods 13:577–80. [Link](https://www.nature.com/articles/nmeth.3885) 
+
+Kolde R. 2019. pheatmap: Pretty Heatmaps. R package. [Link](https://github.com/raivokolde/pheatmap) 
+
+Li W, Godzik A. 2006. Cd-hit: a fast program for clustering and comparing large sets of protein or nucleotide sequences. Bioinformatics 22:1658–59. [Link](https://doi.org/10.1093/bioinformatics/btl158) 
+
+Love MI, Huber W, Anders S. 2014. Moderated estimation of fold change and dispersion for RNA-seq data with DESeq2. Genome Biol 15:1–34. [Link](https://genomebiology.biomedcentral.com/articles/10.1186/s13059-014-0550-8) 
+
+Manni M, Berkeley MR, Seppey M, Simão FA, Zdobnov EM. 2021. BUSCO Update: Novel and Streamlined Workflows along with Broader and Deeper Phylogenetic Coverage for Scoring of Eukaryotic, Prokaryotic, and Viral Genomes. Mol Biol Evol 38:4647–54. [Link](https://doi.org/10.1093/molbev/msab199) 
+
+R Core Team. 2021. R: A Language and Environment for Statistical Computing. [Link](https://cran.r-project.org/) 
+
+Temple Lang D. 2022. RCurl: General Network (HTTP/FTP/...) Client Interface for R. R package. [Link](https://CRAN.R-project.org/package=RCurl) 
+
+Zhu A, Ibrahim JG, Love MI. 2018. Heavy-tailed prior distributions for sequence count data: removing the noise and preserving large differences. Bioinformatics 35:2084–92. [Link](https://academic.oup.com/bioinformatics/article/35/12/2084/5159452) 
+
 
 ---
 
