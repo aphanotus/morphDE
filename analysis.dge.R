@@ -2165,7 +2165,6 @@ volcano.plot <- function(
                  NegLFClabel = "male", PosLFClabel = "female", n = 89)
   volcano.plots.by.sex.arranged <- ggarrange(plotlist = volcano.plots.by.sex, ncol = 2, nrow = 2, labels="AUTO")
   ggsave("figures/Fig3.volcano.plots.by.sex.jpg", plot = volcano.plots.by.sex.arranged, width = 6.5, height = 6.5, scale = 1.5)
-  ggsave("figures/Fig3.volcano.plots.by.sex.pdf", plot = volcano.plots.by.sex.arranged, width = 6.5, height = 6.5, scale = 1.5)
 }
 
 # Volcano plots by wingPC1
@@ -2237,7 +2236,6 @@ volcano.plot <- function(
   volcano.plots.thorax.by.morph.alt <- ggarrange(volcano.plots.by.morph[[1]],volcano.plots.by.wingPC1[[1]],volcano.plots.by.txPC1[[1]],
                                           ncol = 3, nrow = 1, labels="AUTO")
   ggsave("figures/Fig4.volcano.plots.thorax.by.morph.alt.jpg", plot = volcano.plots.thorax.by.morph.alt, width = 9.75, height = 3.25, scale = 1.5)
-  ggsave("figures/Fig4.volcano.plots.thorax.by.morph.alt.pdf", plot = volcano.plots.thorax.by.morph.alt, width = 9.75, height = 3.25, scale = 1.5)
 }
 
 # Plots of adult gonad expression by morph, wing & thorax shapes -- Supplementary Figure
@@ -2333,14 +2331,122 @@ volcano.plot <- function(
   ggsave("figures/FigS5.volcano.plots.by.food.pdf", plot = volcano.plots.by.food.arranged, width = 13, height = 6.5, scale = 1.5)
 }
 
-# volcano.plots.by.food_density.testes
+# Since ICB charges for color figures, this function produces a BW version
+volcano.plot.bw <- function(
+  res, pCutoff = 1e-3, FCcutoff = 1, reverseLFC = FALSE,
+  NegLFClabel = "LFC < 0", PosLFClabel = "LFC > 0",
+  n = NULL,
+  title = NULL, caption = NULL,
+  max.overlaps = 100) 
+{
+  require(magrittr)
+  require(ggplot2)
+  require(ggrepel)
+  if (reverseLFC) { res$log2FoldChange <- -res$log2FoldChange }
+  res <- apply.annotation(as.data.frame(res), ann)
+  res$highlight <- (abs(res$log2FoldChange)>FCcutoff & res$padj<pCutoff ) 
+  if (!("manual.ann" %in% colnames(res))) {
+    cat("Adding annotations.\n")
+    res <- add.manual.annotations(res)
+  }
+  # Over-write those not highlighted in this plot
+  plot.labels <- res$manual.ann
+  plot.labels[which(!res$highlight)] <- NA
+  # Test reporting the dataset
+  if (is.null(n)) { deg.text <- "" } else { deg.text <- paste0("Samples: ",n,"; ") }
+  deg.text <- paste0(deg.text,"Transcripts: ",dim(res)[1],"\n")
+  # Text reporting the number of up and down regulated DEGs
+  degs.up <- sum(res$padj < pCutoff & res$log2FoldChange > 0, na.rm = TRUE)
+  degs.down <- sum(res$padj < pCutoff & res$log2FoldChange < 0, na.rm = TRUE)
+  degs.up.pct <- paste0(" (",signif((degs.up/dim(res)[1])*100,2),"%)")
+  degs.down.pct <- paste0(" (",signif((degs.down/dim(res)[1])*100,2),"%)")
+  deg.text <- paste0(deg.text,
+                     NegLFClabel,"-biased: ",degs.down,degs.down.pct,
+                     ", ",PosLFClabel,"-biased: ",degs.up,degs.up.pct,
+                     ", at p-value cutoff ",pCutoff )
+  deg.text <- gsub("0 \\(0%\\)","0",deg.text)
+  # Text indicating right and left biases in the LFC
+  NegLFClabel <- grobTree(textGrob(NegLFClabel, x=0.05,  y=0.925, hjust=0, gp=gpar(col="grey70", fontsize=12, fontface="bold")))
+  PosLFClabel  <- grobTree(textGrob(PosLFClabel,  x=0.95,  y=0.925, hjust=1, gp=gpar(col="grey70", fontsize=12, fontface="bold")))
+  res %>% 
+    ggplot(aes(x=log2FoldChange, y=-log10(padj), shape=highlight)) +
+    theme_bw() +
+    theme(
+      plot.title = element_text(size=12),
+      legend.position="none",
+      panel.grid.minor = element_blank() ) +
+    geom_vline(xintercept = 0, color = "grey65") +
+    annotation_custom(NegLFClabel) +
+    annotation_custom(PosLFClabel) +
+    geom_point(alpha=0.65, 
+               color = if_else(res$highlight,"gray25","gray50"), 
+               size = if_else(res$highlight,1,0.5), 
+               shape = if_else(res$highlight,16,1)) +
+    geom_text_repel(aes(label=plot.labels), size = 2.5,
+                    color = "gray10", segment.color = "gray20",
+                    max.overlaps = max.overlaps,
+                    max.time = 1, max.iter = 2e5,
+                    box.padding	= 0.125, point.padding = 0,
+                    force = 1.25, force_pull = 1 ) +
+    labs(x="log2 fold change", y = "-log10 p",
+         title = title, caption = deg.text)
+} # End function
+
+# Fig 3: Plots by sex
+{
+  fig3.plot <- list()
+  fig3.plot[[1]] <- 
+    volcano.plot.bw(res.L5.thorax.by.sex[,1:5], pCutoff = 0.05, reverseLFC = TRUE,
+                    title = "Expression in juvenile thorax ~ batch + sex",
+                    NegLFClabel = "male", PosLFClabel = "female", n = 51)
+  fig3.plot[[2]] <- 
+    volcano.plot.bw(res.adult.thorax.by.sex[,1:5], reverseLFC = TRUE,
+                    title = "Expression in adult thorax ~ batch + sex",
+                    NegLFClabel = "male", PosLFClabel = "female", n = 91)
+  fig3.plot[[3]] <- 
+    volcano.plot.bw(res.L5.gonad.by.sex[,1:5], max.overlaps = 22, reverseLFC = TRUE,
+                    title = "Expression in juvenile gonad ~ batch + sex",
+                    NegLFClabel = "male", PosLFClabel = "female", n = 49)
+  fig3.plot[[4]] <- 
+    volcano.plot.bw(res.adult.gonad.by.sex[,1:5], max.overlaps = 16, reverseLFC = TRUE,
+                    title = "Expression in adult gonad ~ batch + sex",
+                    NegLFClabel = "male", PosLFClabel = "female", n = 89)
+  volcano.plots.by.sex.arranged <- ggarrange(plotlist = fig3.plot, ncol = 2, nrow = 2, labels="AUTO")
+  ggsave("figures/Fig3.volcano.plots.by.sex.pdf", plot = volcano.plots.by.sex.arranged, width = 6.5, height = 6.5, scale = 1.5)
+}
+
+# Fig 4: Plots of adult thorax expression by morph, wing & thorax shapes
+{
+  fig4.plots <- list()
+  fig4.plots[[1]] <- 
+    volcano.plot.bw(res.adult.thorax.by.morph[,1:5], max.overlaps = 30, 
+                    title = "Expression in adult thorax ~ batch + sex + morph",
+                    NegLFClabel = "short wing", PosLFClabel = "long wing", n=91)
+  fig4.plots[[2]] <- 
+    volcano.plot.bw(res.adult.thorax.by.wingPC1[,1:5], reverseLFC = TRUE, max.overlaps = 26,
+                    title = "Expression in adult thorax ~ batch + sex + wing shape",
+                    NegLFClabel = "short wing", PosLFClabel = "long wing", n=90)
+  fig4.plots[[3]] <- 
+    volcano.plot.bw(res.adult.thorax.by.txPC1[,1:5], pCutoff = 0.05, 
+                    title = "Expression in adult thorax ~ batch + sex + thorax shape",
+                    NegLFClabel = "narrower thorax", PosLFClabel = "wider thorax", n=90)
+  volcano.plots.thorax.by.morph.alt <- ggarrange(plotlist = fig4.plots,
+                                                 ncol = 3, nrow = 1, labels="AUTO")
+  ggsave("figures/Fig4.volcano.plots.thorax.by.morph.alt.pdf", plot = volcano.plots.thorax.by.morph.alt, width = 9.75, height = 3.25, scale = 1.5)
+}
+
+# Fig 5: volcano.plots.by.food_density.testes
 {
   volcano.plots.by.food_density.testes <- 
     volcano.plot(res.L5.testes.by.food_density[,1:5], pCutoff = 0.05, max.overlaps = Inf,
                  title = "Expression in juvenile testes ~ batch + food density",
                  NegLFClabel = "less food", PosLFClabel = "more food", n=27)
   ggsave("figures/Fig5.volcano.plots.by.food_density.testes.jpg", plot = volcano.plots.by.food_density.testes, width = 3.25, height = 3.25, scale = 1.5)
-  ggsave("figures/Fig5.volcano.plots.by.food_density.testes.pdf", plot = volcano.plots.by.food_density.testes, width = 3.25, height = 3.25, scale = 1.5)
+  volcano.plots.by.food_density.testes.bw <- 
+    volcano.plot.bw(res.L5.testes.by.food_density[,1:5], pCutoff = 0.05, max.overlaps = Inf,
+                    title = "Expression in juvenile testes ~ batch + food density",
+                    NegLFClabel = "less food", PosLFClabel = "more food", n=27)
+  ggsave("figures/Fig5.volcano.plots.by.food_density.testes.pdf", plot = volcano.plots.by.food_density.testes.bw, width = 3.25, height = 3.25, scale = 1.5)
 }
 
 # Volcano plots by stage
