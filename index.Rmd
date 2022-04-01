@@ -5,7 +5,11 @@ date: "Updated `r format(Sys.time(), '%d %B %Y')`"
 output:
   html_document:
     toc: true
-    toc_float: true
+    toc_depth: 4
+    toc_float: 
+      collapsed: false
+      smooth_scroll: true
+    theme: yeti
     highlight: tango
     code_folding: show
 ---
@@ -20,7 +24,7 @@ This document is intended to supplement the Materials and Methods provided in th
 
 Wing landmarks were taken from Fawcett et al. (2018) and are described in Table S1.
 
-#### **Table S1**: Wing landmark positions 
+#### **Table S1** Wing landmark positions 
 
 | landmark | position                                                     |
 |:-------- |:------------------------------------------------------------ |
@@ -43,7 +47,7 @@ Wing landmarks were taken from Fawcett et al. (2018) and are described in Table 
 
 This system of landmarks was adapted to quantify juvenile wing pad shapes as described in Table S2.
 
-#### **Table S2**: Juvenile wing pad landmark positions.
+#### **Table S2** Juvenile wing pad landmark positions.
 
 | landmark | position                                                     |
 |:-------- |:------------------------------------------------------------ |
@@ -65,7 +69,7 @@ This system of landmarks was adapted to quantify juvenile wing pad shapes as des
 
 Thorax shapes of juvenile and adult bugs were digitized using the same set of landmarks (Table S3) .
 
-#### **Table S3**: Thorax landmark positions.
+#### **Table S3** Thorax landmark positions.
 
 | landmark | position                                             |
 |:-------- |:---------------------------------------------------- |
@@ -83,11 +87,13 @@ Variation in shapes was analyzed using the geometric morphometric methods implem
 
 ![](https://i.imgur.com/QVa7Q9i.jpg)
 
-> **Fig. S1**. Morphospace plotting the first two principle component axes for the shapes of juvenile wing pads (A) and adult wings (B). Specimens are color-coded by sex and morph (for adults), and colored convex hulls show the space occupied by these groups. Deformation grids illustrate shapes at the extremes of each axis. (Anterior is up; distal is right.) The percent of total shape variance described by each principle component in given on the axis. 
+> #### **Fig. S1**
+> Morphospace plotting the first two principle component axes for the shapes of juvenile wing pads (A) and adult wings (B). Specimens are color-coded by sex and morph (for adults), and colored convex hulls show the space occupied by these groups. Deformation grids illustrate shapes at the extremes of each axis. (Anterior is up; distal is right.) The percent of total shape variance described by each principle component in given on the axis. 
 
 ![](https://i.imgur.com/1SD7sZe.jpg)
 
-> **Fig. S2**. Morphospace plotting the first two principle component axes for the shapes of juvenile (A) and adult pronotum and mesonotum (B). Specimens are color-coded by sex and morph (for adults), and colored convex hulls show the space occupied by these groups. Deformation grids illustrate shapes at the extremes of each axis. (Anterior is up.) The percent of total shape variance described by each principle component in given on the axis. 
+> #### **Fig. S2** 
+> Morphospace plotting the first two principle component axes for the shapes of juvenile (A) and adult pronotum and mesonotum (B). Specimens are color-coded by sex and morph (for adults), and colored convex hulls show the space occupied by these groups. Deformation grids illustrate shapes at the extremes of each axis. (Anterior is up.) The percent of total shape variance described by each principle component in given on the axis. 
 
 ### Sequencing and assembly of a reference transcriptome
 
@@ -107,9 +113,9 @@ busco --in GU.Trinity.fa \
 --augustus --augustus_species fly --mode transcriptome --cpu 24
 ```
 
-Consolidation by `cd-hist-est` dramatically reduced the number of sequences flagged as duplicates (Table S1).
+Consolidation by `cd-hist-est` dramatically reduced the number of sequences flagged as duplicates (Table S4).
 
-#### **Table S4**: Details of transcriptome datasets at each stage of processing.
+#### **Table S4** Assembly details at each stage of processing.
 
 | dataset               | contigs | BUSCO short summary                           |
 |:--------------------- | -------:|:--------------------------------------------- |
@@ -149,7 +155,7 @@ HEADCROP:16 LEADING:3 TRAILING:3 SLIDINGWINDOW:3:15 MINLEN:79
 
 A simple [bash script](https://github.com/aphanotus/Jhae.genome/blob/main/trimming.3seq.reads.sh) was used to apply trimming to all read files and save the output in a separate folder.FastQC inspection after trimming revealed notable improvements.
 
-#### **Table S5**: Read numbers before and after quality filtering.
+#### **Table S5**  Read numbers before and after quality filtering.
 
 | batch   |     raw reads | filtered reads | passing filter |
 | :------ | ------------: | -------------: | --------------:|
@@ -203,38 +209,45 @@ Code used in model building can be found in the R script [`analysis.dge.R`](http
 
 ![](https://i.imgur.com/4JYvRwh.png)
 
-> **Fig. S3** Hierarchical clustering heatmap of samples using k-means (k=16, vertical) and single-linkage (horizontal). Population, food regime, morph, stage, sex and tissue are color-coded by bars across the top. 
+> #### **Fig. S3** 
+> Hierarchical clustering heatmap of samples using k-means (k=16, vertical) and single-linkage (horizontal). Population, food regime, morph, stage, sex and tissue are color-coded by bars across the top. 
 
 
 ![](https://i.imgur.com/1u50MoA.png)
 
-> **Fig. S4** Volcano plots, showing log~2~ fold-change (LFC) and -log~10~ FDR-adjusted p-values from models of gene expression in the adult gonads based on correlation to morph (A-C), wing shape PC1 (D-F), and thorax shape PC1 (G). Greater log-fold change is associated with long-wing morphs (A-C), long-wing shapes (D-F), or wider thorax shapes (G). Genes are highlighted in red if they have an absolute LFC value > 1 (two-fold difference) and an FDR-adjusted p-value < 0.05.
+> #### **Fig. S4** 
+> Volcano plots, showing log~2~ fold-change (LFC) and -log~10~ FDR-adjusted p-values from models of gene expression in the adult gonads based on correlation to morph (A-C), wing shape PC1 (D-F), and thorax shape PC1 (G). Greater log-fold change is associated with long-wing morphs (A-C), long-wing shapes (D-F), or wider thorax shapes (G). Genes are highlighted in red if they have an absolute LFC value > 1 (two-fold difference) and an FDR-adjusted p-value < 0.05.
 
 ![](https://i.imgur.com/69BC1S1.jpg)
 
-> **Fig. S5** Volcano plots, showing log~2~ fold-change (LFC) and -log~10~ FDR-adjusted p-values from models of gene expression in the juvenile thorax (A,E), adult thorax (B,F), juvenile abdomen (C,G) and adult gonads (D,H) based on correlation to food regime (A-D) and continuous food density (E-H). Greater log-fold change is associated with higher food availability. Genes are highlighted in red if they have an absolute LFC value > 1 (two-fold difference) and an FDR-adjusted p-value < 0.05. Transcripts associated with transposons are labeled “r.t.”. 
+> #### **Fig. S5** 
+> Volcano plots, showing log~2~ fold-change (LFC) and -log~10~ FDR-adjusted p-values from models of gene expression in the juvenile thorax (A,E), adult thorax (B,F), juvenile abdomen (C,G) and adult gonads (D,H) based on correlation to food regime (A-D) and continuous food density (E-H). Greater log-fold change is associated with higher food availability. Genes are highlighted in red if they have an absolute LFC value > 1 (two-fold difference) and an FDR-adjusted p-value < 0.05. Transcripts associated with transposons are labeled “r.t.”. 
 
+Code used to generate plots of normalized expression for genes-of-interest can be found in the R script [`genes.of.interest.R`](https://github.com/aphanotus/morphDE/blob/main/genes.of.interest.R)
 
 ![](https://i.imgur.com/gxLM71Z.png)
 
-> **Fig. S6** Gene expression by morph for select transcription factors: *schnurri* (A-D), *Mohawk* (E-H), *castor* (I-L) and *Sox14* (M-N) in the adult thorax (A,E,I), gonads (B,F,J,M), ovaries (C,G,K,N) and testes (D,H,L). Expression is given as read counts normalized for library size in each tissue dataset. For thorax and gonads (combining females and males) counts are seperated by morph and sex. Within panels, points represent normalized counts for each sample. The distribution is summarized by a density-based violin plot and by a box plot bounded at the upper and lower quartiles with a crossbar at the median. Expression differences between morphs were tested for ther data in each panel using Welsh's t-test with FDR-correction for multiple tests. P-values < 0.05 are shown in the title of panels where they apply. *Sox14* expression did not pass the minimum count cutoff for analysis in the thorax and testes. 
+> #### **Fig. S6** 
+> Gene expression by morph for select transcription factors: *schnurri* (A-D), *Mohawk* (E-H), *castor* (I-L) and *Sox14* (M-N) in the adult thorax (A,E,I), gonads (B,F,J,M), ovaries (C,G,K,N) and testes (D,H,L). Expression is given as read counts normalized for library size in each tissue dataset. For thorax and gonads (combining females and males) counts are seperated by morph and sex. Within panels, points represent normalized counts for each sample. The distribution is summarized by a density-based violin plot and by a box plot bounded at the upper and lower quartiles with a crossbar at the median. Expression differences between morphs were tested for ther data in each panel using Welsh's t-test with FDR-correction for multiple tests. P-values < 0.05 are shown in the title of panels where they apply. *Sox14* expression did not pass the minimum count cutoff for analysis in the thorax and testes. 
 
 ![](https://i.imgur.com/EbC37qj.jpg)
 
-> **Fig. S7** Gene expression by morph for insulin signaling pathway components: *InR2* (A-D), *Akt* (E-H) and *FoxO* (I-L) in the adult thorax, gonads, ovaries and testes. Expression is given as read counts normalized for library size in each tissue dataset. For thorax and gonads (combining females and males) counts are seperated by morph and sex. Within panels, points represent normalized counts for each sample. The distribution is summarized by a density-based violin plot and by a box plot bounded at the upper and lower quartiles with a crossbar at the median. Expression differences between morphs were tested for ther data in each panel using Welsh's t-test with FDR-correction for multiple tests. P-values < 0.05 are shown in the title of panels where they apply. *InR1* expression did not pass the minimum count cutoff for analysis in any of the sampled tissues.  
+> #### **Fig. S7** 
+> Gene expression by morph for insulin signaling pathway components: *InR2* (A-D), *Akt* (E-H) and *FoxO* (I-L) in the adult thorax, gonads, ovaries and testes. Expression is given as read counts normalized for library size in each tissue dataset. For thorax and gonads (combining females and males) counts are seperated by morph and sex. Within panels, points represent normalized counts for each sample. The distribution is summarized by a density-based violin plot and by a box plot bounded at the upper and lower quartiles with a crossbar at the median. Expression differences between morphs were tested for ther data in each panel using Welsh's t-test with FDR-correction for multiple tests. P-values < 0.05 are shown in the title of panels where they apply. *InR1* expression did not pass the minimum count cutoff for analysis in any of the sampled tissues.  
 
 ![](https://i.imgur.com/dBA4S4p.jpg)
 
-> **Fig. S8** Gene expression by morph for genes related to the TOR signaling pathway: *slimfast* (A-D), *rheb* (E-H), *charybde* (I-L), *TOR* (M-P) and *S6K* (Q-T) in the adult thorax, gonads, ovaries and testes. Expression is given as read counts normalized for library size in each tissue dataset. For thorax and gonads (combining females and males) counts are seperated by morph and sex. Within panels, points represent normalized counts for each sample. The distribution is summarized by a density-based violin plot and by a box plot bounded at the upper and lower quartiles with a crossbar at the median. Expression differences between morphs were tested for ther data in each panel using Welsh's t-test with FDR-correction for multiple tests. P-values < 0.05 are shown in the title of panels where they apply. 
+> #### **Fig. S8** 
+> Gene expression by morph for genes related to the TOR signaling pathway: *slimfast* (A-D), *rheb* (E-H), *charybde* (I-L), *TOR* (M-P) and *S6K* (Q-T) in the adult thorax, gonads, ovaries and testes. Expression is given as read counts normalized for library size in each tissue dataset. For thorax and gonads (combining females and males) counts are seperated by morph and sex. Within panels, points represent normalized counts for each sample. The distribution is summarized by a density-based violin plot and by a box plot bounded at the upper and lower quartiles with a crossbar at the median. Expression differences between morphs were tested for ther data in each panel using Welsh's t-test with FDR-correction for multiple tests. P-values < 0.05 are shown in the title of panels where they apply. 
 
 
 <h3 id="enrichment-analysis">Enrichment analysis</h1>
 
-Enrichment analyses were performed for differentially expressed genes from each model based on annotations with terms from the GO and KEGG ontologies, as well as EggNOG protein domains, applied to transcripts by EnTAP. Genes significant positive and negative expression bias were analyzed separately. We also tested for enrichment of xenic or contaminant transcripts among those that were differentially expressed, and neither of these categories was significantly over-represented. For each term, p-values from the hypergeometric test, implemented in the base R function `phyper`, were adjusted for false discovery rates (FDR). Descriptions of GO terms were obtained using the R package `GO.db` (Carlson, 2021). Names of KEGG pathways can be obtained from the KEGG website via, e.g. `curl http://togows.dbcls.jp/entry/pathway/map04974/name`. This call was automated using the R function `RCurl::getURL` (Temple Lang, 2022).
+Enrichment analyses were performed for differentially expressed genes from each model based on annotations with terms from the GO and KEGG ontologies, as well as EggNOG protein domains, applied to transcripts by EnTAP. Genes significant positive and negative expression bias were analyzed separately. We also tested for enrichment of xenic or contaminant transcripts among those that were differentially expressed, and neither of these categories was significantly over-represented. For each term, p-values from the hypergeometric test, implemented in the base R function `phyper`, were adjusted for false discovery rates (FDR). Descriptions of GO terms were obtained using the R package `GO.db` (Carlson, 2021). Names of KEGG pathways can be obtained from the KEGG website via, e.g. `curl http://togows.dbcls.jp/entry/pathway/map04974/name`. This call was automated using the R function `RCurl::getURL` (Temple Lang, 2022). Terms from GO and KEGG ontologies and EggNOG protein domains over-represented in differentially expressed genes in each dataset and contrast are listed in Table S6.
 
 For more details on the enrichment analysis see the R script [`enrichment.R`](https://github.com/aphanotus/morphDE/blob/main/enrichment.R)
 
-#### **Table S6**: Terms from GO and KEGG ontologies and EggNOG protein domains over-represented in differentially expressed genes in each dataset and contrast.
+#### **Table S6**  Enriched annotation terms.
 
 <div style="border: 1px solid #ddd; padding: 5px; overflow-y: scroll; height:500px; table-layout: fixed; overflow-x: scroll; width:925px;">
 
