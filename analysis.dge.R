@@ -2247,8 +2247,8 @@ volcano.plot <- function(
               volcano.plots.by.wingPC1[[2]],volcano.plots.by.wingPC1[[3]],volcano.plots.by.wingPC1[[4]],
               volcano.plots.by.txPC1[[2]],
                                           ncol = 3, nrow = 3, labels="AUTO")
-  ggsave("figures/FigS2.volcano.plots.gonad.by.morph.alt.jpg", plot = volcano.plots.gonad.by.morph.alt, width = 9.75, height = 9.75, scale = 1.5)
-  ggsave("figures/FigS2.volcano.plots.gonad.by.morph.alt.pdf", plot = volcano.plots.gonad.by.morph.alt, width = 9.75, height = 9.75, scale = 1.5)
+  ggsave("figures/FigS4.volcano.plots.gonad.by.morph.alt.png", plot = volcano.plots.gonad.by.morph.alt, width = 9.75, height = 9.75, scale = 1.5)
+  ggsave("figures/FigS4.volcano.plots.gonad.by.morph.alt.pdf", plot = volcano.plots.gonad.by.morph.alt, width = 9.75, height = 9.75, scale = 1.5)
 }
 
 # Plots of juvenile expression by wing pad and thorax shapes -- Supplementary Figure
@@ -2329,8 +2329,8 @@ volcano.plot <- function(
     volcano.plots.by.food_regime[[1]], volcano.plots.by.food_regime[[2]], volcano.plots.by.food_regime[[3]], volcano.plots.by.food_regime[[4]], 
     volcano.plots.by.food_density[[1]], volcano.plots.by.food_density[[2]], volcano.plots.by.food_density[[3]], volcano.plots.by.food_density[[4]], 
     ncol = 4, nrow = 2, labels="AUTO")
-  ggsave("figures/FigS3.volcano.plots.by.food.jpg", plot = volcano.plots.by.food.arranged, width = 13, height = 6.5, scale = 1.5)
-  ggsave("figures/FigS3.volcano.plots.by.food.pdf", plot = volcano.plots.by.food.arranged, width = 13, height = 6.5, scale = 1.5)
+  ggsave("figures/FigS5.volcano.plots.by.food.jpg", plot = volcano.plots.by.food.arranged, width = 13, height = 6.5, scale = 1.5)
+  ggsave("figures/FigS5.volcano.plots.by.food.pdf", plot = volcano.plots.by.food.arranged, width = 13, height = 6.5, scale = 1.5)
 }
 
 # volcano.plots.by.food_density.testes

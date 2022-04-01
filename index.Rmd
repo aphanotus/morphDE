@@ -196,9 +196,32 @@ A [bash script](https://github.com/aphanotus/Jhae.genome/blob/main/Jhae.kallisto
 
 ### Differential gene expression analysis
 
-Gene expression differences were examined using the Bioconductor package DESeq2 version 1.32.0 ([Love et al. 2014](https://genomebiology.biomedcentral.com/articles/10.1186/s13059-014-0550-8)) in R version 4.1.1 ([R Core Team 2021](https://www.R-project.org/)). The function `DESeq` fits a generalized linear model where counts are modeled using a negative binomial distribution with a gene-specific dispersion parameter. Means were estimated using approximate posterior estimation for generalized linear models ([Zhu et al. 2018](https://academic.oup.com/bioinformatics/article/35/12/2084/5159452)). We extracted log<sub>2</sub> fold-change and p-values corrected by independent hypothesis weighing ([Ignatiadis et al. 2016](https://www.nature.com/articles/nmeth.3885)) and applied a critical threshold of 0.05. Contrasts were made for sex, wing morph and food regime, after accounting for batch effects (multiple sequencing runs). Data were analyzed separately for each stage (fifth instar juveniles and nascent adults) and for each tissue (thorax and gonads). Differential gene expression was visualized by customized plots generated using ggplot2. Variance stabilizing transformation, using the function `vst`,  was applied before ordination using principle component analysis.
+Gene expression differences were examined using the Bioconductor package DESeq2 version 1.32.0 ([Love et al. 2014](https://genomebiology.biomedcentral.com/articles/10.1186/s13059-014-0550-8)) in R version 4.1.1 ([R Core Team 2021](https://www.R-project.org/)). The function `DESeq` fits a generalized linear model where counts are modeled using a negative binomial distribution with a gene-specific dispersion parameter. Means were estimated using approximate posterior estimation for generalized linear models ([Zhu et al. 2018](https://academic.oup.com/bioinformatics/article/35/12/2084/5159452)). We extracted log<sub>2</sub> fold-change and p-values corrected by independent hypothesis weighing ([Ignatiadis et al. 2016](https://www.nature.com/articles/nmeth.3885)) and applied a critical threshold of 0.05. Contrasts were made for sex, wing morph and food regime, after accounting for batch effects (multiple sequencing runs). Data were analyzed separately for each stage (fifth instar juveniles and nascent adults) and for each tissue (thorax and gonads). Differential gene expression was visualized by customized plots generated using ggplot2. Variance stabilizing transformation, using the function `vst`,  was applied before ordination using principle component analysis. Hierarchical clustering by k-means and single-linkage was examined using the pheatmap R package (Kolde 2019).  
 
 Code used in model building can be found in the R script [`analysis.dge.R`](https://github.com/aphanotus/morphDE/blob/main/analysis.dge.R)
+
+
+![](https://i.imgur.com/4JYvRwh.png)
+
+> **Fig. S3** Hierarchical clustering heatmap of samples using k-means (k=16, vertical) and single-linkage (horizontal). Population, food regime, morph, stage, sex and tissue are color-coded by bars across the top. 
+
+
+![](figures/FigS4.volcano.plots.gonad.by.morph.alt.png)
+
+> **Fig. S4** Volcano plots, showing log~2~ fold-change (LFC) and -log~10~ FDR-adjusted p-values from models of gene expression in the adult gonads based on correlation to morph (A-C), wing shape PC1 (D-F), and thorax shape PC1 (G). Greater log-fold change is associated with long-wing morphs (A-C), long-wing shapes (D-F), or wider thorax shapes (G). Genes are highlighted in red if they have an absolute LFC value > 1 (two-fold difference) and an FDR-adjusted p-value < 0.05.
+
+![](figures/FigS5.volcano.plots.by.food.jpg)
+
+> **Fig. S5** Volcano plots, showing log~2~ fold-change (LFC) and -log~10~ FDR-adjusted p-values from models of gene expression in the juvenile thorax (A,E), adult thorax (B,F), juvenile abdomen (C,G) and adult gonads (D,H) based on correlation to food regime (A-D) and continuous food density (E-H). Greater log-fold change is associated with higher food availability. Genes are highlighted in red if they have an absolute LFC value > 1 (two-fold difference) and an FDR-adjusted p-value < 0.05. Transcripts associated with transposons are labeled “r.t.”. 
+
+
+![](figures/FigS6.GoI.TXF.plots.png)
+
+> **Fig. S6** Gene expression by morph for select transcription factors: *schnurri* (A-D), *Mohawk* (E-H), *castor* (I-L) and *Sox14* (M-N) in the adult thorax (A,E,I), gonads (B,F,J,M), ovaries (C,G,K,N) and testes (D,H,L). Expression is given as read counts normalized for library size in each tissue dataset. For thorax and gonads (combining females and males) counts are seperated by morph and sex. Within panels, points represent normalized counts for each sample. The distribution is summarized by a density-based violin plot and by a box plot bounded at the upper and lower quartiles with a crossbar at the median. Expression differences between morphs were tested for ther data in each panel using Welsh's t-test with FDR-correction for multiple tests. P-values < 0.05 are shown in the title of panels where they apply. *Sox14* expression did not pass the minimum count cutoff for analysis in the thorax and testes. 
+
+![](figures/FigS7.GoI.insulin.plots.jpg)
+
+> **Fig. S7** Gene expression by morph for genes related to the insulin and TOR signaling pathways: *InR2* (A-D), *Akt* (E-H), *FoxO* (I-L), *slimfast* (M-P), *rheb* (Q-T), *TOR* (U-X), *charybde* (Y-BB) and *S6K* (CC-FF) in the adult thorax, gonads, ovaries and testes. Expression is given as read counts normalized for library size in each tissue dataset. For thorax and gonads (combining females and males) counts are seperated by morph and sex. Within panels, points represent normalized counts for each sample. The distribution is summarized by a density-based violin plot and by a box plot bounded at the upper and lower quartiles with a crossbar at the median. Expression differences between morphs were tested for ther data in each panel using Welsh's t-test with FDR-correction for multiple tests. P-values < 0.05 are shown in the title of panels where they apply. *InR1* expression did not pass the minimum count cutoff for analysis in any of the sampled tissues.  
 
 
 <h3 id="enrichment-analysis">Enrichment analysis</h1>
