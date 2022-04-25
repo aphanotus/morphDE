@@ -40,6 +40,16 @@ gene.read.number.cut.off <- 100
 }
 
 apply.annotation <- function(df, ann) {
+  remove.tmp.column <- FALSE
+  if (is.character(df)) {
+    i <- match(df, ann$Query.Sequence)
+    x <- data.frame(xTMP = rep(NA, length(i)))
+    rownames(x) <- df
+    df <- x
+    remove.tmp.column <- TRUE
+  } else {
+    i <- match(rownames(df), ann$Query.Sequence)
+  }
   i <- match(rownames(df), ann$Query.Sequence)
   df$Description <- ann$Description[i]
   df$Species <- ann$Species[i]
@@ -56,19 +66,31 @@ apply.annotation <- function(df, ann) {
   df$EggNOG.GO.Cellular <- ann$EggNOG.GO.Cellular[i]
   df$EggNOG.GO.Molecular <- ann$EggNOG.GO.Molecular[i]
   df$EggNOG.Protein.Domains <- ann$EggNOG.Protein.Domains[i]
+  df <- df[,-grep("^xTMP",colnames(df))]
   return(df)
 }
 
 add.manual.annotations <- function(res) {
+  remove.tmp.column <- FALSE
   manual.ann <- read.delim("manual.annotations.tsv", header = FALSE)
   colnames(manual.ann) <- c("id","name")
-  res.ids <- sub("\\|","\\\\\\|",rownames(res))
+  if (is.character(res)) {
+    original.ids <- res
+    res.ids <- sub("\\|","\\\\\\|",res)
+    x <- data.frame(xTMP = rep(NA, length(res)))
+    rownames(x) <- original.ids
+    res <- x
+    remove.tmp.column <- TRUE
+  } else {
+    res.ids <- sub("\\|","\\\\\\|",rownames(res))
+  }
   res$manual.ann <-
     unlist(lapply(res.ids, function (x) {
       s <- manual.ann$name[grep(x,manual.ann$id)]
       if (!isTRUE(nchar(s)>0)) { s <- NA }
       return(s)
     }))
+  # if (remove.tmp.column) { res <- res[,-grep("^xTMP",colnames(res))]}
   return(res)
 }
 

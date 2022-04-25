@@ -95,6 +95,7 @@ TR216467|c1_g1_i1	Bap60
 TR216467|c1_g2_i3	Bap60
 TR252104|c0_g1_i4	bark beetle
 TR227358|c0_g1_i3	BBS9
+TR206092|c0_g1_i3	Bcl2/CG5059
 TR208030|c3_g3_i2	beaten path
 TR264040|c0_g1_i1	belle
 TR264040|c0_g1_i2	belle
@@ -127,6 +128,7 @@ TR223243|c1_g1_i7	bruno
 TR223243|c1_g1_i8	bruno
 TR205771|c0_g2_i1	bsd
 TR205771|c0_g2_i2	bsd
+TR242791|c1_g1_i1	BTB_POZ/CG32121
 TR207606|c0_g1_i4	burgundy
 TR246152|c0_g2_i1	bursicon
 TR269005|c0_g2_i1	buttonless
@@ -464,6 +466,8 @@ TR204429|c1_g1_i4	E3-Ub ligase
 TR209480|c0_g1_i1	E3-Ub ligase
 TR284949|c3_g1_i2	E3-Ub ligase
 TR211497|c0_g1_i1	E75
+TR262965|c2_g1_i1	E93
+TR262965|c2_g1_i2	E93
 TR210654|c0_g2_i1	Eaf6
 TR225757|c0_g1_i1	eagle
 TR255764|c0_g1_i1	eagle
@@ -472,7 +476,7 @@ TR198286|c0_g1_i4	EcR
 TR135402|c0_g1_i1	ECSIT
 TR204625|c3_g2_i1	EF-1A
 TR210340|c1_g1_i1	EF-1delta
-TR229869|c2_g2_i1	EF-Tu-1
+TR229869|c2_g2_i1	EF-Tu
 TR233904|c0_g2_i2	EF2B
 TR215840|c1_g4_i2	EGF
 TR215840|c1_g4_i7	EGF
@@ -668,6 +672,7 @@ TR205283|c1_g2_i5	HMT/G9A
 TR261400|c0_g1_i1	HMT/G9A
 TR197914|c0_g3_i1	homer
 TR206320|c0_g2_i2	HP1B
+TR283269|c1_g1_i3	HR3/CG33183
 TR207335|c0_g1_i2	HR38
 TR219461|c1_g1_i3	HR4
 TR208032|c2_g2_i2	HR96
@@ -732,6 +737,7 @@ TR208938|c0_g1_i1	Jarid2
 TR285672|c2_g1_i4	JAZF1
 TR261437|c0_g1_i1	JH esterase
 TR61405|c0_g1_i1	JH hydrolase
+TR220255|c3_g1_i1	JH-BP
 TR199598|c2_g1_i2	JH-BP
 TR200778|c8_g1_i1	JH-BP
 TR200778|c8_g1_i3	JH-BP
@@ -777,6 +783,7 @@ TR278036|c0_g1_i3	knot-collier
 TR255342|c1_g1_i2	Kr-H1
 TR220302|c0_g1_i2	Ku80
 TR231208|c0_g1_i1	l2gl
+TR282931|c0_g1_i3	l2tid
 TR281505|c0_g1_i1	La
 TR220452|c0_g1_i1	laccase-2A
 TR284829|c0_g1_i1	lachesin
@@ -1083,6 +1090,7 @@ TR259347|c0_g1_i1	pale
 TR263517|c0_g1_i10	pangolin
 TR263517|c0_g1_i12	pangolin
 TR263517|c0_g1_i4	pangolin
+TR258267|c1_g1_i2	papillote
 TR204497|c5_g1_i1	paramyosin
 TR204497|c5_g1_i2	paramyosin
 TR246211|c6_g1_i2	paraplegin
@@ -1448,6 +1456,7 @@ TR245391|c0_g1_i1	Scsα1
 TR254354|c0_g1_i1	scute
 TR283495|c0_g4_i2	SDHA
 TR282531|c2_g1_i1	SDHC
+TR229932|c20_g8_i1	Sec8
 TR208049|c0_g1_i1	Sema-2a
 TR214071|c2_g4_i1	senataxin
 TR36240|c0_g2_i1	SenC
@@ -1565,6 +1574,7 @@ TR203318|c2_g1_i1	Su(var)3-3
 TR203318|c2_g1_i2	Su(var)3-3
 TR245809|c0_g1_i1	su(wa)
 TR199289|c0_g1_i1	Surfeit1
+TR256741|c7_g1_i1	syd/JnkIP
 TR222603|c0_g2_i1	symplekin
 TR207336|c0_g4_i1	synaptobrevin
 TR212751|c0_g1_i1	synaptobrevin
@@ -1678,7 +1688,6 @@ TR111903|c0_g1_i1	tubulin-b2b
 TR200760|c1_g1_i1	tubulin-g
 TR284741|c0_g1_i1	tudor
 TR284741|c0_g1_i2	tudor
-TR282931|c0_g1_i3	tumorous imaginal discs
 TR209864|c6_g2_i1	tungus
 TR224558|c1_g1_i3	twinfilin
 TR198107|c0_g2_i1	twist
@@ -1740,7 +1749,6 @@ TR199322|c0_g1_i1	Wolbachia predicted gene
 TR224091|c0_g1_i1	Wolbachia predicted gene
 TR85229|c0_g1_i1	Wolbachia predicted gene
 TR503|c0_g1_i1	Wolbachia rpL20
-TTR503|c0_g1_i1	Wolbachia rpL20
 TR75328|c0_g2_i1	Wolbachia rpS11
 TR115530|c0_g1_i1	Wolbachia TrbC
 TR4050|c0_g1_i1	Wolbachia YbaB
