@@ -95,6 +95,28 @@ add.manual.annotations <- function(res) {
 }
 
 ###################
+# Examine the distribution of food density
+###################
+
+sample.metadata %>% 
+  mutate(
+    food_density = log10(seeds/cohort),
+    cohort_bin = cut(cohort, breaks = 10, dig.lab=0)) %>% 
+  ggplot(aes(x=food_density, fill = cohort_bin)) + 
+  theme_bw() +
+  # theme_minimal() +
+  # theme(legend.justification=c(1,1), legend.position=c(0.9,0.9)) +
+  annotate("rect", xmin = -0.65, xmax = -0.04, ymin = 0, ymax = 65, alpha = 0.25) +
+  annotate("rect", xmin = -0.04, xmax = 0.5, ymin = 0, ymax = 65, alpha = 0.1) +
+  geom_text(x=-0.62, y=60, hjust = 0, label="low food\nregime") +
+  geom_text(x= 0.46, y=60, hjust = 1, label="high food\nregime") +
+  geom_histogram(bins = 15) +
+  scale_fill_viridis(discrete = TRUE, name = "cohort size") +
+  labs(x = "food density (log10 seeds / bug)")
+
+ggsave("figures/FigS1.food.density.histogram.jpg", height = 5, width = 7, scale = 1)  
+
+###################
 # Differential expression analysis
 ###################
 
@@ -170,7 +192,7 @@ sample.metadata %>%
            show_rownames = FALSE, show_colnames = FALSE,
            color=viridis(n=100,option="magma"), 
            annotation_colors = ann_colors,
-           filename = "figures/FigS1.pheatmap.null.model.pdf", width = 10, height = 6.5)
+           filename = "figures/FigS2.pheatmap.null.model.pdf", width = 10, height = 6.5)
 
 # PCA
 pca.null <- prcomp(t(assay(vsd.null)))
@@ -2267,8 +2289,8 @@ volcano.plot <- function(
               volcano.plots.by.wingPC1[[2]],volcano.plots.by.wingPC1[[3]],volcano.plots.by.wingPC1[[4]],
               volcano.plots.by.txPC1[[2]],
                                           ncol = 3, nrow = 3, labels="AUTO")
-  ggsave("figures/FigS4.volcano.plots.gonad.by.morph.alt.png", plot = volcano.plots.gonad.by.morph.alt, width = 9.75, height = 9.75, scale = 1.5)
-  ggsave("figures/FigS4.volcano.plots.gonad.by.morph.alt.pdf", plot = volcano.plots.gonad.by.morph.alt, width = 9.75, height = 9.75, scale = 1.5)
+  ggsave("figures/FigS5.volcano.plots.gonad.by.morph.alt.png", plot = volcano.plots.gonad.by.morph.alt, width = 9.75, height = 9.75, scale = 1.5)
+  ggsave("figures/FigS5.volcano.plots.gonad.by.morph.alt.pdf", plot = volcano.plots.gonad.by.morph.alt, width = 9.75, height = 9.75, scale = 1.5)
 }
 
 # Plots of juvenile expression by wing pad and thorax shapes -- Supplementary Figure
@@ -2349,8 +2371,8 @@ volcano.plot <- function(
     volcano.plots.by.food_regime[[1]], volcano.plots.by.food_regime[[2]], volcano.plots.by.food_regime[[3]], volcano.plots.by.food_regime[[4]], 
     volcano.plots.by.food_density[[1]], volcano.plots.by.food_density[[2]], volcano.plots.by.food_density[[3]], volcano.plots.by.food_density[[4]], 
     ncol = 4, nrow = 2, labels="AUTO")
-  ggsave("figures/FigS5.volcano.plots.by.food.jpg", plot = volcano.plots.by.food.arranged, width = 13, height = 6.5, scale = 1.5)
-  ggsave("figures/FigS5.volcano.plots.by.food.pdf", plot = volcano.plots.by.food.arranged, width = 13, height = 6.5, scale = 1.5)
+  ggsave("figures/FigS6.volcano.plots.by.food.jpg", plot = volcano.plots.by.food.arranged, width = 13, height = 6.5, scale = 1.5)
+  ggsave("figures/FigS6.volcano.plots.by.food.pdf", plot = volcano.plots.by.food.arranged, width = 13, height = 6.5, scale = 1.5)
 }
 
 # Since ICB charges for color figures, this function produces a BW version
