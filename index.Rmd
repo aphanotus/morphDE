@@ -96,12 +96,12 @@ Variation in shapes was analyzed using the geometric morphometric methods implem
 ![](figures/FigS2.shape.space.wings.jpg)
 
 > #### **Fig. S2**
-> Morphospace plotting the first two principle component axes for the shapes of juvenile wing pads (A) and adult wings (B). Specimens are color-coded by sex and morph (for adults), and colored convex hulls show the space occupied by these groups. Deformation grids illustrate shapes at the extremes of each axis. (Anterior is up; distal is right.) The percent of total shape variance described by each principle component in given on the axis. 
+> Morphospace plotting the first two principle component axes for the shapes of juvenile wing pads (A) and adult wings (B). Specimens are color-coded by sex and morph (for adults), and colored convex hulls show the space occupied by these groups. Deformation grids illustrate shapes at the extremes of each axis. (Anterior is up; distal is right.) The percent of total shape variance described by each principle component in given on the axis. Abbreviations: LW, long-winged; SW, short-winged; f, female; m, male.
 
 ![](figures/FigS3.shape.space.thorax.jpg)
 
 > #### **Fig. S3** 
-> Morphospace plotting the first two principle component axes for the shapes of juvenile (A) and adult pronotum and mesonotum (B). Specimens are color-coded by sex and morph (for adults), and colored convex hulls show the space occupied by these groups. Deformation grids illustrate shapes at the extremes of each axis. (Anterior is up.) The percent of total shape variance described by each principle component in given on the axis. 
+> Morphospace plotting the first two principle component axes for the shapes of juvenile (A) and adult (B) pronotum and mesonotum. Specimens are color-coded by sex and morph (for adults), and colored convex hulls show the space occupied by these groups. Deformation grids illustrate shapes at the extremes of each axis. (Anterior is up.) The percent of total shape variance described by each principle component in given on the axis. Abbreviations: LW, long-winged; SW, short-winged; f, female; m, male.
 
 ### Sequencing and assembly of a reference transcriptome
 
@@ -161,7 +161,7 @@ ILLUMINACLIP:/export/local/src/Trimmomatic-0.33/adapters/TruSeq3-SE.fa:2:30:10 \
 HEADCROP:16 LEADING:3 TRAILING:3 SLIDINGWINDOW:3:15 MINLEN:79
 ```
 
-A simple [bash script](https://github.com/aphanotus/Jhae.genome/blob/main/trimming.3seq.reads.sh) was used to apply trimming to all read files and save the output in a separate folder.FastQC inspection after trimming revealed notable improvements.
+A simple [bash script](https://github.com/aphanotus/Jhae.genome/blob/main/trimming.3seq.reads.sh) was used to apply trimming to all read files and save the output in a separate folder. FastQC inspection after trimming revealed notable improvements.
 
 #### **Table S5**  Read numbers before and after quality filtering.
 
@@ -206,18 +206,18 @@ The results:
 - mean = 84.892739 bp
 - SD = 0.507056 bp
 
-A [bash script](https://github.com/aphanotus/Jhae.genome/blob/main/Jhae.kallisto.mapping.sh) was used to run `kallisto quant` for each sample and to rename the output files with the sample names. The script outputs to a folder `kallisto.vs.JhaeGUtx` that contains `.abundance.tsv` files for each sample, listing the counts for each transcript. The resulting output files were then merged into a single comma-separated values (CSV) file (309 Mb) with columns for each sample.
+A [bash script](https://github.com/aphanotus/Jhae.genome/blob/main/Jhae.kallisto.mapping.sh) was used to run `kallisto quant` for each sample and to rename the output files with the sample names. The script outputs to a folder `kallisto.vs.JhaeGUtx` that contains `.abundance.tsv` files for each sample, listing the counts for each transcript. The resulting output files were then merged into a single comma-separated values (CSV) file (309 Mb) with columns for each sample, using a custom [R script](https://github.com/aphanotus/morphDE/blob/main/merge.kallisto.results.R).
 
 ### Differential gene expression analysis
 
-Gene expression differences were examined using the Bioconductor package DESeq2 version 1.32.0 ([Love et al. 2014](https://genomebiology.biomedcentral.com/articles/10.1186/s13059-014-0550-8)) in R version 4.1.1 ([R Core Team 2021](https://www.R-project.org/)). The function `DESeq` fits a generalized linear model where counts are modeled using a negative binomial distribution with a gene-specific dispersion parameter. Means were estimated using approximate posterior estimation for generalized linear models ([Zhu et al. 2018](https://academic.oup.com/bioinformatics/article/35/12/2084/5159452)). We extracted log<sub>2</sub> fold-change and p-values corrected by independent hypothesis weighing ([Ignatiadis et al. 2016](https://www.nature.com/articles/nmeth.3885)) and applied a critical threshold of 0.05. Contrasts were made for sex, wing morph and food regime, after accounting for batch effects (multiple sequencing runs). Data were analyzed separately for each stage (fifth instar juveniles and nascent adults) and for each tissue (thorax and gonads). Differential gene expression was visualized by customized plots generated using ggplot2. Variance stabilizing transformation, using the function `vst`,  was applied before ordination using principle component analysis. Hierarchical clustering by k-means and single-linkage was examined using the pheatmap R package ([Kolde 2019](https://github.com/raivokolde/pheatmap)).
+Gene expression differences were examined using the Bioconductor package DESeq2 version 1.32.0 ([Love et al. 2014](https://genomebiology.biomedcentral.com/articles/10.1186/s13059-014-0550-8)) in R version 4.1.3 ([R Core Team 2021](https://www.R-project.org/)). The function `DESeq` fits a generalized linear model where counts are modeled using a negative binomial distribution with a gene-specific dispersion parameter. Means were estimated using approximate posterior estimation for generalized linear models ([Zhu et al. 2018](https://academic.oup.com/bioinformatics/article/35/12/2084/5159452)). We extracted log<sub>2</sub> fold-change and p-values corrected by independent hypothesis weighing ([Ignatiadis et al. 2016](https://www.nature.com/articles/nmeth.3885)) and applied a critical threshold of 0.05. Contrasts were made for sex, wing morph and food regime, after accounting for batch effects (multiple sequencing runs). Data were analyzed separately for each stage (fifth instar juveniles and nascent adults) and for each tissue (thorax and gonads). Differential gene expression was visualized by customized plots generated using ggplot2. Variance stabilizing transformation, using the function `vst`,  was applied before ordination using principle component analysis. Hierarchical clustering by k-means and single-linkage was examined (Fig. S4) using the pheatmap R package ([Kolde 2019](https://github.com/raivokolde/pheatmap)).
 
 Code used in model building can be found in the R script [`analysis.dge.R`](https://github.com/aphanotus/morphDE/blob/main/analysis.dge.R)
 
 ![](figures/FigS4.pheatmap.null.model.png)
 
 > #### **Fig. S4** 
-> Hierarchical clustering heatmap of samples using k-means (k=16, vertical) and single-linkage (horizontal). Population, food regime, morph, stage, sex and tissue are color-coded by bars across the top. 
+> Hierarchical clustering heatmap of samples using k-means (k=16, vertical) and single-linkage (horizontal). Population, food regime, morph, stage, sex and tissue are color-coded by bars across the top. Abbreviations: populations: AC, Aurora, Colorado; FR, Frederick, Maryland; KL, Key Largo, Florida; PK, Plantation Key, Florida; morph: LW, long-winged; SW, short-winged; stage: L5, fifth instar; sex: f, female; m, male.
 
 
 ![](figures/FigS5.volcano.plots.gonad.by.morph.alt.png)
