@@ -255,7 +255,9 @@ For more details on the enrichment analysis see the R script [`enrichment.R`](ht
 
 #### **Table S6**  Enriched annotation terms.
 
-<div style="border: 1px solid #ddd; padding: 5px; overflow-y: scroll; height:600px; table-layout: fixed; overflow-x: scroll; width:900px;">
+Note that lipid-binding proteins, such as apolipoprotein E4, have human alleles associated with increased risk of neurodegenerative diseases, such as Alzheimer disease, explaining the appearance of disease-related annotation terms here. 
+
+<div style="border: 1px solid #ddd; padding: 5px; overflow-y: scroll; height:750px; table-layout: fixed; overflow-x: scroll; width:900px;">
 
 | stage | tissue | model      | bias | ontology | enriched terms | descriptions of top terms (adjusted *p*-values from HGT)                          |
 |:----- |:------ |:---------- |:---- |:-------- |:--------------:|:---------------------------------------------------------------------- |
