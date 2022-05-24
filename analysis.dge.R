@@ -2040,6 +2040,62 @@ any(testes.degs %in% ovary.degs)
 
 
 ###################
+# What is the overlap in DEGs for models using morph versus wing and thorax shapes?
+###################
+# Filter to all DEGs
+DEGs.adult.gonad.by.morph <- as.data.frame(res.adult.gonad.by.morph[which(res.adult.gonad.by.morph$padj<0.05),])
+DEGs.adult.gonad.by.wingPC1 <- as.data.frame(res.adult.gonad.by.wingPC1[which(res.adult.gonad.by.wingPC1$padj<0.05),])
+
+DEGs.adult.ovaries.by.morph <- as.data.frame(res.adult.ovaries.by.morph[which(res.adult.ovaries.by.morph$padj<0.05),])
+DEGs.adult.ovaries.by.wingPC1 <- as.data.frame(res.adult.ovaries.by.wingPC1[which(res.adult.ovaries.by.wingPC1$padj<0.05),])
+
+DEGs.adult.testes.by.morph <- as.data.frame(res.adult.testes.by.morph[which(res.adult.testes.by.morph$padj<0.05),])
+DEGs.adult.testes.by.wingPC1 <- as.data.frame(res.adult.testes.by.wingPC1[which(res.adult.testes.by.wingPC1$padj<0.05),])
+
+DEGs.adult.thorax.by.morph <- as.data.frame(res.adult.thorax.by.morph[which(res.adult.thorax.by.morph$padj<0.05),])
+DEGs.adult.thorax.by.txPC1 <- as.data.frame(res.adult.thorax.by.txPC1[which(res.adult.thorax.by.txPC1$padj<0.05),])
+DEGs.adult.thorax.by.wingPC1 <- as.data.frame(res.adult.thorax.by.wingPC1[which(res.adult.thorax.by.wingPC1$padj<0.05),])
+
+# Check filtered dimensions
+invisible(lapply(ls()[grep("^DEGs.",ls())], function(x){
+  res <- get(x)
+  cat(x,"\t",dim(res)[1],"\n")
+}))
+# DEGs.adult.gonad.by.morph        5
+# DEGs.adult.gonad.by.wingPC1      26
+# DEGs.adult.ovaries.by.morph      9
+# DEGs.adult.ovaries.by.wingPC1    20
+# DEGs.adult.testes.by.morph       8
+# DEGs.adult.testes.by.wingPC1     52
+# DEGs.adult.thorax.by.morph       2999
+# DEGs.adult.thorax.by.txPC1       206
+# DEGs.adult.thorax.by.wingPC1     3084
+
+# Look at overlap
+sum(row.names(DEGs.adult.gonad.by.morph) %in% row.names(DEGs.adult.gonad.by.wingPC1)) # 0
+sum(row.names(DEGs.adult.gonad.by.wingPC1) %in% row.names(DEGs.adult.gonad.by.morph)) # 0 
+
+sum(row.names(DEGs.adult.ovaries.by.morph) %in% row.names(DEGs.adult.ovaries.by.wingPC1)) # 2
+sum(row.names(DEGs.adult.ovaries.by.wingPC1) %in% row.names(DEGs.adult.ovaries.by.morph)) # 2 
+round((2/9)*100,1) # 22.2%
+
+sum(row.names(DEGs.adult.testes.by.morph) %in% row.names(DEGs.adult.testes.by.wingPC1)) # 4
+sum(row.names(DEGs.adult.testes.by.wingPC1) %in% row.names(DEGs.adult.testes.by.morph)) # 4 
+round((4/8)*100,1) # 50%
+
+sum(row.names(DEGs.adult.thorax.by.morph) %in% row.names(DEGs.adult.thorax.by.wingPC1)) # 2600
+sum(row.names(DEGs.adult.thorax.by.wingPC1) %in% row.names(DEGs.adult.thorax.by.morph)) # 2600 
+round((2600/2999)*100,1) # 86.7%
+
+sum(row.names(DEGs.adult.thorax.by.morph) %in% row.names(DEGs.adult.thorax.by.txPC1)) # 16
+sum(row.names(DEGs.adult.thorax.by.wingPC1) %in% row.names(DEGs.adult.thorax.by.txPC1)) # 16
+sum(row.names(DEGs.adult.thorax.by.txPC1) %in% row.names(DEGs.adult.thorax.by.morph)) # 16
+sum(row.names(DEGs.adult.thorax.by.txPC1) %in% row.names(DEGs.adult.thorax.by.wingPC1)) # 16 
+round((16/206)*100,1) # 7.8%
+
+# rm(list=ls()[grep("^DEGs.",ls())])
+
+###################
 # Save the results
 ###################
 save(ann, apply.annotation, gene.read.number.cut.off, 
