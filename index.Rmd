@@ -1,14 +1,19 @@
 ---
 title: "Supplemental Methods"
-author: "from Angelini, Steele, Yorsz & O'Brien. Expression analysis in a dispersal-fecundity polyphenism identifies growth regulators and effectors. *Integrative & Comparative Biology*."
+author: from Angelini, Steele, Yorsz & O'Brien. Expression analysis in a dispersal-fecundity
+  polyphenism identifies growth regulators and effectors. *Integrative & Comparative
+  Biology*.
 date: "Updated `r format(Sys.time(), '%d %B %Y')`"
 output:
+  pdf_document:
+    toc: yes
+    toc_depth: '4'
   html_document:
-    toc: true
+    toc: yes
     toc_depth: 4
-    toc_float: 
-      collapsed: false
-      smooth_scroll: true
+    toc_float:
+      collapsed: no
+      smooth_scroll: yes
     theme: yeti
     highlight: tango
 ---
@@ -408,7 +413,7 @@ Note that lipid-binding proteins, such as apolipoprotein E4, have human alleles 
 
 </div>
 
-### Rerferences
+### References
 
 Angelini DR. 2021. borealis: Tools for reproducible geometric morphometric analysis. R package. [Link](https://github.com/aphanotus/borealis) 
 
