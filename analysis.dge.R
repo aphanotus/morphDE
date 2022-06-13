@@ -238,6 +238,7 @@ dds.adult.gonad.by.sex <- estimateSizeFactors(dds.adult.gonad.by.sex)
 
 # Results table with log2 fold changes, p values and adjusted p values.
 resultsNames(dds.adult.gonad.by.sex)
+res.adult.gonad.by.sex <- results(dds.adult.gonad.by.sex, contrast=c("sex","m","f"), alpha=0.05, filterFun=ihw)
 res.adult.gonad.by.sex <- lfcShrink(dds.adult.gonad.by.sex, coef="sex_m_vs_f", type="apeglm", res = res.adult.gonad.by.sex)
 summary(res.adult.gonad.by.sex)
 # out of 54709 with nonzero total read count
@@ -291,6 +292,7 @@ dds.L5.gonad.by.sex <- estimateSizeFactors(dds.L5.gonad.by.sex)
 
 # Results table with log2 fold changes, p values and adjusted p values.
 resultsNames(dds.L5.gonad.by.sex)
+res.L5.gonad.by.sex <- results(dds.L5.gonad.by.sex, contrast=c("sex","m","f"), alpha=0.05, filterFun=ihw)
 res.L5.gonad.by.sex <- lfcShrink(dds.L5.gonad.by.sex, coef="sex_m_vs_f", type="apeglm", res = res.L5.gonad.by.sex)
 summary(res.L5.gonad.by.sex)
 # out of 32596 with nonzero total read count
@@ -388,6 +390,7 @@ dds.L5.thorax.by.sex <- estimateSizeFactors(dds.L5.thorax.by.sex)
 
 # Results table with log2 fold changes, p values and adjusted p values.
 resultsNames(dds.L5.thorax.by.sex)
+res.L5.thorax.by.sex <- results(dds.L5.thorax.by.sex, contrast=c("sex_m_vs_f","m","f"), alpha=0.05, filterFun=ihw)
 res.L5.thorax.by.sex <- lfcShrink(dds.L5.thorax.by.sex, coef="sex_m_vs_f", type="apeglm", res = res.L5.thorax.by.sex)
 summary(res.L5.thorax.by.sex)
 # out of 24940 with nonzero total read count
