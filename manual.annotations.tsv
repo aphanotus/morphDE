@@ -1,4 +1,3 @@
-TR255281|c0_g1_i1	dissatisfaction
 TR205760|c1_g3_i2	14-3-3zeta
 TR206712|c3_g1_i2	Abi
 TR203425|c0_g1_i2	abo
@@ -169,12 +168,12 @@ TR243087|c1_g2_i4	capicua
 TR202882|c0_g2_i2	Carmer
 TR198139|c2_g1_i2	casein kinase
 TR198139|c2_g1_i3	casein kinase
+TR206832|c2_g2_i2	casein kinase
 TR215992|c0_g4_i1	casein kinase
 TR215992|c0_g7_i1	casein kinase
-TR206832|c2_g2_i2	casein kinase
 TR211469|c1_g1_i1	caspar
-TR257878|c0_g1_i1	caspase
 TR199585|c0_g1_i1	caspase
+TR257878|c0_g1_i1	caspase
 TR201825|c0_g7_i4	castor
 TR199352|c0_g1_i1	cathepsin
 TR201495|c6_g3_i1	cathepsin
@@ -292,6 +291,7 @@ TR208820|c0_g1_i1	cuticle prot
 TR208820|c0_g1_i2	cuticle prot
 TR208820|c0_g1_i4	cuticle prot
 TR211721|c2_g1_i1	cuticle prot
+TR215886|c0_g1_i1	cuticle prot
 TR218304|c0_g1_i1	cuticle prot
 TR219040|c84_g1_i1	cuticle prot
 TR221559|c1_g1_i1	cuticle prot
@@ -301,14 +301,13 @@ TR237057|c0_g1_i2	cuticle prot
 TR237511|c0_g1_i1	cuticle prot
 TR242072|c3_g17_i2	cuticle prot
 TR250928|c5_g3_i1	cuticle prot
-TR53065|c0_g1_i1	cuticle prot
-TR86623|c0_g1_i1	cuticle prot
-TR271336|c0_g14_i1	cuticle prot
 TR253134|c0_g1_i2	cuticle prot
-TR79941|c0_g1_i1	cuticle prot
-TR95293|c0_g1_i1	cuticle prot
-TR215886|c0_g1_i1	cuticle prot
+TR271336|c0_g14_i1	cuticle prot
 TR284785|c1_g1_i1	cuticle prot
+TR53065|c0_g1_i1	cuticle prot
+TR79941|c0_g1_i1	cuticle prot
+TR86623|c0_g1_i1	cuticle prot
+TR95293|c0_g1_i1	cuticle prot
 TR220062|c4_g1_i1	cycle
 TR220062|c4_g1_i2	cycle
 TR220062|c4_g1_i5	cycle
@@ -395,6 +394,7 @@ TR233889|c0_g1_i5	disembodied
 TR202071|c2_g2_i1	dishevelled
 TR202071|c2_g2_i2	dishevelled
 TR270878|c0_g1_i9	disintegrin
+TR255281|c0_g1_i1	dissatisfaction
 TR223217|c0_g1_i1	distal antenna
 TR205944|c1_g1_i1	Distalless
 TR202111|c3_g3_i5	distracted
@@ -436,21 +436,21 @@ TR199998|c0_g1_i3	dsx
 TR207322|c0_g1_i6	dunce
 TR227583|c0_g1_i1	dynactin6
 TR284278|c0_g1_i1	dynein
+TR200031|c1_g1_i1	dynein HC
 TR205274|c0_g3_i10	dynein HC
 TR205274|c0_g3_i5	dynein HC
 TR205274|c0_g3_i7	dynein HC
+TR205293|c0_g1_i2	dynein HC
 TR224118|c0_g7_i1	dynein HC
 TR224120|c1_g1_i1	dynein HC
 TR224151|c0_g1_i1	dynein HC
-TR200031|c1_g1_i1	dynein HC
-TR205293|c0_g1_i2	dynein HC
 TR242649|c0_g1_i1	dynein HC
 TR202007|c0_g1_i1	dynein LC
+TR203698|c0_g1_i2	dynein LC
 TR206491|c0_g1_i1	dynein LC
 TR222300|c0_g1_i1	dynein LC
 TR224407|c0_g1_i1	dynein LC
 TR224407|c0_g1_i2	dynein LC
-TR203698|c0_g1_i2	dynein LC
 TR239580|c2_g1_i1	dyrk2
 TR220061|c3_g1_i2	E-cadherin
 TR220061|c3_g1_i4	E-cadherin
@@ -607,6 +607,7 @@ TR209902|c0_g3_i12	Glut1
 TR209902|c0_g3_i5	Glut1
 TR243781|c0_g2_i2	glycerate kinase
 TR212282|c0_g1_i1	glycogenin
+TR138314|c0_g1_i1	gonadulin
 TR197528|c1_g1_i1	GPI1
 TR197528|c1_g2_i1	GPI1
 TR207961|c2_g1_i1	Gprk2/nosh
@@ -707,15 +708,28 @@ TR245803|c1_g1_i1	IF-1
 TR205990|c0_g1_i1	IF-2
 TR264165|c0_g1_i1	IF-3
 TR200954|c0_g1_i1	IFC
+TR230631|c0_g1_i1	IGF
+TR230631|c0_g1_i2	IGF
+TR230631|c0_g1_i3	IGF
+TR230631|c0_g1_i4	IGF
+TR230631|c0_g1_i5	IGF
+TR230631|c0_g1_i6	IGF
+TR230631|c0_g1_i7	IGF
+TR230631|c0_g1_i8	IGF
 TR243161|c2_g16_i1	IkB-1
 TR230631|c0_g1_i7	ILP
-TR261620|c0_g1_i1	ILP
 TR9168|c0_g1_i1	ILP
 TR239379|c5_g1_i3	Imp
 TR197273|c0_g1_i1	innexin
-TR268914|c0_g1_i1	innexin
 TR204668|c0_g1_i1	innexin
+TR268914|c0_g1_i1	innexin
 TR202697|c1_g1_i1	InR1
+TR202697|c1_g1_i10	InR1
+TR202697|c1_g1_i2	InR1
+TR202697|c1_g1_i3	InR1
+TR202697|c1_g1_i4	InR1
+TR202697|c1_g1_i6	InR1
+TR202697|c1_g1_i7	InR1
 TR230867|c1_g4_i10	InR2
 TR230867|c1_g4_i11	InR2
 TR230867|c1_g4_i12	InR2
@@ -724,8 +738,10 @@ TR230867|c1_g4_i2	InR2
 TR230867|c1_g4_i3	InR2
 TR230867|c1_g4_i4	InR2
 TR230867|c1_g4_i5	InR2
+TR230867|c1_g4_i6	InR2
 TR230867|c1_g4_i9	InR2
 TR216355|c0_g1_i3	inscuteable
+TR261620|c0_g1_i1	insulin
 TR216368|c0_g1_i1	integrin
 TR241150|c0_g1_i1	intersectin
 TR202926|c2_g1_i1	intersex
@@ -738,7 +754,6 @@ TR208938|c0_g1_i1	Jarid2
 TR285672|c2_g1_i4	JAZF1
 TR261437|c0_g1_i1	JH esterase
 TR61405|c0_g1_i1	JH hydrolase
-TR220255|c3_g1_i1	JH-BP
 TR199598|c2_g1_i2	JH-BP
 TR200778|c8_g1_i1	JH-BP
 TR200778|c8_g1_i3	JH-BP
@@ -747,6 +762,7 @@ TR205361|c1_g2_i1	JH-BP
 TR215967|c3_g1_i3	JH-BP
 TR216323|c0_g1_i1	JH-BP
 TR217047|c0_g1_i1	JH-BP
+TR220255|c3_g1_i1	JH-BP
 TR226513|c0_g1_i1	JH-BP
 TR205729|c1_g2_i1	JH-BP/CG13618
 TR284911|c3_g2_i1	JH-IP
@@ -762,8 +778,8 @@ TR225523|c0_g1_i1	Jra
 TR229545|c0_g1_i1	Kap-α1
 TR202159|c1_g1_i1	KAP3
 TR219606|c0_g2_i1	karst
-TR239628|c0_g1_i2	katanin
 TR203568|c1_g1_i2	katanin
+TR239628|c0_g1_i2	katanin
 TR200360|c5_g1_i1	kelch
 TR219520|c2_g1_i1	ken
 TR228605|c0_g2_i16	keratin
@@ -804,6 +820,25 @@ TR198254|c2_g4_i1	lava lamp
 TR198254|c2_g4_i2	lava lamp
 TR233558|c0_g1_i1	Lcch3
 TR221651|c1_g1_i1	LDLR
+TR207365|c0_g1_i1	LGR3
+TR207365|c0_g1_i10	LGR3
+TR207365|c0_g1_i11	LGR3
+TR207365|c0_g1_i12	LGR3
+TR207365|c0_g1_i14	LGR3
+TR207365|c0_g1_i16	LGR3
+TR207365|c0_g1_i17	LGR3
+TR207365|c0_g1_i3	LGR3
+TR207365|c0_g1_i5	LGR3
+TR207365|c0_g1_i6	LGR3
+TR207365|c0_g1_i8	LGR3
+TR268074|c0_g2_i2	LGR5
+TR268074|c0_g2_i3	LGR5
+TR268074|c0_g2_i4	LGR5
+TR268074|c0_g2_i5	LGR5
+TR268074|c0_g2_i6	LGR5
+TR268074|c0_g2_i7	LGR5
+TR268074|c0_g2_i8	LGR5
+TR202072|c0_g1_i1	LGR5-2
 TR204445|c3_g1_i1	licorne
 TR207354|c0_g1_i1	lifeguard
 TR198116|c0_g3_i2	ligase4
@@ -1110,9 +1145,9 @@ TR202917|c1_g1_i2	PebIII
 TR206335|c0_g3_i1	PebIII
 TR218294|c0_g1_i1	PebIII
 TR247158|c6_g1_i2	PebIII
+TR272470|c0_g1_i1	PebIII
 TR78632|c0_g1_i1	PebIII
 TR82425|c0_g1_i1	PebIII
-TR272470|c0_g1_i1	PebIII
 TR199308|c0_g1_i1	pentaxin-B6
 TR217764|c15_g1_i1	peptidase
 TR207313|c0_g1_i1	pericentrin
@@ -1140,8 +1175,8 @@ TR110151|c0_g1_i1	pickled eggs
 TR200420|c0_g1_i1	PiCot
 TR240772|c0_g2_i10	PiCot
 TR239612|c6_g1_i2	PIF1
-TR199590|c1_g3_i1	piggyBac
 TR198872|c0_g2_i2	piggyBac
+TR199590|c1_g3_i1	piggyBac
 TR201469|c0_g1_i3	piggyBac
 TR201493|c0_g1_i8	piggyBac
 TR204795|c1_g1_i5	piggyBac
@@ -1320,12 +1355,12 @@ TR129576|c0_g1_i1	RNase PH
 TR198844|c4_g2_i2	roadkill
 TR198844|c4_g3_i4	roadkill
 TR198844|c4_g4_i2	roadkill
+TR200033|c0_g1_i2	roadkill
 TR205322|c1_g2_i1	roadkill
 TR209900|c1_g3_i2	roadkill
 TR209900|c1_g3_i3	roadkill
 TR211492|c0_g1_i1	roadkill
 TR212238|c0_g1_i2	roadkill
-TR200033|c0_g1_i2	roadkill
 TR238219|c4_g1_i2	rols
 TR208895|c0_g1_i1	rootletin
 TR216708|c0_g1_i2	rosy
@@ -1650,8 +1685,8 @@ TR222053|c0_g1_i1	TRAF3IP1
 TR229916|c0_g1_i1	traffic jam
 TR212997|c0_g2_i3	trailer hitch
 TR212997|c0_g2_i6	trailer hitch
-TR248170|c1_g1_i1	transferrin
 TR218351|c0_g1_i1	transferrin
+TR248170|c1_g1_i1	transferrin
 TR216390|c0_g2_i2	transformer
 TR216390|c0_g2_i3	transformer
 TR216445|c1_g2_i1	trehalase
@@ -1661,9 +1696,9 @@ TR204819|c0_g3_i2	trio
 TR204819|c0_g4_i1	trio
 TR204819|c0_g4_i2	trio
 TR261014|c1_g1_i12	tropomodulin
+TR224521|c3_g1_i2	tropomyosin
 TR252075|c10_g5_i1	tropomyosin
 TR252075|c10_g5_i2	tropomyosin
-TR224521|c3_g1_i2	tropomyosin
 TR133693|c0_g1_i1	troponin C
 TR283158|c0_g1_i1	troponin C
 TR36566|c0_g1_i1	troponin C
@@ -1717,6 +1752,8 @@ TR206937|c0_g1_i1	vasotab
 TR230732|c0_g1_i1	vasotab
 TR58971|c0_g2_i1	vasotab
 TR257235|c0_g4_i1	vein
+TR279459|c0_g1_i1	vermilion
+TR279459|c0_g1_i3	vermilion
 TR51692|c1_g1_i1	vestigial
 TR243520|c0_g1_i2	virilizer
 TR243520|c0_g1_i5	virilizer
@@ -1772,7 +1809,11 @@ TR237970|c3_g1_i1	Ypsilon schachtel
 TR244851|c3_g1_i2	Zasp52
 TR254978|c0_g1_i1	Zasp66
 TR254978|c0_g1_i7	Zasp66
-TR201412|c0_g1_i6	ZFH1
+TR201412|c0_g1_i1	zfh1
+TR201412|c0_g1_i2	zfh1
+TR201412|c0_g1_i4	zfh1
+TR201412|c0_g1_i5	zfh1
+TR201412|c0_g1_i6	zfh1
 TR209741|c0_g1_i1	ZFX
 TR201750|c11_g2_i4	ZMYM1
 TR201750|c11_g2_i6	ZMYM1
